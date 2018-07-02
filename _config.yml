@@ -41,7 +41,7 @@ language: zh-CN    ## blog site languages: en, zh-CN, zh-TW, de
 menu:
   Home: /
   Archives: /archives
-  About: /about
+##  About: /about
 ## you can create `tags` and `categories` folders (I had created them already).
 ## And create a `index.md` file in each of them.
 ## set `front-matter`as
@@ -93,7 +93,7 @@ author:
   douban:     ## e.g. wuchong1014 or your id for https://www.douban.com/people/wuchong1014
   zhihu:  caliburn1994    ## e.g. jark  for http://www.zhihu.com/people/jark
   email:      ## e.g. imjark@gmail.com
-  twitter:    ## e.g. jarkwu for https://twitter.com/jarkwu
+  twitter: caliburn1994   ## e.g. jarkwu for https://twitter.com/jarkwu
   github:     ## e.g. wuchong for https://github.com/wuchong
   facebook:   ## e.g. imjark for https://facebook.com/imjark
   linkedin:   ## e.g. wuchong1014 for https://www.linkedin.com/in/wuchong1014
