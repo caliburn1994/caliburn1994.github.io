@@ -84,9 +84,9 @@ share_to: true #enable share-to buttons if true
 
 #### Author information
 author:
-  name: 陈晓杰      ## e.g. wuchong Author name
-  intro_line1:  "自我介绍待写"    ## your introduction on the bottom of the page
-  intro_line2:  "This is my blog,believe it or not."  ## the 2nd line
+  name: 九千鸦     ## e.g. wuchong Author name
+  intro_line1:  "九千鸦"    ## your introduction on the bottom of the page
+  intro_line2:  "后端程序员，二次元&游戏死宅，为己而生"  ## the 2nd line
   weibo:  2087076114     ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895
   weibo_verifier:  ## e.g. b3593ceb Your weibo-show widget verifier ,if you use weibo-show it is needed.
   tsina:      ## e.g. 2176287895  Your weibo ID,It will be used in share button.
