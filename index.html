@@ -1,79 +1,66 @@
 ---
-layout: default
-title: "首页：Home"
+layout: page
+css: ["index.css"]
 ---
-<!-- 
-<h1 class="page-header">
-  <small>
-    {{ site.description }}
-  </small>
-</h1>
--->
-<!-- Loop output paged posts -->
-<div id="index" class="row">
-    <div class="post-area">
-     	 <div class="post-list-body">
-        <div post-cate="All">
-        <ul class="posts">
-	{% for post in paginator.posts %}
-	<li>	
-	<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-	<span class="date">{{ post.date | date_to_string }}</span>
-	
-	<hr>
-	<p>{% if post.excerpt.size > 32 %}{{ post.excerpt }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 160 }}{% endif %}</p>
-		<p> <a href="{{ post.url }}"><span >阅读全文 &raquo; </span></a></p>
-	<hr>
-	</li>
-	{% endfor %}
-	</ul>
-	<!-- Pager indicator -->
-	<ul class="pager">
-	  {% if paginator.previous_page %} {% if paginator.previous_page == 1 %}
-	  <li class="previous">
-	    <a href="{{ site.url }}/">
-	      &larr; Older
-	    </a>
-	  </li>
-	  {% else %}
-	  <li class="previous">
-	    <a href="{{ site.url }}/page{{ paginator.previous_page }}">
-	      &larr; Older
-	    </a>
-	  </li>
-	  {% endif %} {% endif %} {% if paginator.next_page %}
-	  <li class="next">
-	    <a href="{{ site.url }}/page{{ paginator.next_page }}">
-	      Newer &rarr;
-	    </a>
-	  </li>
-	  {% endif %}
-	</ul>
-	</div>
-	
-
-	 
-       {% for category in site.categories %}
-	<div post-cate="{{category | first}}">
-
-          <ul class="posts">
-            {% for posts in category  %}
-              {% for post in posts %}
-                {% if post.url %}
-		<li>
-                  <a href="{{ post.url }}" class="post-list-item">
-                    <h2>{{ post.title }}</h2>
-                    <span class="date">{{ post.date | date: "%b %-d, %Y" }}</span>
-                  </a>
-		</li>
-                {% endif %}
-              {% endfor %}
-            {% endfor %}
-          </ul>
-	</div>
-        {% endfor %}
-	
-	 </div>
-
-</div>
+<div class="row">
+  {% for post in paginator.posts %}
+  <div class="col s12">
+    <div class="card hoverable">
+      <div class="card-content">
+        <span id="post-title" class="card-title">{{post.title}}</span>
+        <p id="post-date">
+          <i class="material-icons">date_range</i>
+          {{post.date | date: "%d/%m/%Y %H:%M"}}
+        </p>
+        <p id="post-content">{{post.excerpt | remove: '<p>' | remove: '</p>'}}</p>
+      </div>
+      <div class="card-action">
+        <a href="{{post.url | prepend: site.baseurl}}">
+          Read More
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="col s12 center-align">
+    <ul class="pagination">
+      <li class="{% unless paginator.previous_page %}disabled{% else %}waves-effect{% endunless %}">
+        {% if paginator.previous_page %}
+        {% if paginator.previous_page == 1 %}
+        <a href="{{site.baseurl}}/">
+        {% else %}
+        <a href="{{site.baseurl}}/page{{paginator.previous_page}}">
+        {% endif %}
+        {% else %}
+        <a href="#!">
+        {% endif %}
+          <i class="material-icons">chevron_left</i>
+        </a>
+      </li>
+      {% if paginator.page == 1 %}
+      <li class="active teal">
+        <a href="#!">1</a>
+      {% else %}
+      <li class="waves-effect">
+        <a href="{{site.baseurl}}/">1</a>
+      {% endif %}
+      </li>
+      {% for count in (2..paginator.total_pages) %}
+      {% if count == paginator.page %}
+      <li class="active teal"><a href="#!">{{count}}</a></li>
+      {% else %}
+      <li class="waves-effect"><a href="{{site.baseurl}}/page{{count}}">{{count}}</a></li>
+      {% endif %}
+      {% endfor %}
+      <li class="{% unless paginator.next_page %}disabled{% else %}waves-effect{% endunless %}">
+        {% if paginator.next_page %}
+        <a href="{{site.baseurl}}/page{{paginator.next_page}}">
+        {% else %}
+        <a href="#!">
+        {% endif %}
+          <i class="material-icons">chevron_right</i>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
