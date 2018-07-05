@@ -24,12 +24,12 @@ JB :
   IMAGE_PATH : http://coolshell.info/images
 
 # presonal config
-domain: http://coolshell.info
-title: Lippi-浮生志
+domain: https://caliburn1994.github.io/
+title: 九千鸦的blog
 description: 一个懒宅，喜欢二次元和游戏
 author: 九千鸦
 email:caliburn1994@gmail.com
-github: LippiOuYang
+github: caliburn1994
 
 config:
   js_dir:
