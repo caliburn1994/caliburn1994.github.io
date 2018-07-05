@@ -23,13 +23,14 @@ repository: ShawnTeoh/matjek
 paginate: 5
 
 # MatJek specific configurations
-github_profile: "https://twitter.com/caliburn1994"
+github_profile: "https://github.com/caliburn1994"
 user: "¾ÅÇ§Ñ»"
 user_email: "caliburn1994@gmail.com"
-contact_url: "https://goo.gl/tVljbV"
+contact_url: "https://twitter.com/caliburn1994"
+#´ý´¦Àí
 google_tracking_id: "UA-96359860-1"
 google_site_verification: "UA-96359860-1"
-disqus_shortname: "matjek"
+disqus_shortname: "caliburn1994"
 
 # Build settings
 markdown: kramdown
