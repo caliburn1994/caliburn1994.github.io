@@ -22,7 +22,8 @@ kramdown:
   use_coderay: false
 
 JB :
-  IMAGE_PATH : http://coolshell.info/images
+  IMAGE_PATH :
+# http://coolshell.info/images
 
 # presonal config
 domain: https://caliburn1994.github.io/
