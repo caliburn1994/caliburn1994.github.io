@@ -31,6 +31,9 @@ google_tracking_id: "UA-121898091-1"
 google_site_verification: "UA-121898091-1"
 disqus_shortname: "jiu-qian-ya-de-bo-ke"
 
+#编码
+encoding: UTF-8
+
 # Build settings
 markdown: kramdown
 gems:
