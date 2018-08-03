@@ -4,3 +4,8 @@
 .sass-cache
 _site
 Gemfile.lock
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/caliburn1994.github.io.iml
