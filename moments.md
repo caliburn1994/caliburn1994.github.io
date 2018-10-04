@@ -6,6 +6,6 @@ js: ["post.js"]
 ---
 <div class="row">
   <div class="col s12">
-    {{ content }}
+    {% include moments.md %}
   </div>
 </div>
