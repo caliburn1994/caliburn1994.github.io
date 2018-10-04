@@ -1,12 +1,3 @@
----
-layout: post
-title: 笔记《人月神话》
-date: 2017-06-20 00:00:00
-categories: 计算机
-tags: 书籍
-comments: 1
----
-
 
 
 这是《人月神话》的笔记。
