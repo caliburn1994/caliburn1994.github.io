@@ -1,6 +1,6 @@
 ---
-layout: page
 title: "Moments 动态"
+layout: default
 css: ["post.css"]
 js: ["post.js"]
 ---
