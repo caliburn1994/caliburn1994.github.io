@@ -11,7 +11,7 @@ js: ["post.js","moments.js"]
     </div>
     <ul  class="pagination">
     </ul>
-    <input id="current_page" type="hidden">
-    <input id="show_per_page" type="hidden">
   </div>
+  <input id="current_page" type="hidden">
+  <input id="show_per_page" type="hidden">
 </div>
