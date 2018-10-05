@@ -1,8 +1,3 @@
----
-layout: default
-css: ["post.css"]
-js: ["post.js"]
----
 
 这是《人月神话》的笔记。
 
