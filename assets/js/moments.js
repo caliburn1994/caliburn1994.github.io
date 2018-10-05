@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    var show_per_page = 1;    //每页显示条数
+    var show_per_page = 10;    //每页显示条数
     var number_of_items = $('.markdown_item').children('.hoverable').size();
     var number_of_pages = Math.ceil(number_of_items / show_per_page);
 
@@ -32,12 +32,12 @@ $(document).ready(function() {
 
 function go_to_page(page_num) {
     var show_per_page = parseInt($('#show_per_page').val(), 0);
-    console.log("页数："+page_num)
-    console.log("每页条数："+show_per_page)
+    // console.log("页数："+page_num)
+    // console.log("每页条数："+show_per_page)
     start_from = page_num * show_per_page;
 
     end_on = start_from + show_per_page;
-    console.log("开始："+start_from+" 结束："+end_on)
+    // console.log("开始："+start_from+" 结束："+end_on)
 
     $('.markdown_item').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
 
