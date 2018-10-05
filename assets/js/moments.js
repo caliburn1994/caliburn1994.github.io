@@ -5,7 +5,6 @@ $(document).ready(function() {
     var number_of_pages = Math.ceil(number_of_items / show_per_page);
 
     //最外层是pagination，包含操作以及样式
-    $('.markdown_pagnation').append('<ul  class=pagination></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
     $('#current_page').val(0);
     $('#show_per_page').val(show_per_page);
 
@@ -32,10 +31,12 @@ $(document).ready(function() {
 
 function go_to_page(page_num) {
     var show_per_page = parseInt($('#show_per_page').val(), 0);
-
+    console.log("页数："+page_num)
+    console.log("每页条数："+show_per_page)
     start_from = page_num * show_per_page;
 
     end_on = start_from + show_per_page;
+    console.log("开始："+start_from+" 结束："+end_on)
 
     $('.markdown_item').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
 
