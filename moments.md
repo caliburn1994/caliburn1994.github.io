@@ -6,7 +6,7 @@ js: ["post.js","moments.js"]
 ---
 <div class="row">
   <div class="col s8 offset-s2">
-    <div class="markdown pagnation" markdown="1">
+    <div class="markdown_pagnation" markdown="1">
         {% include moments.md %}
     </div>
   </div>
