@@ -1,23 +1,27 @@
 $(document).ready(function() {
 
-    var show_per_page = 1;    //页数
+    var show_per_page = 1;    //每页显示条数
     var number_of_items = $('.pagnation').children('.hoverable').size();
     var number_of_pages = Math.ceil(number_of_items / show_per_page);
 
-    $('body').append('<div class=controls></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
+    //最外层是pagination，包含操作以及样式
+    $('body').append('<ul  class=pagination></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
     $('#current_page').val(0);
     $('#show_per_page').val(show_per_page);
 
-    var navigation_html = '<a class="prev" onclick="previous()">Prev</a>';
+    //左箭头 left arrow
+    var navigation_html = '<li class="waves-effect"><a class="prev" onclick="previous()"><i class="material-icons">chevron_left</i></a></li>';
+
     var current_link = 0;
     while (number_of_pages > current_link) {
-        navigation_html += '<a class="page" onclick="go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
+        navigation_html += '<li class="waves-effect"><a class="page" onclick="go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a></li>';
         current_link++;
     }
-    navigation_html += '<a class="next" onclick="next()">Next</a>';
+    //右箭头 right arrow
+    navigation_html += ' <li class="waves-effect"><a class="next" onclick="next()"><i class="material-icons">chevron_right</i></a></li>';
 
-    $('.controls').html(navigation_html);
-    $('.controls .page:first').addClass('active');
+    $('.pagination').html(navigation_html);
+    $('.pagination .page:first').addClass('active');
 
     $('.pagnation').children().css('display', 'none');
     $('.pagnation').children().slice(0, show_per_page).css('display', 'block');
@@ -41,7 +45,7 @@ function go_to_page(page_num) {
 }
 
 
-
+//前一页
 function previous() {
 
     new_page = parseInt($('#current_page').val(), 0) - 1;
