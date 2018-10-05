@@ -6,7 +6,7 @@ js: ["post.js"]
 ---
 <div class="row">
   <div class="col s8 offset-s2">
-    <div class="tip" markdown="1">
+    <div class="markdown pagnation" markdown="1">
         {% include moments.md %}
     </div>
   </div>
