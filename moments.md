@@ -9,9 +9,6 @@ js: ["post.js","moments.js"]
     <div class="markdown_item" markdown="1">
         {% include moments.md %}
     </div>
-    <ul  class="pagination">
-    </ul>
   </div>
-  <input id="current_page" type="hidden">
-  <input id="show_per_page" type="hidden">
+
 </div>
