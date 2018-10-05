@@ -6,6 +6,6 @@ js: ["post.js"]
 ---
 <div class="row">
   <div class="col s12">
-    {% include moments.md %}
+    {% include moments.html %}
   </div>
 </div>
