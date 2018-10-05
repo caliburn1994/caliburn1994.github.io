@@ -1,7 +1,7 @@
 ---
 title: "Moments 动态"
 layout: moments
-css: ["post.css"]
+css: ["post.css","moments.css"]
 js: ["post.js"]
 ---
 <div class="row">
