@@ -6,8 +6,8 @@ js: ["post.js"]
 ---
 <div class="row">
   <div class="col s8 offset-s2">
-    <div class="card hoverable">
-    {% include moments.md %}
+    <div class="tip" markdown="1">
+        {% include moments.md %}
     </div>
   </div>
 </div>
