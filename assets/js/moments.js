@@ -5,7 +5,7 @@ $(document).ready(function() {
     var number_of_pages = Math.ceil(number_of_items / show_per_page);
 
     //最外层是pagination，包含操作以及样式
-    $('body').append('<ul  class=pagination></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
+    $('.markdown_pagnation').append('<ul  class=pagination></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
     $('#current_page').val(0);
     $('#show_per_page').val(show_per_page);
 
