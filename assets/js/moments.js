@@ -1,11 +1,11 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     var show_per_page = 10;    //每页显示条数
     var number_of_items = $('.markdown_item').children('.hoverable').size();
     var number_of_pages = Math.ceil(number_of_items / show_per_page);
 
     //最外层是pagination，包含操作以及样式
-    $('.markdown_pagnation').append('<ul  class=pagination></ul>><input id=current_page type=hidden><input id=show_per_page type=hidden>');
+    $('.markdown_pagnation').append('<ul  class=pagination></ul><input id=current_page type=hidden><input id=show_per_page type=hidden>');
     $('#current_page').val(0);
     $('#show_per_page').val(show_per_page);
 
@@ -18,7 +18,13 @@ $(document).ready(function() {
         current_link++;
     }
     //右箭头 right arrow
-    navigation_html += ' <li class="waves-effect"><a class="next" onclick="next()"><i class="material-icons">chevron_right</i></a></li>';
+    navigation_html += ' <li class="waves-effect">' +
+        '<a class="next" onclick="next()">' +
+        '<i class="material-icons">chevron_right</i>' +
+        '</a>' +
+        '</li>';
+
+    //console.log("html是："+navigation_html)
 
     $('.pagination').html(navigation_html);
     $('.pagination .page:first').addClass('active');
@@ -27,7 +33,6 @@ $(document).ready(function() {
     $('.markdown_item').children().slice(0, show_per_page).css('display', 'block');
 
 });
-
 
 
 function go_to_page(page_num) {
