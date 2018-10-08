@@ -1,3 +1,4 @@
+
 <div class="card hoverable">
 <div class="card-content">
 人生的意义或许就是，怎么舒服怎么来。小时候，为父母而活；长大之后，为伴侣而活；结婚后，为孩子而活，这种想法真的很可怕。
