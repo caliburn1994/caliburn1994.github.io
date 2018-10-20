@@ -22,6 +22,7 @@ permalink: /:year/:month/:day/:title
 repository: ShawnTeoh/matjek
 paginate: 5
 
+# MatJek 该样式特殊的配置 https://shawnteoh.github.io/matjek
 # MatJek specific configurations
 github_profile: "https://github.com/caliburn1994"
 user: "九千鸦"
