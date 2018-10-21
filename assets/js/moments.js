@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var show_per_page = 10;    //每页显示条数
+    var show_per_page = 7;    //每页显示条数
     var number_of_items = $('.markdown_item').children('.hoverable').size();
     var number_of_pages = Math.ceil(number_of_items / show_per_page);
 
