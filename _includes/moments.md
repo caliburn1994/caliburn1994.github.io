@@ -1,4 +1,14 @@
 
+ <div class="card hoverable"><div class="card-content"> 
+对于程序员而言，表达能力也是十分重要的。
+ <p align='right'>2018-11-1</p></div></div> 
+
+<div class="card hoverable">
+<div class="card-content">
+照顾婴儿（侄女）真累。
+<p align="right">2018-10-30</p>
+</div></div>
+
 <div class="card hoverable">
 <div class="card-content">
 新闻酸菜馆的王掌柜说过，“中国很多人都不懂得拒绝。”是时候，我也该学会拒绝。
