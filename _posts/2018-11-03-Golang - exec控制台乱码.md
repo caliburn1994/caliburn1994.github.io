@@ -11,7 +11,7 @@ comments: 1
 
 IDE：Goland		
 
-*[Goland] : intellij系列的go语言IDE编辑器。
+*[Goland]: intellij系列的go语言IDE编辑器。
 
 Go：1.10
 
