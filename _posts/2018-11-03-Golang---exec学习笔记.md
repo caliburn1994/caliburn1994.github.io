@@ -7,9 +7,19 @@ tags: Go
 comments: 1
 ---
 
-window下，使用Goland进行学习。
 
-*[Goland] : intellij系列的go语言IDE编辑器。
+
+Golang的
+
+环境：window	
+
+IDE：Goland		
+
+*[Goland]: intellij系列的go语言IDE编辑器。
+
+Go：1.10
+
+
 
 
 

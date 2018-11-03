@@ -7,7 +7,17 @@ tags: Go
 comments: 1
 ---
 
-环境：window	
+
+
+
+
+
+
+在window下，os.exec执行command命令出现乱码情况，该如何解决？
+
+##### 环境
+
+操作系统：window 10
 
 IDE：Goland		
 
@@ -15,11 +25,9 @@ IDE：Goland
 
 Go：1.10
 
-
-
 <br>
 
-简单例子
+##### 案例
 
 ```go
 cmd := exec.Command("ping", "10.0.0.1")
