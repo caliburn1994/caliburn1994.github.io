@@ -1,7 +1,7 @@
- <div class="card hoverable"><div class="card-content"> 
-不管是编程，还是面试和项目管理上沟通是一个大问题，损耗挺大的。   22
- <p align='right'>2018-11-02</p></div></div> 
 
+<div class="card hoverable"><div class="card-content"> 
+不管是编程，还是面试和项目管理上沟通是一个大问题，损耗挺大的。   
+ <p align='right'>2018-11-02</p></div></div> 
 
  <div class="card hoverable"><div class="card-content"> 
 对于程序员而言，表达能力也是十分重要的。
