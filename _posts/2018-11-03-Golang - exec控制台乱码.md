@@ -7,7 +7,11 @@ tags: Go
 comments: 1
 ---
 
-环境：window	IDE：Goland		Go：
+环境：window	
+
+IDE：Goland		
+
+Go：1.10
 
 *[Goland] : intellij系列的go语言IDE编辑器。
 
