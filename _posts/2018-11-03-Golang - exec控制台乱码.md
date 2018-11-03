@@ -77,11 +77,7 @@ Golang默认输出为UTF-8，而从command获得字节码是GB2312，因此转�
 
 参考：[Golang 中的 UTF-8 与 GBK 编码转换](http://mengqi.info/html/2015/201507071345-using-golang-to-convert-text-between-gbk-and-utf-8.html)
 
-> func GbkToUtf8(s []byte) ([]byte, error) {
-> reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewDecoder())
-> d, e := ioutil.ReadAll(reader)
-> if e != nil {
-> return nil, e
-> }
-> return d, nil
-> }
+```go
+
+```
+
