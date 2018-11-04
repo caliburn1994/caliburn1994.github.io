@@ -1,4 +1,8 @@
 
+ <div class="card hoverable"><div class="card-content"> 
+模拟人生和现实的最大区别：人生中大部分事情并不可物化，我们不可探知概率事件等概念，故会有迷茫等等情绪。
+ <p align='right'>2018-11-04</p></div></div> 
+
 <div class="card hoverable"><div class="card-content"> 
 不管是编程，还是面试和项目管理上沟通是一个大问题，损耗挺大的。   
  <p align='right'>2018-11-02</p></div></div> 
