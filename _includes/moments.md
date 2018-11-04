@@ -1,5 +1,11 @@
 
  <div class="card hoverable"><div class="card-content"> 
+人们为了得到认同而奋斗着。
+ <p align='right'>2018-11-04</p></div></div> 
+ <div class="card hoverable"><div class="card-content"> 
+教育与市场的脱节，其结果是教育资源过度浪费。失去综合教育能力的大学，其对社会的贡献以及获得的资金是完全不对等（白嫖客的感觉）。
+ <p align='right'>2018-11-04</p></div></div> 
+ <div class="card hoverable"><div class="card-content"> 
 模拟人生和现实的最大区别：人生中大部分事情并不可物化，我们不可探知概率事件等概念，故会有迷茫等等情绪。
  <p align='right'>2018-11-04</p></div></div> 
 
