@@ -30,8 +30,15 @@ Go：1.10
 ##### 案例
 
 ```go
+package main
+
+import (
+	"log"
+	"fmt"
+	"os/exec"
+)
+
 cmd := exec.Command("ping", "10.0.0.1")
-cmd.Dir = "F:\\GitHub\\caliburn1994.github.io\\_includes\\"
 out, err := cmd.Output()
 if err != nil {
    log.Fatal(err)
@@ -103,4 +110,17 @@ return d, nil
 }
 ```
 
- 
+ 新增功能后的例子：
+
+```go
+func main() {
+	cmd := exec.Command("ping", "10.0.0.1")
+	out, err := cmd.Output()
+	if err != nil {
+		log.Fatal(err)
+		fmt.Println(err)
+	}
+	utf8,_:=GbkToUtf8(out)
+	fmt.Print("输出："+string(utf8))
+}
+```
