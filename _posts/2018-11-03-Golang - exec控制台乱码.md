@@ -5,6 +5,7 @@ date: 2018-11-03 00:00:0
 categories: 计算机
 tags: Go
 comments: 1
+typora-root-url: ..
 ---
 
 
@@ -14,6 +15,8 @@ comments: 1
 
 
 在window下，os.exec执行command命令出现乱码情况，该如何解决？
+
+<br>
 
 ##### 环境
 
@@ -27,7 +30,13 @@ Go：1.10
 
 <br>
 
-##### 案例
+##### 概览
+
+![1541584784598](/assets/blog_res/1541584784598.png)
+
+<br>
+
+##### 类型1——window系统自带指令乱码
 
 ```go
 package main
@@ -69,8 +78,6 @@ fmt.Print("输出："+string(out))
 >
 > ​    ��� = 0ms��� = 0ms��ƽ�� = 0ms
 
-**乱码**
-
 输出台（console）乱码，而数据是从windows command里获取。因此，需查看command的编码（encoding）。
 
 ```shell
@@ -81,12 +88,15 @@ chcp
 
 原因：
 
-Golang默认输出为UTF-8，而从command获得字节码是GB2312，因此转换错误
+Golang默认输出为UTF-8，而从CLI获得数据的编码是GB2312，因此出现转换错误
 
 解决方案：
 
-- 将数据转换为GB2312。
-- 将command（数据源）设置为UTF-8（获得数据前就转换完毕）
+- 将CLI或操作系统（数据源）的编码修改为UTF-8
+
+[win10下,cmd,power shell设置默认编码为‘UTF-8’? ](https://www.zhihu.com/question/54724102/answer/380875686)
+
+- 将获得的数据转换为GB2312。
 
 <br>
 
@@ -124,3 +134,54 @@ func main() {
 	fmt.Print("输出："+string(utf8))
 }
 ```
+
+<br>
+
+<br>
+
+##### 类型2——软件指令乱码
+
+大部分软件，现今支持UTF-8，但是部分（功能）仍旧不支持。
+
+如：
+
+Git软件处理文件名时，中文符号将转化成八进制编码。
+
+参考文章：[Git - 路径乱码](/2018/11/06/Git-路径乱码)
+
+
+
+
+
+这种情况下，可行方案：
+
+- 无法避免所有软件都使用默认系统编码，因此尽量减少使用中文。
+
+- 将非正常的软体的编码修改成默认编码。（需了解每个软体的情况）
+  Git修改成UTF-8：
+
+  ```sh
+  git config --global core.quotepath true
+  ```
+
+  Git修改成
+
+
+
+
+
+
+
+##### 延申
+
+解决乱码思路：
+
+1. 分析现象——该编码是什么编码
+2. 分析来源——
+
+在使用
+
+
+
+上述例子是
+
