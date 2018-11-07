@@ -53,9 +53,9 @@ Go：1.10
 
 API:
 
-**func Command(name string, arg ...string) *Cmd ** 
+**func Command(name string, arg ...string)  ** 
 
-参数1需是Path存在的指令。如：Ping、git、Java。且
+参数1需是Path存在的指令，如：Ping、git、Java。且
 
 ```bash
 git push origin master
