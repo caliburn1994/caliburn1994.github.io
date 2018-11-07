@@ -1,5 +1,9 @@
 
  <div class="card hoverable"><div class="card-content"> 
+更新
+ <p align='right'>2018-11-07</p></div></div> 
+
+ <div class="card hoverable"><div class="card-content"> 
 人们为了得到认同而奋斗着。
  <p align='right'>2018-11-04</p></div></div> 
 
