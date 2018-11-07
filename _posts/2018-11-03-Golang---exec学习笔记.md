@@ -53,7 +53,7 @@ Go：1.10
 
 API:
 
-**func Command(name string, arg ...string)  ** 
+** func Command(name string, arg ...string) ** 
 
 参数1需是Path存在的指令，如：Ping、git、Java。且
 
@@ -66,14 +66,17 @@ git push origin master
 代替方案：
 
 ```go
-// Split string 分割参数
-r := csv.NewReader(strings.NewReader(command))
-r.Comma = ' ' // space
-paras, err := r.Read()
-if err != nil {
-   fmt.Println(err)
-   return
-}
+    // Split string 分割参数
+    // 通过csv文档的特性进行分割
+    r := csv.NewReader(strings.NewReader(command))
+    r.Comma = ' ' // space
+    paras, err := r.Read()
+    if err != nil {
+       fmt.Println(err)
+       return
+    }
+    //运行
+    cmd := exec.Command("git", paras...)
 ```
 
 <br>
