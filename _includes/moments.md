@@ -1,5 +1,10 @@
 
  <div class="card hoverable"><div class="card-content"> 
+生活中与“编程和元编程”对应的是，生活和思考人生
+
+ <p align='right'>2018-11-08</p></div></div> 
+
+ <div class="card hoverable"><div class="card-content"> 
 人们为了得到认同而奋斗着。
  <p align='right'>2018-11-04</p></div></div> 
 
