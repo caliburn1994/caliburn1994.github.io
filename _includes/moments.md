@@ -1,3 +1,10 @@
+
+ <div class="card hoverable"><div class="card-content"> 
+我和我妈说，我哥若是有了孩子后，你的生活更加累。我妈回我，若是我哥不要孩子，那以后她看到别人有孙子就会很寂寞。
+
+让我有种感觉 老一辈的人，很少能离开社会寻找真正的快乐
+
+ <p align='right'>2018-11-09</p></div></div> 
 <p><div class="card hoverable"><div class="card-content">
 我和我妈说，我哥若是有了孩子后，你的生活更加累。我妈回我，若是我哥不要孩子，那以后她看到别人有孙子就会很寂寞。</p>
 
