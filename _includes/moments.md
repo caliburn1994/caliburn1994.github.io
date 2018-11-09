@@ -1,14 +1,10 @@
 
  <div class="card hoverable"><div class="card-content"> 
-<p>测试</p>
-
- <p align='right'>2018-11-09</p></div></div> 
- <div class="card hoverable"><div class="card-content"> 
-<p>看着我姐照顾侄女那么累，一点结婚生子的欲望都没有了。</p>
+<p>看着我姐照顾侄女那么累，弄得我一点结婚生子的欲望都没有了。</p>
 
  <p align='right'>2018-11-09</p></div></div> 
 
- <div class="card hoverable"><div class="card-content"> 
+<div class="card hoverable"><div class="card-content"> 
 <p>我和我妈说，我哥若是有了孩子后，你的生活更加累。我妈回我，若是我哥不要孩子，那以后她看到别人有孙子就会很寂寞。</p>
 
 <p>让我有种感觉，老一辈的人，很少能离开社会寻找真正的快乐。</p>
