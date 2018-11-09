@@ -1,5 +1,10 @@
 
  <div class="card hoverable"><div class="card-content"> 
+<p>很好奇，游戏中的模型（地图、怪兽）重复利用会对游戏快感有多少影响。</p>
+
+ <p align='right'>2018-11-09</p></div></div> 
+
+ <div class="card hoverable"><div class="card-content"> 
 <p>window、Linux、mac等系统的回车键什么时候次啊能统一一下啊(ノ｀Д)ノ</p>
 
  <p align='right'>2018-11-09</p></div></div> 
