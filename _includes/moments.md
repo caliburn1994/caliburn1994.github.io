@@ -1,5 +1,12 @@
 
  <div class="card hoverable"><div class="card-content"> 
+<p>知乎上的内容没经过二次编辑，因此信息量大，有效率低。然而二次编辑必然破坏这种论坛的形式。</p>
+
+<p>然而这份责任是很有必要，特别是在这个信息爆炸的时代。（仅从科普等角度出发，不涉及政治）</p>
+
+ <p align='right'>2018-11-09</p></div></div> 
+
+ <div class="card hoverable"><div class="card-content"> 
 <p>很好奇，游戏中的模型（地图、怪兽）重复利用会对游戏快感有多少影响。</p>
 
  <p align='right'>2018-11-09</p></div></div> 
