@@ -1,5 +1,11 @@
 
  <div class="card hoverable"><div class="card-content"> 
+快餐时代的产物之一：网络游戏。正因为大部分网游是快餐，所以它们都缺失灵魂。
+ <p align='right'>2018-11-11</p></div></div> 
+ <div class="card hoverable"><div class="card-content"> 
+服从权威的过程就是一个渐渐丧失独立人格的过程，在丧失独立人格之后，你还能称作是你吗?还是说被物化成一个人偶。
+ <p align='right'>2018-11-11</p></div></div> 
+ <div class="card hoverable"><div class="card-content"> 
 <p>知乎上的内容没经过二次编辑，因此信息量大，有效率低。然而二次编辑必然破坏这种论坛的形式。</p>
 
 <p>然而这份责任是很有必要，特别是在这个信息爆炸的时代。（仅从科普等角度出发，不涉及政治）</p>
