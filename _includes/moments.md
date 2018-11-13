@@ -1,5 +1,10 @@
 
  <div class="card hoverable"><div class="card-content"> 
+<p>逆水寒的策划说得很好听，“想构建一个真实的江湖”。然而，他没能看到江湖时代和信息时代的差异，以及游戏的目的和意义，当了一回上帝，结果可想而知。</p>
+
+ <p align='right'>2018-11-13</p></div></div> 
+
+ <div class="card hoverable"><div class="card-content"> 
 快餐时代的产物之一：网络游戏。正因为大部分网游是快餐，所以它们都缺失灵魂。
  <p align='right'>2018-11-11</p></div></div> 
  <div class="card hoverable"><div class="card-content"> 
