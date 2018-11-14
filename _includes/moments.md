@@ -1,8 +1,8 @@
 
  <div class="card hoverable"><div class="card-content"> 
-<p>(实话实说“敏捷“软件开发流程)[<a href="https://www.zhihu.com/lives/997518429552783360]讲得挺好，原来敏捷开发源于外包公司。">https://www.zhihu.com/lives/997518429552783360]讲得挺好，原来敏捷开发源于外包公司。</a></p>
+<p><a href="a href=&quot;https://www.zhihu.com/lives/997518429552783360">实话实说“敏捷“软件开发流程</a>讲得挺好，原来敏捷开发源于外包公司。&rdquo;</p>
 
- <p align='right'>2018-11-14</p></div></div> 
+ <p align='right'>2018-11-15</p></div></div> 
 
  <div class="card hoverable"><div class="card-content"> 
 <p>“从几岁开始学***”，“有多少年工作经验”等说法，其实质反映了人类对虚拟事物的无法掌握，因此想用数据进行实体化，这是这个时代的原始。</p>
