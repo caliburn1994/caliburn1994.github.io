@@ -1,5 +1,10 @@
 
  <div class="card hoverable"><div class="card-content"> 
+<p>“从几岁开始学***”，“有多少年工作经验”等说法，其实质反映了人类对虚拟事物的无法掌握，因此想用数据进行实体化，这是这个时代的原始。</p>
+
+ <p align='right'>2018-11-14</p></div></div> 
+
+ <div class="card hoverable"><div class="card-content"> 
 <p>逆水寒的策划说得很好听，“想构建一个真实的江湖”。然而，他没能看到江湖时代和信息时代的差异，以及游戏的目的和意义，当了一回上帝，结果可想而知。</p>
 
  <p align='right'>2018-11-13</p></div></div> 
