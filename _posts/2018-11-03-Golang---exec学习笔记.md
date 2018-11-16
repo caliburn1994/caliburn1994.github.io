@@ -23,15 +23,15 @@ Go：1.10
 
 <br>
 
-##### 案例
+#### 案例
 
-**例1（简单）**
+##### **例1（简单）**
 
 参考：[Golang - exec控制台乱码](/2018/11/03/Golang-exec控制台乱码)
 
 <br>
 
-##### 例2
+##### 例2（不使用cmd）
 
 ```go
 	cmd := exec.Command("git", "push","origin","master")
@@ -78,6 +78,36 @@ git push origin master
     //运行
     cmd := exec.Command("git", paras...)
 ```
+
+<br>
+
+##### 例3（使用cmd，建议）
+
+使用cmd的话，则比较简单
+
+```go
+cmd := exec.Command("cmd","/c","git push origin master")
+cmd.Dir = "F:/GitHub/caliburn1994.github.io/_includes"
+out, err := cmd.CombinedOutput()
+if err != nil {
+	log.Fatal(err)
+	fmt.Println(fmt.Sprint(err) + ": " + string(out))
+}
+
+result, err := GbkToUtf8(out)
+if err != nil {
+	log.Fatal(err)
+	fmt.Println(err)
+}
+fmt.Printf("Result: %s", result)
+```
+window下，使用cmd可以直接使用各种命令，而非cmd则只能使用[环境变量](https://baike.baidu.com/item/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)中Path下的程序。如：java、ping、git等，而指令start则不可以。
+
+然而例2的方式可在Linux下使用。（cmd是window的指令）
+
+参考：[Golang - exec控制台乱码](/2018/11/03/Golang-exec控制台乱码)
+
+
 
 <br>
 
