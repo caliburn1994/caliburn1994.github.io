@@ -8,7 +8,7 @@ comments: 1
 typora-root-url: ..
 ---
 
-##### cmd是什么？
+cmd是什么？
 
 > - CMD
 >

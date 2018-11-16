@@ -105,7 +105,7 @@ window下，使用cmd可以直接使用各种命令，而非cmd则只能使用[�
 
 然而例2的方式可在Linux下使用。（cmd是window的指令）
 
-参考：[Golang - exec控制台乱码](/2018/11/03/Golang-exec控制台乱码)
+参考：[cmd是什么？](/2018/11/16/what-is-cmd)
 
 
 
