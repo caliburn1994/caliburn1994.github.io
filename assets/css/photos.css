@@ -10,7 +10,7 @@ div.photos_gallery:hover {
 }
 
 div.photos_gallery img {
-    width: 200%;
+    width: 100%;
     height: auto;
 }
 
