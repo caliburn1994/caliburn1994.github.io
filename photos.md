@@ -17,4 +17,8 @@ js: ["post.js","photos.js"]
     </div>
   </div>
 </div>
+
+<script src="/js/jquery.min.js"></script>
+{% include lightbox.html %}
+
 {% endfor %}
