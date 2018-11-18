@@ -1,7 +1,20 @@
 ---
-title: "photos 私宅"
-layout: photos
+title: "Moments 动态"
+layout: moments
 css: ["post.css","photos.css","component.css"]
 js: ["post.js","photos.js"]
 ---
 
+{% for item in page.images %}
+<div class="lightbox" id="lightbox{{ forloop.index }}">
+  <div class="table">
+    <div class="table-cell">
+      <img class="close" src="/img/close.svg" />
+      <img class="next" src="/img/next.svg" />
+      <img class="prev" src="/img/prev.svg" />
+      <div class="item" style="background: url('{{ item.image }}') center center no-repeat; background-size: cover;">
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}

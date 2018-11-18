@@ -48,9 +48,3 @@ exclude:
 sass:
   style: compressed
 future: true
-
-
-images:
-  - image: https://lh3.googleusercontent.com/qioVk2T8z3KRzO9Bc3HHdElzoGFAKnw2kpR2brbZGcl07OXhCajqDPan4Qbrp06MjHDmXw0lvlVz-q1QG7hi1aEesXAbnnqWJw6H2oJt1iWDIKYN8yI91YGYRWmONXvkKU1wqRHjME4=w1920-h1080
-  - image: https://lh3.googleusercontent.com/qioVk2T8z3KRzO9Bc3HHdElzoGFAKnw2kpR2brbZGcl07OXhCajqDPan4Qbrp06MjHDmXw0lvlVz-q1QG7hi1aEesXAbnnqWJw6H2oJt1iWDIKYN8yI91YGYRWmONXvkKU1wqRHjME4=w1920-h1080
-  - image: https://lh3.googleusercontent.com/qioVk2T8z3KRzO9Bc3HHdElzoGFAKnw2kpR2brbZGcl07OXhCajqDPan4Qbrp06MjHDmXw0lvlVz-q1QG7hi1aEesXAbnnqWJw6H2oJt1iWDIKYN8yI91YGYRWmONXvkKU1wqRHjME4=w1920-h1080
