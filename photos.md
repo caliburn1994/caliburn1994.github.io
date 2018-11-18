@@ -5,6 +5,8 @@ css: ["post.css","photos.css"]
 js: ["post.js","photos.js"]
 ---
 
+
+
 <div class="m-p-g">
 	<div class="m-p-g__thumbs" data-google-image-layout data-max-height="350">
 		<img src="http://unsplash.it/600/400?image=940" data-full="http://unsplash.it/1200/800?image=940" class="m-p-g__thumbs-img" />
@@ -21,3 +23,10 @@ js: ["post.js","photos.js"]
 	<div class="m-p-g__fullscreen"></div>
 </div>
 
+<script>
+	var elem = document.querySelector('.m-p-g');
+
+	document.addEventListener('DOMContentLoaded', function() {
+		var gallery = new MaterialPhotoGallery(elem);
+	});
+</script>
