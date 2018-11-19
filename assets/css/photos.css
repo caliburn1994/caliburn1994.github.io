@@ -20,7 +20,7 @@
   margin: .5vw;
 }
 .gallery div img {
-  width: 100%;
+  width: 50%;
   height: auto;
 }
 @media screen and (max-width: 400px) {
