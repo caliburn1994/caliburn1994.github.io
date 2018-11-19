@@ -1,0 +1,5 @@
+#photos img {
+  /* Just in case there are inline attributes */
+  width: 10% !important;
+  height: auto !important;
+}
