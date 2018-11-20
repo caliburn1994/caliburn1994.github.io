@@ -1,5 +1,12 @@
 
  <div class="card hoverable"><div class="card-content"> 
+<p>开源运动等的结果之一就是，信息爆炸。</p>
+
+<p>各种项目拥有了自己的“流”，百家齐放。同时也增加了复杂度，就像没有重构的代码一样。</p>
+
+ <p align='right'>2018-11-20</p></div></div> 
+
+ <div class="card hoverable"><div class="card-content"> 
 <p>穿着cos服和Lolita到处走，最大的收获是体验“被看”的感觉</p>
 
  <p align='right'>2018-11-15</p></div></div> 
