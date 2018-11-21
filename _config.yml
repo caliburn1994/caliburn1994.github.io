@@ -42,7 +42,7 @@ gems:
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-srcset
+
 exclude:
   - Gemfile
   - Gemfile.lock
