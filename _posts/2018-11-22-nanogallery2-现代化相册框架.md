@@ -77,18 +77,17 @@ typora-root-url: ..
 
 ```html
 <script  type="text/javascript" src="https://unpkg.com/nanogallery2@2.3.0/dist/jquery.nanogallery2.min.js"></script>
- 
 ```
 
 图片来源：
 
-```h&#39;t&#39;m&#39;l
-
+```html
+<a href = "berlin1.jpg"   data-ngThumb = "berlin1_t.jpg" > Berlin 1 </a>
 ```
 
 配置：
 
-```h&#39;t&#39;m&#39;l
+```html
 data-nanogallery2 = '{
                         "thumbnailHeight":  150,	每张图片的高
                         "thumbnailWidth":   150,	每张图片的宽
