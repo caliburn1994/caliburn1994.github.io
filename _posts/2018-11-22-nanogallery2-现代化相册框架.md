@@ -82,7 +82,7 @@ typora-root-url: ..
 图片来源：
 
 ```html
-<a href = "berlin1.jpg"   data-ngThumb = "berlin1_t.jpg" > Berlin 1 </a>
+<a href ="berlin1.jpg"   data-ngThumb ="berlin1_t.jpg" > Berlin 1 </a>
 ```
 
 配置：
@@ -99,9 +99,12 @@ data-nanogallery2 = '{
 
 <br>
 
-##### 延申
+##### 延申：（搜索关键词）
 
-
+-  css或js  implementation  google photos
+- Google Image Grid或Gallery
+  - 增加 Fluid responsive 或flexbox 
+- 其他尝试：jekyll plugin
 
 <br>
 
