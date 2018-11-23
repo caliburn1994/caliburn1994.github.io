@@ -1,5 +1,10 @@
 
  <div class="card hoverable"><div class="card-content"> 
+<p>BAT三巨头中，百度和腾讯获取热度的方式最恶劣，QQ空间和手机百度首页里常常有恶心的热点话题。</p>
+
+ <p align='right'>2018-11-23</p></div></div> 
+
+ <div class="card hoverable"><div class="card-content"> 
 <p>在中国，结婚生子没有任何经济上减免帮助措施，而生儿育女的受益者是国家。从这方面想，国家真的很自私，那么我为什么要为这种国家儿贡献一个甚至两个人力呢？</p>
 
  <p align='right'>2018-11-21</p></div></div> 
