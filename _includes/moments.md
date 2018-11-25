@@ -1,5 +1,10 @@
 
  <div class="card hoverable"><div class="card-content"> 
+<p>　「自分がかけた愛情と同等の愛情が返ってこないと人は不安になる。愛情がもらえなくても、同等の見返りがあれば、納得は出来ることもある。お金だとか、生活の安定だとか、でもね、想おもいが強いほど次第に耐えられなくなるんだ」（バーのマスター山さん）</p>
+
+ <p align='right'>2018-11-26</p></div></div> 
+
+ <div class="card hoverable"><div class="card-content"> 
 <p>假离婚假结婚等等问题不断冲击着&rdquo;结婚&rdquo;，结婚在现代的存在不断地被质疑。</p>
 
  <p align='right'>2018-11-25</p></div></div> 
