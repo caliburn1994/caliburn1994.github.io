@@ -1,7 +1,7 @@
 ---
 layout: home
 title: By Name
-permalink: /name/
+
 pagination: 
   enabled: true
   category: issues
