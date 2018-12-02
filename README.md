@@ -1,3 +1,16 @@
+
+博客写来玩=。=
+
+
+
+
+
+
+--------------
+
+
+样式参考：https://shawnteoh.github.io/matjek
+
 # MatJek
 
 A responsive [Material](https://material.io/) theme based on [Materialize.css](http://materializecss.com/) for jekyll sites.
