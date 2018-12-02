@@ -18,7 +18,7 @@ description: > # this means to ignore newlines until "baseurl:"
   Material theme based on <a href="http://materializecss.com">Materialize.css</a> for jekyll sites
 baseurl: "/"
 url: "https://caliburn1994.github.io"
-#permalink: /:year/:month/:day/:title   
+#permalink: /:year/:month/:day/:title
 repository: ShawnTeoh/matjek  #todo 这是什么？
 paginate: 5
 
