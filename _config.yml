@@ -16,11 +16,11 @@
 title: "九千鸦的博客"
 description: > # this means to ignore newlines until "baseurl:"
   Material theme based on <a href="http://materializecss.com">Materialize.css</a> for jekyll sites
-baseurl: "/"
+baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://caliburn1994.github.io"
-#permalink: /:year/:month/:day/:title
-repository: ShawnTeoh/matjek  #todo 这是什么？
-#paginate: 5
+
+
+
 
 # MatJek 该样式特殊的配置 https://shawnteoh.github.io/matjek
 # MatJek specific configurations
@@ -50,13 +50,15 @@ sass:
   style: compressed
 future: true
 
+# Pagination Settings v1
+repository: ShawnTeoh/matjek  #todo 这是什么？
+#permalink: /:year/:month/:day/:title
+#paginate: 5
 
-# Pagination Settings
+# Pagination Settings v2
 pagination:
   enabled: true
   per_page: 2
-  permalink: '/page/:num/'
-  title: ' - page :num'
-  limit: 0
+  permalink: /:year/:month/:day/:title
   sort_field: 'date'
   sort_reverse: true
