@@ -20,7 +20,7 @@ baseurl: "/"
 url: "https://caliburn1994.github.io"
 #permalink: /:year/:month/:day/:title
 repository: ShawnTeoh/matjek  #todo 这是什么？
-paginate: 5
+#paginate: 5
 
 # MatJek 该样式特殊的配置 https://shawnteoh.github.io/matjek
 # MatJek specific configurations
@@ -49,3 +49,14 @@ exclude:
 sass:
   style: compressed
 future: true
+
+
+# Pagination Settings
+pagination:
+  enabled: true
+  per_page: 2
+  permalink: '/page/:num/'
+  title: ' - page :num'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
