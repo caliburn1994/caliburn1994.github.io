@@ -39,7 +39,7 @@ encoding: UTF-8
 markdown: kramdown
 gems:
   - jekyll-feed
-  - jekyll-paginate
+  - jekyll-paginate-v2
   - jekyll-seo-tag
   - jekyll-sitemap
 
