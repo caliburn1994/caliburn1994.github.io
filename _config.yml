@@ -37,7 +37,7 @@ encoding: UTF-8
 
 # Build settings
 markdown: kramdown
-gems:
+plugins:
   - jekyll-feed
   - jekyll-paginate-v2
   - jekyll-seo-tag
@@ -52,11 +52,11 @@ future: true
 
 # Pagination Settings v1
 repository: ShawnTeoh/matjek  #todo 这是什么？
-permalink: /:year/:month/:day/:title
-paginate: 5
+#permalink: /:year/:month/:day/:title
+#paginate: 5
 
 # Pagination Settings v2
-#pagination:
-#  enabled: true
-#  per_page: 2
-#  permalink: /:year/:month/:day/:title
+pagination:
+  enabled: true
+  per_page: 2
+  permalink: /:year/:month/:day/:title
