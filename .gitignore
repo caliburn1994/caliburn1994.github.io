@@ -9,3 +9,6 @@ Gemfile.lock
 .idea/modules.xml
 .idea/misc.xml
 .idea/caliburn1994.github.io.iml
+codestyles/*
+vcs.xml
+github.xml
