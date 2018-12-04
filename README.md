@@ -1,15 +1,26 @@
+版本2，个人定制化并且升级jekyll以及插件的版本。
 
-博客写来玩=。=
+修改功能：
 
+- 分页功能，从v1=》v2
+- 删除categories页面，将文章分为：
+  - 软文章（Home）
+  - 硬文章（issue），用于处理代码中遇到的各种细节，范围小且常常带有时效性。
+  - 心情动态，表达个人的想法。（待完整）
 
+新增模板：
 
+- 相册模板。（不完整，硬代码）
 
 
 
 --------------
 
 
-样式参考：https://shawnteoh.github.io/matjek
+
+版本1：使用GitHub库中https://shawnteoh.github.io/matjek
+
+
 
 # MatJek
 
