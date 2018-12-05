@@ -25,13 +25,15 @@ url: "https://kyakya.icu"  # the base hostname & protocol for your site, e.g. ht
 
 # MatJek 该样式特殊的配置 https://shawnteoh.github.io/matjek
 # MatJek specific configurations
-github_profile: "https://github.com/caliburn1994"
+
 user: "九千鸦"
 user_email: "caliburn1994@gmail.com"
 contact_url: "https://twitter.com/caliburn1994"
 google_tracking_id: "UA-121898091-1"
 google_site_verification: "UA-121898091-1"
 disqus_shortname: "jiu-qian-ya-de-bo-ke"
+github_profile: "https://github.com/caliburn1994"
+
 
 #编码
 encoding: UTF-8
