@@ -17,7 +17,8 @@ title: "九千鸦的博客"
 description: > # this means to ignore newlines until "baseurl:"
   Material theme based on <a href="http://materializecss.com">Materialize.css</a> for jekyll sites
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://kyakya.icu"  #"https://caliburn1994.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+# 用于disqus
+url: "https://kyakya.icu"  # the base hostname & protocol for your site, e.g. http://example.com
 
 
 
@@ -53,16 +54,18 @@ future: true
 
 # Pagination Settings v1
 repository: ShawnTeoh/matjek  #todo 这是什么？
-#permalink: /:year/:month/:day/:title
-#paginate: 5
+
+# 文章存储模式 文章地址： {{url}}/{{title}}
+# url of article
+permalink: /:title
+
 
 # 分页功能
-# todo 将文章地址变成 年 月 日 ，不要标签
 # Pagination Settings v2
 pagination:
   enabled: true
   per_page: 5
-  permalink: /:year/:month/:day/:title
+
 
 
 
