@@ -23,7 +23,6 @@ url: "https://kyakya.icu"  # the base hostname & protocol for your site, e.g. ht
 
 
 
-
 # MatJek 该样式特殊的配置 https://shawnteoh.github.io/matjek
 # MatJek specific configurations
 github_profile: "https://github.com/caliburn1994"
@@ -37,7 +36,9 @@ disqus_shortname: "jiu-qian-ya-de-bo-ke"
 #编码
 encoding: UTF-8
 
+
 # Build settings
+# Markdown显示方式、插件
 markdown: kramdown
 plugins:
   - jekyll-feed
@@ -49,17 +50,21 @@ plugins:
 exclude:
   - Gemfile
   - Gemfile.lock
+
+# 资源
+# resource
 sass:
   style: compressed
-future: true
 
-# Pagination Settings v1
-repository: ShawnTeoh/matjek  #todo 这是什么？
 
-# 文章存储模式 文章地址： {{url}}/{{title}}
-# url of article
-permalink: /:title
+# github 仓库地址，用于读取仓库内信息
+# 暂时没任何作用
+repository: caliburn1994/caliburn1994.github.io
 
+
+# article
+permalink: /:title  # 文章地址 ，url of article  {{url}}/{{title}}
+future: true  # 允许日期为未来，allow date is future
 
 # 分页功能
 # Pagination Settings v2
