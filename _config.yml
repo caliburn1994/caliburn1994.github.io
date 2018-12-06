@@ -18,25 +18,29 @@ description: > # this means to ignore newlines until "baseurl:"
   Material theme based on <a href="http://materializecss.com">Materialize.css</a> for jekyll sites
 baseurl: "" # the subpath of your site, e.g. /blog
 # 用于disqus
+# for disqus
 url: "https://kyakya.icu"  # the base hostname & protocol for your site, e.g. http://example.com
-
 
 
 
 # MatJek 该样式特殊的配置 https://shawnteoh.github.io/matjek
 # MatJek specific configurations
-github_profile: "https://github.com/caliburn1994"
+
 user: "九千鸦"
 user_email: "caliburn1994@gmail.com"
 contact_url: "https://twitter.com/caliburn1994"
 google_tracking_id: "UA-121898091-1"
 google_site_verification: "UA-121898091-1"
 disqus_shortname: "jiu-qian-ya-de-bo-ke"
+github_profile: "https://github.com/caliburn1994"
+
 
 #编码
 encoding: UTF-8
 
+
 # Build settings
+# Markdown显示方式、插件
 markdown: kramdown
 plugins:
   - jekyll-feed
@@ -48,17 +52,21 @@ plugins:
 exclude:
   - Gemfile
   - Gemfile.lock
+
+# 资源
+# resource
 sass:
   style: compressed
-future: true
 
-# Pagination Settings v1
-repository: ShawnTeoh/matjek  #todo 这是什么？
 
-# 文章存储模式 文章地址： {{url}}/{{title}}
-# url of article
-permalink: /:title
+# github 仓库地址，用于读取仓库内信息
+# 暂时没任何作用
+repository: caliburn1994/caliburn1994.github.io
 
+
+# article
+permalink: /:title  # 文章地址 ，url of article  {{url}}/{{title}}
+future: true  # 允许日期为未来，allow date is future
 
 # 分页功能
 # Pagination Settings v2
