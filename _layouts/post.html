@@ -7,7 +7,7 @@ js: ["post.js"]
     <div class=" col s9 offset-s1">
 
         <div id="post-info">
-            <h3>{{page.title}}</h3>
+            <h1>{{page.title}}</h1>
             <ul class="collapsible hoverable" data-collapsible="accordion">
                 <li>
                     <div class="collapsible-header">
@@ -42,12 +42,12 @@ js: ["post.js"]
             </ul>
         </div>
         <div class="divider"></div>
-        <div class="row">
+        <div class="row" id="post-content">
             <div class="col s12">
 
                 <!--toc目录-->
                 <div id="toc_container">
-                    <p class="toc_title">Contents</p>
+                    <p class="toc_title">目录</p>
                     {% include toc.html html=content class="toc_list" ordered="true" %}
                 </div>
 
