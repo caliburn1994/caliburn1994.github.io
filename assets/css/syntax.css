@@ -1,164 +1,173 @@
-.highlight table td { padding: 5px; }
-.highlight table pre { margin: 0; }
+/*.highlight table td { padding: 5px; }*/
+/*.highlight table pre { margin: 0; }*/
 .highlight {
-  color: #faf6e4;
-  background-color: #122b3b;
+    background-color: #dddddd;
+    padding: 10px;
+    margin: 0px;
 }
-.highlight .gl {
-  color: #dee5e7;
-  background-color: #4e5d62;
+
+
+.highlight .hll {
+    background-color: #ffffcc
 }
-.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
-  color: #6c8b9f;
-  font-style: italic;
+
+.highlight .c {
+    color: #008000
 }
-.highlight .cp {
-  color: #b2fd6d;
-  font-weight: bold;
-  font-style: italic;
-}
+
+/* Comment */
 .highlight .err {
-  color: #fefeec;
-  background-color: #cc0000;
+    border: 1px solid #FF0000
 }
-.highlight .gr {
-  color: #fefeec;
-  background-color: #cc0000;
+
+/* Error */
+.highlight .k {
+    color: #0000ff
 }
-.highlight .k, .highlight .kd, .highlight .kv {
-  color: #f6dd62;
-  font-weight: bold;
+
+/* Keyword */
+.highlight .cm {
+    color: #008000
 }
-.highlight .o, .highlight .ow {
-  color: #4df4ff;
+
+/* Comment.Multiline */
+.highlight .cp {
+    color: #0000ff
 }
-.highlight .p, .highlight .pi {
-  color: #4df4ff;
+
+/* Comment.Preproc */
+.highlight .c1 {
+    color: #008000
 }
-.highlight .gd {
-  color: #cc0000;
+
+/* Comment.Single */
+.highlight .cs {
+    color: #008000
 }
-.highlight .gi {
-  color: #b2fd6d;
-}
+
+/* Comment.Special */
 .highlight .ge {
-  font-style: italic;
+    font-style: italic
 }
-.highlight .gs {
-  font-weight: bold;
-}
-.highlight .gt {
-  color: #dee5e7;
-  background-color: #4e5d62;
-}
-.highlight .kc {
-  color: #f696db;
-  font-weight: bold;
-}
-.highlight .kn {
-  color: #ffb000;
-  font-weight: bold;
-}
-.highlight .kp {
-  color: #ffb000;
-  font-weight: bold;
-}
-.highlight .kr {
-  color: #ffb000;
-  font-weight: bold;
-}
+
+/* Generic.Emph */
 .highlight .gh {
-  color: #ffb000;
-  font-weight: bold;
+    font-weight: bold
 }
+
+/* Generic.Heading */
+.highlight .gp {
+    font-weight: bold
+}
+
+/* Generic.Prompt */
+.highlight .gs {
+    font-weight: bold
+}
+
+/* Generic.Strong */
 .highlight .gu {
-  color: #ffb000;
-  font-weight: bold;
+    font-weight: bold
 }
+
+/* Generic.Subheading */
+.highlight .kc {
+    color: #0000ff
+}
+
+/* Keyword.Constant */
+.highlight .kd {
+    color: #0000ff
+}
+
+/* Keyword.Declaration */
+.highlight .kn {
+    color: #0000ff
+}
+
+/* Keyword.Namespace */
+.highlight .kp {
+    color: #0000ff
+}
+
+/* Keyword.Pseudo */
+.highlight .kr {
+    color: #0000ff
+}
+
+/* Keyword.Reserved */
 .highlight .kt {
-  color: #b2fd6d;
-  font-weight: bold;
+    color: #2b91af
 }
-.highlight .no {
-  color: #b2fd6d;
-  font-weight: bold;
+
+/* Keyword.Type */
+.highlight .s {
+    color: #a31515
 }
+
+/* Literal.String */
 .highlight .nc {
-  color: #b2fd6d;
-  font-weight: bold;
+    color: #2b91af
 }
-.highlight .nd {
-  color: #b2fd6d;
-  font-weight: bold;
+
+/* Name.Class */
+.highlight .ow {
+    color: #0000ff
 }
-.highlight .nn {
-  color: #b2fd6d;
-  font-weight: bold;
+
+/* Operator.Word */
+.highlight .sb {
+    color: #a31515
 }
-.highlight .bp {
-  color: #b2fd6d;
-  font-weight: bold;
-}
-.highlight .ne {
-  color: #b2fd6d;
-  font-weight: bold;
-}
-.highlight .nl {
-  color: #ffb000;
-  font-weight: bold;
-}
-.highlight .nt {
-  color: #ffb000;
-  font-weight: bold;
-}
-.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
-  color: #f696db;
-  font-weight: bold;
-}
-.highlight .ld {
-  color: #f696db;
-  font-weight: bold;
-}
-.highlight .ss {
-  color: #f696db;
-  font-weight: bold;
-}
-.highlight .s, .highlight .sb, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
-  color: #fff0a6;
-  font-weight: bold;
-}
-.highlight .se {
-  color: #4df4ff;
-  font-weight: bold;
-}
+
+/* Literal.String.Backtick */
 .highlight .sc {
-  color: #4df4ff;
-  font-weight: bold;
+    color: #a31515
 }
+
+/* Literal.String.Char */
+.highlight .sd {
+    color: #a31515
+}
+
+/* Literal.String.Doc */
+.highlight .s2 {
+    color: #a31515
+}
+
+/* Literal.String.Double */
+.highlight .se {
+    color: #a31515
+}
+
+/* Literal.String.Escape */
+.highlight .sh {
+    color: #a31515
+}
+
+/* Literal.String.Heredoc */
 .highlight .si {
-  color: #4df4ff;
-  font-weight: bold;
+    color: #a31515
 }
-.highlight .nb {
-  font-weight: bold;
+
+/* Literal.String.Interpol */
+.highlight .sx {
+    color: #a31515
 }
-.highlight .ni {
-  color: #999999;
-  font-weight: bold;
+
+/* Literal.String.Other */
+.highlight .sr {
+    color: #a31515
 }
-.highlight .w {
-  color: #BBBBBB;
+
+/* Literal.String.Regex */
+.highlight .s1 {
+    color: #a31515
 }
-.highlight .nf {
-  color: #a8e1fe;
+
+/* Literal.String.Single */
+.highlight .ss {
+    color: #a31515
 }
-.highlight .py {
-  color: #a8e1fe;
-}
-.highlight .na {
-  color: #a8e1fe;
-}
-.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi {
-  color: #a8e1fe;
-  font-weight: bold;
-}
+
+/* Literal.String.Symbol */

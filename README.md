@@ -15,6 +15,17 @@
 新增模板：
 
 - 相册模板。（不完整，硬代码）（死宅模块）
+- TOC https://github.com/allejo/jekyll-toc
+
+
+本地启动：bundle exec jekyll serve
+https://jekyllrb.com/docs/
+
+
+代码块样式文件
+
+- syntax.css
+
 
 
 
