@@ -1,14 +1,9 @@
 @charset "UTF-8";
 
+
 @font-face {
-  font-family: "BlackHanSans-Regular";
-  src: url("BlackHanSans-Regular.woff2") format("woff2"),
-       url("BlackHanSans-Regular.woff") format("woff"),
-       url("BlackHanSans-Regular.ttf") format("truetype"),
-       url("BlackHanSans-Regular.eot") format("embedded-opentype"),
-       url("BlackHanSans-Regular.svg") format("svg");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "Helvetica";
+    src: url('Helvetica.ttf') format('truetype');
 }
 
 @font-face {
@@ -20,3 +15,11 @@
     font-family: "header_Chinese";
     src: url('xiaotuheitijian_downcc/迪斯尼美丽心情.ttf') format('truetype');
 }
+
+
+
+@font-face {
+    font-family: dongqingheiti;
+    src: url("dongqingheiti/冬青黑体W3.otf") format("opentype");
+}
+
