@@ -7,6 +7,7 @@
        url("BlackHanSans-Regular.ttf") format("truetype"),
        url("BlackHanSans-Regular.eot") format("embedded-opentype"),
        url("BlackHanSans-Regular.svg") format("svg");
+       url("Tahu!.ttf") format("Tahu");
   font-weight: normal;
   font-style: normal;
 }
