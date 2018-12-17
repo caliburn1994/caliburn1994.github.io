@@ -1,11 +1,11 @@
 ---
-layout: pagination
-permalink: /issues/
-title : fix the world 修理厂
+layout: moments
+permalink: /moments/
+title : Moments 动态站
 pagination:  # https://github.com/sverrirs/jekyll-paginate-v2 请使用搜索功能查找配置与例子
   enabled: true
   per_page: 5
-  category: issues #文件夹名字
+  category: moments #文件夹名字
   permalink: /:num/
   trail: 
     before: 4 # The number of links before the current page
@@ -13,4 +13,5 @@ pagination:  # https://github.com/sverrirs/jekyll-paginate-v2 请使用搜索功
   sort_field: 'date' # 排序顺序
   sort_reverse: true # 倒序
 ---
+
 
