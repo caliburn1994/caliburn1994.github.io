@@ -1,25 +1,4 @@
 @charset "UTF-8";
 
 
-@font-face {
-    font-family: "Helvetica";
-    src: url('Helvetica.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: "Tahu";
-    src: url('AprilFool_winTT/APRIFA__.TTF');
-}
-
-@font-face {
-    font-family: "header_Chinese";
-    src: url('xiaotuheitijian_downcc/迪斯尼美丽心情.ttf') format('truetype');
-}
-
-
-
-@font-face {
-    font-family: dongqingheiti;
-    src: url("dongqingheiti/冬青黑体W3.otf") format("opentype");
-}
 
