@@ -8,7 +8,7 @@
 
   - 软文章（Home）
   - 硬文章（issue），用于处理代码中遇到的各种细节，范围小且常常带有时效性。
-  - 心情动态，表达个人的想法。（待完整）
+  - 心情动态，表达个人的想法。
 
   而硬文章统一不使用标签，因为硬文章仅仅用于解决问题而不是任何的讨论。
 
@@ -18,13 +18,20 @@
 - TOC https://github.com/allejo/jekyll-toc
 
 
+
+
+
 本地启动：bundle exec jekyll serve
 https://jekyllrb.com/docs/
+
+
+
 
 
 代码块样式文件
 
 - syntax.css
+
 
 
 
