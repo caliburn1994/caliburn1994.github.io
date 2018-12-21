@@ -4,7 +4,7 @@ title: personal block代替品
 date :  2018-12-21 21:09
 comments: 1
 typora-root-url: ..
-excerpt: personal block代替品
+excerpt:
 ---
 
 ## 正文
@@ -13,13 +13,13 @@ excerpt: personal block代替品
 
 ![1545397937486](/../assets/blog_res/1545397937486.png)
 
-插件地址：https://chrome.google.com/webstore/detail/ublacklist/pncfbmialoiaghdehhbnbhkkgmjanfhe
+插件地址：[https://chrome.google.com/webstore/detail/ublacklist/pncfbmialoiaghdehhbnbhkkgmjanfhe](https://chrome.google.com/webstore/detail/ublacklist/pncfbmialoiaghdehhbnbhkkgmjanfhe)
 
-Github地址：https://github.com/iorate/uBlacklist
+Github地址：[https://github.com/iorate/uBlacklist](https://github.com/iorate/uBlacklist)
+
+信息来源：[https://www.reddit.com/r/chrome/comments/8dqoru/is_personal_blocklist_dead/](https://www.reddit.com/r/chrome/comments/8dqoru/is_personal_blocklist_dead/)
 
 <br>
-
-信息来源：https://www.reddit.com/r/chrome/comments/8dqoru/is_personal_blocklist_dead/
 
 ## 感想
 
