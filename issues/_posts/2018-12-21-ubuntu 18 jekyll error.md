@@ -24,7 +24,7 @@ which ruby
 
 <br>
 
-思路：
+## 思路
 
 - [重装ruby](https://jekyllrb.com/docs/installation/windows/)
 - 设置环境变量
