@@ -24,7 +24,7 @@ cmd是什么？
 
 ##### 1. cmd是一个exe文件
 
-![1542338002203](/assets/blog_res/what is cmd(1).png)
+![1542338002203](/../assets/blog_res/what is cmd(1).png)
 
 同类的文件有：java.exe、git.exe、ping.exe等软件。这些软件通过在环境变量。
 
