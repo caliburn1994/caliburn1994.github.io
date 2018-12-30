@@ -1,6 +1,6 @@
 ---
 layout: default
-css: ["post.css"]
+css: ["post.css","series.css"]
 js: ["post.js"]
 ---
 <div class="row">
@@ -14,9 +14,15 @@ js: ["post.js"]
         <span>
           <i class="material-icons tooltipped" data-position="left" data-delay="30" data-tooltip="Date">date_range</i>
           {{page.date | date: "%d/%m/%Y %H:%M"}}
+
+            <!--<i class="material-icons tooltipped" data-position="center">update</i>-->
+            <!--{{page.last_modified_at | date: "%d/%m/%Y %H:%M"}}-->
+
           <i id="indicate" class="right material-icons tooltipped" data-position="left" data-delay="30"
              data-tooltip="Show extra info">info</i>
         </span>
+
+
                     </div>
                     <div class="collapsible-body">
         <span>
@@ -45,11 +51,15 @@ js: ["post.js"]
         <div class="row" id="post-content">
             <div class="col s12">
 
-                <!--toc目录-->
-                <div id="toc_container">
-                    <p class="toc_title">目录</p>
-                    {% include toc.html html=content class="toc_list" ordered="true" %}
-                </div>
+
+                {% include series.html %}
+
+
+                {% include toc.html html=content id="toc_container" ordered="true" %}
+                <script type="text/javascript">
+                    var parent = document.getElementById('toc_container')
+                    parent.innerHTML = '<p class="toc_title">目录</p>' + parent.innerHTML
+                </script>
 
 
                 <section itemprop="articleBody">
@@ -73,6 +83,8 @@ js: ["post.js"]
         </script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
             Disqus.</a></noscript>
+
+
     </div>
 </div>
 {% endif %}
