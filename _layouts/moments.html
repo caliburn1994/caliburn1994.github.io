@@ -9,7 +9,6 @@ css: ["index.css"]
     <div class="col s8 offset-s2">
         <div class="card hoverable">
             <div class="card-content">
-                <!--<span id="post-title" class="card-title">{{post.title}}</span>-->
                 <p id="post-date">
                     <i class="material-icons">date_range</i>
                     {{post.date | date: "%d/%m/%Y %H:%M"}}
@@ -17,69 +16,14 @@ css: ["index.css"]
                 <p id="post-content">{{post.content | remove: '
                 <p>' | remove: '</p>'}}</p>
             </div>
-<!--            <div class="card-action">
-                <a href="{{post.url | prepend: site.baseurl}}">
-                    Read More
-                </a>
-            </div>-->
         </div>
     </div>
     {% endfor %}
-
     <!-- 分页功能 end-->
 
+    {% include page_number.html %}
 
 
-    <div class="col s12 center-align">
-        <!--参考：https://github.com/sverrirs/jekyll-paginate-v2/blob/7a15647777b12795515ffacbf3b9c09bc9b7f452/examples/03-tags/_layouts/home.html-->
-
-        {% if paginator.total_pages > 1 %}
-        <ul class="pagination">
-            {% if paginator.first_page %}
-            <li class="previous">
-                <a href="{{ paginator.first_page_path | prepend: site.baseurl | replace: '//', '/' }}">
-                    <i class="material-icons">first_page</i>
-                </a>
-            </li>
-            {% endif %}
-
-            {% if paginator.previous_page %}
-            <li class="previous">
-                <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">
-                    <i class="material-icons">chevron_left</i>
-                </a>
-            </li>
-            {% endif %}
-
-            {% if paginator.page_trail %}
-            {% for trail in paginator.page_trail %}
-            <li {% if page.url == trail.path %}class="selected"{% endif %}>
-                <a href="{{ trail.path | prepend: site.baseurl | replace: '//', '/' }}" title="{{trail.title}}">{{ trail.num }}</a>
-            </li>
-            {% endfor %}
-            {% endif %}
-
-            {% if paginator.next_page %}
-            <li class="next">
-                <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">
-                    <i class="material-icons">chevron_right</i>
-                </a>
-            </li>
-            {% endif %}
-
-            {% if paginator.last_page %}
-            <li class="previous">
-                <a href="{{ paginator.last_page_path | prepend: site.baseurl | replace: '//', '/' }}">
-                    <i class="material-icons">last_page</i>
-                </a>
-            </li>
-            {% endif %}
-        </ul>
-        {% endif %}
-
-
-
-    </div>
 </div>
 <div id="myModal" class="modal">
 

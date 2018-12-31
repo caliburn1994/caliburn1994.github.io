@@ -1,7 +1,20 @@
 ---
-layout: default
-css: ["index.css"]
+layout: page
+permalink: /private/
+title: 私人档案
+pagination:
+    enabled: true
+    per_page: 5
+    category: private #文件夹名字
+    permalink: /:num/
+    trail:
+    before: 4 # The number of links before the current page
+    after: 4  # The number of links after the current page
+    sort_field: 'date' # 排序顺序
+    sort_reverse: true # 倒序
 ---
+
+
 
 <div class="row">
     <!--分页功能-->
@@ -14,8 +27,6 @@ css: ["index.css"]
                     <i class="material-icons">date_range</i>
                     {{post.date | date: "%d/%m/%Y %H:%M"}}
                 </p>
-                <p id="post-content">{{post.excerpt | remove: '
-                <p>' | remove: '</p>'}}</p>
             </div>
             <div class="card-action">
                 <a href="{{post.url | prepend: site.baseurl}}">
@@ -28,19 +39,8 @@ css: ["index.css"]
 
     <!-- 分页功能 -->
 
+
     {% include page_number.html %}
 
 
-
-</div>
-<div id="myModal" class="modal">
-
-    <!-- The Close Button -->
-    <span class="close">&times;</span>
-
-    <!-- Modal Content (The Image) -->
-    <img class="modal-content" id="img01">
-
-    <!-- Modal Caption (Image Text) -->
-    <div id="caption"></div>
 </div>
