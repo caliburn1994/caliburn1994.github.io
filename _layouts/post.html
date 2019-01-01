@@ -1,6 +1,6 @@
 ---
 layout: default
-css: ["post.css","series.css"]
+css: ["post.css"]
 js: ["post.js"]
 ---
 <div class="row">
@@ -52,9 +52,8 @@ js: ["post.js"]
             <div class="col s12">
 
 
-                {% include series.html %}
 
-
+                <!--目录-->
                 {% include toc.html html=content id="toc_container" ordered="true" %}
                 <script type="text/javascript">
                     var parent = document.getElementById('toc_container')
@@ -67,6 +66,12 @@ js: ["post.js"]
                 </section>
             </div>
         </div>
+
+
+        <!--系列-->
+        {% include series.html %}
+
+        <!--评论-->
         {% if site.disqus_shortname and page.comments %}
         <div id="disqus_thread"></div>
         <script>

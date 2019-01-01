@@ -12,22 +12,26 @@
 {% endfor %}
 
 
-<div class="panel seriesNote">
-    <p>This article is <strong>Part {{ idx }}</strong> in a <strong>{{ page.series }}-Part</strong> Series.</p>
-    <ul>
+<!-- 参考地址：https://digitaldrummerj.me/blogging-on-github-part-13-creating-an-article-series/-->
+<br>
+<div class="col s9 offset-s1">
+    <div class="collection ">
+        <div class="collection-header" style="border-bottom:1px solid #e0e0e0">
+            <h3 style="padding-left: 15px;"> 「{{ page.series }}」 系列文章</h3></div>
+
         {% assign count = '0' %}
         {% for post in site.posts reversed %}
         {% if post.series == page.series %}
         {% capture count %}{{ count | plus: '1' }}{% endcapture %}
-        <li>Part {{ count }} -
-            {% if page.url == post.url %}
-            This Article
-            {% else %}
-            <a href="{{post.url}}">{{post.title}}</a>
-            {% endif %}
-        </li>
+
+        {% if page.url == post.url %}
+        <div class="collection-item ">Part {{ count }} -{{ page.title }}</div>
+        {% else %}
+        <a class="collection-item" href="{{post.url}}" class>Part {{ count }} -{{post.title}}</a>
+        {% endif %}
+
         {% endif %}
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endif %}
