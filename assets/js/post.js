@@ -1,7 +1,57 @@
-$(document).ready(function(){
-  $('figure.highlight').each(function(x, r){
-    if ($(r).find('table').length < 1){
-      $(r).find('pre').css('padding', '5px');
-    }
-  });
+$(document).ready(function () {
+    $('figure.highlight').each(function (x, r) {
+        if ($(r).find('table').length < 1) {
+            $(r).find('pre').css('padding', '5px');
+        }
+    });
+
+
+    //modal
+    addModal('#post-content')
+
+    addModalListener()
+
 });
+
+
+function addModal(afterId) {
+
+    jQuery("abbr").each(function () {
+        var href = this.parentElement.getAttribute("href").replace("#", "")
+        var content = this.getAttribute("title")
+
+        //add modal
+        var result = "<div id=\"" + href + "\" " +
+            "class=\"modal\" style='width:fit-content; width:-webkit-fit-content; width:-moz-fit-content;max-width:50%'>\n " +
+            "  <div class=\"modal-content\">\n" + content + "\n " +
+            " </div>\n" +
+            "</div>"
+        $(result).insertAfter(afterId)
+
+
+        //修改样式
+        $(this.parentElement).html(
+            $(this).text()
+        )
+            .css("border-bottom", "1px dotted #000")
+            .css("text-decoration", "none")
+    })
+
+    //remove abbr
+
+};
+
+function addModalListener() {
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $(document).ready(function () {
+        $('.modal').modal();
+    });
+
+}
+

@@ -1,6 +1,6 @@
 ---
 layout: default
-css: ["post/github.css","post/toc.css"]
+css: ["post/github.css","post/toc.css","post/other.css"]
 js: ["post.js"]
 ---
 <div class="row">
@@ -52,7 +52,6 @@ js: ["post.js"]
             <div class="col s12">
 
 
-
                 <!--目录-->
                 {% include toc.html html=content id="toc_container" ordered="true" %}
                 <script type="text/javascript">
@@ -60,16 +59,22 @@ js: ["post.js"]
                     parent.innerHTML = '<p class="toc_title">目录</p>' + parent.innerHTML
                 </script>
 
-
+                <!--文章-->
                 <section itemprop="articleBody">
                     {{ content }}
                 </section>
+
+                <!--系列-->
+                {% include series.html %}
+
+
+                <!-- abbr 的modal模式-->
+
             </div>
         </div>
 
 
-        <!--系列-->
-        {% include series.html %}
+
 
         <!--评论-->
         {% if site.disqus_shortname and page.comments %}
