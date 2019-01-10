@@ -6,12 +6,16 @@ $(document).ready(function () {
     });
 
 
-    //modal
+    //abbr的modal模块
     addModal('#post-content')
 
     addModalListener()
 
+
+    //为Toc添加标题
+    addTitleForTOC()
 });
+
 
 
 function addModal(afterId) {
@@ -55,3 +59,12 @@ function addModalListener() {
 
 }
 
+
+function addTitleForTOC() {
+
+    const toc=$('#toc_container')
+
+    toc.html(
+        '<p class="toc_title">目录</p>' + toc.html()
+    )
+}
