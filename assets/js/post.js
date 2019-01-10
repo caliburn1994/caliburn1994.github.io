@@ -1,3 +1,5 @@
+//import marked from  "marked.min"
+
 $(document).ready(function () {
     $('figure.highlight').each(function (x, r) {
         if ($(r).find('table').length < 1) {
@@ -27,7 +29,7 @@ function addModal(afterId) {
         //add modal
         var result = "<div id=\"" + href + "\" " +
             "class=\"modal\" style='width:fit-content; width:-webkit-fit-content; width:-moz-fit-content;max-width:50%'>\n " +
-            "  <div class=\"modal-content\">\n" + content + "\n " +
+            "  <div class=\"modal-content\">\n" + marked(content)  + "\n " +
             " </div>\n" +
             "</div>"
         $(result).insertAfter(afterId)
