@@ -53,11 +53,9 @@ js: ["post.js"]
 
 
                 <!--目录-->
-                {% include toc.html html=content id="toc_container" ordered="true" %}
-                <script type="text/javascript">
-                    var parent = document.getElementById('toc_container')
-                    parent.innerHTML = '<p class="toc_title">目录</p>' + parent.innerHTML
-                </script>
+
+                {% include toc.html html=content id="toc_container" ordered=true %}
+                <!-- func:addTitleForTOC-->
 
                 <!--文章-->
                 <section itemprop="articleBody">
@@ -69,6 +67,7 @@ js: ["post.js"]
 
 
                 <!-- abbr 的modal模式-->
+                <!-- func:addModal addModalListener -->
 
             </div>
         </div>

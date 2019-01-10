@@ -8,26 +8,48 @@
   display: table
   font-size: 95%
   margin-bottom: 1em
-  padding: 20px
+  padding: 12px
   width: auto
-  margin-top: 5px
+  margin-top: 15px
+  //margin-top: 5px
 
 
 
 .toc_title
   font-weight: 700
+  margin-bottom: 4.277px
   text-align: center
 
 
 #toc_container
+  counter-reset: section
+  list-style-type: none
+
   li
-    list-style: outside none none !important
+    //list-style-position: inside
+    //list-style: outside none none !important
+    margin-bottom: 1.426px
 
-  ul
-    list-style: outside none none !important
+  li::before
+    //width: 3px
+    //display: inline-block
+    //font-size: 100%
+    //font-weight: bold
+    counter-increment: section
+    content: counters(section, ".") " "
 
-    li
-      list-style: outside none none !important
 
   ol
+    //list-style-position: inside
     padding-left: 20px
+    counter-reset: section                /* 为每个ol元素创建新的计数器实例 */
+    list-style-type: none
+
+
+
+
+
+
+
+
+
