@@ -76,22 +76,45 @@ js: ["post.js","marked.min.js"]
 
 
         <!--评论-->
-        {% if site.disqus_shortname and page.comments %}
-        <div id="disqus_thread"></div>
+        <!--{% if site.disqus_shortname and page.comments %}-->
+        <!--<div id="disqus_thread"></div>-->
+        <!--<script>-->
+            <!--var disqus_config = function () {-->
+                <!--this.page.url = "{{site.url}}{{site.baseurl}}{{page.url}}";-->
+                <!--this.page.identifier = "{{page.id}}";-->
+            <!--};-->
+            <!--(function () { // DON'T EDIT BELOW THIS LINE-->
+                <!--var d = document, s = d.createElement('script');-->
+                <!--s.src = '//{{site.disqus_shortname}}.disqus.com/embed.js';-->
+                <!--s.setAttribute('data-timestamp', +new Date());-->
+                <!--(d.head || d.body).appendChild(s);-->
+            <!--})();-->
+        <!--</script>-->
+        <!--<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by-->
+            <!--Disqus.</a></noscript>-->
+
+        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+        <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
         <script>
-            var disqus_config = function () {
-                this.page.url = "{{site.url}}{{site.baseurl}}{{page.url}}";
-                this.page.identifier = "{{page.id}}";
-            };
-            (function () { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-                s.src = '//{{site.disqus_shortname}}.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
+            const gitment = new Gitment({
+                id: 'Your page ID', // optional
+                owner: 'caliburn1994',
+                repo: 'gitment',
+                oauth: {
+                    client_id: '42072e5ad65b357c17de',
+                    client_secret: '3fa23bb75c346c1fb4dde2a0502df0d74cdddcc8',
+                },
+                // ...
+                // For more available options, check out the documentation below
+            })
+
+            gitment.render('comments')
+            // or
+            // gitment.render(document.getElementById('comments'))
+            // or
+            // document.body.appendChild(gitment.render())
         </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
-            Disqus.</a></noscript>
+
 
 
     </div>
