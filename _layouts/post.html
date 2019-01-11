@@ -97,8 +97,15 @@ js: ["post.js","marked.min.js"]
         <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
         <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
         <script>
+            var str='{{ page.title }}';
+            var id = str;
+            if(str.length>=45){
+                id=str.substring(0,45)+"...";
+            }
+
+
             const gitment = new Gitment({
-                // id: 'comments', // optional
+                 id: id, // optional
                 owner: 'caliburn1994',
                 repo: 'gitment',
                 oauth: {
