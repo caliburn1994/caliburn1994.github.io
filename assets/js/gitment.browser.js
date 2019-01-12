@@ -2137,9 +2137,9 @@ var ObservableMap = function () {
     };
 
     //autor: caliburn1994
-    ObservableMap.prototype.reverse = function (callback, thisArg) {
+    /*ObservableMap.prototype.reverse = function (callback, thisArg) {
         return this.keys().reverse()
-    };
+    };*/
 
 
     ObservableMap.prototype.merge = function (other) {
