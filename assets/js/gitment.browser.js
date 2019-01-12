@@ -2935,12 +2935,12 @@ function renderComments(_ref2, instance) {
 
   comments.forEach(function (comment) {
     //caliburn1994 添加的
-      console.info(comment.user.login)
-      console.info(instance.owner)
+    //   console.info(comment.user.login)
+    //   console.info(instance.owner)
     if(comment.user.login.toLowerCase()!=instance.owner.toLowerCase()){
         return
     }
-
+    //---
 
 
     var createDate = new Date(comment.created_at);
