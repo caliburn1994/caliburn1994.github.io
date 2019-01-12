@@ -2936,10 +2936,10 @@ function renderComments(_ref2, instance) {
   comments.forEach(function (comment) {
     //caliburn1994 添加的
       console.info(comment.user.login)
-      console.info(this.owner)
-    // if(comment.user.login!=this.owner){
-    //     return
-    // }
+      console.info(instance.owner)
+    if(comment.user.login.toLowerCase()!=instance.owner.toLowerCase()){
+        return
+    }
 
 
 
