@@ -2935,9 +2935,9 @@ function renderComments(_ref2, instance) {
 
   comments.forEach(function (comment) {
     //caliburn1994 添加的
-    if(comment.user.login!=this.owner){
-        return
-    }
+    // if(comment.user.login!=this.owner){
+    //     return
+    // }
 
 
 
