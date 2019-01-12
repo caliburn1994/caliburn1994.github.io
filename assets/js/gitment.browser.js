@@ -2135,6 +2135,13 @@ var ObservableMap = function () {
             return callback.call(thisArg, _this.get(key), key, _this);
         });
     };
+
+    //autor: caliburn1994
+    ObservableMap.prototype.reverse = function (callback, thisArg) {
+        return this.keys().reverse()
+    };
+
+
     ObservableMap.prototype.merge = function (other) {
         var _this = this;
         if (isObservableMap(other)) {
@@ -2933,10 +2940,10 @@ function renderComments(_ref2, instance) {
   var commentsList = document.createElement('ul');
   commentsList.className = 'gitment-comments-list';
 
-  comments.forEach(function (comment) {
+
+
+    comments.reverse().forEach(function (comment) {
     //caliburn1994 添加的
-    //   console.info(comment.user.login)
-    //   console.info(instance.owner)
     if(comment.user.login.toLowerCase()!=instance.owner.toLowerCase()){
         return
     }
