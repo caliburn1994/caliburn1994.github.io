@@ -2141,7 +2141,7 @@
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
-    font-family: sans-serif;
+    /*font-family: sans-serif;*/
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%
 }
@@ -2664,7 +2664,7 @@ table, th, td {
 }
 
 table {
-    width: 100%;
+    /*width: 100%;*/
     display: table
 }
 
@@ -4322,7 +4322,7 @@ nav .input-field label.active i {
     }
 }
 
-@font-face {
+/*@font-face {
     font-family: "Roboto";
     src: local(Roboto Thin), url("https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/fonts/roboto/Roboto-Thin.woff2") format("woff2"), url("https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/fonts/roboto/Roboto-Thin.woff") format("woff");
     font-weight: 100
@@ -4350,7 +4350,7 @@ nav .input-field label.active i {
     font-family: "Roboto";
     src: local(Roboto Bold), url("https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/fonts/roboto/Roboto-Bold.woff2") format("woff2"), url("https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/fonts/roboto/Roboto-Bold.woff") format("woff");
     font-weight: 700
-}
+}*/
 
 a {
     text-decoration: none
@@ -4358,7 +4358,7 @@ a {
 
 html {
     line-height: 1.5;
-    font-family: "Roboto", sans-serif;
+    /*font-family: "Roboto", sans-serif;*/
     font-weight: normal;
     color: rgba(0, 0, 0, 0.87)
 }
