@@ -2229,10 +2229,10 @@ figure {
     margin: 1em 40px
 }
 
-hr {
+/*hr {
     box-sizing: content-box;
     height: 0
-}
+}*/
 
 pre {
     overflow: auto
