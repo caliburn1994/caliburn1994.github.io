@@ -5,6 +5,7 @@ date: 2017-08-13 19:14:57
 categories: 计算机
 tags: 安全 
 comments: 1
+series: "Java密码学"
 ---
 
 
@@ -13,7 +14,7 @@ comments: 1
 
 <br>
 
-##### 正文
+## JCA （Java Cryptography Architecture）
 
 **JCA开头的package的作用：将标准(java.security)和具体实现(BC的具体代码)进行转换。**
 
@@ -22,8 +23,7 @@ comments: 1
 例子：
 
 ```java
-	new JcaX509CertificateConverter().setProvider( "BC" )
-  .getCertificate( certificateHolder );
+new JcaX509CertificateConverter().setProvider( "BC" ).getCertificate( certificateHolder );
 ```
 这里就是将BC的X509CertificateHolder里的证书转换成java.security下的certificate类，他们虽然是同样的名字, 但是是两个不同的类。
 
