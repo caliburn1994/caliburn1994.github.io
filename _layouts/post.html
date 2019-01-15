@@ -75,7 +75,7 @@ js: ["post.js","marked.min.js"]
 
 
 
-        <!--评论-->
+        <!--评论 comment-->
         {% if site.disqus_shortname and page.comments %}
         <div id="disqus_thread"></div>
         <script>
@@ -92,36 +92,6 @@ js: ["post.js","marked.min.js"]
         </script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
             Disqus.</a></noscript>
-
-        <!--<div id='comments'></div>-->
-        <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
-        <!--<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>-->
-        <!--<script>-->
-            <!--var str='{{ page.title }}';-->
-            <!--var id = str;-->
-            <!--if(str.length>=45){-->
-                <!--id=str.substring(0,45)+"...";-->
-            <!--}-->
-
-
-            <!--const gitment = new Gitment({-->
-                 <!--id: id, // optional-->
-                <!--owner: 'caliburn1994',-->
-                <!--repo: 'gitment',-->
-                <!--oauth: {-->
-                    <!--client_id: '42072e5ad65b357c17de',-->
-                    <!--client_secret: '3fa23bb75c346c1fb4dde2a0502df0d74cdddcc8',-->
-                <!--},-->
-                <!--// ...-->
-                <!--// For more available options, check out the documentation below-->
-            <!--})-->
-
-            <!--gitment.render('comments')-->
-            <!--// or-->
-            <!--// gitment.render(document.getElementById('comments'))-->
-            <!--// or-->
-            <!--// document.body.appendChild(gitment.render())-->
-        <!--</script>-->
 
 
 
