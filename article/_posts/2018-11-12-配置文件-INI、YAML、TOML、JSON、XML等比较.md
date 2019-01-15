@@ -118,18 +118,90 @@ hosts = [
 
 <br>
 
-##### JSON vs XML
+##### 键值对配置文件 vs XML
 
-![1541942640647](/assets/blog_res/1541942640647.png)
+![1541942640647](/../assets/blog_res/1541942640647.png)
 
-XML和JSON区别：XML能在标签上进行扩展。如果将JSON比喻成二维图，那么XML即三维图。
+XML在标签上可以进行扩展，**功能强大**。如果将键值对配置文件比喻成二维图，那么XML即三维图。然而，功能过于强大意味着复杂度也随之增大（这里体现除[约定优于配置](https://zh.wikipedia.org/zh-hans/%E7%BA%A6%E5%AE%9A%E4%BC%98%E4%BA%8E%E9%85%8D%E7%BD%AE)的重要性）。
 
 <br>
 
-##### 总结&&延申
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!---Students grades are uploaded by months---->
+<class_list>
+    <student>
+        <name>Tanmay</name>
+        <grade>A</grade>
+    </student>
+</class_list>
+```
+
+```toml
+# This is a TOML document.
+
+title = "TOML Example"
+
+[owner]
+name = "Tom Preston-Werner"
+dob = 1979-05-27T07:32:00-08:00 # First class dates
+```
+
+xml的注释过于同化（同样使用<>符号），难以阅读。单符号的注释，能使注释更接近普通文本。
+
+<br>
+
+##### 总结
 
 - INI文件：单层次的配置。
 - YAML、TOML：键值对形式存储，可以有多层次。在有IDE插件情况下，YAML和TOML没有区别。（显示的差异）
 - JSON：JSON是YAML的子集。用于数据传输，不用于配置文件。
 - XML：数据传输和配置文件均可。功能在JSON、YAML之上，但是可读性差。
 - HOCON：配置文件，但是有偏向于编程语言的的倾向。
+
+<br>
+
+<br>
+
+##### 延申
+
+每个仍处于领域，都会经历笼统到精细化，在这当中常常会将没有必要的东西去除，并根据自己领域的特殊性增加自己的需求。
+
+**例子：**
+
+Gralde不使用xml文件格式，原因之一是：Java使用者根本不需要使用到三维这种高度，这种高度的信息无疑是增加了复杂度。
+
+（1）
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+```
+
+在使用Maven时，我们常常会看到这段代码，这段代码做了以下事情
+
+- 添加了标签
+- 在Maven代码中配置标签的版本
+
+而作为开发者，根本不关心在打代码时，根本不想去了解标签的版本是多少，有什么标签（暴露过多信息越是容易造成bug）。而且无论是Maven还是Gradle，最终仍旧需要借助外部工具（Google、API文档）
+
+Gradle该点挺好的，通过plugins的形式将没有必要的信息隐藏。
+
+```groovy
+plugins {
+    id 'java'
+    id 'maven'
+}
+```
+
+从而达到，标签（插件）制作人和使用者的解耦。
+
+<br>
+
+（2）
+
+标签上的attribute可以使用子元素进行代替，根本不需要使用到attribute。HTML上使用到attribute的情况是为了区别**显示内容**与**属性**。而配置文件并没有显示内容。
+
+
+
