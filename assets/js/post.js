@@ -16,6 +16,9 @@ $(document).ready(function () {
 
     //为Toc添加标题
     addTitleForTOC()
+
+    //添加折叠代码功能
+    collapseCodesBlock()
 });
 
 
@@ -69,4 +72,23 @@ function addTitleForTOC() {
     toc.html(
         '<p class="toc_title">目录</p>' + toc.html()
     )
+}
+
+
+//collapse codes block
+function collapseCodesBlock(){
+    const codeBlock=$('.cxj_code')
+
+    codeBlock.html(
+        "<details>" +
+        "<summary>" +
+        codeBlock.html()+
+        "</summary>" +
+        codeBlock.next().html()+
+        "</details>"
+    )
+
+
+
+    codeBlock.next().remove()
 }
