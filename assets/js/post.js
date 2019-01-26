@@ -77,18 +77,25 @@ function addTitleForTOC() {
 
 //collapse codes block
 function collapseCodesBlock(){
-    const codeBlock=$('.cxj_code')
-
-    codeBlock.html(
-        "<details>" +
-        "<summary>" +
-        codeBlock.html()+
-        "</summary>" +
-        codeBlock.next().html()+
-        "</details>"
-    )
 
 
+    $('.cxj_code').each(function() {
 
-    codeBlock.next().remove()
+        if($(this).text() === '')$(this).text("详情")
+
+
+        $(this).html(
+            "<details>" +
+            "<summary>" +
+            $(this).html()+
+            "</summary>" +
+            $(this).next().html()+
+            "</details>"
+        )
+
+
+        $(this).next().remove()
+    });
+
+
 }

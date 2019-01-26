@@ -4427,7 +4427,8 @@ h6 {
 }
 
 em {
-    font-style: italic
+    font-style: normal;
+    color : #008080;
 }
 
 strong {
