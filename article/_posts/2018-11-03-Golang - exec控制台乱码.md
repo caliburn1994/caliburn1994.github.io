@@ -22,7 +22,7 @@ typora-root-url: ..
 
 操作系统：window 10
 
-IDE：Goland		
+IDE：[Goland](#Golang_abbr)		
 
 *[Goland]: intellij系列的go语言IDE编辑器。
 
