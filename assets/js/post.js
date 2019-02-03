@@ -22,17 +22,28 @@ $(document).ready(function () {
 });
 
 
-
 function addModal(afterId) {
 
+
     jQuery("abbr").each(function () {
-        var href = this.parentElement.getAttribute("href").replace("#", "")
+
+        var parentAttr = $(this).parent().attr("href")
+
+        var href;
+
+        if (parentAttr) {
+            href = parentAttr.replace("#", "")
+        } else {
+            return
+        }
+
+
         var content = this.getAttribute("title")
 
         //add modal
         var result = "<div id=\"" + href + "\" " +
             "class=\"modal\" style='width:fit-content; width:-webkit-fit-content; width:-moz-fit-content;max-width:50%'>\n " +
-            "  <div class=\"modal-content\">\n" + marked(content)  + "\n " +
+            "  <div class=\"modal-content\">\n" + marked(content) + "\n " +
             " </div>\n" +
             "</div>"
         $(result).insertAfter(afterId)
@@ -67,7 +78,7 @@ function addModalListener() {
 
 function addTitleForTOC() {
 
-    const toc=$('#toc_container')
+    const toc = $('#toc_container')
 
     toc.html(
         '<p class="toc_title">目录</p>' + toc.html()
@@ -76,20 +87,21 @@ function addTitleForTOC() {
 
 
 //collapse codes block
-function collapseCodesBlock(){
+//折叠代码
+function collapseCodesBlock() {
 
 
-    $('.cxj_code').each(function() {
+    $('.cxj_code').each(function () {
 
-        if($(this).text() === '')$(this).text("详情")
+        if ($(this).text() === '') $(this).text("详情")
 
 
         $(this).html(
             "<details>" +
             "<summary>" +
-            $(this).html()+
+            $(this).html() +
             "</summary>" +
-            $(this).next().html()+
+            $(this).next().html() +
             "</details>"
         )
 
