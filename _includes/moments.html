@@ -6,6 +6,10 @@
 
 <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="/assets/js/gitment.browser.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.0.slim.min.js"
+        integrity="sha256-ZaXnYkHGqIhqTbJ6MB4l9Frs/r7U4jlx7ir8PJYBqbI="
+        crossorigin="anonymous"></script>
 <script>
 
 
@@ -53,4 +57,9 @@
     // gitment.render(document.getElementById('comments'))
     // or
     // document.body.appendChild(gitment.render())
+    setTimeout(
+        function()
+        {
+            $('.gitment-comments-page-item')[0].click();
+        }, 50);
 </script>

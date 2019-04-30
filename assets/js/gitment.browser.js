@@ -2937,12 +2937,11 @@ function renderComments(_ref2, instance) {
     return container;
   }
 
+  // 评论倒序
   var commentsList = document.createElement('ul');
   commentsList.className = 'gitment-comments-list';
 
-
-
-    comments.forEach(function (comment) {
+  comments.reverse().forEach(function (comment) {
     //caliburn1994 添加的
     if(comment.user.login.toLowerCase()!=instance.owner.toLowerCase()){
         return
@@ -3026,7 +3025,7 @@ function renderComments(_ref2, instance) {
         pagination.appendChild(pageItem);
       };
 
-      for (var i = 1; i <= pageCount; i++) {
+      for (var i = pageCount; i >= 1; i--) {
         _loop(i);
       }
 
