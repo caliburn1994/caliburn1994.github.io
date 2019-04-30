@@ -2952,8 +2952,8 @@ function renderComments(_ref2, instance) {
     var createDate = new Date(comment.created_at);
     var updateDate = new Date(comment.updated_at);
 
-    var create_Date_string = createDate.getFullYear() + "-" + createDate.getMonth() + "-" + createDate.getDate() + " " + createDate.getHours() + ":" + createDate.getMinutes();
-    var update_Date_string = updateDate.getFullYear() + "-" + updateDate.getMonth() + "-" + updateDate.getDate() + " " + updateDate.getHours() + ":" + updateDate.getMinutes();
+    var create_Date_string = createDate.getFullYear() + "-" + (createDate.getMonth()+1) + "-" + createDate.getDate() + " " + createDate.getHours() + ":" + createDate.getMinutes();
+    var update_Date_string = updateDate.getFullYear() + "-" + (updateDate.getMonth()+1) + "-" + updateDate.getDate() + " " + updateDate.getHours() + ":" + updateDate.getMinutes();
 
     var commentItem = document.createElement('li');
     commentItem.className = 'gitment-comment';
