@@ -2942,12 +2942,11 @@ function renderComments(_ref2, instance) {
 
 
 
-    comments.reverse().forEach(function (comment) {
+    comments.forEach(function (comment) {
     //caliburn1994 添加的
     if(comment.user.login.toLowerCase()!=instance.owner.toLowerCase()){
         return
     }
-    //---
 
     var createDate = new Date(comment.created_at);
     var updateDate = new Date(comment.updated_at);
