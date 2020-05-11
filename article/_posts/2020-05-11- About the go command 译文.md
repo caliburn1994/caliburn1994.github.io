@@ -12,9 +12,11 @@ excerpt: About the go command 译文
 
 # About the go command
 
+原文地址：https://golang.org/doc/articles/go_command.html
+
 > The Go distribution includes a command, named "`go`", that automates the downloading, building, installation, and testing of Go packages and commands. This document talks about why we wrote a new command, what it is, what it's not, and how to use it.
 
-Go发布版本包含了一个命令，名为"`go`，该命令将Go包的下载、构建、安装、测试自动化。该文档讲述了为什么我们要有这样的一个新命令，它是什么，它不是什么，为什么要使用它。
+Go发布版本包含了一个命令，名为"`go`"，该命令将Go包的下载、构建、安装、测试自动化。该文档讲述了为什么我们要有这样的一个新命令，它是什么，它不是什么，为什么要使用它。
 
 ## Motivation
 
@@ -36,33 +38,57 @@ Go命令开发目标是回归到当初的期待，Go程序应该在没有配置�
 
 ## Configuration versus convention
 
-The way to achieve the simplicity of a configuration-free system is to establish conventions. The system works only to the extent that those conventions are followed. When we first launched Go, many people published packages that had to be installed in certain places, under certain names, using certain build tools, in order to be used. That's understandable: that's the way it works in most other languages. Over the last few years we consistently reminded people about the `goinstall` command (now replaced by [`go get`](https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies)) and its conventions: first, that the import path is derived in a known way from the URL of the source code; second, that the place to store the sources in the local file system is derived in a known way from the import path; third, that each directory in a source tree corresponds to a single package; and fourth, that the package is built using only information in the source code. Today, the vast majority of packages follow these conventions. The Go ecosystem is simpler and more powerful as a result.
+> The way to achieve the simplicity of a configuration-free system is to establish conventions. The system works only to the extent that those conventions are followed. When we first launched Go, many people published packages that had to be installed in certain places, under certain names, using certain build tools, in order to be used. That's understandable: that's the way it works in most other languages. Over the last few years we consistently reminded people about the `goinstall` command (now replaced by [`go get`](https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies)) and its conventions: first, that the import path is derived in a known way from the URL of the source code; second, that the place to store the sources in the local file system is derived in a known way from the import path; third, that each directory in a source tree corresponds to a single package; and fourth, that the package is built using only information in the source code. Today, the vast majority of packages follow these conventions. The Go ecosystem is simpler and more powerful as a result.
+>
 
 为了达到免配置系统的那样简单，就需要去建立约定。在某种程度上，该系统只有在遵循约定之后才能运行。当我们第一次运行Go时，其他人上传的包将会被安装到实当的位置，给予实当名字，通过适当的工具构建，只有这样才能运行。只是显而易懂得，因为其他大多语言也是这样做的。
 
-在过去几年内，我们坚持倡导大家使用`goinstall`现在
+在过去几年内，我们常常提醒大家注意`goinstall`（已废弃，现使用 [`go get`](https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies)）以及它的约定。
 
-We received many requests to allow a makefile in a package directory to provide just a little extra configuration beyond what's in the source code. But that would have introduced new rules. Because we did not accede to such requests, we were able to write the go command and eliminate our use of make or any other build system.
+1. 源代码的URL地址 可以推导得出 导入路径（import path）
+2. 导入路径 可以通过众所周知的方法推导得出 源代码存储的路径
+3. 源代码树（source tree）的每一个目录（directory）都对应着一个Go包。
+4. 只有通过使用源码中的信息，才能构建包。
 
-It is important to understand that the go command is not a general build tool. It cannot be configured and it does not attempt to build anything but Go packages. These are important simplifying assumptions: they simplify not only the implementation but also, more important, the use of the tool itself.
+今天，大多数核心包都遵循着这个约定。从结果上看，Go语言的生态系统变得更加简单且有力。
+
+> We received many requests to allow a makefile in a package directory to provide just a little extra configuration beyond what's in the source code. But that would have introduced new rules. Because we did not accede to such requests, we were able to write the go command and eliminate our use of make or any other build system.
+
+我们接收到许多请求（requests），他们希望在包里添加其他文件（makefile），以获得稍微多一点的配置，而不是将配置放于源代码中。 但如果真的这样做了，将会引入一些新的规则。因为我们不会去接受这种请求，所以我们将开发的Go命令会避免“对系统使用make或其他构建”。
+
+> It is important to understand that the go command is not a general build tool. It cannot be configured and it does not attempt to build anything but Go packages. These are important simplifying assumptions: they simplify not only the implementation but also, more important, the use of the tool itself.
+
+理解Go命令不是泛用性构建工具是十分重要。它只会配置和构建Go包，而不会管任何事物。这些想法都是重要且简单化的假设，它们不仅简化了实现，更重要的是简化了使用工具。
 
 ## Go's conventions
 
-The `go` command requires that code adheres to a few key, well-established conventions.
+> The `go` command requires that code adheres to a few key, well-established conventions.
 
-First, the import path is derived in a known way from the URL of the source code. For Bitbucket, GitHub, Google Code, and Launchpad, the root directory of the repository is identified by the repository's main URL, without the `http://` prefix. Subdirectories are named by adding to that path. For example, the Go example programs are obtained by running
+`go`命令需要代码拥有某些关键词，以及完善的约定。
+
+> First, the import path is derived in a known way from the URL of the source code. For Bitbucket, GitHub, Google Code, and Launchpad, the root directory of the repository is identified by the repository's main URL, without the `http://` prefix. Subdirectories are named by adding to that path. For example, the Go example programs are obtained by running
+
+第一，源代码的URL地址 可以推导得出 导入路径（import path）。Bitbucket、GitHub、Google Code、Launchpad，这些仓库的根目录是由它们的主URL决定的，并且会去除`http://` 前缀。子文件则为对应路径名。举例说明，Go的示例程序可以通过下方获得
 
 ```
 git clone https://github.com/golang/example
 ```
 
-and thus the import path for the root directory of that repository is "`github.com/golang/example`". The [stringutil](https://godoc.org/github.com/golang/example/stringutil) package is stored in a subdirectory, so its import path is "`github.com/golang/example/stringutil`".
+> and thus the import path for the root directory of that repository is "`github.com/golang/example`". The [stringutil](https://godoc.org/github.com/golang/example/stringutil) package is stored in a subdirectory, so its import path is "`github.com/golang/example/stringutil`".
 
-These paths are on the long side, but in exchange we get an automatically managed name space for import paths and the ability for a tool like the go command to look at an unfamiliar import path and deduce where to obtain the source code.
+因此这个仓库的根目录的导入路径（import path）为"`github.com/golang/example`"。根目录的子目录下有一个 [stringutil](https://godoc.org/github.com/golang/example/stringutil)包 ，那么它的导入路径（import path）为"`github.com/golang/example/stringutil`"。
 
-Second, the place to store sources in the local file system is derived in a known way from the import path, specifically `$GOPATH/src/`. If unset, `$GOPATH` defaults to a subdirectory named `go` in the user's home directory. If `$GOPATH` is set to a list of paths, the go command tries `/src/` for each of the directories in that list.
+> These paths are on the long side, but in exchange we get an automatically managed name space for import paths and the ability for a tool like the go command to look at an unfamiliar import path and deduce where to obtain the source code.
 
-Each of those trees contains, by convention, a top-level directory named "`bin`", for holding compiled executables, and a top-level directory named "`pkg`", for holding compiled packages that can be imported, and the "`src`" directory, for holding package source files. Imposing this structure lets us keep each of these directory trees self-contained: the compiled form and the sources are always near each other.
+这些路径看起来有点长，但是换来的是，我们可以获得一个自动化的可管理的名称空间，用于导入路径（import paths）以及其他工具，如Go命令看到一些陌生的导入路径（import paths）也可以想办法去获取源代码。
+
+> Second, the place to store sources in the local file system is derived in a known way from the import path, specifically `$GOPATH/src/`. If unset, `$GOPATH` defaults to a subdirectory named `go` in the user's home directory. If `$GOPATH` is set to a list of paths, the go command tries `/src/` for each of the directories in that list.
+
+第二点，导入路径 可以通过众所周知的方法推导得出 源代码存储的路径，常指`$GOPATH/src/`。如果没有设定`$GOPATH`，默认下会指代用户home目录下的一个名为`go`的子目录。如果`$GOPATH`设置了一系列路劲，那么Go命令将会辨力每一个路径下的`/src/`。
+
+> Each of those trees contains, by convention, a top-level directory named "`bin`", for holding compiled executables, and a top-level directory named "`pkg`", for holding compiled packages that can be imported, and the "`src`" directory, for holding package source files. Imposing this structure lets us keep each of these directory trees self-contained: the compiled form and the sources are always near each other.
+
+约定俗成，这些路径（`$GOPATH`）包含了一个名为"`bin`"顶级目录，里头有编译后可执行文件；名为"`pkg`"顶级目录，里头有用于导入且编译好的包；名为"`src`"顶级目录，里头有包的源文件。
 
 These naming conventions also let us work in the reverse direction, from a directory name to its import path. This mapping is important for many of the go command's subcommands, as we'll see below.
 
