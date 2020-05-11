@@ -52,7 +52,7 @@
         sanitizer: null,
         silent: false,
         smartLists: false,
-        smartypants: true,
+        smartypants: false,
         tokenizer: null,
         xhtml: false
       };
