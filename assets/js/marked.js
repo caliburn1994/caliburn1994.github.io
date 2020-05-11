@@ -1176,13 +1176,14 @@
 
   function smartypants(text) {
     return text // em-dashes
-    .replace(/---/g, "\u2014") // en-dashes
-    .replace(/--/g, "\u2013") // opening singles
-    .replace(/(^|[-\u2014/(\[{"\s])'/g, "$1\u0027") // closing singles & apostrophes
-    .replace(/'/g, "\u0027") // opening doubles
-    .replace(/(^|[-\u2014/(\[{\u2018\s])"/g, "$1\u0022") // closing doubles
-    .replace(/"/g, "\u0022") // ellipses
-    .replace(/\.{3}/g, "\u2026");
+    // 被修改了，如需再使用，需要测试能否用或从官网上下载
+    // .replace(/---/g, "\u2014") // en-dashes
+    // .replace(/--/g, "\u2013") // opening singles
+    // .replace(/(^|[-\u2014/(\[{"\s])'/g, "$1\u0027") // closing singles & apostrophes
+    // .replace(/'/g, "\u0027") // opening doubles
+    // .replace(/(^|[-\u2014/(\[{\u2018\s])"/g, "$1\u0022") // closing doubles
+    // .replace(/"/g, "\u0022") // ellipses
+    // .replace(/\.{3}/g, "\u2026");
   }
   /**
    * mangle email addresses
