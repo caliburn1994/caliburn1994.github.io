@@ -267,10 +267,15 @@ tt {
 }
 
 code {
-    /*background-color: #f3f4f4;*/
-    /*padding: 0 4px 2px 4px;*/
-    /*display: inline-block;*/
-    padding: 0px;
+    background-color: #f3f4f4;
+    padding: 0 4px 2px 4px;
+    display: inline;
+}
+
+.highlight code{
+    background-color: #f3f4f4;
+    padding: 0 4px 2px 4px;
+    display: inline-block;
 }
 
 code>.rouge-table{
