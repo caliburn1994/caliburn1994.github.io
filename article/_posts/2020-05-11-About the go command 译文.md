@@ -11,7 +11,7 @@ excerpt: About the go command 译文
 
 > 原文地址：https://golang.org/doc/articles/go_command.html
 >
-> 译文地址：[Github译文地址](https://github.com/caliburn1994/caliburn1994.github.io/blob/b00cb6d204544ce1bc3a913bc6eb57b728e58ecb/article/_posts/2020-05-12-How%20to%20Write%20Go%20Code%20%E8%AF%91%E6%96%87.md)
+> 译文地址：[Github译文地址]([https://github.com/caliburn1994/caliburn1994.github.io/blob/master/article/_posts/2020-05-11-About%20the%20go%20command%20%E8%AF%91%E6%96%87.md](https://github.com/caliburn1994/caliburn1994.github.io/blob/master/article/_posts/2020-05-11-About the go command 译文.md))
 >
 > 更新时间：2020.05.12
 >
