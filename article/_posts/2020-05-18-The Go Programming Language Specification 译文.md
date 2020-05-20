@@ -3,7 +3,7 @@ layout: post
 title: The Go Programming Language Specification译文（未完成）
 date: 2020-05-12 23:55:01
 categories: 计算机
-tags: 鸦鸦的维基
+tags: Go
 comments: 1
 typora-root-url: ..
 excerpt: The Go Programming Language Specification 译文
