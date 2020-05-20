@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Go Programming Language Specification译文（未完成）
-date: 2020-05-12 23:55:01
+date: 2020-05-18 23:55:01
 categories: 计算机
 tags: Go
 comments: 1
