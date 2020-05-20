@@ -1978,9 +1978,11 @@ There is no distinct method type and there are no method literals.
 
 > If `f` is [variadic](https://golang.org/ref/spec#Function_types) with a final parameter `p` of type `...T`, then within `f` the type of `p` is equivalent to type `[]T`. If `f` is invoked with no actual arguments for `p`, the value passed to `p` is `nil`. Otherwise, the value passed is a new slice of type `[]T` with a new underlying array whose successive elements are the actual arguments, which all must be [assignable](https://golang.org/ref/spec#Assignability) to `T`. The length and capacity of the slice is therefore the number of arguments bound to `p` and may differ for each call site.
 
-如果函数`f`是一个**可变参数**函数，拥有一个`...T`类型的固定形参`p`，那么函数`f`内`p`是等同于类型`[]T`。如果`f`没有引入任何实际参数给`p`的话，将会把`nil`值传给`p`。其他情况下，数值将通过一个底层数组（其连续元素存储着实参）的方式，传递给一个新的切片（其类型为`[]T`）。
+如果函数`f`是一个**可变参数**函数，拥有一个`...T`类型的固定形参`p`，那么函数`f`内`p`是等同于类型`[]T`。如果`f`没有引入任何实际参数给`p`的话，将会把`nil`值传给`p`。其他情况下，数值将通过一个底层数组（其连续元素存储着实参）的方式，传递给一个新的切片（其类型为`[]T`）。因此，切面的长度以及容量是和实参的数目一致，并且与形参`p`相绑定，根据 调用现场（call site） 的不同，该数目也会不同。
 
-Given the function and calls
+> Given the function and calls
+
+给定以下的函数和调用
 
 ```
 func Greeting(prefix string, who ...string)
@@ -1988,9 +1990,13 @@ Greeting("nobody")
 Greeting("hello:", "Joe", "Anna", "Eileen")
 ```
 
-within `Greeting`, `who` will have the value `nil` in the first call, and `[]string{"Joe", "Anna", "Eileen"}` in the second.
+> within `Greeting`, `who` will have the value `nil` in the first call, and `[]string{"Joe", "Anna", "Eileen"}` in the second.
 
-If the final argument is assignable to a slice type `[]T`, it is passed unchanged as the value for a `...T` parameter if the argument is followed by `...`. In this case no new slice is created.
+对 `Greeting`，在第一次调用 `who` 将会拥有`nil`值，在第二次调用时则拥有`[]string{"Joe", "Anna", "Eileen"}` 值
+
+> If the final argument is assignable to a slice type `[]T`, it is passed unchanged as the value for a `...T` parameter if the argument is followed by `...`. In this case no new slice is created.
+
+如果固定实参被赋予`[]T`切片类型，那么传入时将不会改变
 
 Given the slice `s` and call
 
