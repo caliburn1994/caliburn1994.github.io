@@ -3125,13 +3125,17 @@ select {}  // block forever
 
 ### Return statements
 
-A "return" statement in a function `F` terminates the execution of `F`, and optionally provides one or more result values. Any functions [deferred](https://golang.org/ref/spec#Defer_statements) by `F` are executed before `F` returns to its caller.
+> A "return" statement in a function `F` terminates the execution of `F`, and optionally provides one or more result values. Any functions [deferred](https://golang.org/ref/spec#Defer_statements) by `F` are executed before `F` returns to its caller.
+
+在函数`F`中返回语句将会结束`F`的执行，同时可选择性地提供一或多个结果值。`F`将会执行任何函数的 [deferred](https://golang.org/ref/spec#Defer_statements)  ，执行完毕后才会返回到 `F` 的调用者那里。
 
 ```
 ReturnStmt = "return" [ ExpressionList ] .
 ```
 
-In a function without a result type, a "return" statement must not specify any result values.
+> In a function without a result type, a "return" statement must not specify any result values.
+
+函数如果没有结果类型，那么 "return"语句 必须不能指定任何结果值。
 
 ```
 func noResult() {
@@ -3139,28 +3143,24 @@ func noResult() {
 }
 ```
 
-There are three ways to return values from a function with a result type:
+> There are three ways to return values from a function with a result type:
 
-1. The return value or values may be explicitly listed in the "return" statement. Each expression must be single-valued and
+这里有三种方式令函数返回带结果类型的值
 
-    
+1. > The return value or values may be explicitly listed in the "return" statement. Each expression must be single-valued and [assignable](https://golang.org/ref/spec#Assignability) to the corresponding element of the function's result type.
 
-   assignable
-
-    
-
-   to the corresponding element of the function's result type.
+  在 "return"语句 处显式地列举返回值。每个表达式必须拥是 [单值函数](https://baike.baidu.com/item/单值函数) 且
 
    ```
-   func simpleF() int {
+func simpleF() int {
    	return 2
-   }
+}
    
-   func complexF1() (re float64, im float64) {
+func complexF1() (re float64, im float64) {
    	return -7.0, -4.0
    }
    ```
-
+   
 2. The expression list in the "return" statement may be a single call to a multi-valued function. The effect is as if each value returned from that function were assigned to a temporary variable with the type of the respective value, followed by a "return" statement listing these variables, at which point the rules of the previous case apply.
 
    ```
