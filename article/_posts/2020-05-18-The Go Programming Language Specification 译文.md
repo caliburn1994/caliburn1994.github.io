@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Go Programming Language Specification译文（未完成）
-date: 2020-05-18 23:55:01
+date: 2020-05-23 23:55:01
 categories: 计算机
 tags: Go
 comments: 1
@@ -11,7 +11,9 @@ excerpt: The Go Programming Language Specification 译文
 
 # 前言
 
-该译文参考日期为2020.1.14，[原文地址](https://golang.org/ref/spec)。该译文并不会完整翻译，有需求时才会进行翻译。
+该译文参考日期为2020.1.14，[官方网址](https://golang.org/ref/spec)、[Github文档网址](https://github.com/golang/go/blob/master/doc/go_spec.html)。该译文并不会完整翻译，有需求时才会进行翻译。
+
+
 
 # The Go Programming Language Specification
 
@@ -19,7 +21,9 @@ excerpt: The Go Programming Language Specification 译文
 
 ## Introduction
 
-This is a reference manual for the Go programming language. For more information and other documents, see [golang.org](https://golang.org/).
+> This is a reference manual for the Go programming language. For more information and other documents, see [golang.org](https://golang.org/).
+
+这是Go编程语言的参考手册，更多信息和文档，可参阅[golang.org](https://golang.org/).
 
 > Go is a general-purpose language designed with systems programming in mind. It is strongly typed and garbage-collected and has explicit support for concurrent programming. Programs are constructed from *packages*, whose properties allow efficient management of dependencies.
 
@@ -27,13 +31,13 @@ Go是考虑到系统编程而设计的泛用性语言。Go是强类型、可垃�
 
 > The grammar is compact and simple to parse, allowing for easy analysis by automatic tools such as integrated development environments.
 
-Go语法是小儿精巧，且易于黏贴，这有利于自动化工具（如：集合开发环境）分析。
+Go语法是小且精巧，且易于黏贴，这有利于自动化工具（如：集合开发环境）分析。
 
 ## 标记法（Notation）
 
 > The syntax is specified using Extended Backus-Naur Form (EBNF):
 
-Go语法是使用[扩展巴科斯-瑙尔范式](https://zh.wikipedia.org/wiki/%E6%89%A9%E5%B1%95%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F)（Extended Backus-Naur Form,EBNF）进行规定的。
+Go语法是使用[扩展巴科斯-瑙尔范式](https://zh.wikipedia.org/wiki/%E6%89%A9%E5%B1%95%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F)（Extended Backus-Naur Form,EBNF）进行规定的：
 
 ```
 Production  = production_name "=" [ Expression ] "." .
@@ -47,7 +51,7 @@ Repetition  = "{" Expression "}" .
 
 > Productions are expressions constructed from terms and the following operators, in increasing precedence:
 
-Productions  是表达式，由术语与以下操作符组成，以（字母）升序排列：
+Productions 是若干个表达式，并且由术语（terms）和下方操作符（operators）组成，越王底部的操作符优先级越高（in increasing precedence）：
 
 ```
 |   alternation
@@ -56,7 +60,9 @@ Productions  是表达式，由术语与以下操作符组成，以（字母）�
 {}  repetition (0 to n times)
 ```
 
-Lower-case production names are used to identify lexical tokens. Non-terminals are in CamelCase. Lexical tokens are enclosed in double quotes `""` or back quotes \`\`.
+> Lower-case production names are used to identify lexical tokens. Non-terminals are in CamelCase. Lexical tokens are enclosed in double quotes "" or back quotes \`\`.
+
+
 
 The form `a … b` represents the set of characters from `a` through `b` as alternatives. The horizontal ellipsis `…` is also used elsewhere in the spec to informally denote various enumerations or code snippets that are not further specified. The character `…` (as opposed to the three characters `...`) is not a token of the Go language.
 
@@ -841,7 +847,7 @@ A channel may be closed with the built-in function [`close`](https://golang.org/
 
 A single channel may be used in [send statements](https://golang.org/ref/spec#Send_statements), [receive operations](https://golang.org/ref/spec#Receive_operator), and calls to the built-in functions [`cap`](https://golang.org/ref/spec#Length_and_capacity) and [`len`](https://golang.org/ref/spec#Length_and_capacity) by any number of goroutines without further synchronization. Channels act as first-in-first-out queues. For example, if one goroutine sends values on a channel and a second goroutine receives them, the values are received in the order sent.
 
-## Properties of types and values
+## 类型的属性 与 值（Properties of types and values）
 
 ### Type identity
 
@@ -898,18 +904,26 @@ func(x int, y float64) *[]string, func(int, float64) (result *[]string), and A5
 
 `B0` and `B1` are different because they are new types created by distinct [type definitions](https://golang.org/ref/spec#Type_definitions); `func(int, float64) *B0` and `func(x int, y float64) *[]string` are different because `B0` is different from `[]string`.
 
-### Assignability
+### 可赋予性（Assignability）
 
 > A value `x` is *assignable* to a [variable](https://golang.org/ref/spec#Variables) of type `T` ("`x` is assignable to `T`") if one of the following conditions applies:
 
-以下条件下，值`x`将可转让给一个`T`类型的变量：
+符合以下任何一个条件时，将可把值 `x` 赋予一个 `T` 类型的变量：
 
-- `x`'s type is identical to `T`.
-  `x`的类型和`T`一样
+- > `x`'s type is identical to `T`.
+  
+  `x` 的类型和 `T` 一样。
+  
 - `x`'s type `V` and `T` have identical [underlying types](https://golang.org/ref/spec#Types) and at least one of `V` or `T` is not a [defined](https://golang.org/ref/spec#Type_definitions) type.
+
+  
+
 - `T` is an interface type and `x` [implements](https://golang.org/ref/spec#Interface_types) `T`.
+
 - `x` is a bidirectional channel value, `T` is a channel type, `x`'s type `V` and `T` have identical element types, and at least one of `V` or `T` is not a defined type.
+
 - `x` is the predeclared identifier `nil` and `T` is a pointer, function, slice, map, channel, or interface type.
+
 - `x` is an untyped [constant](https://golang.org/ref/spec#Constants) [representable](https://golang.org/ref/spec#Representability) by a value of type `T`.
 
 ### Representability
@@ -3152,15 +3166,15 @@ func noResult() {
   在 "return"语句 处显式地列举返回值。每个表达式必须拥是 [单值函数](https://baike.baidu.com/item/单值函数) 且
 
    ```
-func simpleF() int {
-   	return 2
-}
-   
-func complexF1() (re float64, im float64) {
-   	return -7.0, -4.0
-   }
+  func simpleF() int {
+  	return 2
+  }
+  
+  func complexF1() (re float64, im float64) {
+  	return -7.0, -4.0
+  }
    ```
-   
+  
 2. The expression list in the "return" statement may be a single call to a multi-valued function. The effect is as if each value returned from that function were assigned to a temporary variable with the type of the respective value, followed by a "return" statement listing these variables, at which point the rules of the previous case apply.
 
    ```
@@ -3169,20 +3183,14 @@ func complexF1() (re float64, im float64) {
    }
    ```
 
-3. The expression list may be empty if the function's result type specifies names for its
+3. The expression list may be empty if the function's result type specifies names for its [result parameters](https://golang.org/ref/spec#Function_types). The result parameters act as ordinary local variables and the function may assign values to them as necessary. The "return" statement returns the values of these variables.
 
-    
-
-   result parameters
-
-   . The result parameters act as ordinary local variables and the function may assign values to them as necessary. The "return" statement returns the values of these variables.
-
-   ```
-   func complexF3() (re float64, im float64) {
+  ```
+func complexF3() (re float64, im float64) {
    	re = 7.0
-   	im = 4.0
+	im = 4.0
    	return
-   }
+}
    
    func (devnull) Write(p []byte) (n int, _ error) {
    	n = len(p)
@@ -3194,14 +3202,14 @@ Regardless of how they are declared, all the result values are initialized to th
 
 Implementation restriction: A compiler may disallow an empty expression list in a "return" statement if a different entity (constant, type, or variable) with the same name as a result parameter is in [scope](https://golang.org/ref/spec#Declarations_and_scope) at the place of the return.
 
-```
+   ```
 func f(n int) (res int, err error) {
 	if _, err := f(n-1); err != nil {
 		return  // invalid return statement: err is shadowed
 	}
 	return
 }
-```
+   ```
 
 ### Break statements
 
