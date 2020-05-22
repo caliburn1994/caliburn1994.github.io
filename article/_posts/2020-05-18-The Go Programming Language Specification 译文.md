@@ -11,9 +11,7 @@ excerpt: The Go Programming Language Specification 译文
 
 # 前言
 
-该译文参考日期为2020.1.14，[官方网址](https://golang.org/ref/spec)、[Github文档网址](https://github.com/golang/go/blob/master/doc/go_spec.html)。该译文并不会完整翻译，有需求时才会进行翻译。
-
-
+该译文参考日期为2020.1.14，[官方网址](https://golang.org/ref/spec)、[Github文档网址](https://github.com/golang/go/blob/master/doc/go_spec.html)。该译文并不会完整翻译，有需求时才会进行翻译。查阅本文的GitHub地址，请[点击](https://github.com/caliburn1994/caliburn1994.github.io/blob/master/article/_posts/2020-05-18-The%20Go%20Programming%20Language%20Specification%20%E8%AF%91%E6%96%87.md)。
 
 # The Go Programming Language Specification
 
@@ -916,7 +914,7 @@ func(x int, y float64) *[]string, func(int, float64) (result *[]string), and A5
   
 - `x`'s type `V` and `T` have identical [underlying types](https://golang.org/ref/spec#Types) and at least one of `V` or `T` is not a [defined](https://golang.org/ref/spec#Type_definitions) type.
 
-  
+  `x`的类型`V` 和 `T` 必须拥有相同的底层类型，且至少`V`和`T`其一是不为<u>defined</u>类型
 
 - `T` is an interface type and `x` [implements](https://golang.org/ref/spec#Interface_types) `T`.
 
@@ -1152,15 +1150,19 @@ type (
 )
 ```
 
-#### Type definitions
+#### 类型定义（Type definitions）
 
-A type definition creates a new, distinct type with the same [underlying type](https://golang.org/ref/spec#Types) and operations as the given type, and binds an identifier to it.
+> A type definition creates a new, distinct type with the same [underlying type](https://golang.org/ref/spec#Types) and operations as the given type, and binds an identifier to it.
+
+类型定义（type definition）将会创建一个新的且完全不同的类型，并且拥有与指定类型相同的<u>底层类型</u>和操作，然后一个标识将绑定于该类型。
 
 ```
 TypeDef = identifier Type .
 ```
 
-The new type is called a *defined type*. It is [different](https://golang.org/ref/spec#Type_identity) from any other type, including the type it is created from.
+> The new type is called a *defined type*. It is [different](https://golang.org/ref/spec#Type_identity) from any other type, including the type it is created from.
+
+这个新的类型，叫做"已定义类型（*defined type*）"，它与其他类型（包含已创建的）是<u>不同</u>的。
 
 ```
 type (
@@ -3096,8 +3098,12 @@ func noResult() {
 
 1. > The return value or values may be explicitly listed in the "return" statement. Each expression must be single-valued and [assignable](https://golang.org/ref/spec#Assignability) to the corresponding element of the function's result type.
 
-  在 "return"语句 处显式地列举返回值。每个表达式必须拥是 [单值函数](https://baike.baidu.com/item/单值函数) 且
+  在 "return"语句 处显式地列举返回值。每个表达式必须拥是 [单值（函数）的](https://baike.baidu.com/item/单值函数) 
 
+  TODO
+  
+  且 赋予对应函数结果类型的元素
+  
    ```
   func simpleF() int {
   	return 2
