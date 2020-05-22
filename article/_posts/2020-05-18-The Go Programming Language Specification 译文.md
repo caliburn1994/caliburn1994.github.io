@@ -1,5 +1,5 @@
 ---
-layout: post
+A call to the built-in function panic.layout: post
 title: The Go Programming Language Specification译文（未完成）
 date: 2020-05-23 23:55:01
 categories: 计算机
@@ -2550,7 +2550,7 @@ The function calls happen in the order `u()`, `sqr()`, `v()`, `f()`, `v()`, and 
 
 Floating-point operations within a single expression are evaluated according to the associativity of the operators. Explicit parentheses affect the evaluation by overriding the default associativity. In the expression `x + (y + z)` the addition `y + z` is performed before adding `x`.
 
-## Statements
+## 语句（Statements）
 
 Statements control execution.
 
@@ -2568,95 +2568,28 @@ SimpleStmt = EmptyStmt | ExpressionStmt | SendStmt | IncDecStmt | Assignment | S
 
 A *terminating statement* prevents execution of all statements that lexically appear after it in the same [block](https://golang.org/ref/spec#Blocks). The following statements are terminating:
 
-1. A
+1. A ["return"](https://golang.org/ref/spec#Return_statements) or ["goto"](https://golang.org/ref/spec#Goto_statements) statement.
 
-    
+2. A call to the built-in function [panic](https://golang.org/ref/spec#Handling_panics).
 
-   "return"
-
-    
-
-   or
-
-    
-
-   "goto"
-
-    
-
-   statement.
-
-2. A call to the built-in function
-
-    
-
-   `panic`
-
-   .
-
-3. A
-
-    
-
-   block
-
-    
-
-   in which the statement list ends in a terminating statement.
-
-4. An
-
-    
-
-   "if" statement
-
-    
-
-   in which:
+3. A [block](https://golang.org/ref/spec#Blocks) in which the statement list ends in a terminating statement.
+4. An ["if" statement](https://golang.org/ref/spec#If_statements) in which:
 
    - the "else" branch is present, and
    - both branches are terminating statements.
-
-5. A
-
-    
-
-   "for" statement
-
-    
-
-   in which:
+5. A ["for" statement](https://golang.org/ref/spec#For_statements) in which:
 
    - there are no "break" statements referring to the "for" statement, and
    - the loop condition is absent.
-
-6. A
-
-    
-
-   "switch" statement
-
-    
-
-   in which:
+6. A ["switch" statement](https://golang.org/ref/spec#Switch_statements) in which:
 
    - there are no "break" statements referring to the "switch" statement,
    - there is a default case, and
    - the statement lists in each case, including the default, end in a terminating statement, or a possibly labeled ["fallthrough" statement](https://golang.org/ref/spec#Fallthrough_statements).
-
-7. A
-
-    
-
-   "select" statement
-
-    
-
-   in which:
+7. A ["select" statement](https://golang.org/ref/spec#Select_statements) in which:
 
    - there are no "break" statements referring to the "select" statement, and
    - the statement lists in each case, including the default if present, end in a terminating statement.
-
 8. A [labeled statement](https://golang.org/ref/spec#Labeled_statements) labeling a terminating statement.
 
 All other statements are not terminating.
@@ -3137,7 +3070,7 @@ for {  // send random sequence of bits to c
 select {}  // block forever
 ```
 
-### Return statements
+### 返回语句（Return statements）
 
 > A "return" statement in a function `F` terminates the execution of `F`, and optionally provides one or more result values. Any functions [deferred](https://golang.org/ref/spec#Defer_statements) by `F` are executed before `F` returns to its caller.
 
