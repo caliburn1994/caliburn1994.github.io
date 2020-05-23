@@ -2,8 +2,8 @@
 let id = $('#post-content')
 
 let current_html = id.html()
-    .replace(/，/g, " , ")
-    .replace(/\^(.+?)\^/g, function (string, first) {
+    .replace(/，/g, " , ") //中文逗号 -> 英文逗号
+    .replace(/\^(.+?)\^/g, function (string, first) { // ^内容^ -> <sup>内容</sup>
         // string is the full result of the regex "[2]"
         //first is the number 2 from "draft [2]"
         return "<sup>" + (first) + "</sup>";
