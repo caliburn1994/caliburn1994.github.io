@@ -15,7 +15,7 @@ Kubernetes 与传统的 [PaaS](https://zh.wikipedia.org/wiki/平台即服务) �
 
 Kubernetes API是[REST API](https://zh.wikipedia.org/wiki/REST) 是，Kubernetes 的基础组件。组件间的操作和通信，以及外部用户命令都是通过该API完成的，因此，**Kubernetes平台里的任何对象都可以说是该API的执行对象**。该API由 API服务器（[kube-apiserver](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#kube-apiserver)）管理。
 
- X^2^
+ X^222^ ^33^
 
 
 
