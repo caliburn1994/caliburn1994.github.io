@@ -1176,7 +1176,7 @@
 
   function smartypants(text) {
     return text // em-dashes
-        // .replace(/\u3001/g," \u0003 ") // 中文逗号变成英文逗号
+    // 不可用，已使用"smart_quotes.js"代替
     // 被修改了，如需再使用，需要测试能否用或从官网上下载
     // .replace(/---/g, "\u2014") // en-dashes
     // .replace(/--/g, "\u2013") // opening singles
