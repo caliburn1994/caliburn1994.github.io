@@ -1176,7 +1176,7 @@
 
   function smartypants(text) {
     return text // em-dashes
-        .replace(/，/g," , ") // 中文逗号变成英文逗号
+        .replace(/\u3001/g," , ") // 中文逗号变成英文逗号
     // 被修改了，如需再使用，需要测试能否用或从官网上下载
     // .replace(/---/g, "\u2014") // en-dashes
     // .replace(/--/g, "\u2013") // opening singles
