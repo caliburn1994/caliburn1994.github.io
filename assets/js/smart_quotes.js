@@ -1,2 +1,8 @@
 // 智能替换
-$('#post-content').html().replace(/，/g," , ")
+let id = $('#post-content')
+
+let current_html = id.html().replace(/，/g, " , ");
+
+id.html(current_html)
+
+
