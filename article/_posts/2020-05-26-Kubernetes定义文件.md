@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 未命名
+title: Kubernetes定义文件
 date: 2020-05-21 00:00:02
 categories: 计算机
 tags: 鸦鸦的维基,kubernetes
@@ -9,11 +9,18 @@ comments: 1
 
 ## 概要
 
-K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **当前状态**<sup>Current state</sup>。 通过使用`kubectl describe`命令，开发者可以查看对象对象**当前状态**；通过定义文件，开发者可以了解对象的**期望状态**
+K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **当前状态**<sup>Current state</sup>。 通过使用`kubectl describe`命令，开发者可以查看对象对象**当前状态**；通过定义文件，开发者可以了解对象的**期望状态**。
 
 ## 定义文件
 
 示例文件如下：
+
+<button type="button" class="btn btn-primary" data-toggle="collapse" 
+		data-target="#demo">
+	简单的可折叠组件
+</button>
+
+<div id="demo" class="collapse in">
 
 ```yaml
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
@@ -37,18 +44,15 @@ spec:
         - containerPort: 80
 ```
 
+</div>
+
 - `apiVersion` ： Kubernetes API 的版本。
-- `kind`：对象的类型。对象
+- `kind`：对象的类型。常见的对象有：[Pod](/Kubernetes#Pod)、[Deployment](/Kubernetes#Deployment)
 - `metadata` - 帮助识别对象唯一性的数据，包括一个 `name` 字符串、UID 和可选的 `namespace`
 
 
 
-```
-<sup>[[1]][1]</sup>
-<sup>[[2]][2]</sup>
-<sup>[[3]][3]</sup>
-<sup>[[4]][4]</sup>
-```
+
 
 
 
