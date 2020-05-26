@@ -16,7 +16,7 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 示例文件如下：
 
 <details><summary>CLICK ME</summary>
-<p>
+
 
 ```yaml
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
@@ -40,7 +40,7 @@ spec:
         - containerPort: 80
 ```
 
-</p>
+
 </details>
 
 - `apiVersion` ： Kubernetes API 的版本。
