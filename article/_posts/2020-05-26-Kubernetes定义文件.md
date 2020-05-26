@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Kubernetes定义文件
-date: 2020-05-21 00:00:02
+date: 2020-05-26 22:00:02
 categories: 计算机
 tags: 鸦鸦的维基,kubernetes
 comments: 1
