@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Kubernetes描述文件
-date: 2020-05-26 22:00:02
+date: 2020-05-27 01:53:02
 categories: 计算机
 tags: [鸦鸦的维基,kubernetes]
 comments: 1
@@ -68,8 +68,6 @@ spec:
 - selector<sup>标签选择器</sup>：在不同对象中有不同的解释，在 [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)解释为帮助 Deployment找到对应的Pod进行管理。<sup>[[3]][3]</sup>
 - replicas：创建的个数。<sup>[[3]][3]</sup>
 - template：PodTemplates用于创建Pod的式样书，用于 [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)、[Job](https://kubernetes.io/docs/concepts/jobs/run-to-completion-finite-workloads/)、[DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)等对象。<sup>[[3]][3][[4]][4]</sup>
-
-
 
 [1]: https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/
 [2]: https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/
