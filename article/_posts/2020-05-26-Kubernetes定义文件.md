@@ -15,12 +15,8 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 
 示例文件如下：
 
-<button type="button" class="btn btn-primary" data-toggle="collapse" 
-		data-target="#demo">
-	简单的可折叠组件
-</button>
-
-<div id="demo" class="collapse in">
+<details><summary>CLICK ME</summary>
+<p>
 
 ```yaml
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
@@ -44,7 +40,8 @@ spec:
         - containerPort: 80
 ```
 
-</div>
+</p>
+</details>
 
 - `apiVersion` ： Kubernetes API 的版本。
 - `kind`：对象的类型。常见的对象有：[Pod](/Kubernetes#Pod)、[Deployment](/Kubernetes#Deployment)
