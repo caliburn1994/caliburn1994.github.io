@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Kubernetes定义文件
+title: Kubernetes描述文件
 date: 2020-05-26 22:00:02
 categories: 计算机
 tags: [鸦鸦的维基,kubernetes]
@@ -9,9 +9,9 @@ comments: 1
 
 ## 概要
 
-K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **当前状态**<sup>Current state</sup>。 通过使用`kubectl describe`命令，开发者可以查看对象对象**当前状态**；通过定义文件，开发者可以了解对象的**期望状态**。
+K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **当前状态**<sup>Current state</sup>。 通过使用`kubectl describe`命令，开发者可以查看对象对象**当前状态**；通过描述文件`spec`，开发者可以了解对象的**期望状态**。
 
-## 定义文件
+## 描述文件
 
 示例文件如下，完整示例点击[此处](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)：
 
