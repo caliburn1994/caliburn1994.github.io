@@ -49,8 +49,6 @@ k8s的默认服务只能在集群中调用，常见的用法是前端调用后�
 
 Kubernetes API是[REST API](https://zh.wikipedia.org/wiki/REST) 是，Kubernetes 的基础组件。组件间的操作和通信，以及外部用户命令都是通过该API完成的，因此，**Kubernetes平台里的任何对象都可以说是该API的执行对象**。该API由 API服务器（[kube-apiserver](#kube-apiserver)）管理。
 
-
-
 ### 对象
 
 K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **当前状态**<sup>Current state</sup>。
@@ -138,6 +136,55 @@ spec:
 ## 常见讨论
 
 ### 容器 vs Pod
+
+//TODO
+
+### 命令
+
+#### kubectl describe vs get
+
+`kubectl describe pods [pod名字]` 和 `kubectl get pods [pod名字]`究竟有什么区别？通过 `kubectl describe --help` 命令，可以获取describe相关信息：
+
+> Show details of a specific resource or group of resources
+>
+>  Print a detailed description of the selected resources, including related resources such as events or controllers. You
+> may select a single object by name, all objects of that type, provide a name prefix, or label selector. For example:
+
+与 `kubectl get` 的区别在于：
+
+- `kubectl get` 包含资源信息
+- `kubectl describe` 包含：资源、事件<sup>event </sup>、控制器<sup>controller</sup>
+
+
+
+### 如何使用SSH？
+
+在传统软件开发，当leader等人部署好系统环境后，团队将通过自动或手动的方式将代码传送到服务器上，并对服务进行测试。这里开发者们常见的操作有：**访问服务**<sup>在指定服务器外</sup>、**访问服务器资源**<sup>在指定服务器内</sup>
+
+如果服务器在**局域网**内，开发者们则通过SSH则可以访问服务器资源；直接访问服务。
+
+如果服务器不再**局域网**内，则通过SSH两次跳转的方式（第一次是SSH服务器，第二次是指定服务器），然后访问服务器资源。在SSH两次跳转后，通过<u>SSH端口转发</u>，将本地端口转发指定服务器，通过访问本地的端口，从而间接访问服务器端口。
+
+**k8s 访问服务**<sup>[官网](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)</sup>：
+
+```shell
+$ kubectl port-forward [Pod名字] [本地端口]:[远程端口]
+Forwarding from 127.0.0.1:[本地端口] -> [远程端口]
+Forwarding from [::1]:[本地端口] -> [远程端口]
+Handling connection for [本地端口]
+Handling connection for [本地端口]
+```
+
+**访问服务器资源**<sup>[官网](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)</sup>
+
+```shell
+# 运行一个软件
+kubectl exec [Pod名字] [命令]
+# 交互式
+kubectl exec -it [Pod名字] -- /bin/bash
+# 访问多容器Pod中的某一容器
+kubectl exec -it [Pod名字] --container [容器名] -- /bin/bash
+```
 
 
 
