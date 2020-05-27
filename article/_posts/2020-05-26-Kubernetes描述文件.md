@@ -5,7 +5,7 @@ date: 2020-05-27 01:53:02
 categories: 计算机
 tags: [鸦鸦的维基,kubernetes]
 comments: 1
-expect:
+expect: 本文介绍Kubernetes描述文件的相关信息。
 ---
 
 ## apiVersion & kind & metadata
