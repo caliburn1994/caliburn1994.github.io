@@ -5,23 +5,41 @@ date: 2020-05-27 01:53:02
 categories: 计算机
 tags: [鸦鸦的维基,kubernetes]
 comments: 1
+expect:
 ---
 
 ## apiVersion & kind & metadata
 
-示例文件如下，完整示例点击[此处](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)：
 
 {::options parse_block_html="true" /}
 
-<details><summary markdown="span">Let's see some code!</summary>
-```python
-print('Hello World!')
+<details><summary markdown="span">完整示例点击此处</summary>
+```yaml
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
 ```
-Of course, it has to be Hello World, right?
+查看示例原址，点击[此处](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 </details>
-<br/>
-
 {::options parse_block_html="false" /}
+
+简要示例：
 
 ```yaml
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
