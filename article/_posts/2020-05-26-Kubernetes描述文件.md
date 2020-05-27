@@ -11,6 +11,18 @@ comments: 1
 
 示例文件如下，完整示例点击[此处](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)：
 
+{::options parse_block_html="true" /}
+
+<details><summary markdown="span">Let's see some code!</summary>
+```python
+print('Hello World!')
+```
+Of course, it has to be Hello World, right?
+</details>
+<br/>
+
+{::options parse_block_html="false" /}
+
 ```yaml
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
