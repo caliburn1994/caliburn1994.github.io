@@ -41,3 +41,33 @@ code
 
 code .rouge-code
   width: 100%
+
+
+sup
+  &::after
+    display: none
+    margin-left: 10px
+    content: attr(data-title)
+    top: 50%
+    border: 1px solid #002f5f
+    position: absolute
+    -webkit-transform: translatey(-50%)
+    -moz-transform: translatey(-50%)
+    -o-transform: translatey(-50%)
+    transform: translatey(-50%)
+    font: 14px/20px Arial
+    padding: 5px 8px
+    background-color: #555
+    z-index: 1000
+    width: 300px
+    text-align: center
+    border-radius: 6px
+    line-height: 1.45em
+    transition: opacity 0.3s
+
+  &:hover
+    color: #fff
+    cursor: pointer
+
+    &::after
+      display: inline-block
