@@ -10,5 +10,5 @@ comments: 1
 
 在编程语言中，**Annotation常常被译为注解**，即“注释+解释”，而这种翻译其实稍微不恰当，这里忽略了“added to a text or diagram”，忽略了它的链接性。通常，注释<sup>comment</sup>则才是起到解释与注释的作用；**Annotation更多是作为一个元数据<sup>metadata</sup>**仅仅起到标识的作用。
 
-笔者认为”贴注“更为贴切。
+**笔者认为，该单词不应该进行翻译。**
 
