@@ -1,25 +1,181 @@
 ---
 layout: post
 title: 配置文件 INI、YAML、TOML、JSON、XML等比较
-date: 2018-11-12 00:00:00
+date: 2020-5-31 00:00:00
 categories: 计算机
 tags: 计算机
 comments: 1
 typora-root-url: ..
+excerpt：配置文件 INI、YAML、TOML、JSON、XML等比较
 ---
 
+## 概览
+
+本文只泛泛讨论下述文件的区别，但由于这些功能与语法上仍旧有细微的区别，可能不适用于某些特殊情况。
+
+**可读性：ini > toml ~ yaml > json > xml** 
+
+**可以存储的数据复杂度：xml > yaml ~ toml ~ json > ini**
+
+- INI文件：伪二维的文件，极其简单。
+- YAML、TOML：二维文件，区别在于语法（样子）。
+- JSON：二维文件，可读性相对弱，**无法使用注释**，不应用于配置文件。现广泛用于数据传输，。
+- XML：数据传输和配置文件均可。功能在JSON、YAML之上，但是可读性差。
+
+## 概念
+
+### 维度
+
+我们根据文件的延展性，大致将定义文件分以下几种：
+
+#### 一维
+
+一维文件可y轴自由衍生。这类文件我们可以视为仅仅的[key-value](https://en.wikipedia.org/wiki/Attribute%E2%80%93value_pair)形式。
+
+```
+[key-value]
+     |
+[key-value]
+     |
+[key-value]
+     |
+    ...
+    
+     ↑
+    [y轴]
+```
+
+#### 二维
+
+二维文件可x轴、y轴自由延伸。此类文件的值<sup>value</sup>数据结构从<u>单纯的值</u>变成<u>对象</u>，即<u>key-object</u>，对象当中可以存放值<sup>value</sup>、数组<sup>array</sup>、键<sup>key</sup>等等，通过存放键<sup>key</sup>从而获得x轴延伸能力。
+
+```
+[  key  ]                   	
+    |--[key]--[key]--[key]--[...]--[value]   ←x轴
+[key-value]
+    |
+[key-value]
+    |
+[key-value]
+	|
+  [...]
+    ↑
+   y轴
+```
+
+#### 伪二维
+
+```
+[section]                    ←x轴延伸了一个单位
+     |---[key-value]
+     |---[key-value]
+     |---[key-value]
+    ...
+    
+     ↑
+    [y轴]
+```
+
+#### 三维
+
+三维文件则是在二维之上，键<sup>key</sup>的数据机构从<u>单纯的值</u>变成<u>对象</u>，从而获得z轴延伸能力。而当键<sup>key</sup>中可存放键<sup>key</sup>时，z轴可无限伸展。
+
+```
+[  key  ]                   	
+    |--[key]--[key]--[key]--[...]--[value]   ←x轴
+[key-value]             \
+    |				   [key]
+[key-value]				   \
+    |					  [key]
+[key-value]                  \
+	|						[....]  ←z轴
+  [...]
+    ↑
+   y轴
+```
+
+#### 伪三维
+
+```
+[  key  ]                   	
+    |--[key]--[key]--[key]--[...]--[value]   ←x轴
+[key-value]             \
+    |				 [attribute] ←z轴延伸了一个单位
+[key-value]				  
+    |					
+[key-value]               
+	|						
+  [...]
+    ↑
+   y轴
+```
+
+### 结构表达方式
+
+根据结构表达方式的不同，可读性也是会不同的。IDE等外部软件可以提高结构表达方式的效果。常见的有以下：
+
+#### Tab
+
+Tab符号有助于层次分明。但如果**纯粹使用Tab符号切割模块**且**层数过多**，如示例所见，我们及有可能将val8误认为与val4层数相同，这意味我们将难以插入数据与查看数据：
+
+```
+val1:
+	val2:
+		val3:
+			val4:
+				val5:
+					val6:
+						val7:
+						...
+						...
+						...
+		val8:
+```
+
+我们在编写Python语言时，也是会出现这种问题。
+
+#### 括号
+
+括号<sup>bracket</sup>，能很好的定义结构，因为有开始符号与结束符号。过多的括号将会占用阅读空间，降低可读性。如下：
+
+```
+  "phoneNumbers": [
+    {
+      "type": "home",
+      "number": "212 555-1234"
+    },
+    {
+      "type": "office",
+      "number": "646 555-4567"
+    }
+  ],
+```
+
+```
+  "phoneNumbers": [
+    - "type": "home",
+      "number": "212 555-1234"
+    - "type": "office",
+      "number": "646 555-4567"
+  ],
+```
+
+#### 标签
+
+xml等文件的阅读性比括号更为差，因为标签<sup>tag</sup>占用的空间更大。但是标签<sup>tag</sup>自身可被视为一个对象，通过添加属性<sup>attribute</sup>可增加延伸性。
+
+```
+<tag attribute="">
+</tag>
+```
 
 
-> 适合人类编写：ini > toml > yaml > json > xml > plist
-> 可以存储的数据复杂度：xml > yaml > toml ~ json ~ plist > ini
->
-> <div style="text-align: right"> 参考：Belleve</div>
->
-> <div style="text-align: right"> YAML，JSON，ini，XML 用来做配置文件，优缺点分别是什么？ - 知乎</div>
 
-<br>
+## 详解
 
-##### INI
+### INI
+
+INI文件可视为**伪二维**。
 
 ```ini
 ; last modified 1 April 2001 by John Doe
@@ -33,9 +189,40 @@ port=143
 file="acme payroll.dat"
 ```
 
-<br>
+### JSON
 
-##### YAML
+JSON文件可视为**二维**。
+
+```
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "isAlive": true,
+  "age": 27,
+  "address": {
+    "streetAddress": "21 2nd Street",
+    "city": "New York",
+    "state": "NY",
+    "postalCode": "10021-3100"
+  },
+  "phoneNumbers": [
+    {
+      "type": "home",
+      "number": "212 555-1234"
+    },
+    {
+      "type": "office",
+      "number": "646 555-4567"
+    }
+  ],
+  "children": [],
+  "spouse": null
+}
+```
+
+### YAML
+
+YAML文件可视为**二维**。
 
 ```yaml
 ---
@@ -74,9 +261,9 @@ specialDelivery:  >
 ...
 ```
 
-<br>
+### TOML
 
-##### TOML
+TOML文件可视为**二维**。
 
 ```toml
 # This is a TOML document.
@@ -118,13 +305,15 @@ hosts = [
 
 <br>
 
-##### 键值对配置文件 vs XML
+### XML
+
+XML文件可视为**伪三维**。XML通过属性<sup>attribute</sup>进行进一步维度延伸，功能比上述的其他配置文件强大，但是正因如此，可读性更弱。如图所示：
+
+**XML vs JSON**
 
 ![1541942640647](/../assets/blog_res/1541942640647.png)
 
-XML在标签上可以进行扩展，**功能强大**。如果将键值对配置文件比喻成二维图，那么XML即三维图。然而，功能过于强大意味着复杂度也随之增大（这里体现除[约定优于配置](https://zh.wikipedia.org/zh-hans/%E7%BA%A6%E5%AE%9A%E4%BC%98%E4%BA%8E%E9%85%8D%E7%BD%AE)的重要性）。
-
-<br>
+**XML vs TOML**
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -147,31 +336,17 @@ name = "Tom Preston-Werner"
 dob = 1979-05-27T07:32:00-08:00 # First class dates
 ```
 
-xml的注释过于同化（同样使用<>符号），难以阅读。单符号的注释，能使注释更接近普通文本。
-
-<br>
-
-##### 总结
-
-- INI文件：单层次的配置。
-- YAML、TOML：键值对形式存储，可以有多层次。在有IDE插件情况下，YAML和TOML没有区别。（显示的差异）
-- JSON：JSON是YAML的子集。用于数据传输，不用于配置文件。
-- XML：数据传输和配置文件均可。功能在JSON、YAML之上，但是可读性差。
-- HOCON：配置文件，但是有偏向于编程语言的的倾向。
-
-<br>
-
-<br>
-
-##### 延申
+## 应用
 
 每个仍处于领域，都会经历笼统到精细化，在这当中常常会将没有必要的东西去除，并根据自己领域的特殊性增加自己的需求。
 
-**例子：**
+### HTML
 
-Gralde不使用xml文件格式，原因之一是：Java使用者根本不需要使用到三维这种高度，这种高度的信息无疑是增加了复杂度。
+标签上的属性<sup>attribute</sup>通常可使用元素进行代替。HTML上使用到属性<sup>attribute</sup>是为了区别**显示内容**与**内容的属性**。而配置文件并没有显示内容。
 
-（1）
+### Gradle
+
+Gradle不使用xml文件格式，原因之一是：Java使用者根本不需要使用到伪三维这种高度，Gradle的键值不需要属性。但Maven却使用了XML，这是为什么呢？
 
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -179,14 +354,12 @@ Gralde不使用xml文件格式，原因之一是：Java使用者根本不需要�
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 ```
 
-在使用Maven时，我们常常会看到这段代码，这段代码做了以下事情
+在使用Maven时，我们只在这段代码看到属性<sup>attribute</sup>，这段配置做了以下事情：
 
-- 添加了标签
-- 在Maven代码中配置标签的版本
+- 选择标签版本
+- 根据标签版本，增加可用标签以及使用规则
 
-而作为开发者，根本不关心在打代码时，根本不想去了解标签的版本是多少，有什么标签（暴露过多信息越是容易造成bug）。而且无论是Maven还是Gradle，最终仍旧需要借助外部工具（Google、API文档）
-
-Gradle该点挺好的，通过plugins的形式将没有必要的信息隐藏。
+而作为开发者，根本不想去了解标签的版本是多少，有什么标签。Gradle则是通过plugins的形式将没有必要的信息隐藏，配置文件相关信息放在其他配置文件里。
 
 ```groovy
 plugins {
@@ -195,13 +368,6 @@ plugins {
 }
 ```
 
-从而达到，标签（插件）制作人和使用者的解耦。
+## 延伸阅读
 
-<br>
-
-（2）
-
-标签上的attribute可以使用子元素进行代替，根本不需要使用到attribute。HTML上使用到attribute的情况是为了区别**显示内容**与**属性**。而配置文件并没有显示内容。
-
-
-
+- [TOML#Comparison to other formats](https://en.wikipedia.org/wiki/TOML)
