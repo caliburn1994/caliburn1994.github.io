@@ -6,7 +6,7 @@ categories: 计算机
 tags: 计算机
 comments: 1
 typora-root-url: ..
-excerpt：配置文件 INI、YAML、TOML、JSON、XML等比较
+excerpt: 配置文件 INI、YAML、TOML、JSON、XML等比较
 ---
 
 ## 概览
