@@ -43,15 +43,61 @@ k8s的默认服务只能在集群中调用，常见的用法是前端调用后�
 
 一个外部入口（如网站）只有一个IP地址，如果想通过一个外部入口访问集群里若干个服务时该怎么办呢？只能通过URL的路径进行映射。如：通过`http://ip地址/服务1` 访问 `服务1`，`http://ip地址/服务2` 访问 `服务2`。这种机制叫做 **Ingress（入口）**
 
+## 架构
+
+![redhat](https://www.redhat.com/cms/managed-files/kubernetes_diagram-v2-770x717.svg)
+
+### Control Plane
+
+控制平面<sup>Control Plane</sup>位于主节点<sup>Master Node</sup>，包含<u>主控件组</u><sup>Master</sup>、etcd。控制平面 通常用于与工作节点进行交互。<sup>[[Redhat]](https://www.redhat.com/en/topics/containers/kubernetes-architecture)</sup>
+
+#### 主控件（Master）
+
+由于**Master**是由三个进程组成的，所以可以翻译为“主控件组”。Master所在的工作节点将会被指定为 主节点。<sup class="sup" data-title="The Kubernetes Master is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: kube-apiserver, kube-controller-manager and kube-scheduler.">[[官网]](https://kubernetes.io/docs/concepts/)</sup > 主控组件负责管理集群。<sup class="sup" data-title="The Master is responsible for managing the cluster">[[官网]](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)</sup > 
+
+- **kube-apiserver（API server）**用于与（集群的）**外界**进行**通讯**。API server将会判断接请求是否有效，如果有效就会处理。`kubectl` 等命令行实质就是和该组件通讯。
+- **kube-scheduler**用于**调度资源**。观察是否存在新创建的Pod没有指派到节点，如果存在的话，则将其指派到其中一个节点上。
+- **kube-controller-manager**通过**控制器**进行维护集群。从API server接收到的命令，将会修改集群某些对象的期待状态（desired state），控制器观察到这些期待状态的变化，就会将这些对象的当前状态（current state）变为期待状态（desired state）。<sup>[[官网]](https://kubernetes.io/docs/concepts/architecture/controller/)[[官网]](https://kubernetes.io/zh/docs/concepts/overview/components/)</sup>
+  - **节点控制器<sup>Node controller</sup>**：负责监视节点，当节点宕不可用时，进行通知。
+  - **复制控制器<sup>Replication controller</sup>**：负责维护每一个<u>复制控制器对象</u>所关联的Pod的数量正确性。
+  - **Endpoints** controller：负责填充 [Endpoints对象](#Endpoint)。
+  - **服务账号<sup>Service Account</sup> & 令牌控制器<sup>Token controllers</sup>**：创建默认的账号和API访问令牌。
+
+```
+            |--------------------|                            
+command-->  |   kube-apiserver   | ---> change object's 
+            |--------------------|      desired state          
+                                             ↑
+                                             | watch
+                                |---------------------------| 
+       change object's  <---    |   kube-contoller-manager  |
+       current state            |---------------------------|
+```
+
+## 日志
+
+容器化应用写入 `stdout` 和 `stderr` 的任何数据，都会被容器引擎捕获并被重定向到节点的  `/var/log/containers/`和 ` /var/log/pods/` 。<sup>[[Logging Architecture](https://kubernetes.io/docs/concepts/cluster-administration/logging/)]</sup>
+
+```shell
+kubectl logs [Pod名字] # 查看当前日志
+kubectl logs [Pod名字] # 查看崩溃前日志
+```
+
+
+
+#### 管理方式
+
+**//todohttps://kubernetes.io/zh/docs/concepts/cluster-administration/logging/**
+
 ## 术语
 
 ### Kubernetes API
 
 Kubernetes API是[REST API](https://zh.wikipedia.org/wiki/REST) 是，Kubernetes 的基础组件。组件间的操作和通信，以及外部用户命令都是通过该API完成的，因此，**Kubernetes平台里的任何对象都可以说是该API的执行对象**。该API由 API服务器（[kube-apiserver](#kube-apiserver)）管理。
 
-### 对象
+### 对象特征
 
-K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **当前状态**<sup>Current state</sup>。
+K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **当前状态**<sup>Current State</sup>。
 
 通过 `kubectl get pods [Pod名字] -o json` 命令，开发者可以查看对象对象**当前状态**和**期望状态**。
 
@@ -65,6 +111,35 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 }
 ```
 
+- `apiVersion` ： Kubernetes API 的版本。
+- `kind`：对象的类型。常见的对象有：[Pod](/Kubernetes#Pod)、[Deployment](/Kubernetes#Deployment)
+- `metadata` - 帮助识别对象唯一性的数据。
+  -  `name` <sup>名字</sup>，每个类型的资源之间名字不可以重复。调用命令时常用的参数就是名字。
+  -  UID ，每个生命周期的每个对象UID都不同，用于标识对象的历史。<sup>[[官网]](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/ )</sup>
+  -  `namespace`<sup>命名空间</sup>（可选的） ，用于需要跨团队或跨项目的场景。<sup>[[官网]](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/ )</sup>
+
+#### 标签和选择器
+
+开发者可通过**选择器**<sup>（全称：标签选择器，Label selector）</sup>查找到对应拥有**标签**<sup>（label）</sup>的对象，并其进行指定。**标签**是键值对结构体数据。
+
+选择器有两种：**基于相等性的**<sup>equality-based</sup> 和 **基于集合的**<sup>set-based</sup> 。**基于相等性** 意味着运算符是以等号、不等号为主。 **基于集合** 意味着操作符以`in`、`notin` 、`exists`为主。
+
+#### 字段选择器
+
+字段选择器<sup>Field selector</sup>，在使用命令查找对象时可以使用字段选择器进行筛选。
+
+#### [推荐使用的标签](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)
+
+**//TODO**
+
+
+
+### 未分类对象
+
+#### Endpoint
+
+Endpoint对象<sup><译：终点></sup>是具体的URL，具体可以参考REST的Endpoint。<sup>[官方未定义-2020.06.01]</sup>
+
 ### 基础对象
 
 #### Pod
@@ -77,7 +152,7 @@ Pod<sup>（直译：豆荚）</sup>是K8s的最小单元<sup>（atomic unit）</
 
 #### 服务（service）
 
-服务<sup>（service）</sup>，可以理解为逻辑上的Pod。开发者通过服务的DNS名称名（DNS name）可以找到服务，然后通过服务可以调用某一Pod。<sup>[[5]][5]</sup> 调用方 通过调用服务的方式，避免了调用方与Pod的[耦合](https://zh.wikipedia.org/wiki/耦合性_(計算機科學))，这样当Pod宕机时，也不会影响到调用方，这也可用于[负载均衡](https://zh.wikipedia.org/wiki/负载均衡)、[服务发现](https://zh.wikipedia.org/wiki/服务发现)等场景。<sup>[[6]][6]</sup> 
+服务<sup>service</sup>，可以理解为逻辑上的Pod。开发者通过服务的DNS名称名（DNS name）可以找到服务，然后通过服务可以调用某一Pod。<sup>[[5]][5]</sup> 调用方 通过调用服务的方式，避免了调用方与Pod的[耦合](https://zh.wikipedia.org/wiki/耦合性_(計算機科學))，这样当Pod宕机时，也不会影响到调用方，这也可用于[负载均衡](https://zh.wikipedia.org/wiki/负载均衡)、[服务发现](https://zh.wikipedia.org/wiki/服务发现)等场景。<sup>[[6]][6]</sup> 
 
 ```
                          选择一个Endpoint进行调用
@@ -88,12 +163,6 @@ Pod<sup>（直译：豆荚）</sup>是K8s的最小单元<sup>（atomic unit）</
             |-----------| -------- Endpoint 3 -----> [Pod 3 暴露端口:80 IP:10.244.0.27] 
                                  [10.244.0.27:80]
 ```
-
-#### 标签和选择器
-
-开发者可通过**选择器**<sup>（全称：标签选择器，Label selector）</sup>查找到对应拥有**标签**<sup>（label）</sup>的对象，并其进行指定。**标签**是键值对结构体数据。
-
-选择器有两种：**基于相等性的**<sup>equality-based</sup> 和 **基于集合的**<sup>set-based</sup> 。**基于相等性** 意味着运算符是以等号、不等号为主。 **基于集合** 意味着操作符以`in`、`notin` 、`exists为主。
 
 
 
@@ -137,7 +206,7 @@ spec:
 
 ### 容器 vs Pod
 
-//TODO
+**#todo**
 
 ### 命令
 
@@ -154,6 +223,14 @@ spec:
 
 - `kubectl get` 包含资源信息
 - `kubectl describe` 包含：资源、事件<sup>event </sup>、控制器<sup>controller</sup>
+
+
+
+#### kubectl create vs apply
+
+> `kubectl apply` - Apply or Update a resource from a file or stdin.[<sup>[原址]</sup>](https://kubernetes.io/docs/reference/kubectl/overview/#examples-common-operations)
+
+`kubectl apply`：创建、更新资源；`kubectl create`：创建资源
 
 
 
