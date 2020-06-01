@@ -91,6 +91,51 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
 - 每一个节点都回运行一个**kube-proxy**作为网络代理。kube-proxy负责节点的网络规则，通过这些网络规则，你可以在通过集群内外的网络会话访问Pod。<sup class="sup" data-tile="kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.
   kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
 
+## 存储
+
+存储方案有很多。托管式的有如：[网络附加存储](https://zh.wikipedia.org/wiki/網路附加儲存)（NAS）、数据库、[文件服务器](https://zh.wikipedia.org/wiki/文件服务器)；非托管式的则利用Kubernetes 存储抽象，如：[卷](#卷)。<sup>[[Google Cloud]](https://cloud.google.com/kubernetes-engine/docs/concepts/storage-overview)[[Google Cloud]](https://cloud.google.com/kubernetes-engine/docs/concepts/volumes)[[官网]](https://kubernetes.io/zh/docs/concepts/storage/volumes/)</sup>
+
+### 卷
+
+对于应用而言，将数据写入容器中的磁盘文件是最简单的途径，但这种方法存在缺陷。如果容器因其他任何原因崩溃或停止，文件将会丢失。此外，一个容器内的文件不可供同一 Pod 中运行的其他容器访问。 卷<sup>Volume</sup>可以解决这两个问题。
+
+### 临时卷
+
+临时卷 与Pod的生命周期一样，随着包裹其的Pod终止或被删除时，该卷也会随之终止或删除。
+
+### 持久性卷
+
+持久性卷<sup>Persistent Volumes</sup>，在 Pod 被移除时，系统只是卸载该卷，数据将保留，并可将其数据传递到另一个 Pod。
+
+## 容器功能扩展
+
+### 健康检查
+
+K8s的对于容器的健康检查（Health Check）有三种：存活探测（Liveness Probe）、就绪探测（Readiness Probe）、启动探测（Startup Probe）。<sup>[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)[[官网]](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)</sup>
+
+执行顺序如下：
+
+```
+启动容器 -->  Startup Probe --->  Readiness Probe
+                            |->  Liveness Probe
+```
+
+#### 存活探测
+
+存活探测（Liveness Probe）：当不符合条件时，容器将会被重启。通常用于遇到Bug，无法进行下去的情况，如：死锁。
+
+常见的存活探测如下：根据命令、根据HTTP返回码、根据TCP是否连接成功。可用于判定命令是否执行成功，当失败且返回值为非0时，容器将会被重启；对于HTTP服务，可通过发送HTTP请求，并根据是否 `400>返回码>=200`，判断是否存活；对于TCP连接，则在指定的时间内观察容器是否能连接成功，如果不能则重启容器。
+
+#### 就绪探测
+
+就绪探测（Readiness Probe）：当符合条件时，容器将被视为已就绪。就绪探测的一个用途：当一个Pod的所有容器就绪后，将会告诉<u>服务</u>该Pod可被使用。
+
+通过[TCP](https://zh.wikipedia.org/wiki/TCP)进行就绪探测，那么会循环进行[TCP](https://zh.wikipedia.org/wiki/TCP)连接，直到连接成功，容器将会被视为就绪。通过命令行方式进行就绪探测，当返回值为0时，容器将会被视为就绪。
+
+#### 启动探测
+
+启动探测（Startup Probe）：当符合条件时，容器被视为已启动。当应用需要长时间进行启动时，启动探测 会在一定时间内不断地探测应用是否启动成功，当应用启动成功后，存活探测或就绪探测 可被启动；超过探测时间的话，容器将会被杀死，并且根据 `restartPolicy` 来做出相应操作。
+
 ## 日志
 
 容器化应用写入 `stdout` 和 `stderr` 的任何数据，都会被容器引擎捕获并被重定向到节点的  `/var/log/containers/`和 `/var/log/pods/` 。<sup>[[Logging Architecture](https://kubernetes.io/docs/concepts/cluster-administration/logging/)]</sup>
@@ -163,7 +208,7 @@ Pod<sup>（直译：豆荚）</sup>是K8s的最小单元<sup>（atomic unit）</
 
 参考：[官网](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)、[Google Cloud](https://cloud.google.com/kubernetes-engine/docs/concepts/pod)
 
-#### 服务（service）
+#### 服务
 
 服务<sup>service</sup>，可以理解为逻辑上的Pod。开发者通过服务的DNS名称名（DNS name）可以找到服务，然后通过服务可以调用某一Pod。<sup>[[5]][5]</sup> 调用方 通过调用服务的方式，避免了调用方与Pod的[耦合](https://zh.wikipedia.org/wiki/耦合性_(計算機科學))，这样当Pod宕机时，也不会影响到调用方，这也可用于[负载均衡](https://zh.wikipedia.org/wiki/负载均衡)、[服务发现](https://zh.wikipedia.org/wiki/服务发现)等场景。<sup>[[6]][6]</sup> 
 
@@ -181,10 +226,11 @@ Pod<sup>（直译：豆荚）</sup>是K8s的最小单元<sup>（atomic unit）</
 
 K8s有以下<u>发布服务</u><sup>Publishing Services</sup>方式：<sup>[[官网]](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)[[Google Cloud]](https://cloud.google.com/kubernetes-engine/docs/how-to/exposing-apps)</sup>
 
-- **ClusterIP（默认类型）**：只能在集群里访问服务。
-- **NodePort**：通过每个节点IP的某一特定端口，访问服务（Node=节点，Port=端口）。
-- **LoadBalancer**：通过云服务商的负载均衡器，访问服务。
-- **ExternalName**：该服务 为外部 DNS 名称提供内部别名。内部客户端使用内部 DNS 名称发出请求，然后请求会被重定向到外部名称。
+- **ClusterIP（默认类型）**：只有在集群<sup>Cluster</sup>里的IP才能访问该服务。
+- **节点端口<sup>NodePort</sup>**：通过每个节点<sup>Node</sup>的某一特定端口<sup>Port</sup>访问该服务。
+- **负载均衡器<sup>LoadBalancer</sup>**：通过云服务商的负载均衡器访问该类型服务。
+- **外部名字<sup>ExternalName</sup>**：需访问的服务在集群外部, 在集群内部通过访问该服务的DNS名称，从而进行访问外部服务名字。
+- **无头服务<sup>Headless Services</sup>**：这里的无头意味着没有clusterIP。而当我们使用[nslookup](https://manpages.debian.org/stretch/dnsutils/nslookup.1.en.html) 等查看该服务的DNS时，将会发现对应的地址指向了该服务使用的Pod。<sup>[[参考示例]](https://dev.to/kaoskater08/building-a-headless-service-in-kubernetes-3bk8)</sup>
 
 通过节点[IP地址](https://zh.wikipedia.org/wiki/IP地址)进行暴露服务，可使用；通过云服务提供商的负载均衡器暴露服务，则使用`LoadBalancer`；[[31\]](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#cite_note-31)而当服务不在集群内，在集群之外，可以使用`ExternalName` 模式的服务进行重定向。
 
@@ -258,7 +304,7 @@ spec:
 
 ### 如何使用SSH？
 
-在传统软件开发，当leader等人部署好系统环境后，团队将通过自动或手动的方式将代码传送到服务器上，并对服务进行测试。这里开发者们常见的操作有：**访问服务**<sup>在指定服务器外</sup>、**访问服务器资源**<sup>在指定服务器内</sup>
+在传统软件开发，当leader等人部署好系统环境后，团队将通过自动或手动的方式将代码传送到服务器上，并对服务进行测试。这里开发者们常见的操作有：**访问服务**<sup>（在指定服务器外进行访问）</sup>、**访问服务器资源**<sup>（在指定服务器内进行访问）</sup>
 
 如果服务器在**局域网**内，开发者们则通过SSH则可以访问服务器资源；直接访问服务。
 
