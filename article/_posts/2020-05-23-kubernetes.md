@@ -51,7 +51,7 @@ k8s的默认服务只能在集群中调用，常见的用法是前端调用后�
 
 控制平面<sup>Control Plane</sup>位于主节点<sup>Master Node</sup>，包含<u>主控件组</u><sup>Master</sup>、etcd。控制平面 通常用于与工作节点进行交互。<sup>[[Redhat]](https://www.redhat.com/en/topics/containers/kubernetes-architecture)</sup>
 
-#### 主控件（Master）
+#### 主控件
 
 由于**Master**是由三个进程组成的，所以可以翻译为“主控件组”。Master所在的工作节点将会被指定为 主节点。<sup class="sup" data-title="The Kubernetes Master is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: kube-apiserver, kube-controller-manager and kube-scheduler.">[[官网]](https://kubernetes.io/docs/concepts/)</sup > 主控组件负责管理集群。<sup class="sup" data-title="The Master is responsible for managing the cluster">[[官网]](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)</sup > 
 
@@ -147,8 +147,6 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 
 **//TODO**
 
-
-
 ### 未分类对象
 
 #### Endpoint
@@ -179,7 +177,16 @@ Pod<sup>（直译：豆荚）</sup>是K8s的最小单元<sup>（atomic unit）</
                                  [10.244.0.27:80]
 ```
 
+##### 发布服务
 
+K8s有以下<u>发布服务</u><sup>Publishing Services</sup>方式：<sup>[[官网]](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)[[Google Cloud]](https://cloud.google.com/kubernetes-engine/docs/how-to/exposing-apps)</sup>
+
+- **ClusterIP（默认类型）**：只能在集群里访问服务。
+- **NodePort**：通过每个节点IP的某一特定端口，访问服务（Node=节点，Port=端口）。
+- **LoadBalancer**：通过云服务商的负载均衡器，访问服务。
+- **ExternalName**：该服务 为外部 DNS 名称提供内部别名。内部客户端使用内部 DNS 名称发出请求，然后请求会被重定向到外部名称。
+
+通过节点[IP地址](https://zh.wikipedia.org/wiki/IP地址)进行暴露服务，可使用；通过云服务提供商的负载均衡器暴露服务，则使用`LoadBalancer`；[[31\]](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#cite_note-31)而当服务不在集群内，在集群之外，可以使用`ExternalName` 模式的服务进行重定向。
 
 ### 高级对象
 
