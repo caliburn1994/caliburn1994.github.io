@@ -100,7 +100,7 @@ kubectl logs [Pod名字] # 查看当前日志
 kubectl logs [Pod名字] # 查看崩溃前日志
 ```
 
-#### 管理方式
+### 管理方式
 
 **//todohttps://kubernetes.io/zh/docs/concepts/cluster-administration/logging/**
 
