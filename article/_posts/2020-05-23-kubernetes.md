@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Kubernetes
-date: 2020-05-23 00:00:02
+date: 2020-06-01 00:00:02
 categories: 计算机
 tags: [鸦鸦的维基,kubernetes]
 comments: 1 
@@ -55,12 +55,12 @@ k8s的默认服务只能在集群中调用，常见的用法是前端调用后�
 
 由于**Master**是由三个进程组成的，所以可以翻译为“主控件组”。Master所在的工作节点将会被指定为 主节点。<sup class="sup" data-title="The Kubernetes Master is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: kube-apiserver, kube-controller-manager and kube-scheduler.">[[官网]](https://kubernetes.io/docs/concepts/)</sup > 主控组件负责管理集群。<sup class="sup" data-title="The Master is responsible for managing the cluster">[[官网]](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)</sup > 
 
-- **kube-apiserver（API server）**用于与（集群的）**外界**进行**通讯**。API server将会判断接请求是否有效，如果有效就会处理。`kubectl` 等命令行实质就是和该组件通讯。
-- **kube-scheduler**用于**调度资源**。观察是否存在新创建的Pod没有指派到节点，如果存在的话，则将其指派到其中一个节点上。
-- **kube-controller-manager**通过**控制器**进行维护集群。从API server接收到的命令，将会修改集群某些对象的期待状态（desired state），控制器观察到这些期待状态的变化，就会将这些对象的当前状态（current state）变为期待状态（desired state）。<sup>[[官网]](https://kubernetes.io/docs/concepts/architecture/controller/)[[官网]](https://kubernetes.io/zh/docs/concepts/overview/components/)</sup>
+- **API服务器组件<sup>kube-apiserver（API server）</sup>**用于与（集群的）**外界**进行**通讯**。API server将会判断接请求是否有效，如果有效就会处理。`kubectl` 等命令行实质就是和该组件通讯。
+- **调度器<sup>kube-scheduler</sup>**用于**调度资源**。观察是否存在新创建的Pod没有指派到节点，如果存在的话，则将其指派到其中一个节点上。
+- **控制器管理组件<sup>kube-controller-manager</sup>**通过**控制器**进行维护集群。从API server接收到的命令，将会修改集群某些对象的期待状态（desired state），控制器观察到这些期待状态的变化，就会将这些对象的当前状态（current state）变为期待状态（desired state）。<sup>[[官网]](https://kubernetes.io/docs/concepts/architecture/controller/)[[官网]](https://kubernetes.io/zh/docs/concepts/overview/components/)</sup>
   - **节点控制器<sup>Node controller</sup>**：负责监视节点，当节点宕不可用时，进行通知。
   - **复制控制器<sup>Replication controller</sup>**：负责维护每一个<u>复制控制器对象</u>所关联的Pod的数量正确性。
-  - **Endpoints** controller：负责填充 [Endpoints对象](#Endpoint)。
+  - **Endpoints controller**：负责填充 [Endpoints对象](#Endpoint)。
   - **服务账号<sup>Service Account</sup> & 令牌控制器<sup>Token controllers</sup>**：创建默认的账号和API访问令牌。
 
 ```
@@ -73,6 +73,18 @@ command-->  |   kube-apiserver   | ---> change object's
        change object's  <---    |   kube-contoller-manager  |
        current state            |---------------------------|
 ```
+
+#### etc
+
+etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所有集群。<sup class="sup" data-tile="Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup>  **TODO**
+
+cloud-controller-manager
+
+### 节点
+
+当谈起节点<sup>Node</sup>，默认描述对象是<u>工作节点</u>，而不是<u>主节点</u>。
+
+- 
 
 ## 日志
 
