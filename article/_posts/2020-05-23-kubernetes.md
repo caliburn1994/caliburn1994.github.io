@@ -57,7 +57,7 @@ k8s的默认服务只能在集群中调用，常见的用法是前端调用后�
 
 - **API服务器组件<sup>kube-apiserver（API server）</sup>**用于与（集群的）**外界**进行**通讯**。API server将会判断接请求是否有效，如果有效就会处理。`kubectl` 等命令行实质就是和该组件通讯。
 - **调度器<sup>kube-scheduler</sup>**用于**调度资源**。观察是否存在新创建的Pod没有指派到节点，如果存在的话，则将其指派到其中一个节点上。
-- **控制器管理组件<sup>kube-controller-manager</sup>**通过**控制器**进行维护集群。从API server接收到的命令，将会修改集群某些对象的期待状态（desired state），控制器观察到这些期待状态的变化，就会将这些对象的当前状态（current state）变为期待状态（desired state）。<sup>[[官网]](https://kubernetes.io/docs/concepts/architecture/controller/)[[官网]](https://kubernetes.io/zh/docs/concepts/overview/components/)</sup>
+- **控制器管理器<sup>kube-controller-manager</sup>**通过**控制器**进行维护集群。从API server接收到的命令，将会修改集群某些对象的期待状态（desired state），控制器观察到这些期待状态的变化，就会将这些对象的当前状态（current state）变为期待状态（desired state）。<sup>[[官网]](https://kubernetes.io/docs/concepts/architecture/controller/)[[官网]](https://kubernetes.io/zh/docs/concepts/overview/components/)</sup>
   - **节点控制器<sup>Node controller</sup>**：负责监视节点，当节点宕不可用时，进行通知。
   - **复制控制器<sup>Replication controller</sup>**：负责维护每一个<u>复制控制器对象</u>所关联的Pod的数量正确性。
   - **Endpoints controller**：负责填充 [Endpoints对象](#Endpoint)。
@@ -78,12 +78,16 @@ command-->  |   kube-apiserver   | ---> change object's
 
 etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所有集群。<sup class="sup" data-tile="Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup>  **TODO**
 
-cloud-controller-manager
+#### cloud-controller-manager
+
+云控制器管理器<sup>cloud-controller-manager</sup>让你可以将集群连接上云服务提供商的API。<sup class="sup" data-tile="The cloud controller manager lets you link your cluster into your cloud provider’s API.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
 
 ### 节点
 
-当谈起节点<sup>Node</sup>，默认描述对象是<u>工作节点</u>，而不是<u>主节点</u>。
+当谈起节点<sup>Node</sup>，默认说的是对象是<u>工作节点</u>，而不是<u>主节点</u>。
 
+- 每一个节点都会运行一个**kubelet**作为代理，与 [Master](#主控件（Master）) 进行通信。**kubelet**确保容器在Pod中健康地运行。<sup class="sup" data-tile="An agent that runs on each node in the cluster. It makes sure that containers are running in a Pod.
+  The kubelet takes a set of PodSpecs that are provided through various mechanisms and ensures that the containers described in those PodSpecs are running and healthy. The kubelet doesn’t manage containers which were not created by Kubernetes.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
 - 
 
 ## 日志
