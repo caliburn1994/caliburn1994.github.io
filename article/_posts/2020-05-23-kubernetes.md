@@ -86,9 +86,10 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
 
 当谈起节点<sup>Node</sup>，默认说的是对象是<u>工作节点</u>，而不是<u>主节点</u>。
 
-- 每一个节点都会运行一个**kubelet**作为代理，与 [Master](#主控件（Master）) 进行通信。**kubelet**确保容器在Pod中健康地运行。<sup class="sup" data-tile="An agent that runs on each node in the cluster. It makes sure that containers are running in a Pod.
+- 每一个节点都会运行一个**kubelet**作为代理，与 [Master](#主控件（Master）) 进行通信。kubelet确保容器在Pod中健康地运行。<sup class="sup" data-tile="An agent that runs on each node in the cluster. It makes sure that containers are running in a Pod.
   The kubelet takes a set of PodSpecs that are provided through various mechanisms and ensures that the containers described in those PodSpecs are running and healthy. The kubelet doesn’t manage containers which were not created by Kubernetes.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
-- 
+- 每一个节点都回运行一个**kube-proxy**作为网络代理。kube-proxy负责节点的网络规则，通过这些网络规则，你可以在通过集群内外的网络会话访问Pod。<sup class="sup" data-tile="kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.
+  kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
 
 ## 日志
 
@@ -98,8 +99,6 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
 kubectl logs [Pod名字] # 查看当前日志
 kubectl logs [Pod名字] # 查看崩溃前日志
 ```
-
-
 
 #### 管理方式
 
