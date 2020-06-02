@@ -172,13 +172,13 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 
 选择器有两种：**基于相等性的**<sup>equality-based</sup> 和 **基于集合的**<sup>set-based</sup> 。**基于相等性** 意味着运算符是以等号、不等号为主。 **基于集合** 意味着操作符以`in`、`notin` 、`exists`为主。
 
+该如何使用**标签**进行管理呢？[官网](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)推荐使用 `前缀/名称` 对标签进行命名，前缀是为了区别不同用户的对象。名称的命名可参考：[官网](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)、[[非官网来源]](https://www.replex.io/blog/9-best-practices-and-examples-for-working-with-kubernetes-labels)
+
+
+
 #### 字段选择器
 
 字段选择器<sup>Field selector</sup>，在使用命令查找对象时可以使用字段选择器进行筛选。
-
-#### [推荐使用的标签](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)
-
-**//TODO**
 
 ### 未分类对象
 
@@ -318,14 +318,3 @@ kubectl exec -it [Pod名字] -- /bin/bash
 # 访问多容器Pod中的某一容器
 kubectl exec -it [Pod名字] --container [容器名] -- /bin/bash
 ```
-
-
-
-[2]: https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/	"Pod Overview"
-[3]: https://kubernetes.io/docs/concepts/	"Concepts - kubernetes.io"
-[4]: https://cloud.google.com/kubernetes-engine/docs/concepts/service#why_use_a_service	"为何使用 Service？ - Google cloud"
-[5]: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/
-[6]: https://kubernetes.io/docs/concepts/services-networking/service/
-[7]: https://kubernetes.io/docs/concepts/
-[8]: https://kubernetes.io/docs/tasks/manage-kubernetes-objects/declarative-config/
-
