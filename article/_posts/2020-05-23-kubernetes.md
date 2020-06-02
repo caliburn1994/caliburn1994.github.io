@@ -168,8 +168,6 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 
 #### 标签和选择器
 
-#### 选择器
-
 选择器分为：
 
 - **标签选择器<sup>Label selector</sup>**，在yaml定义文件名为`selector`，操作对象为**标签**<sup> `label`</sup>
@@ -231,6 +229,10 @@ Pod<sup>（直译：豆荚）</sup>是K8s的最小单元<sup>（atomic unit）</
 通常，一个Pod只会装载一个容器，除非各容器间需要使用[文件系统](https://zh.wikipedia.org/wiki/文件系统)（存储资源）进行通讯。
 
 参考：[官网](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)、[Google Cloud](https://cloud.google.com/kubernetes-engine/docs/concepts/pod)
+
+#### 命名空间
+
+通常，集群会生成一个默认命名空间<sup>namespace</sup>去装载Pod、服务、Deployment等。命名空间使用场景：当开发团队和产品团队同时使用，希望不互相影响。命名空间可以从默认切换至自定义。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/namespaces-walkthrough/)</sup>
 
 #### 服务
 
