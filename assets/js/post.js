@@ -86,16 +86,11 @@ function addTitleForTOC() {
 }
 
 
-//collapse codes block
+// collapse code block ,the class of which is "kyakya_collap"
 //折叠代码
 function collapseCodesBlock() {
-
-
-    $('.cxj_code').each(function () {
-
+    $('.kyakya_collap').each(function () {
         if ($(this).text() === '') $(this).text("详情")
-
-
         $(this).html(
             "<details>" +
             "<summary>" +
@@ -104,10 +99,6 @@ function collapseCodesBlock() {
             $(this).next().html() +
             "</details>"
         )
-
-
         $(this).next().remove()
     });
-
-
 }
