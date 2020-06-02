@@ -234,6 +234,8 @@ Pod<sup>（直译：豆荚）</sup>是K8s的最小单元<sup>（atomic unit）</
 
 通常，集群会生成一个默认命名空间<sup>namespace</sup>去装载Pod、服务、Deployment等。命名空间使用场景：当开发团队和产品团队同时使用，希望不互相影响。命名空间可以从默认切换至自定义。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/namespaces-walkthrough/)</sup>
 
+命名空间只是对操作进行隔离，并不对网络进行隔离。<sup>[Kubernetes in Action]</sup>
+
 #### 服务
 
 服务<sup>service</sup>，可以理解为逻辑上的Pod。开发者通过服务的DNS名称名（DNS name）可以找到服务，然后通过服务可以调用某一Pod。<sup>[[官网]](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/ )</sup> 调用方 通过调用服务的方式，避免了调用方与Pod的[耦合](https://zh.wikipedia.org/wiki/耦合性_(計算機科學))，这样当Pod宕机时，也不会影响到调用方，这也可用于[负载均衡](https://zh.wikipedia.org/wiki/负载均衡)、[服务发现](https://zh.wikipedia.org/wiki/服务发现)等场景。<sup>[[官网]](https://kubernetes.io/docs/concepts/services-networking/service/ )</sup> 
