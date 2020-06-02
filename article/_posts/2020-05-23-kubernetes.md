@@ -176,11 +176,11 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 
 #### 选择器
 
-在yaml定义文件中，
+选择器分为：
 
-- **标签选择器<sup>Label selector</sup>**名为`selector`，操作对象为`label`
-- **字段选择器<sup>Field selector</sup>**，操作对象是对象几乎所有字段。
-- **节点选择器<sup>Node selector</sup>**名为`nodeSelector`，操作对象为拥有特定标签的节点。
+- **标签选择器<sup>Label selector</sup>**，在yaml定义文件名为`selector`，操作对象为`label`
+- **字段选择器<sup>Field selector</sup>**，操作对象是对象几乎所有字段。示例：`kubectl get pods --field-selector status.phase=Running`。
+- **节点选择器<sup>Node selector</sup>**，在yaml定义文件名名为`nodeSelector`，操作对象为拥有特定标签的节点。
 
 #### 标签选择器
 
