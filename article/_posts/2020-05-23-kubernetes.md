@@ -184,9 +184,8 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 
 #### 标签选择器
 
-<div class="">
+<div class="kyakya_collap" value="示例："/>
 
-<details><summary markdown="span">示例:</summary>
 
 ```yaml
 apiVersion: apps/v1
@@ -213,10 +212,6 @@ spec:
         nodeSelector:
 		    accelerator: nvidia-tesla-p100
 ```
-
-</details>
-
-{::options parse_block_html="false" /}
 
 ##### 字段选择器
 
