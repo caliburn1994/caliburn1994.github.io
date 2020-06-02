@@ -85,10 +85,19 @@ function addTitleForTOC() {
     )
 }
 
-
-// collapse the code block ,the class of which is "kyakya_collap".
-// if its attribute exist,
-//折叠代码
+// exampe:
+// <div class="kyakya_collap" value="example code：">
+// <pre>
+// your code
+// </pre>
+// ==>>
+//
+// <div class="kyakya_collap" value="example code：">
+//      <summary>example code:</summary>
+//      <pre>
+//         your code
+//      </pre>
+// </div>
 function collapseCodesBlock() {
     $('.kyakya_collap').each(function () {
         if ($(this).attr('value') === '') {
