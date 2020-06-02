@@ -168,19 +168,18 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 
 #### 标签和选择器
 
-开发者可通过**选择器**<sup>（全称：标签选择器，Label selector）</sup>查找到对应拥有**标签**<sup>（label）</sup>的对象，并其进行指定。**标签**是键值对结构体数据。
-
-选择器有两种：**基于相等性的**<sup>equality-based</sup> 和 **基于集合的**<sup>set-based</sup> 。**基于相等性** 意味着运算符是以等号、不等号为主。 **基于集合** 意味着操作符以`in`、`notin` 、`exists`为主。
-
-该如何使用**标签**进行管理呢？[官网](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)推荐使用 `前缀/名称` 对标签进行命名，前缀是为了区别不同用户的对象。名称的命名可参考：[官网](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)、[[非官网来源]](https://www.replex.io/blog/9-best-practices-and-examples-for-working-with-kubernetes-labels)
-
 #### 选择器
 
 选择器分为：
 
-- **标签选择器<sup>Label selector</sup>**，在yaml定义文件名为`selector`，操作对象为`label`
+- **标签选择器<sup>Label selector</sup>**，在yaml定义文件名为`selector`，操作对象为**标签**<sup> `label`</sup>
 - **字段选择器<sup>Field selector</sup>**，用于命令查找对象时进行筛选，操作对象是对象几乎所有字段。示例：`kubectl get pods --field-selector status.phase=Running`。
 - **节点选择器<sup>Node selector</sup>**，在yaml定义文件名名为`nodeSelector`，操作对象为拥有特定标签的节点。
+
+标记物：
+
+- **标签<sup>Label</sup>**，自定义元数据（位置`metatdata/labels`**），标签选择器**和**节点选择器**的标记数据。
+- **Annotation**，自定义元数据（位置`metatdata/annotation`**），[其他用途](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)。
 
 <div class="kyakya_collap" value="示例："></div>
 
@@ -192,6 +191,8 @@ metadata:
   name: nginx-deployment
   labels:
     app: nginx
+  annotation: 
+  	....       
 spec:
   replicas: 3
   selector:
@@ -210,6 +211,10 @@ spec:
         nodeSelector:
 		    accelerator: nvidia-tesla-p100
 ```
+
+开发者可通过**选择器**<sup>（全称：标签选择器，Label selector）</sup>查找到对应拥有**标签**<sup>（label）</sup>的对象，并其进行指定。**标签**是键值对结构体数据。选择器有两种：**基于相等性的**<sup>equality-based</sup> 和 **基于集合的**<sup>set-based</sup> 。**基于相等性** 意味着运算符是以等号、不等号为主。 **基于集合** 意味着操作符以`in`、`notin` 、`exists`为主。
+
+该如何使用**标签**进行管理呢？[官网](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)推荐使用 `前缀/名称` 对标签进行命名，前缀是为了区别不同用户的对象。名称的命名可参考：[官网](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)、[[非官网来源]](https://www.replex.io/blog/9-best-practices-and-examples-for-working-with-kubernetes-labels)
 
 ### 未分类对象
 
