@@ -174,8 +174,6 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 
 该如何使用**标签**进行管理呢？[官网](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)推荐使用 `前缀/名称` 对标签进行命名，前缀是为了区别不同用户的对象。名称的命名可参考：[官网](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)、[[非官网来源]](https://www.replex.io/blog/9-best-practices-and-examples-for-working-with-kubernetes-labels)
 
-
-
 #### 字段选择器
 
 字段选择器<sup>Field selector</sup>，在使用命令查找对象时可以使用字段选择器进行筛选。
