@@ -7,12 +7,9 @@ $(document).ready(function () {
         }
     });
 
-
     //abbr的modal模块
     addModal('#post-content')
-
     addModalListener()
-
 
     //为Toc添加标题
     addTitleForTOC()
