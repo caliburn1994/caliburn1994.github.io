@@ -17,7 +17,7 @@ pagination:
 
 
 <div class="row">
-    <!--分页功能-->
+    <!-- https://kyakya.icu/private/ 的简介 -->
     {% for post in paginator.posts %}
     <div class="col s12">
         <div class="card hoverable">
@@ -25,7 +25,7 @@ pagination:
                 <span id="post-title" class="card-title">{{post.title}}</span>
                 <p id="post-date">
                     <i class="material-icons">date_range</i>
-                    {{post.date | date: "%d/%m/%Y %H:%M"}}
+                    {{post.date | date: "%Y-%m-%d"}}
                 </p>
             </div>
             <div class="card-action">
