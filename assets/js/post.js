@@ -86,7 +86,7 @@ function addTitleForTOC() {
 }
 
 // exampe:
-// <div class="kyakya_collap" value="example code：">
+// <div class="kyakya_collap" value="example code："/>
 // <pre>
 // your code
 // </pre>
