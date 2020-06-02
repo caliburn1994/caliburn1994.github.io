@@ -99,23 +99,23 @@ function addTitleForTOC() {
 //      </pre>
 // </div>
 function collapseCodesBlock() {
-    $('.kyakya_collap').each(function () {
-        if ($(this).attr('value') === '') {
-            $(this).text("详情")
-        } else {
-            $(this).text($(this).attr('value'))
-        }
-
-        $(this).html(
-            "<details>" +
-            "<summary>" +
-            $(this).html() +
-            "</summary>" +
-            $(this).next().html() +
-            "</details>"
-        )
-        $(this).next().remove()
-    });
+    // $('.kyakya_collap').each(function () {
+    //     if ($(this).attr('value') === '') {
+    //         $(this).text("详情")
+    //     } else {
+    //         $(this).text($(this).attr('value'))
+    //     }
+    //
+    //     $(this).html(
+    //         "<details>" +
+    //         "<summary>" +
+    //         $(this).html() +
+    //         "</summary>" +
+    //         $(this).next().html() +
+    //         "</details>"
+    //     )
+    //     $(this).next().remove()
+    // });
 }
 
 // <h2>heading</h2> ==> <h2>1 heading</h2>
