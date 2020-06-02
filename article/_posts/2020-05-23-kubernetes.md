@@ -10,7 +10,7 @@ typora-root-url: ..\..
 
 Kubernetes 与传统的 [PaaS](https://zh.wikipedia.org/wiki/平台即服务) 不同，它更多的被称为 容器的PaaS 或者 CaaS（Containers as a service，容器即服务）。
 
-## 概述
+# 概述
 
 开发者使用 Kubernetes 有两种方式：命令行工具（如：[kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) 、 [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/)）、[客户端库](https://kubernetes.io/docs/reference/using-api/client-libraries/)。而这些连接方式均是调用REST API，即调用[Kubernetes API](#kubernetes-api)。<sup class="sup" data-title="Most operations can be performed through the kubectlcommand-line interface or other command-line tools, such as kubeadm, which in turn use the API. However, you can also access the API directly using REST calls.">[[官网]](https://kubernetes.io/docs/reference/using-api/api-overview/ )</sup> （本文以[kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)作为示例进行介绍）
 
@@ -174,7 +174,51 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 
 该如何使用**标签**进行管理呢？[官网](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)推荐使用 `前缀/名称` 对标签进行命名，前缀是为了区别不同用户的对象。名称的命名可参考：[官网](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)、[[非官网来源]](https://www.replex.io/blog/9-best-practices-and-examples-for-working-with-kubernetes-labels)
 
-#### 字段选择器
+#### 选择器
+
+在yaml定义文件中，
+
+- **标签选择器<sup>Label selector</sup>**名为`selector`，操作对象为`label`
+- **字段选择器<sup>Field selector</sup>**
+- **节点选择器<sup>Node selector</sup>**名为`nodeSelector`，操作对象为拥有特定标签的节点。
+
+#### 标签选择器
+
+{::options parse_block_html="true" /}
+
+<details><summary markdown="span">示例:</summary>
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        nodeSelector:
+		    accelerator: nvidia-tesla-p100
+```
+
+</details>
+
+{::options parse_block_html="false" /}
+
+##### 字段选择器
 
 字段选择器<sup>Field selector</sup>，在使用命令查找对象时可以使用字段选择器进行筛选。
 
