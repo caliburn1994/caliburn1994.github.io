@@ -10,7 +10,7 @@ typora-root-url: ..\..
 
 Kubernetes 与传统的 [PaaS](https://zh.wikipedia.org/wiki/平台即服务) 不同，它更多的被称为 容器的PaaS 或者 CaaS（Containers as a service，容器即服务）。
 
-# 概述
+## 概述
 
 开发者使用 Kubernetes 有两种方式：命令行工具（如：[kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) 、 [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/)）、[客户端库](https://kubernetes.io/docs/reference/using-api/client-libraries/)。而这些连接方式均是调用REST API，即调用[Kubernetes API](#kubernetes-api)。<sup class="sup" data-title="Most operations can be performed through the kubectlcommand-line interface or other command-line tools, such as kubeadm, which in turn use the API. However, you can also access the API directly using REST calls.">[[官网]](https://kubernetes.io/docs/reference/using-api/api-overview/ )</sup> （本文以[kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)作为示例进行介绍）
 
