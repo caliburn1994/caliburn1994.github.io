@@ -150,7 +150,7 @@ function insertAutHoeading() {
             console.log(indices)
 
             // display the full position in the hierarchy
-            jQuery(this).prepend(indices.join(".") + " ");
+            jQuery(this).prepend(indices.join(".") + ". ");
 
         });
     }
