@@ -19,6 +19,9 @@ $(document).ready(function () {
 
     //添加折叠代码功能
     collapseCodesBlock()
+
+    // 为h2 h3 h4 增加数字
+    insertAutHoeading()
 });
 
 
@@ -117,3 +120,44 @@ function collapseCodesBlock() {
         $(this).next().remove()
     });
 }
+
+// <h2>heading</h2> ==> <h2>1 heading</h2>
+// insert Auto Numbering for Headings
+// ref :https://stackoverflow.com/questions/5127017/automatic-numbering-of-headings-h1-h6-using-jquery
+function insertAutHoeading() {
+    var indices = [];
+
+    function addIndex() {
+        // jQuery will give all the HNs in document order
+        jQuery('h2,h3,h4,h5,h6').each(function (i, e) {
+            var hIndex = parseInt(this.nodeName.substring(1)) - 2;
+
+             console.log(hIndex)
+
+            // just found a levelUp event
+            if (indices.length - 1 > hIndex) {
+                indices = indices.slice(0, hIndex + 1);
+            }
+
+            // just found a levelDown event
+            if (indices[hIndex] == undefined) {
+                indices[hIndex] = 0;
+            }
+
+            // count + 1 at current level
+            indices[hIndex]++;
+
+            console.log(indices)
+
+            // display the full position in the hierarchy
+            jQuery(this).prepend(indices.join(".") + " ");
+
+        });
+    }
+
+    jQuery(document).ready(function () {
+        addIndex();
+    });
+}
+
+
