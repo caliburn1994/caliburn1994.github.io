@@ -59,7 +59,7 @@ function addModal(afterId) {
 
     //remove abbr
 
-};
+}
 
 function addModalListener() {
     document.addEventListener('DOMContentLoaded', function () {
@@ -129,7 +129,7 @@ function insertAutHoeading() {
         jQuery('h2,h3,h4,h5,h6').each(function (i, e) {
             var hIndex = parseInt(this.nodeName.substring(1)) - 2;
 
-             console.log(hIndex)
+            console.log(hIndex)
 
             // just found a levelUp event
             if (indices.length - 1 > hIndex) {
