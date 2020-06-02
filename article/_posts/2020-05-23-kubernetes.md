@@ -184,7 +184,7 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 
 #### 标签选择器
 
-<div class="kyakya_collap" value="示例："/>
+<div class="kyakya_collap" value="示例："></div>
 
 
 ```yaml
