@@ -110,11 +110,7 @@ K8s的对于容器的健康检查（Health Check）有三种：存活探测器<s
 
 #### 存活探测器
 
-存活探测器<sup>Liveness Probe</sup>，用于探测容器是否运行（存活）。
-
-
-
-根据存活探测的不同，判断存活条件也将不同：
+存活探测器<sup>Liveness Probe</sup>，用于探测容器是否运行（存活）。根据存活探测的不同，判断存活条件也将不同：
 
 - 命令行：返回码为0时即存活。<sup class="sup" data-title="the command succeeds, it returns 0, and the kubelet considers the container to be alive and healthy. If the command returns a non-zero value, the kubelet kills the container and restarts it.">[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)</sup>
 - HTTP：返回码为2xx或3xx即存活。<sup class="sup" data-title="Any code greater than or equal to 200 and less than 400 indicates success. Any other code indicates failure.">[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)</sup>
@@ -162,8 +158,8 @@ spec:
 容器化应用写入 `stdout` 和 `stderr` 的任何数据，都会被容器引擎捕获并被重定向到节点的  `/var/log/containers/`和 `/var/log/pods/` 。<sup>[[Logging Architecture](https://kubernetes.io/docs/concepts/cluster-administration/logging/)]</sup>
 
 ```shell
-kubectl logs [Pod名字] # 查看当前日志
-kubectl logs [Pod名字] # 查看崩溃前日志
+kubectl logs [Pod名字]			 # 查看当前日志
+kubectl logs [Pod名字] --previous  # 查看崩溃前日志
 ```
 
 ### 管理方式
