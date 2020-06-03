@@ -2,8 +2,6 @@
 layout: post
 title: Golang - exec控制台乱码
 date: 2018-11-03 00:00:0
-categories: 计算机
-tags: Go
 comments: 1
 typora-root-url: ..
 excerpt: 在window下，os.exec执行command命令出现乱码情况，该如何解决？
