@@ -74,7 +74,7 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
 
 当谈起节点<sup>Node</sup>，默认说的是对象是<u>工作节点</u>，而不是<u>主节点</u>。
 
-- 每一个节点都会运行一个**kubelet**作为代理，与 [Master](#主控件（Master）) 进行通信。kubelet确保容器在Pod中健康地运行。<sup class="sup" data-tile="An agent that runs on each node in the cluster. It makes sure that containers are running in a Pod.
+- 每一个节点都会运行一个**kubelet**作为代理，与 [Master](#主控件（Master）) 进行通信。kubelet确保容器在Pod中[健康地运行](#健康检查)。<sup class="sup" data-tile="An agent that runs on each node in the cluster. It makes sure that containers are running in a Pod.
   The kubelet takes a set of PodSpecs that are provided through various mechanisms and ensures that the containers described in those PodSpecs are running and healthy. The kubelet doesn’t manage containers which were not created by Kubernetes.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
 - 每一个节点都回运行一个**kube-proxy**作为网络代理。kube-proxy负责节点的网络规则，通过这些网络规则，你可以在通过集群内外的网络会话访问Pod。<sup class="sup" data-tile="kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.
   kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
@@ -110,13 +110,13 @@ K8s的对于容器的健康检查（Health Check）有三种：存活探测器<s
 
 #### 存活探测器
 
-存活探测器<sup>Liveness Probe</sup>，用于探测容器是否运行（存活）。根据存活探测的不同，判断存活条件也将不同：
+存活探测器<sup>Liveness Probe</sup>，用于探测容器是否运行（存活）。根据存活探测器类型不同，判断存活条件也将不同：
 
 - 命令行：返回码为0时即存活。<sup class="sup" data-title="the command succeeds, it returns 0, and the kubelet considers the container to be alive and healthy. If the command returns a non-zero value, the kubelet kills the container and restarts it.">[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)</sup>
 - HTTP：返回码为2xx或3xx即存活。<sup class="sup" data-title="Any code greater than or equal to 200 and less than 400 indicates success. Any other code indicates failure.">[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)</sup>
 - TCP：连接容器指定的端口，连接成功即存活。<sup class="sup" data-title="Just like the readiness probe, this will attempt to connect to the goproxy container on port 8080. If the liveness probe fails, the container will be restarted">[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)</sup>
 
-<div class="kyakya_collap" value="命令行示例："></div>
+命令行类型示例：
 
 ```yaml
 apiVersion: v1
@@ -140,8 +140,14 @@ spec:
         - /tmp/healthy
       initialDelaySeconds: 5 # 容器启动后5秒进行探测
       periodSeconds: 5  # 第一次探测后，每隔5秒进行探测
-      failureThreshold: 10 # 失败10次后才重启，默认值为3次
+      failureThreshold: 10 # 失败10次后才被视为失败（默认值为3次）
+      successThreshold: 2 # 在失败后，需成功2次后才被视为成功（默认为1次）
+      timeoutSeconds: 1   # 探针检查时间的长度,当超过1时将会失败（默认1）
 ```
+
+应用场景：
+
+- 服务器的正常运行
 
 #### 就绪探测器
 
@@ -323,9 +329,23 @@ spec:
       - name: pi
         image: perl
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
-      restartPolicy: Never
-  backoffLimit: 4
+      restartPolicy: Never # always重启、Never不重启、OnFailure失败重启
+  backoffLimit: 4  # 尝试4次会视为失败
 ```
+
+#### CronJob
+
+
+
+#### DaemonSet
+
+DaemonSet（[Daemon](https://zh.wikipedia.org/wiki/守护进程)：守护进程） 为了每一个节点分配有且只有一个Pod，使用场景有：<sup>[[官网]](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)[[Google CLoud]](https://cloud.google.com/kubernetes-engine/docs/concepts/daemonset)</sup>
+
+- 存储用的守护进程。
+- 日志收集的守护进程。
+- 节点监控的守护进程。
+
+
 
 ## 常见讨论
 
