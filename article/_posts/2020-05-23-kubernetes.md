@@ -95,11 +95,11 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
 
 持久性卷<sup>Persistent Volumes</sup>，在 Pod 被移除时，系统只是卸载该卷，数据将保留，并可将其数据传递到另一个 Pod。
 
-## 容器功能扩展
+## 容器
 
 ### 健康检查
 
-K8s的对于容器的健康检查（Health Check）有三种：存活探测（Liveness Probe）、就绪探测（Readiness Probe）、启动探测（Startup Probe）。<sup>[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)[[官网]](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)</sup>
+K8s的对于容器的健康检查（Health Check）有三种：存活探测器<sup>Liveness Probe</sup>、就绪就绪探测器<sup>Readiness Probe</sup>、启动探测器<sup>Startup Probe</sup>。<sup>[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)[[官网]](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)</sup>
 
 执行顺序如下：
 
@@ -108,21 +108,54 @@ K8s的对于容器的健康检查（Health Check）有三种：存活探测（Li
                             |->  Liveness Probe
 ```
 
-#### 存活探测
+#### 存活探测器
 
-存活探测（Liveness Probe）：当不符合条件时，容器将会被重启。通常用于遇到Bug，无法进行下去的情况，如：死锁。
+存活探测器<sup>Liveness Probe</sup>，用于探测容器是否运行（存活）。
 
-常见的存活探测如下：根据命令、根据HTTP返回码、根据TCP是否连接成功。可用于判定命令是否执行成功，当失败且返回值为非0时，容器将会被重启；对于HTTP服务，可通过发送HTTP请求，并根据是否 `400>返回码>=200`，判断是否存活；对于TCP连接，则在指定的时间内观察容器是否能连接成功，如果不能则重启容器。
 
-#### 就绪探测
 
-就绪探测（Readiness Probe）：当符合条件时，容器将被视为已就绪。就绪探测的一个用途：当一个Pod的所有容器就绪后，将会告诉<u>服务</u>该Pod可被使用。
+根据存活探测的不同，判断存活条件也将不同：
+
+- 命令行：返回码为0时即存活。<sup class="sup" data-title="the command succeeds, it returns 0, and the kubelet considers the container to be alive and healthy. If the command returns a non-zero value, the kubelet kills the container and restarts it.">[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)</sup>
+- HTTP：返回码为2xx或3xx即存活。<sup class="sup" data-title="Any code greater than or equal to 200 and less than 400 indicates success. Any other code indicates failure.">[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)</sup>
+- TCP：连接容器指定的端口，连接成功即存活。<sup class="sup" data-title="Just like the readiness probe, this will attempt to connect to the goproxy container on port 8080. If the liveness probe fails, the container will be restarted">[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)</sup>
+
+<div class="kyakya_collap" value="命令行示例："></div>
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: liveness
+    image: k8s.gcr.io/busybox
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5 # 容器启动后5秒进行探测
+      periodSeconds: 5  # 第一次探测后，每隔5秒进行探测
+      failureThreshold: 10 # 失败10次后才重启，默认值为3次
+```
+
+#### 就绪探测器
+
+就绪探测器<sup>Readiness Probe</sup>：当符合条件时，容器将被视为已就绪。就绪探测器的一个用途：当一个Pod的所有容器就绪后，将会告诉<u>服务</u>该Pod可被使用。
 
 通过[TCP](https://zh.wikipedia.org/wiki/TCP)进行就绪探测，那么会循环进行[TCP](https://zh.wikipedia.org/wiki/TCP)连接，直到连接成功，容器将会被视为就绪。通过命令行方式进行就绪探测，当返回值为0时，容器将会被视为就绪。
 
-#### 启动探测
+#### 启动探测器
 
-启动探测（Startup Probe）：当符合条件时，容器被视为已启动。当应用需要长时间进行启动时，启动探测 会在一定时间内不断地探测应用是否启动成功，当应用启动成功后，存活探测或就绪探测 可被启动；超过探测时间的话，容器将会被杀死，并且根据 `restartPolicy` 来做出相应操作。
+启动探测器<sup>Startup Probe</sup>：当符合条件时，容器被视为已启动。当应用需要长时间进行启动时，启动探测 会在一定时间内不断地探测应用是否启动成功，当应用启动成功后，存活探测或就绪探测 可被启动；超过探测时间的话，容器将会被杀死，并且根据 `restartPolicy` 来做出相应操作。
 
 ## 日志
 
