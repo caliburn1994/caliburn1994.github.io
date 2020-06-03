@@ -108,9 +108,9 @@ function collapseCodesBlock() {
 
         $(this).html(
             "<details>" +
-            "<summary>" +
+            "<summary><u style='text-decoration-style: wavy;'>" +
             $(this).html() +
-            "</summary>" +
+            "</u></summary>" +
             $(this).next().html() +
             "</details>"
         )
