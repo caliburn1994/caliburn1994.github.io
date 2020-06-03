@@ -6,19 +6,10 @@ categories: 计算机
 tags: Go
 comments: 1
 typora-root-url: ..
+excerpt: 在window下，os.exec执行command命令出现乱码情况，该如何解决？
 ---
 
-
-
-
-
-
-
-在window下，os.exec执行command命令出现乱码情况，该如何解决？
-
-<br>
-
-##### 环境
+## 环境
 
 操作系统：window 10
 
@@ -28,35 +19,33 @@ IDE：[Goland](#Golang_abbr)
 
 Go：1.10
 
-<br>
+## 概览
 
-##### 概览
+![1541584784598](/../assets/blog_res/1541584784598.png)
 
-![1541584784598](/assets/blog_res/1541584784598.png)
-
-<br>
-
-##### 类型1——控制台encoding（系统自带指令）
+### 类型1——控制台encoding（系统自带指令）
 
 ```go
 package main
 
 import (
-	"log"
 	"fmt"
+	"log"
 	"os/exec"
 )
 
-cmd := exec.Command("ping", "10.0.0.1")
-out, err := cmd.Output()
-if err != nil {
-   log.Fatal(err)
-   fmt.Println(err)
+func main() {
+	cmd := exec.Command("ping", "10.0.0.1")
+	out, err := cmd.Output()
+	if err != nil {
+		log.Fatal(err)
+		fmt.Println(err)
+	}
+	fmt.Print("输出："+string(out))
 }
-fmt.Print("输出："+string(out))
 ```
 
-得到结果
+得到结果：
 
 > Result: 
 >
@@ -78,12 +67,13 @@ fmt.Print("输出："+string(out))
 >
 > ​    ��� = 0ms��� = 0ms��ƽ�� = 0ms
 
-输出台（console）乱码，而数据是从windows command里获取。因此，需查看command的编码（encoding）。
+控制台<sup>console</sup>乱码，而数据是从windows command里获取。因此，需查看command的编码（encoding）。
 
 ```shell
-#查看当前编码
+# 查看当前编码
 # windows 是936（中国- 简体中文(GB2312)）
-chcp
+$ chcp
+Active code page: 936
 ```
 
 原因：
@@ -98,8 +88,6 @@ Golang默认输出为UTF-8，而从CLI获得数据的编码是GB2312，因此出
 
 - 将获得的数据转换为GB2312。
 
-<br>
-
 **将数据转换成GB2312**
 
 参考：[Golang 中的 UTF-8 与 GBK 编码转换](http://mengqi.info/html/2015/201507071345-using-golang-to-convert-text-between-gbk-and-utf-8.html)
@@ -113,12 +101,12 @@ import (
 )
 
 func GbkToUtf8(s []byte) ([]byte, error) {
-reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewDecoder())
-d, e := ioutil.ReadAll(reader)
-if e != nil {
-return nil, e
-}
-return d, nil
+	reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewDecoder())
+	d, e := ioutil.ReadAll(reader)
+	if e != nil {
+		return nil, e
+	}
+	return d, nil
 }
 ```
 
@@ -139,7 +127,7 @@ func main() {
 
 <br>
 
-##### 类型2——软件encoding
+### 类型2——软件encoding
 
 大部分软件，现今支持UTF-8，但是部分（功能）仍旧不支持。
 
@@ -149,7 +137,7 @@ func main() {
 
 <br>
 
-##### 延申
+### 延申
 
 若是日后，window系统统一使用UTF-8编码，那么我们遇到乱码的几率就会越来越少。然而现在仍需考虑window系统下的各种编码问题，以及解决方案的成本。
 
