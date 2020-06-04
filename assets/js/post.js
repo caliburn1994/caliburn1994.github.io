@@ -35,7 +35,7 @@ function addModal(afterId) {
         if (parentAttr) {
             href = parentAttr.replace("#", "")
         } else {
-            $(this).html($(this).text())
+            $(this).contents().unwrap()
             return
         }
 
