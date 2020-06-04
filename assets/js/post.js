@@ -28,13 +28,14 @@ function addModal(afterId) {
     jQuery("abbr").each(function () {
 
         var parentAttr = $(this).parent().attr("href")
-
+        console.log('parentAttr:'+parentAttr)
         var href;
 
+        // if href is not exist, the element of that tag is not one we want.
         if (parentAttr) {
             href = parentAttr.replace("#", "")
         } else {
-            $(this).html($(this).innerHTML)
+            $(this).html($(this).text())
             return
         }
 
