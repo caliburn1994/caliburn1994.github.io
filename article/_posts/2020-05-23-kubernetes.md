@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Kubernetes
-date: 2020-06-02 20:00:02
+date: 2020-06-04 20:00:02
 categories: 计算机
 tags: [鸦鸦的维基,kubernetes]
 comments: 1 
@@ -429,8 +429,11 @@ kubectl exec -it [Pod名字] --container [容器名] -- /bin/bash
 
  `kubectl proxy` 该命令将会生成代理，通过该代理，我们能直接访问 [REST API](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#Kubernetes_API) 。通过`http://[代理IP]:[端口]/api` 等网址可以查看集群各种信息。
 
+## 扩展
 
+### 会话亲和性
 
+如果浏览器开启 `keep-alive` 设置，则拥有会话亲和性<sup>Session Affinity</sup>；`service.spec.sessionAffinity` 设置成 `ClientIP` 也拥有会话亲和性。
 
+*[亲和性]：每次打开浏览器浏览网站都使用同一个Pod，这叫亲和性
 
-[[45\]](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#cite_note-45) 再通过 `http://代理地址/api/v1/namespaces/default/pods/应用地址/proxy` 的方式方问
