@@ -62,6 +62,8 @@ command-->  |   kube-apiserver   | ---> change object's
        current state            |---------------------------|
 ```
 
+`kubectl cluster-info`可以查看到主控件的IP地址。
+
 #### etc
 
 etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所有集群。<sup class="sup" data-tile="Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup>  **TODO**
@@ -185,6 +187,7 @@ K8s把对象分为两个状态：**期望状态**<sup>Desired State</sup> 和 **
 通过 `kubectl get pods [Pod名字] -o json` 命令，开发者可以查看对象对象**当前状态**和**期望状态**。
 
 ```json
+# kubectl get pods [Pod名字] -o json
 {
   "apiVersion": "v1",   	# API版本
   "kind": "Pod",			# 对象类型
@@ -297,6 +300,19 @@ K8s有以下<u>发布服务</u><sup>Publishing Services</sup>方式：<sup>[[官
 
 通过节点[IP地址](https://zh.wikipedia.org/wiki/IP地址)进行暴露服务，可使用；通过云服务提供商的负载均衡器暴露服务，则使用`LoadBalancer`；而当服务不在集群内，在集群之外，可以使用`ExternalName` 模式的服务进行重定向。
 
+##### 发现服务
+
+在Pod初始化时，将会把服务的IP记录到该Pod的**环境变量**里。`kubectl exec [Pod名] env` 可查看到环境变量的内容。
+
+另一种则是通过[DNS](https://en.wikipedia.org/wiki/Domain_Name_System)的[完整域名](https://en.wikipedia.org/wiki/Fully_qualified_domain_name)<sup>**F**ully **Q**ualified **D**omain **N**ame</sup>查找服务。查找地址：
+
+```shell
+# svc:service
+[对象名].[命名空间].svc.cluster.local
+```
+
+DNS的参考示例在[这里](https://medium.com/kubernetes-tutorials/kubernetes-dns-for-services-and-pods-664804211501)。
+
 ### 高级对象
 
 **高级对象**是依赖于[控制器](https://kubernetes.io/docs/concepts/containers/overview/) ，而[控制器](https://kubernetes.io/docs/concepts/containers/overview/)是建立于基础对象之上，并为之添加功能性和方便性。<sup>[[官网]](https://kubernetes.io/docs/concepts/ )</sup>
@@ -406,3 +422,15 @@ kubectl exec -it [Pod名字] -- /bin/bash
 # 访问多容器Pod中的某一容器
 kubectl exec -it [Pod名字] --container [容器名] -- /bin/bash
 ```
+
+### 代理服务器
+
+**//TODO**
+
+ `kubectl proxy` 该命令将会生成代理，通过该代理，我们能直接访问 [REST API](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#Kubernetes_API) 。通过`http://[代理IP]:[端口]/api` 等网址可以查看集群各种信息。
+
+
+
+
+
+[[45\]](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#cite_note-45) 再通过 `http://代理地址/api/v1/namespaces/default/pods/应用地址/proxy` 的方式方问
