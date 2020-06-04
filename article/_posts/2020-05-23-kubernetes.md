@@ -315,9 +315,9 @@ DNS的参考示例在[这里](https://medium.com/kubernetes-tutorials/kubernetes
 
 ##### 会话亲和性
 
-如果浏览器开启 `keep-alive` 设置，则拥有[会话亲和性](#会话亲和性)<sup>Session Affinity</sup>；`service.spec.sessionAffinity` 设置成 `ClientIP` 也拥有会话亲和性。<sup>[[官网]](https://kubernetes.io/docs/concepts/services-networking/service/)[Kubernetes in Action-5.3.3]</sup>
+如果浏览器开启 `keep-alive` 设置，则[拥有会话亲和性](#会话亲和性)<sup>Session Affinity</sup>；`service.spec.sessionAffinity` 设置成 `ClientIP` 也拥有会话亲和性。<sup>[[官网]](https://kubernetes.io/docs/concepts/services-networking/service/)[Kubernetes in Action-5.3.3]</sup>
 
-*[会话亲和性]: 每次打开浏览器浏览网站都使用同一个Pod，这叫会话亲和性。
+*[拥有会话亲和性]: 每次打开浏览器浏览网站都使用同一个Pod，这叫会话亲和性。
 
 ##### 本地服务优先
 
