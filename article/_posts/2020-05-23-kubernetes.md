@@ -331,11 +331,16 @@ spec:
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never # always重启、Never不重启、OnFailure失败重启
   backoffLimit: 4  # 尝试4次会视为失败
+  activeDeadlineSeconds: 100 # 100秒内必须执行成功，否则中止
 ```
 
 #### CronJob
 
+与[Cron任务](https://wiki.archlinux.org/index.php/Cron_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))类型。
 
+```
+
+```
 
 #### DaemonSet
 
@@ -344,8 +349,6 @@ DaemonSet（[Daemon](https://zh.wikipedia.org/wiki/守护进程)：守护进程�
 - 存储用的守护进程。
 - 日志收集的守护进程。
 - 节点监控的守护进程。
-
-
 
 ## 常见讨论
 
