@@ -338,10 +338,6 @@ spec:
 
 与[Cron任务](https://wiki.archlinux.org/index.php/Cron_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))类型。
 
-```
-
-```
-
 #### DaemonSet
 
 DaemonSet（[Daemon](https://zh.wikipedia.org/wiki/守护进程)：守护进程） 为了每一个节点分配有且只有一个Pod，使用场景有：<sup>[[官网]](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)[[Google CLoud]](https://cloud.google.com/kubernetes-engine/docs/concepts/daemonset)</sup>
