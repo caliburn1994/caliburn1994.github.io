@@ -317,7 +317,13 @@ DNS的参考示例在[这里](https://medium.com/kubernetes-tutorials/kubernetes
 
 如果浏览器开启 `keep-alive` 设置，则拥有[会话亲和性](#会话亲和性)<sup>Session Affinity</sup>；`service.spec.sessionAffinity` 设置成 `ClientIP` 也拥有会话亲和性。<sup>[[官网]](https://kubernetes.io/docs/concepts/services-networking/service/)[Kubernetes in Action-5.3.3]</sup>
 
-*[会话亲和性]：每次打开浏览器浏览网站都使用同一个Pod，这叫会话亲和性。
+*[会话亲和性]: 每次打开浏览器浏览网站都使用同一个Pod，这叫会话亲和性。
+
+##### 本地服务优先
+
+`spec.externalTrafficPolicy `<sup>外部流量策略</sup>设置为`local`时，服务调用方将优先使用本地的服务，可是存在[缺点](https://kubernetes.io/docs/concepts/services-networking/service/)：本地缺少服务时将挂起、可能导致[服务流量不均匀](#服务流量不均匀)。
+
+*[服务流量不均匀]: 工作节点A有一个Pod，工作节点B有两个Pod，工作节点A的一个Pod和工作节点B的两个Pod总流量一样。参考：kubernetes in action 5.3章
 
 ### 高级对象
 
