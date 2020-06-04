@@ -433,7 +433,7 @@ kubectl exec -it [Pod名字] --container [容器名] -- /bin/bash
 
 ### 会话亲和性
 
-如果浏览器开启 `keep-alive` 设置，则拥有会话亲和性<sup>Session Affinity</sup>；`service.spec.sessionAffinity` 设置成 `ClientIP` 也拥有会话亲和性。
+如果浏览器开启 `keep-alive` 设置，则拥有会话亲和性<sup>Session Affinity</sup>；`service.spec.sessionAffinity` 设置成 `ClientIP` 也拥有会话亲和性。<sup>[[官网]](https://kubernetes.io/docs/concepts/services-networking/service/)[Kubernetes in Action-5.3.3]</sup>
 
 *[亲和性]：每次打开浏览器浏览网站都使用同一个Pod，这叫亲和性
 
