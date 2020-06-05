@@ -105,9 +105,20 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
 
 ![img](https://miro.medium.com/max/2978/1*KIVa4hUVZxg-8Ncabo8pdg.png)
 
-<div style="text-align: center">图片参考[来源](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0)</div>
+图片参考[此处](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0)；Ingress的英文解释参考[此处](/Ingress)；
 
+Ingress 用于管理外部流量<sup>traffic</sup>该以什么规则**进入**集群访问服务。解决这些问题：
 
+- 通过一个IP端口如何访问到若干个服务？
+- 如果使用HTTPS（证书）？
+
+#### 自签名证书
+
+自签名证书<sup>Self-Signed CA Certificate</sup>签发过程：
+
+1. [生成证书](https://kubernetes.io/zh/docs/concepts/cluster-administration/certificates/)。
+2. 添加到[Sercert](https://kubernetes.io/zh/docs/concepts/configuration/secret/)，进行秘密保管。
+3. 添加相关配置至YAML文件。<sup>[[官网YAML]](https://kubernetes.io/zh/docs/concepts/services-networking/ingress/#tls)</sup>
 
 
 
@@ -167,9 +178,18 @@ spec:
 
 #### 就绪探测器
 
-就绪探测器<sup>Readiness Probe</sup>：当符合条件时，容器将被视为已就绪。就绪探测器的一个用途：当一个Pod的所有容器就绪后，将会告诉<u>服务</u>该Pod可被使用。
+就绪探测器<sup>Readiness Probe</sup>：当符合条件时，容器将被视为已就绪。就绪探测器的一个用途：当一个Pod的所有容器就绪后，**将会告诉服务该Pod可被使用**。
 
-通过[TCP](https://zh.wikipedia.org/wiki/TCP)进行就绪探测，那么会循环进行[TCP](https://zh.wikipedia.org/wiki/TCP)连接，直到连接成功，容器将会被视为就绪。通过命令行方式进行就绪探测，当返回值为0时，容器将会被视为就绪。
+和[存活探测器](#存活探测器)一样有三种分类：
+
+- 命令行：返回码为0时即就绪。
+- HTTP：返回码为2xx或3xx即就绪。
+- TCP：连接容器指定的端口，连接成功即就绪。
+
+应用场景：
+
+- 应用启动时间很长
+- 依赖外部（不能直接使用）
 
 #### 启动探测器
 
