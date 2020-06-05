@@ -97,6 +97,20 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
 
 持久性卷<sup>Persistent Volumes</sup>，在 Pod 被移除时，系统只是卸载该卷，数据将保留，并可将其数据传递到另一个 Pod。
 
+## 网络
+
+[服务](#服务)相关的内容再此不重复。
+
+### Ingress
+
+![img](https://miro.medium.com/max/2978/1*KIVa4hUVZxg-8Ncabo8pdg.png)
+
+<div style="text-align: center">图片参考[来源](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0)</div>
+
+
+
+
+
 ## 容器
 
 ### 健康检查
@@ -441,7 +455,7 @@ kubectl exec -it [Pod名字] --container [容器名] -- /bin/bash
 
  `kubectl proxy` 该命令将会生成代理，通过该代理，我们能直接访问 [REST API](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#Kubernetes_API) 。通过`http://[代理IP]:[端口]/api` 等网址可以查看集群各种信息。
 
-## 扩展
+
 
 
 
