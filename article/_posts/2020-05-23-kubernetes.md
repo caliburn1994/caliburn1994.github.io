@@ -89,9 +89,25 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
 
 对于应用而言，将数据写入容器中的磁盘文件是最简单的途径，但这种方法存在缺陷。如果容器因其他任何原因崩溃或停止，文件将会丢失。此外，一个容器内的文件不可供同一 Pod 中运行的其他容器访问。 卷<sup>Volume</sup>可以解决这两个问题。
 
-### 临时卷
+- [emptyDir](https://kubernetes.io/zh/docs/concepts/storage/volumes/#emptydir)：用于存储临时数据的简单空目录的[临时卷](#临时卷)。 
 
-临时卷 与Pod的生命周期一样，随着包裹其的Pod终止或被删除时，该卷也会随之终止或删除。
+- hostPath —— 用于 将 目录 从 工作 节点 的 文件 系统 挂 载 到 pod 中。 
+
+- gitRepo—— 通过 检出 Git 仓库 的 内容 来 初始化 的 卷。 
+
+- nfs—— 挂 载 到 pod 中的 NFS 共享 卷。 
+
+- gcePersistentDisk（ Google 高效能 型 存储 磁盘 卷）、 awsElastic BlockStore（ AmazonWeb 服务 弹性 块 存储 卷）、 
+
+- azureDisk（ Microsoft Azure 磁盘 卷）—— 用于 挂 载 云 服务 商 提供 的 特定 存储 类型。
+
+- cinder、 cephfs、 iscsi、 flocker、 glusterfs、 quobyte、 rbd、 flexVolume、 vsphere- Volume、 photonPersistentDisk、 scaleIO 用于 挂 载 其他 类型 的 网络 存储。 
+
+- configMap、 secret、 downwardAPI—— 用于 将 Kubernetes 部分 资源 和 集群 信息 公 开给 pod 的 特殊 类型 的 卷。 
+
+- persistentVolumeClaim—— 一种 使用 预置 或者 动态 配置 的 持久 存储 类型
+
+*[临时卷]: <u>临时卷</u>与Pod的生命周期一样，随着包裹其的Pod终止或被删除时，该卷也会随之终止或删除。
 
 ### 持久性卷
 
