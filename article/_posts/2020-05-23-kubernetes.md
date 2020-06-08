@@ -195,6 +195,8 @@ Ingress 用于管理外部流量<sup>traffic</sup>该以什么规则**进入**�
 
 ## 容器
 
+容器章节内容可查看[Docker - 维基百科](https://zh.wikipedia.org/wiki/Docker)。
+
 ### 健康检查
 
 K8s的对于容器的健康检查（Health Check）有三种：存活探测器<sup>Liveness Probe</sup>、就绪就绪探测器<sup>Readiness Probe</sup>、启动探测器<sup>Startup Probe</sup>。<sup>[[官网]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)[[官网]](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/)</sup>
@@ -265,6 +267,23 @@ spec:
 #### 启动探测器
 
 启动探测器<sup>Startup Probe</sup>：当符合条件时，容器被视为已启动。当应用需要长时间进行启动时，启动探测 会在一定时间内不断地探测应用是否启动成功，当应用启动成功后，存活探测或就绪探测 可被启动；超过探测时间的话，容器将会被杀死，并且根据 `restartPolicy` 来做出相应操作。
+
+### 开发与部署
+
+#### 背景
+
+开发环境与产品环境是存在差异，该差异体现在配置。通过环境变量的形式进行配置应用，可以不修改容器的情况下，同时在开发环境与产品环境下进行部署应用。但通过YAML描述文件配置环境变量存在一定的缺陷，如：
+
+- 环境变量数量过多
+- 传输对象仅限于字符串，不能传输文件。<sup>[k8s in action 代码清单7.13]</sup>
+- 如何保持<u>环境变量</u>处于最新状态。
+- ...
+
+#### 方案
+
+[ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/) 作为一个对象，对上述问题拥有更好的处理。而对于需保密内容，应该使用[Secret](https://kubernetes.io/docs/concepts/configuration/secret/)，Secret使用内存存储数据。
+
+
 
 ## 日志
 
