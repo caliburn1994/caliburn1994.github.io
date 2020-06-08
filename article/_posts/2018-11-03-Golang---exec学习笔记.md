@@ -5,50 +5,40 @@ date: 2018-11-03 00:00:01
 categories: 计算机
 tags: Go
 comments: 1
+excerpt: os.exec应该如何学习？
 ---
 
-os.exec应该如何学习？
+## 环境
 
-<br>
-
-##### 环境
-
+```
 操作系统：window 10
-
 IDE：Goland		
-
-*[Goland]: intellij系列的go语言IDE编辑器。
-
 Go：1.10
+```
 
-<br>
+## 案例
 
-#### 案例
-
-##### 例1（简单）
+### 例1（简单）
 
 参考：[Golang - exec控制台乱码](/Golang-exec控制台乱码)
 
-<br>
-
-##### 例2（不使用cmd）
+### 例2（不使用cmd）
 
 ```go
-	cmd := exec.Command("git", "push","origin","master")
-	cmd.Dir = "F:/GitHub/caliburn1994.github.io/_includes"
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		log.Fatal(err)
-		fmt.Println(fmt.Sprint(err) + ": " + string(out))
-	}
+cmd := exec.Command("git", "push","origin","master")
+cmd.Dir = "F:/GitHub/caliburn1994.github.io/_includes"
+out, err := cmd.CombinedOutput()
+if err != nil {
+    log.Fatal(err)
+    fmt.Println(fmt.Sprint(err) + ": " + string(out))
+}
 
-	result, err := GbkToUtf8(out)
-	if err != nil {
-		log.Fatal(err)
-		fmt.Println(err)
-	}
-	fmt.Printf("Result: %s", result)
-
+result, err := GbkToUtf8(out)
+if err != nil {
+    log.Fatal(err)
+    fmt.Println(err)
+}
+fmt.Printf("Result: %s", result)
 ```
 
 API:
@@ -66,22 +56,20 @@ git push origin master
 代替方案：
 
 ```go
-    // Split string 分割参数
-    // 通过csv文档的特性进行分割
-    r := csv.NewReader(strings.NewReader(command))
-    r.Comma = ' ' // space
-    paras, err := r.Read()
-    if err != nil {
-       fmt.Println(err)
-       return
-    }
-    //运行
-    cmd := exec.Command("git", paras...)
+// Split string 分割参数
+// 通过csv文档的特性进行分割
+r := csv.NewReader(strings.NewReader(command))
+r.Comma = ' ' // space
+paras, err := r.Read()
+if err != nil {
+    fmt.Println(err)
+    return
+}
+//运行
+cmd := exec.Command("git", paras...)
 ```
 
-<br>
-
-##### 例3（使用cmd，建议）
+### 例3（使用cmd，建议）
 
 使用cmd的话，则比较简单
 
@@ -107,11 +95,7 @@ window下，使用cmd可以直接使用各种命令，而非cmd则只能使用[�
 
 参考：[cmd是什么？](/what-is-cmd)
 
-
-
-<br>
-
-**CombinedOutput()、Output()、run()关系**
+### CombinedOutput()、Output()、run()关系
 
 run()：运行指令
 
