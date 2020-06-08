@@ -41,9 +41,7 @@ if err != nil {
 fmt.Printf("Result: %s", result)
 ```
 
-API:
-
-**func Command(name string, arg ...string)** 
+API：`func Command(name string, arg ...string) `
 
 参数1需是Path存在的指令，如：Ping、git、Java。且
 
@@ -51,7 +49,7 @@ API:
 git push origin master
 ```
 
-不能放到同一参数中（如：exec.Command("git push origin master")）。
+不能放到同一参数中（如：`exec.Command("git push origin master")`）。
 
 代替方案：
 
@@ -97,11 +95,11 @@ window下，使用cmd可以直接使用各种命令，而非cmd则只能使用[�
 
 ### CombinedOutput()、Output()、run()关系
 
-run()：运行指令
+`run()`：运行指令
 
-Output()：运行指令，并分别返回错误和正常的结果。
+`Output()`：运行指令，并分别返回错误和正常的结果。
 
-CombinedOutput()：运行指令，不管正常与否，均打印在一起。
+`CombinedOutput()`：运行指令，不管正常与否，均打印在一起。
 
 *[在一起]:combine
 
