@@ -279,11 +279,77 @@ spec:
 - 如何保持<u>环境变量</u>处于最新状态。
 - ...
 
-#### 方案
-
 [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/) 作为一个对象，对上述问题拥有更好的处理。而对于需保密内容，应该使用[Secret](https://kubernetes.io/docs/concepts/configuration/secret/)，Secret使用内存存储数据。
 
 
+
+#### Secret
+
+**传输数据，环境变量调用**：
+
+<div class="kyakya_collap" value="完整示例："></div>
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: test-secret
+data:
+  username: bXktYXBw
+  password: Mzk1MjgkdmRnN0pi
+```
+
+```yaml
+# Sercet存储数据
+data: # data->stringData 数据将不可见
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
+  
+# Pod访问环境变量
+spec:
+  containers:
+	...
+    env:
+    - name: SECRET_USERNAME # 环境变量名
+      valueFrom:
+        secretKeyRef:
+          name: test-secret # Sercet名
+          key: username # Sercet的键
+```
+
+示例：[地址1](https://kubernetes.io/zh/docs/tasks/inject-data-application/distribute-credentials-secure/#%E5%88%9B%E5%BB%BA%E9%80%9A%E8%BF%87%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BF%E9%97%AE-secret-%E6%95%B0%E6%8D%AE%E7%9A%84-pod)、[地址2](https://kubernetes.io/zh/docs/tasks/inject-data-application/distribute-credentials-secure/#%E5%88%9B%E5%BB%BA%E9%80%9A%E8%BF%87%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BF%E9%97%AE-secret-%E6%95%B0%E6%8D%AE%E7%9A%84-pod)
+
+**传输数据，通过文件方式访问**，文件可以通过base64形式存储。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: nginx
+      volumeMounts:
+        - name: [自定义卷名]
+          mountPath: [secret挂载的位置]
+  volumes:
+    - name: [自定义卷名]
+      secret:
+        secretName: [secret名]
+```
+
+```bash
+# secret中只有两个键时候
+$ ls [secret挂载的位置]
+password username
+```
+
+参考：[地址1](https://kubernetes.io/zh/docs/tasks/inject-data-application/distribute-credentials-secure/#%E5%88%9B%E5%BB%BA%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E5%8D%B7%E8%AE%BF%E9%97%AE-secret-%E6%95%B0%E6%8D%AE%E7%9A%84-pod)
+
+#### ConfigMap
+
+ConfigMap用法和[Sercet](#Sercet)类似，暂时省略。
 
 ## 日志
 
