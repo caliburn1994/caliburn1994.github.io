@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Kubernetes
-date: 2020-06-04 20:00:02
+date: 2020-06-11 20:00:02
 categories: 计算机
 tags: [鸦鸦的维基,kubernetes]
 comments: 1 
@@ -285,24 +285,16 @@ spec:
 
 **传输数据，环境变量调用**：
 
-<div class="kyakya_collap" value="完整示例："></div>
-
 ```yaml
 apiVersion: v1
-kind: Secret
-metadata:
-  name: test-secret
-data:
-  username: bXktYXBw
-  password: Mzk1MjgkdmRnN0pi
-```
-
-```yaml
+...
 # Sercet存储数据
 data: # data->stringData 数据将不可见
   username: YWRtaW4=
   password: MWYyZDFlMmU2N2Rm
-  
+
+apiVersion: v1
+...
 # Pod访问环境变量
 spec:
   containers:
