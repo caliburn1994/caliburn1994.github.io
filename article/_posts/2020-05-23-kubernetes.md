@@ -191,8 +191,6 @@ Ingress 用于管理外部流量<sup>traffic</sup>该以什么规则**进入**�
 2. 添加到[Sercert](https://kubernetes.io/zh/docs/concepts/configuration/secret/)，进行秘密保管。
 3. 添加相关配置至YAML文件。<sup>[[官网YAML]](https://kubernetes.io/zh/docs/concepts/services-networking/ingress/#tls)</sup>
 
-
-
 ## 容器
 
 容器章节内容可查看[Docker - 维基百科](https://zh.wikipedia.org/wiki/Docker)。
@@ -529,7 +527,7 @@ ReplicaSet 是 ReplicationController 的升级版本，ReplicaSet 的标签选�
 
 #### Deployment
 
-Deployment控制器 提供了[声明式](https://zh.wikipedia.org/wiki/声明式编程)（使用[YAML文件](https://zh.wikipedia.org/wiki/YAML)）的方式，更新[Pod](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#Pod)和[ReplicaSet](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#ReplicaSet)。<sup>[[官网]](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/declarative-config/ )</sup>  **#todo**
+Deployment控制器是[ReplicaSet](#ReplicaSet)的升级版本，并且基于[ReplicaSet](#ReplicaSet)，对<u>更新Pod</u>该操作进行优化。
 
 #### Job
 
