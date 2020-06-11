@@ -266,7 +266,7 @@ spec:
 
 启动探测器<sup>Startup Probe</sup>：当符合条件时，容器被视为已启动。当应用需要长时间进行启动时，启动探测 会在一定时间内不断地探测应用是否启动成功，当应用启动成功后，存活探测或就绪探测 可被启动；超过探测时间的话，容器将会被杀死，并且根据 `restartPolicy` 来做出相应操作。
 
-### 开发与部署
+### 开发与部署的配置
 
 #### 背景
 
@@ -278,8 +278,6 @@ spec:
 - ...
 
 [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/) 作为一个对象，对上述问题拥有更好的处理。而对于需保密内容，应该使用[Secret](https://kubernetes.io/docs/concepts/configuration/secret/)，Secret使用内存存储数据。
-
-
 
 #### Secret
 
@@ -340,6 +338,53 @@ password username
 #### ConfigMap
 
 ConfigMap用法和[Sercet](#Sercet)类似，暂时省略。
+
+### 获取上层信息
+
+容器的上一层是Pod，拥有IP、主机名等信息（元数据）。容器获得Pod信息有以下方式。
+
+#### 通过Downward API传输
+
+```yaml
+# 方式1：将元数据以文件形式存储到容器里
+spec:
+  containers:
+    - name: [容器名]
+	  ...
+      volumeMounts:
+        - name: [自定义卷名]
+          mountPath: [容器路径]
+volumes:
+    - name: [自定义卷名]
+      downwardAPI:
+        items:
+          - path: "存储该元数据的文件名称" 
+            fieldRef:
+              fieldPath: metadata.labels #元数据的数据名
+```
+
+```yaml
+# 方式1：将元数据以环境变量形式存储到容器里
+spec:
+  containers:
+    - name: test-container
+      ...
+      env:
+        - name: [环境变量名]
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName #元数据的数据名
+```
+
+参考：[地址1](https://kubernetes.io/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)、[地址2](https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
+
+#### 访问Rest API
+
+通过访问[Kubernetes API](#Kubernetes API)，直接获得信息。
+
+- 直接访问，需要手动导入证书。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/)</sup>
+- 通过代理访问，需要启动代理，并从代理处访问。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/)</sup>
+- Ambassador代理容器，从代理处访问。<sup>[k8s in action - 8.2.3]</sup>
 
 ## 日志
 
