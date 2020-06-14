@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Kubernetes
-date: 2020-06-11 20:00:02
+date: 2020-06-15 20:00:02
 categories: 计算机
 tags: [鸦鸦的维基,kubernetes]
 comments: 1 
@@ -60,13 +60,24 @@ command-->  |   kube-apiserver   | ---> change object's
                                 |---------------------------| 
        change object's  <---    |   kube-contoller-manager  |
        current state            |---------------------------|
+       
+---------------------------------------------------------------
+
+            |--------------------|                            
+command-->  |   kube-apiserver   | ---> change object's 
+            |--------------------|      desired state          
+                                             ↑
+                                             | watch
+                                |---------------------------| 
+      	    create object <---  |  		 kube-scheduler 	|
+						        |---------------------------|
 ```
 
 `kubectl cluster-info`可以查看到主控件的IP地址。
 
 #### etc
 
-etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所有集群。<sup class="sup" data-tile="Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup>  **TODO**
+etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所有集群。<sup class="sup" data-tile="Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 如Pod、控制器、服务、密钥等信息均需要要给持久化存储的位置，而该位置就是etc。
 
 #### cloud-controller-manager
 
@@ -77,9 +88,16 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
 当谈起节点<sup>Node</sup>，默认说的是对象是<u>工作节点</u>，而不是<u>主节点</u>。
 
 - 每一个节点都会运行一个**kubelet**作为代理，与 [Master](#主控件（Master）) 进行通信。kubelet确保容器在Pod中[健康地运行](#健康检查)。<sup class="sup" data-tile="An agent that runs on each node in the cluster. It makes sure that containers are running in a Pod.
-  The kubelet takes a set of PodSpecs that are provided through various mechanisms and ensures that the containers described in those PodSpecs are running and healthy. The kubelet doesn’t manage containers which were not created by Kubernetes.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
+  The kubelet takes a set of PodSpecs that are provided through various mechanisms and ensures that the containers described in those PodSpecs are running and healthy. The kubelet doesn’t manage containers which were not created by Kubernetes.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 包括：
+  - 创建Node资源进行注册
+  - 启动Pod和其容器
+  - 监控容器
+  - 向API服务器组件<sup>kube-apiserver（API server）</sup>报告
 - 每一个节点都回运行一个**kube-proxy**作为网络代理。kube-proxy负责节点的网络规则，通过这些网络规则，你可以在通过集群内外的网络会话访问Pod。<sup class="sup" data-tile="kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.
-  kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
+  kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 包含：
+  - 监听[服务](#服务)的正常
+  - 更行相关规则。规则的运行模式可扩展阅读[此处](https://blog.fleeto.us/post/iptables-or-ipvs/)。
+- 容器运行时<sup>Container runtime</sup>软件负责运行中的容器。<sup class="sup" data-tile="The container runtime is the software that is responsible for running containers.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
 
 ## 存储
 
@@ -190,6 +208,10 @@ Ingress 用于管理外部流量<sup>traffic</sup>该以什么规则**进入**�
 1. [生成证书](https://kubernetes.io/zh/docs/concepts/cluster-administration/certificates/)。
 2. 添加到[Sercert](https://kubernetes.io/zh/docs/concepts/configuration/secret/)，进行秘密保管。
 3. 添加相关配置至YAML文件。<sup>[[官网YAML]](https://kubernetes.io/zh/docs/concepts/services-networking/ingress/#tls)</sup>
+
+### DNS
+
+在后续版本中，官网推荐使用 CoreDNS 代替 kube-dns 作为DNS服务器。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/)</sup> 通过容器中的`/etc/resolv.conf`可以查看到域名服务器<sup>nameserver</sup>，如想修改该文件中的配置，应该通过kubectl命令行修改对应的ConfigMap而实现。
 
 ## 容器
 
@@ -599,6 +621,15 @@ DaemonSet（[Daemon](https://zh.wikipedia.org/wiki/守护进程)：守护进程�
 - 日志收集的守护进程。
 - 节点监控的守护进程。
 
+#### StatefulSet
+
+背景：
+
+- **状态**：当我们谈起对象存在状态否时，谈论的主语是**一组对象**而**不是一个对象**。有状态<sup>stateful</sup>，是指一组对象互相间存在差异。无状态<sup>stateful</sup>，则是指一组对象不存在差异。
+- 集群下的操作对象往往是一个集合的Pod，而批量<sup>batch</sup>处理集合必然会忽略Pod的**状态**。
+
+使用StatefulSet创建Pod后，通过网络标识直接访问该Pod的REST API内容。该Pod的存储内容也是唯一的，不与其他同类Pod共享存储空间。
+
 ## 常见讨论
 
 ### 容器 vs Pod
@@ -621,15 +652,15 @@ DaemonSet（[Daemon](https://zh.wikipedia.org/wiki/守护进程)：守护进程�
 - `kubectl get` 包含资源信息
 - `kubectl describe` 包含：资源、事件<sup>event </sup>、控制器<sup>controller</sup>
 
-
-
 #### kubectl create vs apply
 
 > `kubectl apply` - Apply or Update a resource from a file or stdin.[<sup>[原址]</sup>](https://kubernetes.io/docs/reference/kubectl/overview/#examples-common-operations)
 
 `kubectl apply`：创建、更新资源；`kubectl create`：创建资源
 
+#### kubectl attach vs exec
 
+前者是附属于主程序，后者是在容器中运行一个进程。
 
 ### 如何使用SSH？
 
