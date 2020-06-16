@@ -75,6 +75,8 @@ command-->  |   kube-apiserver   | ---> change object's
 
 `kubectl cluster-info`可以查看到主控件的IP地址。
 
+创建一个的流程的详细流程可以参考：<u>[Kubernetes in Action的11.2.2 事件链]</u>
+
 #### etc
 
 etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所有集群。<sup class="sup" data-tile="Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 如Pod、控制器、服务、密钥等信息均需要要给持久化存储的位置，而该位置就是etc。
@@ -407,6 +409,130 @@ spec:
 - 直接访问，需要手动导入证书。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/)</sup>
 - 通过代理访问，需要启动代理，并从代理处访问。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/)</sup>
 - Ambassador代理容器，从代理处访问。<sup>[k8s in action - 8.2.3]</sup>
+
+## 安全
+
+
+
+### 授权
+
+在Cloud IAM<sup>Identity and Access Management </sup>，可译为<u>云标识与访问管理</u>，用于管理资源的访问权限。
+
+Cloud IAM模型分为三个部分：
+
+- 成员：Google 帐号、[服务账号](#服务账号)等
+- [角色](#角色)：角色包含授权的具体内容
+- 政策<sup>Policy</sup>：    **//TODO**
+
+```
+[成员]--绑定-->[角色]
+```
+
+#### 服务账号
+
+背景：在容器中操作API服务器需要使用密钥，而默认情况下，通过默认密钥可以操作API服务器中<u>所有资源</u>，这是十分危险。通过服务帐号<sup>Service Accounts</sup>可以限制容器的权限。
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: [服务账号名]
+```
+
+#### RBAC授权
+
+RBAC授权<sup>Role-based access control  Authorization</sup>，可译为基于角色的访问控制授权。
+
+RBAC API中有四种对象：
+
+- 角色<sup>Role</sup> 与 角色绑定<sup>RoleBinding</sup>
+- 集群角色<sup>ClusterRole</sup> 与 集群角色绑定<sup>ClusterRoleBinding</sup>
+
+操作范围：`集群角色>角色`
+
+##### 角色
+
+角色：用于设置<u>命名空间</u>的权限。
+
+示例[参考](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-examples)：
+
+```yaml
+# 授权对命名空间"default"中的Pods的读取权限
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default	# 角色所在的命名空间
+  name: pod-reader	
+rules:
+- apiGroups: [""] # "" 对象API是kubrnetes API
+  resources: ["pods"]  # 允许操作Pods
+  verbs: ["get", "watch", "list"] # 允许get list watch
+```
+
+##### 角色绑定
+
+角色绑定是讲<u>角色</u>与<u>用户</u>绑定在一起。<sup>[[官网]](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-example)</sup>
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+# 讲角色"pod-reader"与用户"jane"绑定
+kind: RoleBinding
+metadata:
+  name: read-pods
+  namespace: default
+subjects:
+- kind: User # User/Group/ServiceAccount
+  name: jane # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role # Role/ClusterRole
+  name: pod-reader # 角色
+  apiGroup: rbac.authorization.k8s.io
+```
+
+##### 集群角色
+
+集群角色：用于设定<u>非命名空间</u>资源的权限。<sup>[[官网]](https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/#rolebinding-%E5%92%8C-clusterrolebinding)</sup>
+
+```yaml
+# 授权对所有/单个命名空间中的secrets的读取权限
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  # 此处的 "namespace" 被省略掉是因为 ClusterRoles 是没有命名空间的。
+  name: secret-reader
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "watch", "list"]
+```
+
+##### 集群角色绑定
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+# 这个角色绑定允许 "dave" 用户在 "development" 命名空间中有读取 secrets 的权限。 
+kind: RoleBinding
+metadata:
+  name: read-secrets
+  namespace: [命名空间]。 # 如development
+subjects:
+- kind: User
+  name: dave # 名称区分大小写
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
+```
+
+
+
+
+
+
+
+
 
 ## 日志
 
