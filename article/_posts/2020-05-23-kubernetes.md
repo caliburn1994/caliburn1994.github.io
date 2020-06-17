@@ -8,7 +8,7 @@ comments: 1
 typora-root-url: ..\..
 ---
 
-Kubernetes 与传统的 [PaaS](https://zh.wikipedia.org/wiki/平台即服务) 不同，它更多的被称为 容器的PaaS 或者 CaaS（Containers as a service，容器即服务）。
+Kubernetes是一个开源系统，用于自动化部署、伸缩<sup>scaling</sup>、管理容器化应用。
 
 ## 概述
 
