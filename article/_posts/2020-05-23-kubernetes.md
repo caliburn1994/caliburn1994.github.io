@@ -369,6 +369,8 @@ ConfigMap用法和[Sercet](#Sercet)类似，暂时省略。
 
 容器运行应用：需要将源代码传输到容器中。可以在容器中安装SSH，通过SFTP进行传输；通过更新Docker容器方式同步文件。而现在有不少工具进行辅助，参考：[地址一](https://kubernetes.io/zh/blog/2018/05/01/developing-on-kubernetes/)，[地址二](https://blog.fleeto.us/post/draft-vs-gitkube-vs-helm-vs-ksonnet-vs-metaparticle-vs-skaffold/)。
 
+同时，部署环境还要考虑到使用<u>本地</u>还是<u>非本地</u>，本地常常使用Minikube。
+
 ### 获取上层信息
 
 容器的上一层是Pod，拥有IP、主机名等信息（元数据）。容器获得Pod信息有以下方式。
@@ -589,6 +591,16 @@ kubectl logs [Pod名字] --previous  # 查看崩溃前日志
 ### 管理方式
 
 **//todohttps://kubernetes.io/zh/docs/concepts/cluster-administration/logging/**
+
+## K8s扩展
+
+K8s得扩展包含:
+
+- 自定义对象
+- 自定义控制器
+- 自定义API服务器<sup>API Server</sup>
+
+在没有使用<u>自定义对象</u>之前，我们使用K8s可以说是基于对象的编程，但是一旦自定义对象后，我们可以视之为面向对象的编程。就像Java等面向对象编程语言那样，通过自定义类/模板文件，可以简化系统。
 
 ## 术语
 
@@ -866,9 +878,7 @@ kubectl exec -it [Pod名字] --container [容器名] -- /bin/bash
 
  `kubectl proxy` 该命令将会生成代理，通过该代理，我们能直接访问 [REST API](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#Kubernetes_API) 。通过`http://[代理IP]:[端口]/api` 等网址可以查看集群各种信息。
 
-### 元编程
 
-所谓得元编程，就是可以查看或操作<u>当前语境<sup>context</sup></u>的上一层次内容的一种编程方式。Pod的上一层就是节点，比虚拟机拥有更多一层次，因此容器可通过元编程的增加集群/节点功能性。不过这样会带来一定的安全隐患。
 
 
 
