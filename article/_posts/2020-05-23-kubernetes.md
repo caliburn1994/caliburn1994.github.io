@@ -363,6 +363,12 @@ password username
 
 ConfigMap用法和[Sercet](#Sercet)类似，暂时省略。
 
+### 开发应用
+
+在开发应用期间，需要将源代码传输运行环境并运行，运行环境可以是普通的虚拟机，也可以是容器，但是考虑到开发环境要尽量与部署环境一致，以及基于K8s的开发与传统开发存在一定的差异，所以我们应该在<u>容器</u>中进行运行测试。
+
+容器运行应用：需要将源代码传输到容器中。可以在容器中安装SSH，通过SFTP进行传输；通过更新Docker容器方式同步文件。而现在有不少工具进行辅助，参考：[地址一](https://kubernetes.io/zh/blog/2018/05/01/developing-on-kubernetes/)，[地址二](https://blog.fleeto.us/post/draft-vs-gitkube-vs-helm-vs-ksonnet-vs-metaparticle-vs-skaffold/)。
+
 ### 获取上层信息
 
 容器的上一层是Pod，拥有IP、主机名等信息（元数据）。容器获得Pod信息有以下方式。
@@ -412,9 +418,46 @@ spec:
 
 ## 安全
 
+### 容器安全
+
+#### 语境
+
+默认语境<sup>Context</sup>下，容器是使用是超级用户root。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-demo
+spec:
+  securityContext:
+    runAsUser: 1000   # 用户ID，超级用户是0
+    runAsGroup: 3000
+    fsGroup: 2000
+  volumes:
+  - name: sec-ctx-vol
+    emptyDir: {}
+  containers:
+  - name: sec-ctx-demo
+    image: busybox
+    command: [ "sh", "-c", "sleep 1h" ]
+    volumeMounts:
+    - name: sec-ctx-vol
+      mountPath: /data/demo
+    securityContext:
+      allowPrivilegeEscalation: false
+```
+
+不为超级用户：<sup>[[参考手册]](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#podsecuritycontext-v1-core)</sup>
+
+```yaml
+  securityContext:  
+    runAsNonRoot: true
+```
 
 
-### 授权
+
+### 资源授权
 
 在Cloud IAM<sup>Identity and Access Management </sup>，可译为<u>云标识与访问管理</u>，用于管理资源的访问权限。
 
@@ -823,7 +866,9 @@ kubectl exec -it [Pod名字] --container [容器名] -- /bin/bash
 
  `kubectl proxy` 该命令将会生成代理，通过该代理，我们能直接访问 [REST API](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#Kubernetes_API) 。通过`http://[代理IP]:[端口]/api` 等网址可以查看集群各种信息。
 
+### 元编程
 
+所谓得元编程，就是可以查看或操作<u>当前语境<sup>context</sup></u>的上一层次内容的一种编程方式。Pod的上一层就是节点，比虚拟机拥有更多一层次，因此容器可通过元编程的增加集群/节点功能性。不过这样会带来一定的安全隐患。
 
 
 
