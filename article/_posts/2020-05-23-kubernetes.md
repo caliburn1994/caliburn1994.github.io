@@ -878,7 +878,9 @@ kubectl exec -it [Pod名字] --container [容器名] -- /bin/bash
 
  `kubectl proxy` 该命令将会生成代理，通过该代理，我们能直接访问 [REST API](https://zh.wikipedia.org/wiki/User:九千鸦/k8s#Kubernetes_API) 。通过`http://[代理IP]:[端口]/api` 等网址可以查看集群各种信息。
 
+### 部署很麻烦！
 
+有时候我们想要一次性创建Deployment、Service、Loaderbalance，我们可以通过脚本一次性执行，也可以通过工具[helm](https://helm.sh/)（头盔）
 
 
 
