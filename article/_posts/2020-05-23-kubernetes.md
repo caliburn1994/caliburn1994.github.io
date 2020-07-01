@@ -462,23 +462,23 @@ IAM模型分为三个部分：
 当我们有两个主账号时，仅仅通过上述方式的话，账号1的权限无法授予给账号2，我们必须通过**角色**：
 
 ```
-------------------
-[amazon account-1]
-   [policies]
-       |
-     attach
-       ↓
------[role]-------
+|-------------------|
+|[amazon account-1]	|
+|   [policies]		|
+|       |			|
+|     attach		|
+|       ↓			|
+|-----[role]--------|
 	   ↑
 	   |
-----[policy]------
-       |
-	 attach
-	   ↓
-  [IAM account]
-  
-[amazon account-2]
-------------------
+|----[policy]-------|
+|       |			|
+|	 attach			|
+|	   ↓			|
+|  [IAM account]	|
+|  					|
+|[amazon account-2]	|
+|-------------------|
 ```
 
 过程如下：
@@ -490,7 +490,11 @@ IAM模型分为三个部分：
 
 ##### 服务账号
 
-背景：在容器中操作API服务器需要使用密钥，而默认情况下，通过默认密钥可以操作API服务器中<u>所有资源</u>，这是十分危险。通过服务帐号<sup>Service Accounts</sup>可以限制容器的权限。
+背景：默认情况下在容器中，我们可以`/var/run/secrets/kubernetes.io/serviceaccount/token`中`token`直接访问API中的所有资源<sup>[[官网]](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/)</sup>。然而，这种行为是十分危险。
+
+为了对访问权限进行限制，我们可以创建自定义服务账号<sup>ServiceAccount</sup>,再通RBAC授权进行关联，从而达到目的。
+
+服务账号的配置文件如下：
 
 ```yaml
 apiVersion: v1
@@ -498,6 +502,8 @@ kind: ServiceAccount
 metadata:
   name: [服务账号名]
 ```
+
+并不包含任何权限配置，所以与需要RBAC进行关联。示例可参考[此处](https://medium.com/better-programming/k8s-tips-using-a-serviceaccount-801c433d0023#:~:text=A%20ServiceAccount%20is%20used%20by,resources%20involved%20in%20the%20process.)
 
 ##### RBAC授权
 
