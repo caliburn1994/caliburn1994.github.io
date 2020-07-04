@@ -101,6 +101,8 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
   - 更行相关规则。规则的运行模式可扩展阅读[此处](https://blog.fleeto.us/post/iptables-or-ipvs/)。
 - 容器运行时<sup>Container runtime</sup>软件负责运行中的容器。<sup class="sup" data-tile="The container runtime is the software that is responsible for running containers.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
 
+节点可以手动创建，也可以通过[受管理的节点群](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html)<sup>Managed node groups</sup>创建，后者则更为自动化。
+
 ## 存储
 
 存储方案有很多。托管式的有如：[网络附加存储](https://zh.wikipedia.org/wiki/網路附加儲存)（NAS）、数据库、[文件服务器](https://zh.wikipedia.org/wiki/文件服务器)；非托管式的则利用Kubernetes 存储抽象，如：[卷](#卷)。<sup>[[Google Cloud]](https://cloud.google.com/kubernetes-engine/docs/concepts/storage-overview)[[Google Cloud]](https://cloud.google.com/kubernetes-engine/docs/concepts/volumes)[[官网]](https://kubernetes.io/zh/docs/concepts/storage/volumes/)</sup>
@@ -305,7 +307,7 @@ spec:
 
 #### Secret
 
-**传输数据，环境变量调用**：
+**外部将数据传入容器，并作为环境变量**：
 
 ```yaml
 apiVersion: v1
@@ -486,9 +488,31 @@ IAM模型分为三个部分：
 1. 账号2将权限**授予**给账号1
 2. 账号1去访问角色，从而获得权限，而通常会把这权限分配给旗下的IAM用户（账号）
 
+#### 云=>集群
+
+云层次和集群层次负责的权限不同，但是使用的主体往往是一样。举例：
+
+1. 如aws根用户给集群部署者`鸦鸦`创建了一个IAM用户。此时，我们需要为IAM用户`鸦鸦`在k8s创建一个角色，赋予该角色拥有超级权限，并将该角色与K8s新创造的用户进行绑定。`鸦鸦`登陆集群后，修改ID和密钥就可拥有超级权限。
+2. aws根用户创造一个应用开发者`鸦鸦2号`。K8s集群用户`鸦鸦`将创建角色，并赋予该角色可以操作名为`development`的命名空间所有内容，并创建一个用户名`鸦鸦2号`。`鸦鸦2号`登陆后，修改`kubectl get configmap -n kube-system aws-auth -o yaml `中的内容并更新，就可以获得`鸦鸦2号`该用户的权限。具体参考[教程](https://www.eksworkshop.com/beginner/090_rbac/create_iam_user/)。
+
 #### 集群层次资源
 
-##### 服务账号
+##### RBAC授权定义
+
+RBAC授权<sup>Role-based access control  Authorization</sup>，可译为基于角色的访问控制授权。
+
+```
+[subjects]<--[RoleBinding]-->[role]
+[subjects]<--[ClusterRoleBinding]-->[role]
+```
+
+举例：集群中有一个用户（subject）叫`kyakya酱`，而ta的角色（role）是`管理员`，`kyakya酱`和`管理员`用`RoleBinding`绑定起来，并记录。
+
+##### 主体（subjects）
+
+主体（subjects）有若干个选择：用户<sup>users</sup>、群<sup>groups</sup>、服务账号<sup>service accounts</sup>。<sup>[[官网]](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)</sup>
+
+###### 服务账号
 
 背景：默认情况下在容器中，我们可以`/var/run/secrets/kubernetes.io/serviceaccount/token`中`token`直接访问API中的所有资源<sup>[[官网]](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/)</sup>。然而，这种行为是十分危险。
 
@@ -505,9 +529,7 @@ metadata:
 
 并不包含任何权限配置，所以与需要RBAC进行关联。示例可参考[此处](https://medium.com/better-programming/k8s-tips-using-a-serviceaccount-801c433d0023#:~:text=A%20ServiceAccount%20is%20used%20by,resources%20involved%20in%20the%20process.)
 
-##### RBAC授权
-
-RBAC授权<sup>Role-based access control  Authorization</sup>，可译为基于角色的访问控制授权。
+##### 角色与角色绑定
 
 RBAC API中有四种对象：
 
