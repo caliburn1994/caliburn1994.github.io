@@ -492,8 +492,28 @@ IAM模型分为三个部分：
 
 云层次和集群层次负责的权限不同，但是使用的主体往往是一样。举例：
 
-1. 如aws根用户给集群部署者`鸦鸦`创建了一个IAM用户。此时，我们需要为IAM用户`鸦鸦`在k8s创建一个角色，赋予该角色拥有超级权限，并将该角色与K8s新创造的用户进行绑定。`鸦鸦`登陆集群后，修改ID和密钥就可拥有超级权限。
-2. aws根用户创造一个应用开发者`鸦鸦2号`。K8s集群用户`鸦鸦`将创建角色，并赋予该角色可以操作名为`development`的命名空间所有内容，并创建一个用户名`鸦鸦2号`。`鸦鸦2号`登陆后，修改`kubectl get configmap -n kube-system aws-auth -o yaml `中的内容并更新，就可以获得`鸦鸦2号`该用户的权限。具体参考[教程](https://www.eksworkshop.com/beginner/090_rbac/create_iam_user/)。
+1. aws根用户创建了一个IAM用户`鸦鸦`
+2. k8s为其创建一个k8s用户，该配置过程可以通过以下配置文件：
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapUsers: |
+    - userarn: arn:aws:iam::[awsID]:user/鸦鸦
+      username: 鸦鸦
+```
+aws的话可以使用[eksctl](https://www.eksworkshop.com/beginner/091_iam-groups/configure-aws-auth/#update-the-aws-auth-configmap-to-allow-our-iam-roles)命令进行创建。
+
+3. 创建一个`角色`，并使用`角色绑定`将`鸦鸦`和该角色绑定在一起。
+4. 安装`kubectl`并修改凭证和ID，以`鸦鸦`用户身份登入k8s。
+
+具体参考[教程](https://www.eksworkshop.com/beginner/090_rbac/create_iam_user/)。
+
+
 
 #### 集群层次资源
 
@@ -511,6 +531,11 @@ RBAC授权<sup>Role-based access control  Authorization</sup>，可译为基�
 ##### 主体（subjects）
 
 主体（subjects）有若干个选择：用户<sup>users</sup>、群<sup>groups</sup>、服务账号<sup>service accounts</sup>。<sup>[[官网]](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)</sup>
+
+- Users用于分配个人权限。
+- Groups常用于分配团队，例如：通过Group分配管理员、开发者、集成团队，示例[参考](https://www.eksworkshop.com/beginner/091_iam-groups/)。
+
+
 
 ###### 服务账号
 
@@ -556,6 +581,14 @@ rules:
   resources: ["pods"]  # 允许操作Pods
   verbs: ["get", "watch", "list"] # 允许get list watch
 ```
+
+`rules`下的字段分别意味着：
+
+- `apiGroups`：API群<sup>API groups</sup>，kubrnetes API的一组唯一的相对路径。 API groups的存在为了让kubrnetes API更好地扩展。<sup>[[官网]](https://kubernetes.io/docs/reference/using-api/api-overview/#api-groups)</sup> 在这里，我们可以把API groups视为一种命名空间即可。
+  当`apiGroups`的值为`""`时表示为kubrnetes API。其他可参考`kubectl api-resources`或[官网](https://kubernetes.io/docs/reference/kubectl/overview/#resource-types)。
+- `resources`：该命名空间下可操作的资源。值参考[官网](https://kubernetes.io/docs/reference/kubectl/overview/#resource-types)
+- `verbs`：可操作的动作。值参考[此处](https://kubernetes.io/docs/reference/access-authn-authz/authorization/#review-your-request-attributes)
+- `resourceNames`：资源名称（可选）
 
 ###### 角色绑定
 
