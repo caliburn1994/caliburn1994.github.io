@@ -101,7 +101,21 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
   - 更行相关规则。规则的运行模式可扩展阅读[此处](https://blog.fleeto.us/post/iptables-or-ipvs/)。
 - 容器运行时<sup>Container runtime</sup>软件负责运行中的容器。<sup class="sup" data-tile="The container runtime is the software that is responsible for running containers.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
 
-节点可以手动创建，也可以通过[受管理的节点群](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html)<sup>Managed node groups</sup>创建，后者则更为自动化。
+### 节点群
+
+节点可以通过手动创建，也可以通过[受管理的节点群](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html)<sup>Managed node groups</sup>创建，后者则更为自动化。
+
+在亚马逊k8s中，可以通过以下方式创建节点群：
+
+```shell
+# 创建节点群，并指定节点数量
+eksctl create nodegroup --cluster=${集群名} #--name=${节点群名称}  --nodes=${节点数量}
+# 查看
+eksctl get nodegroup --cluster=${集群名}
+
+```
+
+
 
 ## 存储
 
@@ -539,7 +553,9 @@ RBAC授权<sup>Role-based access control  Authorization</sup>，可译为基�
 
 ###### 服务账号
 
-背景：默认情况下在容器中，我们可以`/var/run/secrets/kubernetes.io/serviceaccount/token`中`token`直接访问API中的所有资源<sup>[[官网]](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/)</sup>。然而，这种行为是十分危险。
+背景1：默认情况下在容器中，我们可以`/var/run/secrets/kubernetes.io/serviceaccount/token`中`token`直接访问**API中的所有资源**<sup>[[官网]](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/)</sup>。然而，这种行为是十分危险。
+
+背景2：当一个容器想要访问亚马逊里其他的服务时，正常来说需要配置密钥ID和密钥，但是如果OpenID Connect (OIDC) 与服务账号结合，那么在部署Pod时，就不再需要手动配置密钥ID和密钥。[示例](https://www.eksworkshop.com/beginner/110_irsa/)
 
 为了对访问权限进行限制，我们可以创建自定义服务账号<sup>ServiceAccount</sup>,再通RBAC授权进行关联，从而达到目的。
 
@@ -553,6 +569,10 @@ metadata:
 ```
 
 并不包含任何权限配置，所以与需要RBAC进行关联。示例可参考[此处](https://medium.com/better-programming/k8s-tips-using-a-serviceaccount-801c433d0023#:~:text=A%20ServiceAccount%20is%20used%20by,resources%20involved%20in%20the%20process.)
+
+
+
+
 
 ##### 角色与角色绑定
 
@@ -684,11 +704,23 @@ spec:
     runAsNonRoot: true
 ```
 
+### 网络安全
 
+控制流量的方向，如：控制流量只能从前端流向后端。
 
+#### Calico
 
+禁止不同命名空间的流量：
 
-
+```yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: default-deny
+spec:
+  podSelector:
+    matchLabels: {}
+```
 
 
 
@@ -955,6 +987,26 @@ DaemonSet（[Daemon](https://zh.wikipedia.org/wiki/守护进程)：守护进程�
 #### kubectl attach vs exec
 
 前者是附属于主程序，后者是在容器中运行一个进程。
+
+#### kubectl删除
+
+##### kubectl cordon
+
+cordon，英文解释：
+
+> Prevent access to or from an area or building by surrounding it with police or other guards.
+
+中文译为：封锁。
+
+阻止新的Pods加入该节点。<sup>[[官网]](https://kubernetes.io/zh/docs/concepts/architecture/nodes/#%E6%89%8B%E5%8A%A8%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86)</sup>
+
+```shell
+kubectl cordon $NODENAME
+```
+
+
+
+
 
 ### 如何使用SSH？
 
