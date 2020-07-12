@@ -28,7 +28,7 @@ function addModal(afterId) {
     jQuery("abbr").each(function () {
 
         var parentAttr = $(this).parent().attr("href")
-        console.log('parentAttr:'+parentAttr)
+        console.log('parentAttr:' + parentAttr)
         var href;
 
         // if href is not exist, the element of that tag is not one we want.
@@ -83,7 +83,7 @@ function addTitleForTOC() {
     const toc = $('#toc_container')
 
     toc.html(
-        '<p class="toc_title">目录</p>' + toc.html()
+        '<details><summary class="toc_title">目录</summary>' + toc.html() + '</details>'
     )
 }
 
