@@ -101,6 +101,10 @@ etcd一致性和高可用的键值存储软件，用于备份 Kubernetes 的所�
   - 更行相关规则。规则的运行模式可扩展阅读[此处](https://blog.fleeto.us/post/iptables-or-ipvs/)。
 - 容器运行时<sup>Container runtime</sup>软件负责运行中的容器。<sup class="sup" data-tile="The container runtime is the software that is responsible for running containers.">[[官网]](https://kubernetes.io/docs/concepts/overview/components/)</sup> 
 
+#### 节点容量
+
+亚马逊云对每一种虚拟机类型的Pods限制是不同，可[参考](https://github.com/awslabs/amazon-eks-ami/blob/master/files/eni-max-pods.txt)。
+
 ### 节点群
 
 节点可以通过手动创建，也可以通过[受管理的节点群](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html)<sup>Managed node groups</sup>创建，后者则更为自动化。
@@ -1004,7 +1008,15 @@ cordon，英文解释：
 kubectl cordon $NODENAME
 ```
 
+##### kubectl drain
 
+drain，名词译为下水管，在这里可以理解成“排出”。
+
+云平台下，意味着**删除**虚拟机。其他情况下，意味着关掉物理机。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/#use-kubectl-drain-to-remove-a-node-from-service)</sup>
+
+```shell
+kubectl drain <node name>
+```
 
 
 
