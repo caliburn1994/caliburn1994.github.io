@@ -23,53 +23,52 @@ typora-root-url: ..
 
 ### 教程一
 
-
+不建议将<u>用户指南</u>作为入门教程。
 
 ### 教程二
 
-教程二使用的是云IDE编辑器Cloud9，教程教的也是Amazon EKS的功能。<sup>[[官网]](https://www.eksworkshop.com/010_introduction/)</sup>
+[教程二](https://www.eksworkshop.com/010_introduction/)使用的是云IDE编辑器Cloud9，教程教的也是Amazon EKS的功能。而云编辑器是运行在云服务器上，所以需要付费，该费用并<u>不包含在免费使用之内</u>。该教程比教程一更容易入门，因为是一个教程接着一个教程。
 
-整个教程是从头到尾，如果直接单独查看并使用其中，可能无法使用
+## 命令行工具
 
-## 入门实操
+eks有三个命令行工具`aws`、`eksctl`、`kubectl`。其中`kubectl`是[Kubernetes](/kubernetes)的命令行工作。
 
-### 搜索教程
+### aws命令行工具
 
-1. `aws k8s tutorial`搜索🔍教程
+**aws configure**：在配置完aws账户中的访问密钥ID、密钥、地区等之后，我们的命令行就算是登陆成功。[示例](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html)
 
-2. 点击[官网地址](https://aws.amazon.com/cn/getting-started/hands-on/deploy-kubernetes-app-amazon-eks/)了解到Amazon EKS是关于K8s的服务，点击并进行[教程](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started.html)。
+**aws iam**：可用于创建IAM账号等。IAM账号可以理解成子账号：
 
-### 教程
+```shell
+# 创建用户
+aws iam create-user --user-name ${用户名}
+# 创建密钥，并打印出来
+aws iam create-access-key --user-name ${用户名} | tee /tmp/PaulAdmin.json
+```
 
-1. [安装](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html) aws
-2. 添加 aws 的[自动补充](/usr/local/bin/aws_completer)<sup>Tab completion</sup>
-3. 为aws添加[配置](https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-chap-configure.html)/凭证：
+iam创建
 
-配置中需要创建一个IAM 管理员，创建后为aws添加该管理员的密钥ID和接入密钥。
+### eksctl命令行工具 
 
-- 地区（Default region name）通过搜索`aws region for [地区名]`可搜到。
+**eksctl create cluster**：创建集群（以及受管理的节点群）。[示例1](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html)、[示例2](https://www.eksworkshop.com/030_eksctl/launcheks/#create-an-eks-cluster)
 
-...
+```shell
+eksctl create cluster \
+--name prod \
+--version 1.16 \
+--region us-west-2 \
+--fargate
+```
 
-4. 安装`kubectl`
+**eksctl get iamidentitymapping**：获得iam映射
 
-5. 安装 `eksctl`
-
-6. 要开始创建集群，这里需要用到STS，不过我们先跳过，用管理员权限执行。参考[笔者StackOverflow的回答](https://stackoverflow.com/a/62513754/4883754)。
-
-
-##节点
-
-[教程地址](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/cluster-autoscaler.html)
-
-### Managed node groups
-
-EKS受管理的节点组<sup>Amazon EKS managed node groups</sup>将对节点<sup>Node</sup>自动与配置以及生命周期管理。好处：<sup>[[官网]](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/managed-node-groups.html)</sup>
-
-- 通过命令就可以管理节点
-- 节点可以自动伸缩<sup>Auto Scaling</sup>
-
-在Amazon中<u>节点</u>与<u>Amazon EC2实体</u><sup>instance</sup> 是等价
+```shell
+$ eksctl get iamidentitymapping --cluster ${集群名}
+arn:aws:iam::xxxxxxxxxx:role/eksctl-quick-nodegroup-ng-fe1bbb6-NodeInstanceRole-1KRYARWGGHPTT	system:node:{{EC2PrivateDNSName}}	system:bootstrappers,system:nodes
+arn:aws:iam::xxxxxxxxxx:role/k8sAdmin           admin					system:masters
+arn:aws:iam::xxxxxxxxxx:role/k8sDev             dev-user
+arn:aws:iam::xxxxxxxxxx:role/k8sInteg           integ-user
+```
 
 
 
@@ -85,7 +84,7 @@ Amazon EKS（**Amazon** **E**lastic Container Service for **K**ubernete**s**）�
 
 AWS Security Token Service (STS)，AWS安全令牌服务：
 
-### IAM
+### AWS IAM
 
 #### 如何添加策略？
 
@@ -117,3 +116,5 @@ Amazon **E**lastic **C**ompute **C**loud (Amazon **EC2**) 是一种 Web 服务�
 ### AWS Fargate
 
 一种适用于容器的无服务器计算引擎 **todo**
+
+
