@@ -37,6 +37,10 @@ eks有三个命令行工具`aws`、`eksctl`、`kubectl`。其中`kubectl`是[Kub
 
 **aws configure**：在配置完aws账户中的访问密钥ID、密钥、地区等之后，我们的命令行就算是登陆成功。[示例](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html)
 
+#### aws iam
+
+AWS Identity and Access Management (IAM)：身份和访问管理
+
 **aws iam**：可用于创建IAM账号等。IAM账号可以理解成子账号：
 
 ```shell
@@ -46,9 +50,92 @@ aws iam create-user --user-name ${用户名}
 aws iam create-access-key --user-name ${用户名} | tee /tmp/PaulAdmin.json
 ```
 
-iam创建
+#### aws sts
+
+AWS Security Token Service (AWS STS)：安全令牌服务
+
+**aws sts get-caller-identity**：获得调用者的身份。
+
+```shell
+$ aws sts get-caller-identity
+{
+    "UserId": "AIDAZ6XFP3QJWWD4DQEU5I",
+    "Account": "6844542806125",
+    "Arn": "arn:aws:iam::6844542806125:user/kyakya01"
+}
+```
+
+#### aws eks
+
+文档网址：[eks — AWS CLI 1.18.97 Command Reference](https://docs.aws.amazon.com/cli/latest/reference/eks/index.html)
+
+在这个命令下，可以创建集群。[更新kubeconfig配置文件](https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html)
+
+##### update-cluster-config
+
+更新集群配置。配置包含：
+
+- 是否将Control Plane的日志导出到CloudWatch
+- k8s API服务是否公开、是否私有
+
+##### update-kubeconfig
+
+将集群配置复制到本地k8s环境里（即，配置`${HOME}/.kube/config`）
+
+```shell
+$ aws eks update-kubeconfig --name example
+Added new context arn:aws:eks:us-west-2:012345678910:cluster/example to /Users/ericn/.kube/config
+```
+
+##### update-nodegroup-config
+
+[更新节点群](https://docs.aws.amazon.com/cli/latest/reference/eks/update-nodegroup-config.html)<sup>Node Group</sup>的配置。
+
+
+
+
 
 ### eksctl命令行工具 
+
+```sh
+$ eksctl help
+The official CLI for Amazon EKS
+
+Usage: eksctl [command] [flags]
+
+Commands:
+  eksctl completion                      Generates shell completion scripts for bash, zsh or fish
+  eksctl create                          Create resource(s)
+  eksctl delete                          Delete resource(s)
+  eksctl drain                           Drain resource(s)
+  eksctl enable                          Enable features in a cluster
+  eksctl generate                        Generate gitops manifests
+  eksctl get                             Get resource(s)
+  eksctl help                            Help about any command
+  eksctl scale                           Scale resources(s)
+  eksctl set                             Set values
+  eksctl unset                           Unset values
+  eksctl update                          Update resource(s)
+  eksctl upgrade                         Upgrade resource(s)
+  eksctl utils                           Various utils
+  eksctl version                         Output the version of eksctl
+
+Common flags:
+  -C, --color string   toggle colorized logs (valid options: true, false, fabulous) (default "true")
+  -h, --help           help for this command
+  -v, --verbose int    set log level, use 0 to silence, 4 for debugging and 5 for debugging with AWS debug logging (default 3)
+
+Use 'eksctl [command] --help' for more information about a command.
+
+```
+
+`eksctl` 和 `asw eks` 做的事情几乎一样，不过`eksctl` 更为方便简洁。
+
+
+
+
+
+
 
 **eksctl create cluster**：创建集群（以及受管理的节点群）。[示例1](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html)、[示例2](https://www.eksworkshop.com/030_eksctl/launcheks/#create-an-eks-cluster)
 
@@ -105,9 +192,7 @@ AWS Security Token Service (STS)，AWS安全令牌服务：
 
 #### 常见的IAM策略
 
-
-
-
+**todo**
 
 ### Amazon EC2
 
@@ -117,4 +202,11 @@ Amazon **E**lastic **C**ompute **C**loud (Amazon **EC2**) 是一种 Web 服务�
 
 一种适用于容器的无服务器计算引擎 **todo**
 
+### AWS Key Management Service
+
+AWS密钥管理服务<sup>Key Management Service</sup>，是用于保管密钥的服务。
+
+#### Amazon Virtual Private Cloud 
+
+[Amazon Virtual Private Cloud (Amazon VPC)](https://aws.amazon.com/cn/vpc/?nc1=h_ls) 用于提供一个完整且隔绝的网络环境。
 
