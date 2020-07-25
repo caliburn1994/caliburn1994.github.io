@@ -35,6 +35,8 @@ k8s的默认服务只能在集群中调用，常见的用法是前端调用后�
 
 ![redhat](https://www.redhat.com/cms/managed-files/kubernetes_diagram-v2-770x717.svg)
 
+> 注：亚马逊eks集群默认情况下有若干个组件是<u>不启动</u>的。<sup>[[eks]](https://docs.aws.amazon.com/eks/latest/userguide/api-server-flags.html)</sup>
+
 ### Control Plane
 
 控制平面<sup>Control Plane</sup>位于主节点<sup>Master Node</sup>，包含<u>主控件组</u><sup>Master</sup>、etcd。控制平面 通常用于与工作节点进行交互。<sup>[[Redhat]](https://www.redhat.com/en/topics/containers/kubernetes-architecture)</sup>
@@ -43,13 +45,9 @@ k8s的默认服务只能在集群中调用，常见的用法是前端调用后�
 
 由于**Master**是由三个进程组成的，所以可以翻译为“主控件组”。Master所在的工作节点将会被指定为 主节点。<sup class="sup" data-title="The Kubernetes Master is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: kube-apiserver, kube-controller-manager and kube-scheduler.">[[官网]](https://kubernetes.io/docs/concepts/)</sup > 主控组件负责管理集群。<sup class="sup" data-title="The Master is responsible for managing the cluster">[[官网]](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)</sup > 
 
-- **API服务器组件<sup>kube-apiserver（API server）</sup>**用于与（集群的）**外界**进行**通讯**。API server将会判断接请求是否有效，如果有效就会处理。`kubectl` 等命令行实质就是和该组件通讯。
-- **调度器<sup>kube-scheduler</sup>**用于**调度资源**。观察是否存在新创建的Pod没有指派到节点，如果存在的话，则将其指派到其中一个节点上。
-- **控制器管理器<sup>kube-controller-manager</sup>**通过**控制器**进行维护集群。从API server接收到的命令，将会修改集群某些对象的期待状态（desired state），控制器观察到这些期待状态的变化，就会将这些对象的当前状态（current state）变为期待状态（desired state）。<sup>[[官网]](https://kubernetes.io/docs/concepts/architecture/controller/)[[官网]](https://kubernetes.io/zh/docs/concepts/overview/components/)</sup>
-  - **节点控制器<sup>Node controller</sup>**：负责监视节点，当节点宕不可用时，进行通知。
-  - **复制控制器<sup>Replication controller</sup>**：负责维护每一个<u>复制控制器对象</u>所关联的Pod的数量正确性。
-  - **Endpoints controller**：负责填充 [Endpoints对象](#Endpoint)。
-  - **服务账号<sup>Service Account</sup> & 令牌控制器<sup>Token controllers</sup>**：创建默认的账号和API访问令牌。
+- [kube-apiserver](#kube-apiserver)
+- [kube-scheduler](#kube-scheduler)
+- [kube-controller-manager](#kube-controller-manager)
 
 ```
             |--------------------|                            
@@ -76,6 +74,23 @@ command-->  |   kube-apiserver   | ---> change object's
 `kubectl cluster-info`可以查看到主控件的IP地址。
 
 创建一个的流程的详细流程可以参考：<u>[Kubernetes in Action的11.2.2 事件链]</u>
+
+##### kube-apiserver
+
+**API服务器组件<sup>kube-apiserver（API server）</sup>**用于与（集群的）**外界**进行**通讯**。API server将会判断接请求是否有效，如果有效就会处理。`kubectl` 等命令行实质就是和该组件通讯。
+
+##### kube-scheduler
+
+**调度器<sup>kube-scheduler</sup>**用于**调度资源**。观察是否存在新创建的Pod没有指派到节点，如果存在的话，则将其指派到其中一个节点上。
+
+##### kube-controller-manager
+
+**控制器管理器<sup>kube-controller-manager</sup>**通过**控制器**进行维护集群。从API server接收到的命令，将会修改集群某些对象的期待状态（desired state），控制器观察到这些期待状态的变化，就会将这些对象的当前状态（current state）变为期待状态（desired state）。<sup>[[官网]](https://kubernetes.io/docs/concepts/architecture/controller/)[[官网]](https://kubernetes.io/zh/docs/concepts/overview/components/)</sup>
+
+- **节点控制器<sup>Node controller</sup>**：负责监视节点，当节点宕不可用时，进行通知。
+- **复制控制器<sup>Replication controller</sup>**：负责维护每一个<u>复制控制器对象</u>所关联的Pod的数量正确性。
+- **Endpoints controller**：负责填充 [Endpoints对象](#Endpoint)。
+- **服务账号<sup>Service Account</sup> & 令牌控制器<sup>Token controllers</sup>**：创建默认的账号和API访问令牌。
 
 #### etc
 
@@ -118,6 +133,93 @@ eksctl create nodegroup --cluster=${集群名} #--name=${节点群名称}  --nod
 eksctl get nodegroup --cluster=${集群名}
 
 ```
+
+### 如何配置组件？
+
+k8s的配置文件很多，需要了解各个组件如何访问。
+
+#### 集群配置
+
+```shell
+$ kubectl config
+Modify kubeconfig files using subcommands like "kubectl config set current-context my-context"
+
+ The loading order follows these rules:
+
+  1.  If the --kubeconfig flag is set, then only that file is loaded. The flag may only be set once and no merging takes
+place.
+  2.  If $KUBECONFIG environment variable is set, then it is used as a list of paths (normal path delimiting rules for
+your system). These paths are merged. When a value is modified, it is modified in the file that defines the stanza. When
+a value is created, it is created in the first file that exists. If no files in the chain exist, then it creates the
+last file in the list.
+  3.  Otherwise, ${HOME}/.kube/config is used and no merging takes place.
+
+Available Commands:
+  current-context Displays the current-context
+  delete-cluster  Delete the specified cluster from the kubeconfig
+  delete-context  Delete the specified context from the kubeconfig
+  get-clusters    Display clusters defined in the kubeconfig
+  get-contexts    Describe one or many contexts
+  rename-context  Renames a context from the kubeconfig file.
+  set             Sets an individual value in a kubeconfig file
+  set-cluster     Sets a cluster entry in kubeconfig
+  set-context     Sets a context entry in kubeconfig
+  set-credentials Sets a user entry in kubeconfig
+  unset           Unsets an individual value in a kubeconfig file
+  use-context     Sets the current-context in a kubeconfig file
+  view            Display merged kubeconfig settings or a specified kubeconfig file
+
+Usage:
+  kubectl config SUBCOMMAND [options]
+
+Use "kubectl <command> --help" for more information about a given command.
+Use "kubectl options" for a list of global command-line options (applies to all commands).
+```
+
+当我们操控若干个集群时，所有集群的配置将会放置于`${HOME}/.kube/config`中，该配置文件包含：<sup>[[官网]](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)</sup>
+
+- clusters
+- users
+- namespaces
+- authentication mechanisms
+
+简单而言，就是认证登陆相关的信息。
+
+
+
+#### Control Plane的配置
+
+```shell
+# 查看所有命名空间下的Pod
+[vagrant@localhost ~]$ kubectl get pods --all-namespaces 
+NAMESPACE     NAME                               READY   STATUS    RESTARTS   AGE
+kube-system   coredns-6955765f44-lrt6z           1/1     Running   0          175d
+kube-system   coredns-6955765f44-xbtc2           1/1     Running   1          175d
+kube-system   etcd-minikube                      1/1     Running   1          175d
+kube-system   kube-addon-manager-minikube        1/1     Running   1          175d
+kube-system   kube-apiserver-minikube            1/1     Running   1          175d
+kube-system   kube-controller-manager-minikube   1/1     Running   1          175d
+kube-system   kube-proxy-69mqp                   1/1     Running   1          175d
+kube-system   kube-scheduler-minikube            1/1     Running   1          175d
+kube-system   storage-provisioner                1/1     Running   2          175d
+```
+
+组件是以Pod的形式，因此，我们可以使用以下命令行进行访问：
+
+```shell
+[vagrant@localhost ~]$ kubectl exec -it -n kube-system kube-apiserver-minikube -- /bin/sh
+# kube-apiserver
+W0715 13:56:17.176154      21 services.go:37] No CIDR for service cluster IPs specified. 
+...
+```
+
+k8s中各个组件的[命令行工具](https://kubernetes.io/zh/docs/reference/command-line-tools-reference/)（如：`kube-apiserver`）都是事先安装好的，所以我们登陆后就能使用，**不需要自行安装！**
+
+而在AWS中，eks取代了Contro Plane<sup>[[eks]](https://docs.aws.amazon.com/cli/latest/reference/eks/index.html)</sup>，所以我们将无法通过上述方式访问组件并配置。
+
+
+
+
 
 
 
@@ -223,6 +325,14 @@ Ingress 用于管理外部流量<sup>traffic</sup>该以什么规则**进入**�
 - 通过一个IP端口如何访问到若干个服务？
 - 如果使用HTTPS（证书）？
 
+
+
+
+
+
+
+
+
 #### 自签名证书
 
 自签名证书<sup>Self-Signed CA Certificate</sup>签发过程：
@@ -234,6 +344,12 @@ Ingress 用于管理外部流量<sup>traffic</sup>该以什么规则**进入**�
 ### DNS
 
 在后续版本中，官网推荐使用 CoreDNS 代替 kube-dns 作为DNS服务器。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/)</sup> 通过容器中的`/etc/resolv.conf`可以查看到域名服务器<sup>nameserver</sup>，如想修改该文件中的配置，应该通过kubectl命令行修改对应的ConfigMap而实现。
+
+示例参考[此处](https://www.eksworkshop.com/beginner/130_exposing-service/accessing/)。
+
+### 集群内部流量
+
+参考[网络安全](#网络安全)章节。
 
 ## 容器
 
@@ -437,6 +553,14 @@ spec:
 - 直接访问，需要手动导入证书。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/)</sup>
 - 通过代理访问，需要启动代理，并从代理处访问。<sup>[[官网]](https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/)</sup>
 - Ambassador代理容器，从代理处访问。<sup>[k8s in action - 8.2.3]</sup>
+
+### 推荐容器
+
+busybox
+
+```bash
+kubectl run -i --tty busybox --image=busybox -- sh
+```
 
 ## 安全
 
@@ -714,16 +838,67 @@ spec:
 
 #### Calico
 
-禁止不同命名空间的流量：
+示例1：由于`from`为空，所以没有任何流量流向名为`stars`的命名空间。换言之**禁止**流量流向`stars`的命名空间。
 
 ```yaml
+# default-deny.yaml
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: default-deny
 spec:
   podSelector:
+    matchLabels: {}  #
+#  ingress:
+#    - from:
+```
+
+```shell
+kubectl apply -n stars -f default-deny.yaml
+```
+
+示例2：服务`management-ui`的流量可流向`stars`命名空间
+
+```yaml
+# allow-ui.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: stars
+  name: allow-ui
+spec:
+  podSelector:
     matchLabels: {}
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              role: management-ui
+# kubectl apply -f allow-ui.yaml
+```
+
+示例三：`client`服务的流量可通往`stars`命名空间的`frontend`服务
+
+```yaml
+# frontend-policy.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: stars
+  name: frontend-policy
+spec:
+  podSelector:
+    matchLabels:
+      role: frontend
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              role: client
+      ports:
+        - protocol: TCP
+          port: 80
+# kubectl apply -f frontend-policy.yaml
 ```
 
 
@@ -877,6 +1052,12 @@ K8s有以下<u>发布服务</u><sup>Publishing Services</sup>方式：<sup>[[官
 
 通过节点[IP地址](https://zh.wikipedia.org/wiki/IP地址)进行暴露服务，可使用；通过云服务提供商的负载均衡器暴露服务，则使用`LoadBalancer`；而当服务不在集群内，在集群之外，可以使用`ExternalName` 模式的服务进行重定向。
 
+发布服务可使用`kubectl expose`：<sup>[[官网]](https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/)</sup>
+
+```shell
+ kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
+```
+
 ##### 发现服务
 
 在Pod初始化时，将会把服务的IP记录到该Pod的**环境变量**里。`kubectl exec [Pod名] env` 可查看到环境变量的内容。
@@ -888,7 +1069,7 @@ K8s有以下<u>发布服务</u><sup>Publishing Services</sup>方式：<sup>[[官
 [对象名].[命名空间].svc.cluster.local
 ```
 
-DNS的参考示例在[这里](https://medium.com/kubernetes-tutorials/kubernetes-dns-for-services-and-pods-664804211501)。
+- DNS的示参考[此处](https://www.eksworkshop.com/beginner/130_exposing-service/accessing/)。
 
 ##### 会话亲和性
 
