@@ -43,9 +43,19 @@ netmask:255.255.255.0
 
 VPC<sup>Virtual Private Cloud</sup>，虚拟私人云。从谷歌云或者亚马逊云这些真实的云网络中，我们将获得一个虚拟的云网络，就像虚拟机与物理机的关系。在这个虚拟机的云中，我们可以配置机器/服务的IP地址的范围、配置路由表等等。
 
-## 操作前提PREREQUISITES
+### CNI
 
-### 为VPC添加第二块CIDR
+容器网络接口（CNI，Container Network Interface），AWS的CNI插件帮助Pod在Pod内以及Pod外的IP地址相同<sup>[[aws]](https://docs.aws.amazon.com/eks/latest/userguide/pod-networking.html)</sup>。有点像我们使用桥接。
+
+![                 EKS networking             ](https://docs.aws.amazon.com/eks/latest/userguide/images/networking.png)
+
+## 操作前提(PREREQUISITES)
+
+> Before we configure EKS, we need to enable secondary CIDR blocks in your VPC and make sure they have proper tags and route table configurations
+
+> 在配置EKS之前，我们必须在你的VPC网路中，启动次要的CIDR块，并确认他们有适当的标签和路由表配置。
+
+### Add secondary CIDRs to your VPC
 
 > You can use below commands to add 100.64.0.0/16 to your EKS cluster VPC. Please note to change the Values parameter to EKS cluster name if you used different name than eksctl-eksworkshop
 
@@ -169,4 +179,56 @@ aws ec2 associate-route-table --route-table-id $RTASSOC_ID --subnet-id $CGNAT_SN
 aws ec2 associate-route-table --route-table-id $RTASSOC_ID --subnet-id $CGNAT_SNET2
 aws ec2 associate-route-table --route-table-id $RTASSOC_ID --subnet-id $CGNAT_SNET3
 ```
+
+## 配置CNI(CONFIGURE CNI)
+
+### 检查版本
+
+Before we start making changes to VPC CNI, let’s make sure we are using latest CNI version
+
+Run this command to find CNI version
+
+> 在我们修VPC CNI之前，先确认一下CNI的版本
+>
+> 运行该命令查看CNI版本
+
+```shell
+$ kubectl describe daemonset aws-node --namespace kube-system | grep Image | cut -d "/" -f 2
+amazon-k8s-cni:1.6.1
+```
+
+> Upgrade to the latest v1.6 config if you have an older version:
+
+> 更新版本：
+
+```sh
+kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/v1.6/aws-k8s-cni.yaml
+```
+
+> Wait until all the pods are recycled. You can check the status of pods by using this command
+
+> 等待所有的Pods被回收。然后通过以下命令查看Pods的状态
+
+```shell
+kubectl get pods -n kube-system -w
+```
+
+### Configure Custom networking
+
+> Edit aws-node configmap and add AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG environment variable to the node container spec and set it to true
+>
+> Note: You only need to set one environment variable in the CNI daemonset configuration:
+
+> 修改aws-node的configmap ，将AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG 环境变量添加到节点容器的spec 并设置为true
+>
+> 注：你仅需设置一个环境变量到CNI的daemonset的配置文件即可
+
+```shell
+# ds=daemonset 
+kubectl set env ds aws-node -n kube-system AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG=true
+```
+
+![image-20200726030440960](/assets/blog_res/image-20200726030440960.png)
+
+
 
