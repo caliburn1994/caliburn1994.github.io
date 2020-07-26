@@ -1163,6 +1163,30 @@ DaemonSet（[Daemon](https://zh.wikipedia.org/wiki/守护进程)：守护进程�
 - `kubectl get` 包含资源信息
 - `kubectl describe` 包含：资源、事件<sup>event </sup>、控制器<sup>controller</sup>
 
+#### kubectl get
+
+```shell
+# wide中文：广泛的
+# 输出Pods的更多信息
+kubectl get pods --output wide
+
+# Custom columns用法
+# 通过下述类似语句查看结构
+kubectl get daemonsets aws-node  --namespace=kube-system -o yaml
+
+# 第一栏名为NAME，值为.metadata.name的值
+# 第二栏名为RSRC，值为.metadata.resourceVersion的值
+kubectl get daemonsets aws-node \
+--namespace=kube-system \
+ -o custom-columns=\
+NAME:.metadata.name,\
+RSRC:.metadata.resourceVersion
+```
+
+
+
+
+
 #### kubectl create vs apply
 
 > `kubectl apply` - Apply or Update a resource from a file or stdin.[<sup>[原址]</sup>](https://kubernetes.io/docs/reference/kubectl/overview/#examples-common-operations)
