@@ -225,10 +225,87 @@ kubectl get pods -n kube-system -w
 
 ```shell
 # ds=daemonset 
-kubectl set env ds aws-node -n kube-system AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG=true
+kubectl set env ds aws-node -n kube-system\
+AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG=true
 ```
 
 ![image-20200726030440960](/assets/blog_res/image-20200726030440960.png)
 
+```shell
+$ kubectl describe daemonset aws-node -n kube-system \
+| grep -A5 Environment
+...
+    Environment:
+      AWS_VPC_K8S_CNI_LOGLEVEL:  	  DEBUG
+      AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG: true
+      MY_NODE_NAME:               	  (v1:spec.nodeName)
+...
+```
 
+> Terminate worker nodes so that Autoscaling launches newer nodes that come bootstrapped with custom network config
+>
+> Warning: Use caution before you run the next command because it terminates all worker nodes including running pods in your workshop
+
+> 我们将中止所有工作节点，以便自动扩缩，自动扩缩时会启动配置了自定义的网络设置的新节点。
+>
+> 警告：在使用下一条命令时前需谨慎，因为该命令会中止所有工作节点，也会中止workshop下的所有运行中的Pods。
+
+```shell
+$ INSTANCE_IDS=(`aws ec2 describe-instances --query 'Reservations[*].Instances[*].InstanceId' --filters "Name=tag-key,Values=eks:cluster-name" "Name=tag-value,Values=eksworkshop*" --output text` )
+$ echo ${INSTANCE_IDS[*]}
+i-07a41111a5f840268 i-069133cbe1d0a91c4 i-0875e15eaab526c6d
+$ for i in "${INSTANCE_IDS[@]}"
+> do
+> echo "Terminating EC2 instance $i ..."
+> aws ec2 terminate-instances --instance-ids $i
+> done
+Terminating EC2 instance i-07a41111a5f840268 ...
+{
+    "TerminatingInstances": [
+        {
+            "CurrentState": {
+                "Code": 32,
+                "Name": "shutting-down"
+            },
+            "InstanceId": "i-07a41111a5f840268",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        }
+    ]
+}
+Terminating EC2 instance i-069133cbe1d0a91c4 ...
+{
+    "TerminatingInstances": [
+        {
+            "CurrentState": {
+                "Code": 32,
+                "Name": "shutting-down"
+            },
+            "InstanceId": "i-069133cbe1d0a91c4",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        }
+    ]
+}
+Terminating EC2 instance i-0875e15eaab526c6d ...
+{
+    "TerminatingInstances": [
+        {
+            "CurrentState": {
+                "Code": 32,
+                "Name": "shutting-down"
+            },
+            "InstanceId": "i-0875e15eaab526c6d",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        }
+    ]
+}
+```
 
