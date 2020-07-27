@@ -8,7 +8,7 @@ excerpt: Add secondary CIDRs to your VPC（译文与详解）
 typora-root-url: ..
 ---
 
-本文是摘要翻译[Advanced VPC Networking with EKS :: Amazon EKS Workshop](https://www.eksworkshop.com/beginner/160_advanced-networking/)一文内容。
+本文是摘要翻译[Advanced VPC Networking with EKS :: Amazon EKS Workshop](https://www.eksworkshop.com/beginner/160_advanced-networking/)一文内容。但代码和解释并不会完全与教程相同，仅供参考。
 
 > You can expand your VPC network by adding additional CIDR ranges. This capability can be used if you are running out of IP ranges within your existing VPC or if you have consumed all available RFC 1918 CIDR ranges within your corporate network. EKS supports additional IPv4 CIDR blocks in the 100.64.0.0/10 and 198.19.0.0/16 ranges. You can review this announcement from our [what’s new blog](https://aws.amazon.com/about-aws/whats-new/2018/10/amazon-eks-now-supports-additional-vpc-cidr-blocks/)
 >
@@ -48,6 +48,12 @@ VPC<sup>Virtual Private Cloud</sup>，虚拟私人云。从谷歌云或者亚马
 容器网络接口（CNI，Container Network Interface），AWS的CNI插件帮助Pod在Pod内以及Pod外的IP地址相同<sup>[[aws]](https://docs.aws.amazon.com/eks/latest/userguide/pod-networking.html)</sup>。有点像我们使用桥接。
 
 ![                 EKS networking             ](https://docs.aws.amazon.com/eks/latest/userguide/images/networking.png)
+
+### CRD
+
+定制资源定义（custom resource definition CRD）
+
+
 
 ## 操作前提(PREREQUISITES)
 
@@ -89,9 +95,9 @@ aws ec2 describe-instances --filters "Name=tag-key,Values=eks:cluster-name" "Nam
 
 ```shell
 # AZ1 AZ2 AZ3可自行修改
-export AZ1=us-east-2a
-export AZ2=us-east-2b
-export AZ3=us-east-2c
+export AZ1=ap-northeast-1a
+export AZ2=ap-northeast-1c
+export AZ3=ap-northeast-1d
 CGNAT_SNET1=$(aws ec2 create-subnet --cidr-block 100.64.0.0/19 --vpc-id $VPC_ID --availability-zone $AZ1 | jq -r .Subnet.SubnetId)
 CGNAT_SNET2=$(aws ec2 create-subnet --cidr-block 100.64.32.0/19 --vpc-id $VPC_ID --availability-zone $AZ2 | jq -r .Subnet.SubnetId)
 CGNAT_SNET3=$(aws ec2 create-subnet --cidr-block 100.64.64.0/19 --vpc-id $VPC_ID --availability-zone $AZ3 | jq -r .Subnet.SubnetId)
@@ -234,12 +240,13 @@ AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG=true
 ```shell
 $ kubectl describe daemonset aws-node -n kube-system \
 | grep -A5 Environment
-...
+
     Environment:
-      AWS_VPC_K8S_CNI_LOGLEVEL:  	  DEBUG
-      AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG: true
-      MY_NODE_NAME:               	  (v1:spec.nodeName)
-...
+      AWS_VPC_K8S_CNI_LOGLEVEL:            DEBUG
+      AWS_VPC_K8S_CNI_VETHPREFIX:          eni
+      AWS_VPC_ENI_MTU:                     9001
+      MY_NODE_NAME:                         (v1:spec.nodeName)
+      AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG:  true
 ```
 
 > Terminate worker nodes so that Autoscaling launches newer nodes that come bootstrapped with custom network config
@@ -251,61 +258,208 @@ $ kubectl describe daemonset aws-node -n kube-system \
 > 警告：在使用下一条命令时前需谨慎，因为该命令会中止所有工作节点，也会中止workshop下的所有运行中的Pods。
 
 ```shell
-$ INSTANCE_IDS=(`aws ec2 describe-instances --query 'Reservations[*].Instances[*].InstanceId' --filters "Name=tag-key,Values=eks:cluster-name" "Name=tag-value,Values=eksworkshop*" --output text` )
-$ echo ${INSTANCE_IDS[*]}
-i-07a41111a5f840268 i-069133cbe1d0a91c4 i-0875e15eaab526c6d
-$ for i in "${INSTANCE_IDS[@]}"
-> do
-> echo "Terminating EC2 instance $i ..."
-> aws ec2 terminate-instances --instance-ids $i
-> done
-Terminating EC2 instance i-07a41111a5f840268 ...
-{
-    "TerminatingInstances": [
-        {
-            "CurrentState": {
-                "Code": 32,
-                "Name": "shutting-down"
-            },
-            "InstanceId": "i-07a41111a5f840268",
-            "PreviousState": {
-                "Code": 16,
-                "Name": "running"
-            }
-        }
-    ]
-}
-Terminating EC2 instance i-069133cbe1d0a91c4 ...
-{
-    "TerminatingInstances": [
-        {
-            "CurrentState": {
-                "Code": 32,
-                "Name": "shutting-down"
-            },
-            "InstanceId": "i-069133cbe1d0a91c4",
-            "PreviousState": {
-                "Code": 16,
-                "Name": "running"
-            }
-        }
-    ]
-}
-Terminating EC2 instance i-0875e15eaab526c6d ...
-{
-    "TerminatingInstances": [
-        {
-            "CurrentState": {
-                "Code": 32,
-                "Name": "shutting-down"
-            },
-            "InstanceId": "i-0875e15eaab526c6d",
-            "PreviousState": {
-                "Code": 16,
-                "Name": "running"
-            }
-        }
-    ]
-}
+INSTANCE_IDS=(`aws ec2 describe-instances --query 'Reservations[*].Instances[*].InstanceId' --filters "Name=tag-key,Values=eks:cluster-name" "Name=tag-value,Values=eksworkshop*" --output text` )
+for i in "${INSTANCE_IDS[@]}"
+do
+	echo "Terminating EC2 instance $i ..."
+	aws ec2 terminate-instances --instance-ids $i
+done
 ```
+
+
+
+## 创建CRDS(CREATE CRDS)
+
+### Create custom resources for ENIConfig CRD
+
+> As next step, we will add custom resources to ENIConfig custom resource definition (CRD). CRDs are extensions of Kubernetes API that stores collection of API objects of certain kind. In this case, we will store VPC Subnet and SecurityGroup configuration information in these CRDs so that Worker nodes can access them to configure VPC CNI plugin.
+>
+> You should have ENIConfig CRD already installed with latest CNI version (1.3+). You can check if its installed by running this command.
+
+> 接下来，我们需要添加<u>定制资源</u>到<u>ENIConfig定制资源定义</u>（CRD）里。CRDs是Kubernetes API的扩展功能，它存储着某个类型（kind）的API对象的集合体。在本例中，我们将存储VPC子网络到这些CRDs的SecurityGroup配置信息中，以便工作节点们可以访问它们，并用它们去配置VPC CNI插件。
+>
+> 最新CNI版本(1.3+)，ENIConfig CRD已经被安装了。可使用下面的命令进行检查。
+
+```sh 
+#crd=customresourcedefinitions
+kubectl get crd
+```
+
+> You should see a response similar to this
+
+> 得到类似的结果
+
+```
+NAME                               CREATED AT
+eniconfigs.crd.k8s.amazonaws.com   2019-03-07T20:06:48Z
+```
+
+> If you don’t have ENIConfig installed, you can install it by using this command
+
+> 如果没安装ENIConfig，可用下面语句进行安装
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/v1.3/aws-k8s-cni.yaml
+```
+
+> Create custom resources for each subnet by replacing **Subnet** and **SecurityGroup IDs**. Since we created three secondary subnets, we need create three custom resources.
+>
+> Here is the template for custom resource. Notice the values for Subnet ID and SecurityGroup ID needs to be replaced with appropriate values
+
+> 可通过代替个<u>子网络</u><sup>subnet</sup>和SecurityGroup IDs的方式，为每一个<u>子网络</u><sup>subnet</sup>创建<u>定制资源</u><sup>custom resources</sup>。我们创建次要的<u>子网络</u><sup>subnet</sup>后，我们需要创建三个<u>定制资源</u><sup>custom resources</sup>。
+>
+> 这是<u>定制资源</u><sup>custom resources</sup>的模版。注意需要替换<u>子网络ID</u><sup>subnet ID</sup>和SecurityGroup ID成对应的值。
+
+```
+apiVersion: crd.k8s.amazonaws.com/v1alpha1
+kind: ENIConfig
+metadata:
+ name: group1-pod-netconfig
+spec:
+ subnet: $SUBNETID1
+ securityGroups:
+ - $SECURITYGROUPID1
+ - $SECURITYGROUPID2
+```
+
+> Check the AZs and Subnet IDs for these subnets. Make note of AZ info as you will need this when you apply annotation to Worker nodes using custom network config
+
+> 查看这些<u>子网络</u><sup>subnet</sup>的AZ和Subnet ID。注意AZ信息，当使用<u>定制网络配置</u><sup>custom network config</sup>注入注解<sup>annotation </sup>到工作节点时，你需要使用到上述信息。
+
+```shell
+aws ec2 describe-subnets  --filters "Name=cidr-block,Values=100.64.*" --query 'Subnets[*].[CidrBlock,SubnetId,AvailabilityZone]' --output table
+```
+
+```
+-------------------------------------------------------------------
+|                         DescribeSubnets                         |
++----------------+----------------------------+-------------------+
+|  100.64.64.0/19|  subnet-05d5650a34feabd49  |  ap-northeast-1d  |
+|  100.64.32.0/19|  subnet-04ddb02797eef2c55  |  ap-northeast-1c  |
+|  100.64.0.0/19 |  subnet-027979de16683f06d  |  ap-northeast-1a  |
++----------------+----------------------------+-------------------+
+```
+
+> Check your Worker Node SecurityGroup
+
+> 查看工作节点SecurityGroup
+
+```shell
+INSTANCE_IDS=(`aws ec2 describe-instances --query 'Reservations[*].Instances[*].InstanceId' --filters "Name=tag-key,Values=eks:cluster-name" "Name=tag-value,Values=eksworkshop*" --output text`)
+for i in "${INSTANCE_IDS[@]}"
+do
+  echo "SecurityGroup for EC2 instance $i ..."
+  aws ec2 describe-instances --instance-ids $i | jq -r '.Reservations[].Instances[].SecurityGroups[].GroupId'
+done  
+```
+
+```
+SecurityGroup for EC2 instance i-0c81388618e5df124 ...
+sg-05f11134e34884dbc
+sg-06a6e6e43d455f32f
+SecurityGroup for EC2 instance i-099fd5497018f71ee ...
+sg-05f11134e34884dbc
+sg-06a6e6e43d455f32f
+SecurityGroup for EC2 instance i-08f622f7601d94cfe ...
+sg-05f11134e34884dbc
+sg-06a6e6e43d455f32f
+```
+
+> Create custom resource **group1-pod-netconfig.yaml** for first subnet (100.64.0.0/19). Replace the SubnetId and SecuritGroupIds with the values from above. Here is how it looks with the configuration values for my environment
+>
+> Note: We are using same SecurityGroup for pods as your Worker Nodes but you can change these and use custom SecurityGroups for your Pod Networking
+
+> 为第一个<u>子网络</u><sup>subnet</sup>创建<u>定制资源</u><sup>custom resources</sup>**group1-pod-netconfig.yaml**。使用上面的值代替SubnetId和SecuritGroupIds。下面是笔者的环境的样本。
+>
+> 注意：虽然我们在Pod和工作节点使用的SecurityGroup是相同，但是在Pod网络时，你需要使用定制的SecurityGroups。
+
+```
+apiVersion: crd.k8s.amazonaws.com/v1alpha1
+kind: ENIConfig
+metadata:
+ name: group1-pod-netconfig
+spec:
+ subnet: subnet-0a364a23ee91b6f9b
+ securityGroups:
+ - sg-05f11134e34884dbc
+ - sg-06a6e6e43d455f32f
+```
+
+> Create custom resource **group2-pod-netconfig.yaml** for second subnet (100.64.32.0/19). Replace the SubnetId and SecuritGroupIds as above.
+
+> 为第二个子网络(100.64.32.0/19)创建定制资源**group2-pod-netconfig.yaml** 。记得改掉SubnetId 和SecuritGroupIds
+
+> Similarly, create custom resource **group3-pod-netconfig.yaml** for third subnet (100.64.64.0/19). Replace the SubnetId and SecuritGroupIds as above.
+
+> 为第二个子网络(100.64.64.0/19)创建定制资源**group3-pod-netconfig.yaml** 。记得改掉SubnetId 和SecuritGroupIds
+
+> Check the instance details using this command as you will need AZ info when you apply annotation to Worker nodes using custom network config
+
+> 当使用<u>定制网络配置</u><sup>custom network config</sup>注入注解<sup>annotation </sup>到工作节点时，你需要使用到AZ的信息，你可以使用下面的命令去检索实例信息。
+
+```shell
+aws ec2 describe-instances --filters "Name=tag-key,Values=eks:cluster-name" "Name=tag-value,Values=eksworkshop*" --query 'Reservations[*].Instances[*].[PrivateDnsName,Tags[?Key==`eks:nodegroup-name`].Value|[0],Placement.AvailabilityZone,PrivateIpAddress,PublicIpAddress]' --output table 
+```
+
+```
+--------------------------------------------------------------------------------------------------------------------------
+|                                                    DescribeInstances                                                   |
++----------------------------------------------------+------------+------------------+-----------------+-----------------+
+|  ip-192-168-71-224.ap-northeast-1.compute.internal |  nodegroup |  ap-northeast-1c |  192.168.71.224 |  3.115.4.26     |
+|  ip-192-168-63-192.ap-northeast-1.compute.internal |  nodegroup |  ap-northeast-1a |  192.168.63.192 |  18.179.196.63  |
+|  ip-192-168-29-126.ap-northeast-1.compute.internal |  nodegroup |  ap-northeast-1d |  192.168.29.126 |  18.183.42.58   |
++----------------------------------------------------+------------+------------------+-----------------+-----------------+
+```
+
+> Apply the CRDs
+
+> 应用这些CRD
+
+```shell
+kubectl apply -f group1-pod-netconfig.yaml
+kubectl apply -f group2-pod-netconfig.yaml
+kubectl apply -f group3-pod-netconfig.yaml
+```
+
+> As last step, we will annotate nodes with custom network configs.
+
+> 最后一步，我们将通过自定义网络配置，给节点添加注解
+
+> Warning: Be sure to annotate the instance with config that matches correct AZ. For ex, in my environment instance ip-192-168-33-135.us-east-2.compute.internal is in us-east-2b. So, I will apply **group1-pod-netconfig.yaml** to this instance. Similarly, I will apply **group2-pod-netconfig.yaml** to ip-192-168-71-211.us-east-2.compute.internal and **group3-pod-netconfig.yaml** to ip-192-168-9-228.us-east-2.compute.internal
+
+> 注意：需小心地给实例进行注解，配置机器正确地AZ。举例，在我地环境里ip-192-168-33-135.us-east-2.compute.interna实例是在us-east-2b之下。因此，我需要应用 **group1-pod-netconfig.yaml** 到该实例。同样地，我需要应用**group2-pod-netconfig.yaml** 至 ip-192-168-71-211.us-east-2.compute.internal 和应用 **group3-pod-netconfig.yaml** 至 ip-192-168-9-228.us-east-2.compute.internal
+
+```shell
+kubectl annotate node <nodename>.<region>.compute.internal k8s.amazonaws.com/eniConfig=group1-pod-netconfig
+```
+
+> As an example, here is what I would run in my environment
+
+> 举例，这里是在我环境下运行的命令。
+
+```shell
+kubectl annotate node ip-192-168-33-135.us-east-2.compute.internal k8s.amazonaws.com/eniConfig=group1-pod-netconfig
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
