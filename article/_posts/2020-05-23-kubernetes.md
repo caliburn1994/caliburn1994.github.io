@@ -134,59 +134,6 @@ eksctl get nodegroup --cluster=${集群名}
 
 ```
 
-### 如何配置组件？
-
-k8s的配置文件很多，需要了解各个组件如何访问。
-
-#### 集群配置
-
-```shell
-$ kubectl config
-Modify kubeconfig files using subcommands like "kubectl config set current-context my-context"
-
- The loading order follows these rules:
-
-  1.  If the --kubeconfig flag is set, then only that file is loaded. The flag may only be set once and no merging takes
-place.
-  2.  If $KUBECONFIG environment variable is set, then it is used as a list of paths (normal path delimiting rules for
-your system). These paths are merged. When a value is modified, it is modified in the file that defines the stanza. When
-a value is created, it is created in the first file that exists. If no files in the chain exist, then it creates the
-last file in the list.
-  3.  Otherwise, ${HOME}/.kube/config is used and no merging takes place.
-
-Available Commands:
-  current-context Displays the current-context
-  delete-cluster  Delete the specified cluster from the kubeconfig
-  delete-context  Delete the specified context from the kubeconfig
-  get-clusters    Display clusters defined in the kubeconfig
-  get-contexts    Describe one or many contexts
-  rename-context  Renames a context from the kubeconfig file.
-  set             Sets an individual value in a kubeconfig file
-  set-cluster     Sets a cluster entry in kubeconfig
-  set-context     Sets a context entry in kubeconfig
-  set-credentials Sets a user entry in kubeconfig
-  unset           Unsets an individual value in a kubeconfig file
-  use-context     Sets the current-context in a kubeconfig file
-  view            Display merged kubeconfig settings or a specified kubeconfig file
-
-Usage:
-  kubectl config SUBCOMMAND [options]
-
-Use "kubectl <command> --help" for more information about a given command.
-Use "kubectl options" for a list of global command-line options (applies to all commands).
-```
-
-当我们操控若干个集群时，所有集群的配置将会放置于`${HOME}/.kube/config`中，该配置文件包含：<sup>[[官网]](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)</sup>
-
-- clusters
-- users
-- namespaces
-- authentication mechanisms
-
-简单而言，就是认证登陆相关的信息。
-
-
-
 #### Control Plane的配置
 
 ```shell
@@ -216,10 +163,6 @@ W0715 13:56:17.176154      21 services.go:37] No CIDR for service cluster IPs sp
 k8s中各个组件的[命令行工具](https://kubernetes.io/zh/docs/reference/command-line-tools-reference/)（如：`kube-apiserver`）都是事先安装好的，所以我们登陆后就能使用，**不需要自行安装！**
 
 而在AWS中，eks取代了Contro Plane<sup>[[eks]](https://docs.aws.amazon.com/cli/latest/reference/eks/index.html)</sup>，所以我们将无法通过上述方式访问组件并配置。
-
-
-
-
 
 
 
