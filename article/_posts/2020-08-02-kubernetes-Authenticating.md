@@ -10,17 +10,94 @@ typora-root-url: ..
 
 
 
-## 访问集群
+## 访问集群-概要
 
-所谓的「访问集群」实质上分为两个步骤：
+所谓的「访问集群」实质上分为三个步骤：
 
-1. 通过集群CA<sup>Certificate Authority</sup>签发的证书建立连接
+1. 通过集群CA<sup>Certificate Authority</sup>签发的证书建立连接。证书的获取参考[该章节](#获得证书)
+2. 通过令牌验证身份
+3. 访问REST API
+
+我们通过curl来演示上述操作：
+
+```shell
+# 获取Service Account所在的secret名
+DefaultTokenName=`kubectl get serviceaccounts  default  -o jsonpath="{.secrets[*]['name']}"`
+
+# 从该secret种获取ca证书，并存储为./ca_cert.pem
+kubectl get secrets ${DefaultTokenName} -o=jsonpath='{.data.ca\.crt}' | base64 --decode > ./ca_cert.pem
+
+# 获得JWT令牌
+Token=`kubectl get secrets ${DefaultTokenName} -o=jsonpath='{.data.token}' | base64 --decode`
+
+# 使用上述两者对kubernetes REST API进行访问
+curl \
+--header "Authorization: Bearer ${Token}" \
+--cacert ./ca_cert.pem \
+-X GET <REST API网址>/api
+```
+
+
+
+## 证书
+
+### 获得证书
+
+
 
 该证书有若干个地方可以获取得到，如：
 
 - AWS EKS的面板
 
 ![image-20200802152806799](/../assets/blog_res/image-20200802152806799.png)
+
+- kubeconfig文件
+
+```shell
+cat ~/.kube/config
+```
+
+<div class="kyakya_collap" value="config文件内容："></div>
+
+```yaml
+apiVersion: v1
+kind: Config
+preferences: {}
+
+clusters:
+- cluster: # 集群的kubernetes API地址和凭证
+    certificate-authority-data: # EKS的<Certificate authority>
+    server: https://2C1A77626A2087EBA1D1123EA9398DAF.gr7.ap-northeast-1.eks.amazonaws.com
+    # EKS的<API server endpoint>
+  name: eksworkshop-eksctl.ap-northeast-1.eksctl.io
+contexts:
+- context:
+    cluster: eksworkshop-eksctl.ap-northeast-1.eksctl.io
+    user: kyakya@eksworkshop-eksctl.ap-northeast-1.eksctl.io
+  name: kyakya@eksworkshop-eksctl.ap-northeast-1.eksctl.io
+current-context: kyakya@eksworkshop-eksctl.ap-northeast-1.eksctl.io
+users:
+- name: kyakya@eksworkshop-eksctl.ap-northeast-1.eksctl.io
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      args:
+      - token
+      - -i
+      - eksworkshop-eksctl
+      command: aws-iam-authenticator
+      env:
+      - name: AWS_STS_REGIONAL_ENDPOINTS
+        value: regional
+      - name: AWS_DEFAULT_REGION
+        value: ap-northeast-1
+```
+
+`certificate-authority-data`下就是Base64编码的pem格式证书。通过以下命令可以解码Base64
+
+```shell
+echo <certificate-authority-data字段的数据> | base64 --decode
+```
 
 - 通过默认的Service Account
 
@@ -31,11 +108,11 @@ DefaultTokenName=`kubectl get serviceaccounts  default  -o jsonpath="{.secrets[*
 kubectl get secrets ${DefaultTokenName} -o=jsonpath='{.data.ca\.crt}' | base64 --decode > ./ca_cert.pem
 ```
 
+### 证书格式
 
+上一章节我们提到在哪里获取证书。而需注意，一般会以Base64格式存储在配置文件，因为PEM拥有回车以及空格，而单独格式存储在文件时，并没必要以Base64格式存储。
 
-## 证书结构
-
-[访问集群](#访问集群)提到了如何获取证书，并保存为`ca_cert.pem`文件，本章节将更为详细地介绍该证书。
+在获取证书后，我们将其保存为`ca_cert.pem`文件，本章节将更为详细地介绍该证书。
 
 ```shell
 $ cat ./ca_cert.pem
@@ -141,3 +218,44 @@ Hcc/NCdDuVoituvE2DRTOITiHnns7XakB+z2Hr7kuMCyTP6maZa2XcG7mIo=
 -----END CERTIFICATE-----
 ```
 
+## JWT令牌
+
+通过以下命令
+
+```shell
+# 获取Service Account所在的secret名
+DefaultTokenName=`kubectl get serviceaccounts  default  -o jsonpath="{.secrets[*]['name']}"`
+
+# 获得JWT令牌
+Token=`kubectl get secrets ${DefaultTokenName} -o=jsonpath='{.data.token}' | base64 --decode`
+```
+
+我们获得了编码后的令牌：
+
+```
+eyJhbGciOiJSUzI1NiIsImtpZCI6InY5NmhaZUNOTnJ6Tm1mbmdXU2JuZkhZV0ZUMWg2TlNuamk2TDdoaGYtLTgifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4tNnF6c3ciLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjI2OTZjODNkLWM2MTMtNDkyNi04ZTUzLWRkZDhlOGU2YmM5YiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.AtYCSzZXSMS2jnLL6G1DqbEEThJDl8PgFxz8FaXjcKVw50aVictWr88Xykgeni7ht63No_9mWQoDSCbUQXvRi1Q9rLdZL1QKj0v6fokxegnVbW1PlR_dJxQO9yq3AV1SbL02x6ERabEirZTETVUna56WVj8vUur_2rx4tg3SKETUI3oJdw8OoissB-jlJAUCjJQZrPvHAkuOD8oxRUFDHRrhI9uzCyq70f7Ayeto59Cxjw8ByG2N9zbLPX5PpLoy4cVDP1SeLIDuMiLJAQo5iz-kWbyggVKe4LT10BT0gCo5hEgJsqO79zuoN-QTerXhgBT5Q7MxFkiSmyKm7ChkXA
+```
+
+通过该[网址](https://jwt.io/)解码后：
+
+```json
+{
+  # Header（头部）
+  "alg": "RS256",
+  "kid": "v96hZeCNNrzNmfngWSbnfHYWFT1h6NSnji6L7hhf--8"
+}
+{
+   # Payload（负载）
+  "iss": "kubernetes/serviceaccount",
+  "kubernetes.io/serviceaccount/namespace": "default",
+  "kubernetes.io/serviceaccount/secret.name": "default-token-6qzsw",
+  "kubernetes.io/serviceaccount/service-account.name": "default",
+  "kubernetes.io/serviceaccount/service-account.uid": "2696c83d-c613-4926-8e53-ddd8e8e6bc9b",
+  "sub": "system:serviceaccount:default:default"
+}
+{
+   # Signature（签名）
+}
+```
+
+JWT令牌更详细的中文解析可参考[JSON Web Token 入门教程](https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
