@@ -4,18 +4,16 @@ title: kubernetes-认证
 date: 2020-08-02 00:00:02
 tags: [kubernetes]
 comments: 1
-excerpt:
+excerpt: kubernetes认证相关内容
 typora-root-url: ..
 ---
 
+## 访问集群
 
+所谓的「访问集群」有两种：[访问集群中的服务](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/#accessing-services-running-on-the-cluster)、[访问集群中的REST API](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api)。本章节为了更为具体地讲述，选择后者作为示例，该示例实质上分为三个步骤：
 
-## 访问集群-概要
-
-所谓的「访问集群」实质上分为三个步骤：
-
-1. 通过集群CA<sup>Certificate Authority</sup>签发的证书建立连接。证书的获取参考[该章节](#获得证书)
-2. 通过令牌验证身份
+1. 通过集群CA<sup>Certificate Authority</sup>签发的证书建立安全连接。证书的获取参考[该章节](#获得证书)
+2. 通过JWT令牌验证身份。<sup>[[k8s]](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod)</sup>
 3. 访问REST API
 
 我们通过curl来演示上述操作：
@@ -37,13 +35,9 @@ curl \
 -X GET <REST API网址>/api
 ```
 
+### 证书
 
-
-## 证书
-
-### 获得证书
-
-
+#### 获得证书
 
 该证书有若干个地方可以获取得到，如：
 
@@ -54,7 +48,7 @@ curl \
 - kubeconfig文件
 
 ```shell
-cat ~/.kube/config
+kubectl config view
 ```
 
 <div class="kyakya_collap" value="config文件内容："></div>
@@ -108,7 +102,7 @@ DefaultTokenName=`kubectl get serviceaccounts  default  -o jsonpath="{.secrets[*
 kubectl get secrets ${DefaultTokenName} -o=jsonpath='{.data.ca\.crt}' | base64 --decode > ./ca_cert.pem
 ```
 
-### 证书格式
+#### 证书格式
 
 上一章节我们提到在哪里获取证书。而需注意，一般会以Base64格式存储在配置文件，因为PEM拥有回车以及空格，而单独格式存储在文件时，并没必要以Base64格式存储。
 
@@ -142,20 +136,18 @@ Hcc/NCdDuVoituvE2DRTOITiHnns7XakB+z2Hr7kuMCyTP6maZa2XcG7mIo=
 openssl x509 -in ca_cert.pem -text
 ```
 
-<div class="kyakya_collap" value="证书格式内容："></div>
-
-```
+```yaml
 Certificate:
     Data:
-        Version: 3 (0x2)
-        Serial Number: 0 (0x0)
-        Signature Algorithm: sha256WithRSAEncryption
-        Issuer: CN = kubernetes
-        Validity
+        Version: 3 (0x2) # 版本号
+        Serial Number: 0 (0x0) # 序列号
+        Signature Algorithm: sha256WithRSAEncryption # 签名算法
+        Issuer: CN = kubernetes # 颁发者
+        Validity # 证书有效期
             Not Before: Jul 26 15:43:52 2020 GMT
             Not After : Jul 24 15:43:52 2030 GMT
-        Subject: CN = kubernetes
-        Subject Public Key Info:
+        Subject: CN = kubernetes # 证书主体（使用证书的主体）
+        Subject Public Key Info: # 公钥信息
             Public Key Algorithm: rsaEncryption
                 RSA Public-Key: (2048 bit)
                 Modulus:
@@ -218,7 +210,14 @@ Hcc/NCdDuVoituvE2DRTOITiHnns7XakB+z2Hr7kuMCyTP6maZa2XcG7mIo=
 -----END CERTIFICATE-----
 ```
 
-## JWT令牌
+从`Subject: CN = kubernetes`该字段，我们知道该证书是用于`kubernetes`，也就是我们使用公钥加密信息并发送给`kubernetes`。后面章节我们提到如何给集群创建用户时，将会提到两种创建用户的方式：
+
+1. 通过上面的证书的签名，产生一个`Subject: CN=用户名`的新证书，并将该证书导入集群。通过上述一系列操作注册新用户。
+2. 不导入新的证书，取而代之是创建
+
+
+
+### JWT令牌
 
 通过以下命令
 
@@ -259,3 +258,59 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6InY5NmhaZUNOTnJ6Tm1mbmdXU2JuZkhZV0ZUMWg2TlNuamk2TDdo
 ```
 
 JWT令牌更详细的中文解析可参考[JSON Web Token 入门教程](https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
+
+
+
+## 创建用户
+
+创建用户有两种方式：
+
+### 通过Service Account创建用户
+
+#### 背景资料
+
+一个<u>策略</u><sup>Policy</sup>包含若干种权限，如：可读集群信息，可写集群信息等等。
+
+一个<u>群</u><sup>Group</sup>拥有若干个<u>用户</u><sup>User</sup>，而我们将若干个Policy授予给一个Group，那么该Group下的所有User都会拥有这些Policy。当然，我也可以直接将Policy直接授予一个User。
+
+而上一段描述的背景是所有的User都在同一个AWS账号中，而如果要跨越账号进行授权，那么我们需要使用到<u>角色</u><sup>Role</sup>。跨账号的例子有：大厂家提供了服务，然后客户要有相应权限才能使用该服务。
+
+这时候，策略
+
+#### 创建操作
+
+我们以AWS EKS为示例，示例地址[此处](https://www.eksworkshop.com/beginner/091_iam-groups/intro/)。在AWS EKS中，我们新增加用户有以下步骤：
+
+1. 创建Role（AWS） `开发者`
+2. 创建Group，并让该Group成为Role（AWS） `产品开发团队`
+3. 添加用户，并将该用户添加到Group中（AWS）`小明`
+4. 创建一个K8s的Role，该Role将控制K8s用户对K8s内资源的操作权限（K8s）
+5. 创建Subject（此处可以是用户），并将Role和Subject连接起来（K8s）
+6. AWS的Role和K8s用户进行连接，这样就完成整个操作。
+
+而上述的步骤不是完全固定的。K8s的用户可以与AWS的User、Group、Role任何一个进行连接。连接成功后，K8s的`developer`用户将与AWS的
+
+- 小明（连接AWS的User的情况）
+- 小明、小红ta们开发团队的每一个（连接AWS的Group的情况）
+- 小明、小红ta们开发团队的每一个，以及隔壁团队和其他公司团队其他AWS账号的人（连接AWS的Role的情况）。
+
+#### 配置用户
+
+
+
+添加新创的AWS IAM用户的Key ID和Access Key到本地配置：
+
+```
+$ aws configure
+AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
+AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+Default region name [None]: region-code
+Default output format [None]: json
+```
+
+
+
+```shell
+aws eks --region <region-code> update-kubeconfig --name <cluster_name>
+```
+
