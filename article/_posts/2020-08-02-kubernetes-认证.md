@@ -265,6 +265,9 @@ JWT令牌更详细的中文解析可参考[JSON Web Token 入门教程](https://
 
 创建用户有两种方式：
 
+- 通过Service Account的方式创建用户，需要在AWS创建信息，并在K8s中生成一些信息，最后将AWS的凭证输入到K8s中即可。
+- 
+
 ### 通过Service Account创建用户
 
 #### 背景资料
@@ -296,8 +299,6 @@ JWT令牌更详细的中文解析可参考[JSON Web Token 入门教程](https://
 
 #### 配置用户
 
-
-
 添加新创的AWS IAM用户的Key ID和Access Key到本地配置：
 
 ```
@@ -308,9 +309,24 @@ Default region name [None]: region-code
 Default output format [None]: json
 ```
 
-
+然后选择改账户的Role、Region、集群名，获得这些信息后，`kubectl config view`的信息将会被更新。
 
 ```shell
-aws eks --region <region-code> update-kubeconfig --name <cluster_name>
+aws eks update-kubeconfig  \
+--name eksworkshop-eksctl  \ # 集群名
+--region ap-northeast-1 \  # 地区名
+--role-arn arn:aws:iam::056844949861:role/k8sDev  # 以什么身份进行执行
 ```
+
+### 观察
+
+通过比较集群创建者以及新创用户的`~/.kube/config`，我们可以知道他们使用的`certificate-authority-data`是一模一样，即访问集群的证书一样。
+
+或者，通过以下类似命令：
+
+```shell
+kubectl get secrets [default-token开头的] --namespace=<命名空间> -o yaml
+```
+
+对两个用户的JWT token和证书进行比较。我们得出两者的差异在于JWT token。
 
