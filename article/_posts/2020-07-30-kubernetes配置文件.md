@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Kubernetes配置文件
+title: Kubernetes-配置文件
 date: 2020-06-15 20:00:02
 categories: 计算机
 tags: [鸦鸦的维基,kubernetes]
@@ -200,9 +200,43 @@ Webhook令牌验证<sup>Webhook Token Authentication</sup>，又叫做 Webhook�
 - 服务器Rest API地址，用于`kubectl`连接。如：server
 - 连接所需要的凭证（证书）：如：certificate-authority-data（base64格式的证书）
 
-
-
 ### 默认Service account
 
 如果Pod没有一个ServiceAccount的话，Pod将启动被分配到`defualt`的ServiceAccount。
+
+
+
+
+
+```
+--------------------
+[开发者主机]<-->[集群]  
+--------------------
+```
+
+```
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
