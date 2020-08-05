@@ -2,7 +2,7 @@
 layout: post
 title: kubernetes-认证
 date: 2020-08-02 00:00:02
-tags: [kubernetes]
+tags: [aws,kubernetes]
 comments: 1
 excerpt: kubernetes认证相关内容
 typora-root-url: ..
@@ -299,9 +299,9 @@ JWT令牌更详细的中文解析可参考[JSON Web Token 入门教程](https://
 
 #### 配置用户
 
-添加新创的AWS IAM用户的Key ID和Access Key到本地配置：
+为了初始化`aws-cli`（即初始化`~/.aws`），需要将新创的AWS IAM用户的Key ID和Access Key等信息添加进来：
 
-```
+```shell
 $ aws configure
 AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
 AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
@@ -309,14 +309,40 @@ Default region name [None]: region-code
 Default output format [None]: json
 ```
 
-然后选择改账户的Role、Region、集群名，获得这些信息后，`kubectl config view`的信息将会被更新。
+初始化`~/.kube/`配置文件
 
 ```shell
-aws eks update-kubeconfig  \
---name eksworkshop-eksctl  \ # 集群名
---region ap-northeast-1 \  # 地区名
---role-arn arn:aws:iam::056844949861:role/k8sDev  # 以什么身份进行执行
+# 手动切换角色
+$ aws sts assume-role \
+--role-arn arn:aws:iam::056844949861:role/k8sDev \
+--role-session-name test-eks-role
+{
+    "Credentials": {
+        "AccessKeyId": "ASIAQ2PBZDFSUGKRDRWV",
+        "SecretAccessKey": "mMXb2op+gBP0HH99fMcukX6TrEAhoFHW+L9r2A6N",
+        "SessionToken": "IQoJb3JpZ2luX2VjEPj//////////wEaDmFwLW5vcnRoZWFzdC0xIkcwRQIgNJzT0ksUbCpAvwSvf1R05BNlssyxQhrG1Pug7cTmioUCIQCefRSZ1aSFnSOb/jnW+FRzYR9ibM7afuooFiD13YrM3iqjAgjC//////////8BEAAaDDA1Njg0NDk0OTg2MSIMUDmCYDCO8dqki2hjKvcB8FVHYh3yzhJyN4STYCcdeZsRhnpWpm1nvORqGa0aHt3ZMNAjgF49SY7NFCEzO1HKY1NbAoTzJQ6hf0obk+q6wWMumwP2+AwWCkMqTYwXxW5tR6yVHZAmyY3Qmy387AkPyPXg83O75GSA2SF3WLMw5beq9uIjaaIjNiSH7ME5ka6lC3c2i8PgLrqJCsooV6biw9+AhFEv5tpAf6Y85f1GWopUSbmndX5183c3xlvxLORsqsE7TaKy7mIHciwiEjEaDGAD0KgIDhbLusJGgk74AYg+OCV8Gn2NTsaL+yLfl5hEAROZLGlRuwX801HhBCevZehSUuLXrTDjuav5BTqdAQfG99SoGBclCkElJliw6FDwItYiCa/DiO2+8MS984p9/JpFrk0jpqRp53BK1+Y+bGYudVl/lzSvKT/BuXFb1q+QmSXSqn63ZpR6VKcmh+k5H2ZNb31SeZ3vs3Py/AQ52RkSkMdRQGiR2N3RESz1apQhB4QY9P6QpFP7/VWAnefj5gcg6GLcYDR9Qrvflv2SLrQ7hEWMj99KgJCJpJ0=",
+        "Expiration": "2020-08-05T17:22:59+00:00"
+    },
+    "AssumedRoleUser": {
+        "AssumedRoleId": "AROAQ2PBZDFSUEPY7UGLB:test-eks-role",
+        "Arn": "arn:aws:sts::056844949861:assumed-role/k8sDev/test-eks-role"
+    }
+}
+
+
+$ export AWS_ACCESS_KEY_ID=ASIAQ2PBZDFSUGKRDRWV
+$ export AWS_SECRET_ACCESS_KEY=mMXb2op+gBP0HH99fMcukX6TrEAhoFHW+L9r2A6N
+$ export AWS_SESSION_TOKEN=IQoJb3JpZ2luX2VjEPj//////////wEaDmFwLW5vcnRoZWFzdC0xIkcwRQIgNJzT0ksUbCpAvwSvf1R05BNlssyxQhrG1Pug7cTmioUCIQCefRSZ1aSFnSOb/jnW+FRzYR9ibM7afuooFiD13YrM3iqjAgjC//////////8BEAAaDDA1Njg0NDk0OTg2MSIMUDmCYDCO8dqki2hjKvcB8FVHYh3yzhJyN4STYCcdeZsRhnpWpm1nvORqGa0aHt3ZMNAjgF49SY7NFCEzO1HKY1NbAoTzJQ6hf0obk+q6wWMumwP2+AwWCkMqTYwXxW5tR6yVHZAmyY3Qmy387AkPyPXg83O75GSA2SF3WLMw5beq9uIjaaIjNiSH7ME5ka6lC3c2i8PgLrqJCsooV6biw9+AhFEv5tpAf6Y85f1GWopUSbmndX5183c3xlvxLORsqsE7TaKy7mIHciwiEjEaDGAD0KgIDhbLusJGgk74AYg+OCV8Gn2NTsaL+yLfl5hEAROZLGlRuwX801HhBCevZehSUuLXrTDjuav5BTqdAQfG99SoGBclCkElJliw6FDwItYiCa/DiO2+8MS984p9/JpFrk0jpqRp53BK1+Y+bGYudVl/lzSvKT/BuXFb1q+QmSXSqn63ZpR6VKcmh+k5H2ZNb31SeZ3vs3Py/AQ52RkSkMdRQGiR2N3RESz1apQhB4QY9P6QpFP7/VWAnefj5gcg6GLcYDR9Qrvflv2SLrQ7hEWMj99KgJCJpJ0=
+
+# 切换角色后拥有权限进行初始化
+$ clustername=eksworkshop-eksctl
+$ region=ap-northeast-1
+$ roleArn=arn:aws:iam::056844949861:role/k8sDev
+$ aws eks update-kubeconfig  --name ${clustername}  --region ${region} --role-arn ${roleArn}
+Updated context arn:aws:eks:ap-northeast-1:056844949861:cluster/eksworkshop-eksctl in /home/vagrant/.kube/config
 ```
+
+更详细的内容查看[此处](/aws-iam-%E5%88%9B%E5%BB%BA%E8%A7%92%E8%89%B2#k8s%E6%9C%AC%E5%9C%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE---%E8%B4%A6%E5%8F%B72)。
 
 ### 观察
 
