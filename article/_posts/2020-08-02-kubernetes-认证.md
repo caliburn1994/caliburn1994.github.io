@@ -344,7 +344,7 @@ Updated context arn:aws:eks:ap-northeast-1:056844949861:cluster/eksworkshop-eksc
 
 更详细的内容查看[此处](/aws-iam-%E5%88%9B%E5%BB%BA%E8%A7%92%E8%89%B2#k8s%E6%9C%AC%E5%9C%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE---%E8%B4%A6%E5%8F%B72)。
 
-### 观察
+#### 观察
 
 通过比较集群创建者以及新创用户的`~/.kube/config`，我们可以知道他们使用的`certificate-authority-data`是一模一样，即访问集群的证书一样。
 
@@ -356,3 +356,6 @@ kubectl get secrets [default-token开头的] --namespace=<命名空间> -o yaml
 
 对两个用户的JWT token和证书进行比较。我们得出两者的差异在于JWT token。
 
+
+
+### 通过证书创建用户
