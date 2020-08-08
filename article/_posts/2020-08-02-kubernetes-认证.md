@@ -215,8 +215,6 @@ Hcc/NCdDuVoituvE2DRTOITiHnns7XakB+z2Hr7kuMCyTP6maZa2XcG7mIo=
 1. 通过上面的证书的签名，产生一个`Subject: CN=用户名`的新证书，并将该证书导入集群。通过上述一系列操作注册新用户。
 2. 不导入新的证书，取而代之是创建
 
-
-
 ### JWT令牌
 
 通过以下命令
@@ -253,7 +251,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6InY5NmhaZUNOTnJ6Tm1mbmdXU2JuZkhZV0ZUMWg2TlNuamk2TDdo
   "sub": "system:serviceaccount:default:default"
 }
 {
-   # Signature（签名）
+   # Signature（签名，防止数据篡改）
 }
 ```
 
@@ -359,3 +357,5 @@ kubectl get secrets [default-token开头的] --namespace=<命名空间> -o yaml
 
 
 ### 通过证书创建用户
+
+**TODO**
