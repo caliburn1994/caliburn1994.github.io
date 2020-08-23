@@ -3,7 +3,7 @@ layout: post
 title: nanogallery2 现代化相册框架
 date: 2018-11-22 00:00:00
 categories: 计算机
-tags: 前端
+tags: 其他
 comments: 1
 typora-root-url: ..
 ---
