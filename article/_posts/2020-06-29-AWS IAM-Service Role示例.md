@@ -2,7 +2,7 @@
 layout: post
 title: AWS-AIM-Service Role示例
 date: 2020-06-29 00:00:02
-tags: aws
+tags: [AWS]
 comments: 1
 typora-root-url: ..
 ---

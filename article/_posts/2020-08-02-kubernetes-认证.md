@@ -2,7 +2,7 @@
 layout: post
 title: kubernetes-认证
 date: 2020-08-02 00:00:02
-tags: [aws,kubernetes]
+tags: [AWS,kubernetes]
 comments: 1
 excerpt: kubernetes认证相关内容
 typora-root-url: ..
