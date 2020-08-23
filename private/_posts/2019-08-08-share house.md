@@ -2,8 +2,6 @@
 layout: post
 title: share house
 date: 2020-04-28 23:55:01
-categories: 生活
-tags: 生活
 comments: 1
 typora-root-url: ..
 excerpt: 关于share house的一些思考。
