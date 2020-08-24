@@ -8,9 +8,7 @@ excerpt:
 typora-root-url: ..
 ---
 
-## 定义
-
- 亚马逊弹性Kubernetes服务Amazon **E**lastic **K**ubernetes **S**ervice (Amazon EKS)
+亚马逊弹性Kubernetes服务（Amazon **E**lastic **K**ubernetes **S**ervice)，是运行Kubernetes的最值得信赖的方式。
 
 ## 学习指南
 
