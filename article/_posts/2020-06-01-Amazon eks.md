@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Amazon eks
+title: AWS-EKS
 date: 2020-08-24 00:00:03
 tags: [AWS]
 comments: 1
