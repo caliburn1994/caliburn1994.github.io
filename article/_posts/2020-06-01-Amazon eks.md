@@ -37,6 +37,18 @@ eks有三个命令行工具`aws`、`eksctl`、`kubectl`。其中`kubectl`是[Kub
 
 **aws configure**：在配置完aws账户中的访问密钥ID、密钥、地区等之后，我们的命令行就算是登陆成功。[示例](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html)
 
+#### aws configure
+
+配置aws
+
+```shell
+$ aws configure
+AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
+AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+Default region name [None]: region-code
+Default output format [None]: json
+```
+
 #### aws iam
 
 AWS Identity and Access Management (IAM)：身份和访问管理
@@ -78,9 +90,9 @@ $ aws sts get-caller-identity
 - 是否将Control Plane的日志导出到CloudWatch
 - k8s API服务是否公开、是否私有
 
-##### update-kubeconfig
+#### update-kubeconfig
 
-将集群配置复制到本地k8s环境里（即，配置`${HOME}/.kube/config`）
+##### 将集群配置复制到本地k8s环境里（即，配置`${HOME}/.kube/config`）
 
 ```shell
 $ aws eks update-kubeconfig --name example
@@ -90,10 +102,6 @@ Added new context arn:aws:eks:us-west-2:012345678910:cluster/example to /Users/e
 ##### update-nodegroup-config
 
 [更新节点群](https://docs.aws.amazon.com/cli/latest/reference/eks/update-nodegroup-config.html)<sup>Node Group</sup>的配置。
-
-
-
-
 
 ### eksctl命令行工具 
 
@@ -131,12 +139,6 @@ Use 'eksctl [command] --help' for more information about a command.
 
 `eksctl` 和 `asw eks` 做的事情几乎一样，不过`eksctl` 更为方便简洁。
 
-
-
-
-
-
-
 **eksctl create cluster**：创建集群（以及受管理的节点群）。[示例1](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html)、[示例2](https://www.eksworkshop.com/030_eksctl/launcheks/#create-an-eks-cluster)
 
 ```shell
@@ -156,57 +158,3 @@ arn:aws:iam::xxxxxxxxxx:role/k8sAdmin           admin					system:masters
 arn:aws:iam::xxxxxxxxxx:role/k8sDev             dev-user
 arn:aws:iam::xxxxxxxxxx:role/k8sInteg           integ-user
 ```
-
-
-
-
-
-## 概念
-
-### Amazon EKS
-
-Amazon EKS（**Amazon** **E**lastic Container Service for **K**ubernete**s**）亚马逊Kubernetes弹性容器服务。
-
-### AWS STS
-
-AWS Security Token Service (STS)，AWS安全令牌服务：
-
-### AWS IAM
-
-#### 如何添加策略？
-
-[参考地址](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/security_iam_id-based-policy-examples.html)
-
-首先，选择创建Policy
-
-![image-20200622012139828](/../assets/blog_res/image-20200622012139828.png)
-
-创建方式有两种：
-
-- 通过点击选择内容
-- 通过JSON提交内容
-
-选择/填写内容后提交即可。
-
-![image-20200622012359875](/../assets/blog_res/image-20200622012359875.png)
-
-#### 常见的IAM策略
-
-**todo**
-
-### Amazon EC2
-
-Amazon **E**lastic **C**ompute **C**loud (Amazon **EC2**) 是一种 Web 服务，可以在云中提供安全并且可调整大小的计算容量。换言之，EC2是虚拟服务器。
-
-### AWS Fargate
-
-一种适用于容器的无服务器计算引擎 **todo**
-
-### AWS Key Management Service
-
-AWS密钥管理服务<sup>Key Management Service</sup>，是用于保管密钥的服务。
-
-#### Amazon Virtual Private Cloud 
-
-[Amazon Virtual Private Cloud (Amazon VPC)](https://aws.amazon.com/cn/vpc/?nc1=h_ls) 用于提供一个完整且隔绝的网络环境。
-
