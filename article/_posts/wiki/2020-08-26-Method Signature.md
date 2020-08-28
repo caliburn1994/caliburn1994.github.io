@@ -10,7 +10,7 @@ typora-root-url: ..
 
 
 
-**Method Signature**或**Function Signature**意思相似。Java使用Method Signature区分Method，该区分用于[Overloading（重载）](https://en.wikipedia.org/wiki/Function_overloading)。在python的[PEP 362](https://www.python.org/dev/peps/pep-0362/)，提到希望使用Function Signature进行更高效的introspection（自省）。
+**Method Signature**或**Function Signature**意思相似。Java使用Method Signature区分Method，该区分用于[Overloading（重载）](https://en.wikipedia.org/wiki/Function_overloading)。在python的[PEP 362](https://www.python.org/dev/peps/pep-0362/)，提到希望使用Function Signature进行更高效的introspection（内省）。
 
 ## 示例
 
