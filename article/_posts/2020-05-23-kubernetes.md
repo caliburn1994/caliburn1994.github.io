@@ -613,18 +613,64 @@ RBAC授权<sup>Role-based access control  Authorization</sup>，可译为基�
 
 举例：集群中有一个用户（subject）叫`kyakya酱`，而ta的角色（role）是`管理员`，`kyakya酱`和`管理员`用`RoleBinding`绑定起来，并记录。
 
-##### 主体（subjects）
+##### 主体
 
-主体（subjects）有若干个选择：用户<sup>users</sup>、群<sup>groups</sup>、服务账号<sup>service accounts</sup>。<sup>[[官网]](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)</sup>
+<u>主体</u><sup>subject</sup>有若干个选择：<u>用户</u><sup>User</sup>、<u>群</u><sup>Group</sup>、<u>服务账号</u><sup>Service Account</sup>。<sup>[[官网]](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)</sup>
 
-- Users用于分配个人权限。
-- Groups常用于分配团队，例如：通过Group分配管理员、开发者、集成团队，示例[参考](https://www.eksworkshop.com/beginner/091_iam-groups/)。
-
-
+- User用于分配个人权限。
+- Group常用于分配团队，例如：通过Group分配管理员、开发者、集成团队，示例[参考](https://www.eksworkshop.com/beginner/091_iam-groups/)。
+- Service Account。
 
 ###### 服务账号
 
-背景1：默认情况下在容器中，我们可以`/var/run/secrets/kubernetes.io/serviceaccount/token`中`token`直接访问**API中的所有资源**<sup>[[官网]](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/)</sup>。然而，这种行为是十分危险。
+通常操作者需要连接上集群，才能进行操作，而操作者的对象是REST API。我们通过以下方式可以**在操作者的主机上直接查看REST API的信息**。
+
+```shell
+# 获得存储在secrets里的默认Service Account的名称
+DefaultTokenName=`kubectl get secrets -o jsonpath="{.items[*].metadata.name}" | grep -E 'default\-token'`
+
+# 获得该Service Account的Token
+Token=`kubectl get secrets ${DefaultTokenName} -o=jsonpath='{.data.token}' | base64 --decode`
+# 获得该Service Account的证书，并保存为ca_cert.pem
+kubectl get secrets ${DefaultTokenName} -o=jsonpath='{.data.ca\.crt}' | base64 --decode > ./ca_cert.pem
+
+# 通过curl命令访问REST API的网址
+curl \
+--header "Authorization: Bearer ${Token}" \
+--cacert ./ca_cert.pem \
+-X GET https://2C1A77626A2087EBA1D1123EA9398DAF.gr7.ap-northeast-1.eks.amazonaws.com/api
+```
+
+
+
+背景1：
+
+
+
+
+
+
+
+默认情况下在容器中，我们可以通过使用`/var/run/secrets/kubernetes.io/serviceaccount/token`中`token`直接访问**API中的所有资源**。<sup>[[官网]](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/)</sup> 允许所有的Pod都有权限访问`token`将造成安全问题。
+
+```shell
+$ kubectl describe secrets default-token-6qzsw 
+Name:         default-token-6qzsw
+Namespace:    default
+Labels:       <none>
+Annotations:  kubernetes.io/service-account.name: default
+              kubernetes.io/service-account.uid: 2696c83d-c613-4926-8e53-ddd8e8e6bc9b
+
+Type:  kubernetes.io/service-account-token
+
+Data
+====
+ca.crt:     1025 bytes
+namespace:  7 bytes
+token:      eyJhbGciOiJSUzI1NiIsImtpZCI6InY5NmhaZUNOTnJ6Tm1mbmdXU2JuZkhZV0ZUMWg2TlNuamk2TDdoaGYtLTgifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4tNnF6c3ciLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjI2OTZjODNkLWM2MTMtNDkyNi04ZTUzLWRkZDhlOGU2YmM5YiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.AtYCSzZXSMS2jnLL6G1DqbEEThJDl8PgFxz8FaXjcKVw50aVictWr88Xykgeni7ht63No_9mWQoDSCbUQXvRi1Q9rLdZL1QKj0v6fokxegnVbW1PlR_dJxQO9yq3AV1SbL02x6ERabEirZTETVUna56WVj8vUur_2rx4tg3SKETUI3oJdw8OoissB-jlJAUCjJQZrPvHAkuOD8oxRUFDHRrhI9uzCyq70f7Ayeto59Cxjw8ByG2N9zbLPX5PpLoy4cVDP1SeLIDuMiLJAQo5iz-kWbyggVKe4LT10BT0gCo5hEgJsqO79zuoN-QTerXhgBT5Q7MxFkiSmyKm7ChkXA
+```
+
+
 
 背景2：当一个容器想要访问亚马逊里其他的服务时，正常来说需要配置密钥ID和密钥，但是如果OpenID Connect (OIDC) 与服务账号结合，那么在部署Pod时，就不再需要手动配置密钥ID和密钥。[示例](https://www.eksworkshop.com/beginner/110_irsa/)
 
@@ -742,7 +788,7 @@ roleRef:
 
 ##### 语境
 
-默认语境<sup>Context</sup>下，容器是使用是超级用户root。
+在默认的<u>语境</u><sup>Context</sup>下，容器是使用是超级用户root。
 
 ```yaml
 apiVersion: v1

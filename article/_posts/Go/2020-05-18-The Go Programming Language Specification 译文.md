@@ -1032,12 +1032,20 @@ Functions:
 
 ### Exported identifiers
 
-An identifier may be *exported* to permit access to it from another package. An identifier is exported if both:
+> An identifier may be *exported* to permit access to it from another package. An identifier is exported if both:
 
-1. the first character of the identifier's name is a Unicode upper case letter (Unicode class "Lu"); and
-2. the identifier is declared in the [package block](https://golang.org/ref/spec#Blocks) or it is a [field name](https://golang.org/ref/spec#Struct_types) or [method name](https://golang.org/ref/spec#MethodName).
+当 identifier 为 exported 时，其他的 package 能够访问该 identifier 。当 identifier  满足以下两个条件时候，就可是 exported ：
 
-All other identifiers are not exported.
+1. > the first character of the identifier's name is a Unicode upper case letter (Unicode class); and
+
+   identifier 的名字第一个祖母是 Unicode 大写字母时
+2. > the identifier is declared in the [package block](https://golang.org/ref/spec#Blocks) or it is a [field name](https://golang.org/ref/spec#Struct_types) or [method name](https://golang.org/ref/spec#MethodName).
+
+   identifier 在包模块中被声明，或者 identifier 是个 [field name](https://golang.org/ref/spec#Struct_types) 或者是个 [method name](https://golang.org/ref/spec#MethodName).
+
+> All other identifiers are not exported.
+
+其他的所有 identifier 都不是 exported 的。
 
 ### Uniqueness of identifiers
 
@@ -3135,7 +3143,7 @@ func complexF3() (re float64, im float64) {
    	n = len(p)
    	return
    }
-   ```
+  ```
 
 Regardless of how they are declared, all the result values are initialized to the [zero values](https://golang.org/ref/spec#The_zero_value) for their type upon entry to the function. A "return" statement that specifies results sets the result parameters before any deferred functions are executed.
 
