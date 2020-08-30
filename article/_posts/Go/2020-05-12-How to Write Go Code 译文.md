@@ -23,7 +23,7 @@ excerpt: How to Write Go Code 译文
 
 > This document demonstrates the development of a simple Go package inside a module and introduces the [go tool](https://golang.org/cmd/go/), the standard way to fetch, build, and install Go modules, packages, and commands.
 
-本文档展示了一个简单 Go 包的开发，并介绍了用 [go工具](https://golang.org/cmd/go/)来获取、 构建并安装 Go 包及命令的标准方式。
+本文档将展示在 module 里进行 Go package 的开发，并介绍如何用[go工具](https://golang.org/cmd/go/)获取、 构建并安装 Go module、package、command。
 
 > Note: This document assumes that you are using Go 1.13 or later and the `GO111MODULE` environment variable is not set. If you are looking for the older, pre-modules version of this document, it is archived [here](https://golang.org/doc/gopath_code.html).
 
@@ -33,15 +33,33 @@ excerpt: How to Write Go Code 译文
 
 > Go programs are organized into packages. A package is a collection of source files in the same directory that are compiled together. Functions, types, variables, and constants defined in one source file are visible to all other source files within the same package.
 
-Go程序装载于包（package）。一个包（package）是同一目录下若干源代码的集合体，将会一起被编译。函数、类型、变量、固定值将会被定义在同一个源代码文件，并且会公开于同一包下的其他源文件。
+Go程序由若干个 package 组成。每一个 package 都是同一目录下若干源代码集合成的，这些文件将会一同被编译。一个源代码文件下定义的Functions、types、variables、constants<sup>固定值</sup>，同一个package下的其他源文件将可直接访问它们。
 
 > A repository contains one or more modules. A module is a collection of related Go packages that are released together. A Go repository typically contains only one module, located at the root of the repository. A file named `go.mod` there declares the module path: the import path prefix for all packages within the module. The module contains the packages in the directory containing its `go.mod` file as well as subdirectories of that directory, up to the next subdirectory containing another `go.mod` file (if any).
 
-一个仓库包含了一或若干个模块，一个模块是若干个Go包的集合体，这些Go包将会同时被发布（released）。一个经典的Go仓库仅包含一个模块，该模块的位置是在仓库的根位置。在根路径处，一个名为`go.mod` 的文件，它里面声明了模块的路径——即，导入路径 将会成为这个模块里的所有包的前缀。该模块将会包含`go.mod`所处的文件夹以及子文件夹中的包，如果该模块拥有子模块，那么该模块将遍历到含有另一个 `go.mod` 的文件夹位置（即遍历到下一个模块为止）。
+一个 repository<sup>仓库</sup> 包含了若干个 module，一个 module 包含若干个 Go package，并且 这些 Go package 将会一同被发布（released）。一个经典的 Go repository 仅包含一个 module，并且该 module 位于 repository 的根目录。在 module 所在处会有名为 `go.mod` 的文件，该文件声明了 module path。module path 是该 module 下所有 package 的 import path 的前缀。
+
+举例说明：其他 package 要使用 `github.com/docker/cli` module 的 `cli` package：
+
+```go
+import (
+	"github.com/docker/cli/cli"
+)
+```
+
+而在开发时，该 package 下的源代码文件起名时只需这样：
+
+```go
+package cli
+```
+
+其中省略了`github.com/docker`前缀，该前缀在 `go.mod`  中声明了。
+
+module 由 `go.mod` 所在目录及子目录的 package 组成，但如果子目录拥有另一个 `go.mod` ，那么这个 `go.mod`  的子目录将会不会被包含。
 
 > Note that you don't need to publish your code to a remote repository before you can build it. A module can be defined locally without belonging to a repository. However, it's a good habit to organize your code as if you will publish it someday.
 
-注：在你有能力构建代码之前，你不需要推送代码至远程仓库。模块可以在本地定义，而不需要（属于）仓库。然而，有意识地组织代码是一个好习惯，也许某天你需要推送代码（到仓库）。
+注：在你有能力构建代码之前，你不要推送代码至 remote repository<sup>远程仓库</sup>。模块可以在本地定义，而不需要（属于）仓库。然而，有意识地组织代码是一个好习惯，也许某天你需要推送代码（到仓库）。
 
 > Each module's path not only serves as an import path prefix for its packages, but also indicates where the `go` command should look to download it. For example, in order to download the module `golang.org/x/tools`, the `go` command would consult the repository indicated by `https://golang.org/x/tools` (described more [here](https://golang.org/cmd/go/#hdr-Relative_import_paths)).
 
