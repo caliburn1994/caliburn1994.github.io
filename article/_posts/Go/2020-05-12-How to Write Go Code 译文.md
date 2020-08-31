@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How to Write Go Code 译文
-date: 2020-05-12 23:55:01
+date: 2020-08-31 23:55:01
 categories: 计算机
 tags: Go
 comments: 1
