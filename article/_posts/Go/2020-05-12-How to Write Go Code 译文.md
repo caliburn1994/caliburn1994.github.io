@@ -59,23 +59,23 @@ module 由 `go.mod` 所在目录及子目录的 package 组成，但如果子目
 
 > Note that you don't need to publish your code to a remote repository before you can build it. A module can be defined locally without belonging to a repository. However, it's a good habit to organize your code as if you will publish it someday.
 
-注：在你有能力构建代码之前，你不要推送代码至 remote repository<sup>远程仓库</sup>。模块可以在本地定义，而不需要（属于）仓库。然而，有意识地组织代码是一个好习惯，也许某天你需要推送代码（到仓库）。
+注：在你有能力构建代码之前，你不要推送代码至 remote repository<sup>远程仓库</sup>。你可以在本地定义 module  ，不需要有一个真正仓库。然而，如果代码将来要被上传，有意识地组织代码是个好习惯。
 
 > Each module's path not only serves as an import path prefix for its packages, but also indicates where the `go` command should look to download it. For example, in order to download the module `golang.org/x/tools`, the `go` command would consult the repository indicated by `https://golang.org/x/tools` (described more [here](https://golang.org/cmd/go/#hdr-Relative_import_paths)).
 
-每一个模块的路径不仅仅提供 它的包 路径前缀，而且还可以提示 `go`命令去哪里下载（依赖包）。举例说明，如果你想要下载`golang.org/x/tools`模块，那么 `go` 将通过`https://golang.org/x/tools`该提示去查询仓库（详情请看[here](https://golang.org/cmd/go/#hdr-Relative_import_paths)）。
+每一个 module path 不仅作为 package 的路径前缀，而且还可以告诉 `go` command 该去哪里下载（依赖包）。举例说明，如果你想要下载 `golang.org/x/tools` module ，那么 `go` 将通过 `https://golang.org/x/tools` 去查询仓库（详情请看[here](https://golang.org/cmd/go/#hdr-Relative_import_paths)）。
 
 > An import path is a string used to import a package. A package's import path is its module path joined with its subdirectory within the module. For example, the module `github.com/google/go-cmp` contains a package in the directory `cmp/`. That package's import path is `github.com/google/go-cmp/cmp`. Packages in the standard library do not have a module path prefix.
 
-一个导入路径是一个字符串，用于导入包。包的导入路径是它的模块路径 加上 该模块的子目录。举例说明， `github.com/google/go-cmp`模块包含了一个名为`cmp/`.的目录。那么该包的导入路径将会是`github.com/google/go-cmp/cmp`。在标准库中的包是不需要模块前缀的。
+导入路径是一串字符串，用于导入包。package 的导入路径是 module path + 子目录。举例说明， `github.com/google/go-cmp` module 包含了 `cmp/` 的目录。Package 的导入路径是 `github.com/google/go-cmp/cmp` 。在标准库中的 Package 是不需要 module path 前缀的。
 
 ## Your first program
 
 > To compile and run a simple program, first choose a module path (we'll use `example.com/user/hello`) and create a `go.mod` file that declares it:
 
-尝试编译并运行一个简单程序吧，首先选择一个模块路径（我们就用`example.com/user/hello`吧），并创建一个`go.mod`文件，并声明（定义）它。
+我们来编译并运行一个简单程序吧，首先选择一个 module path（我们就用`example.com/user/hello `吧），然后创建一个`go.mod` 文件声明该 module path。
 
-```
+```shell
 $ mkdir hello # Alternatively, clone it if it already exists in version control.
 $ cd hello
 $ go mod init example.com/user/hello
@@ -89,13 +89,13 @@ $
 
 > The first statement in a Go source file must be `package name`. Executable commands must always use `package main`.
 
-Go源代码的第一行语句必须是 `package 名称`。可通过命令运行的可执行程序则（第一行）是 `package main`。
+Go源代码文件的第一行语句必须是 `package 名称`。Executable commands 的话是 `package main`。
 
 > Next, create a file named `hello.go` inside that directory containing the following Go code:
 
-接下来，在文件夹内，创建一个名为 `hello.go` 的文件，内容如下：
+接下来，在目录里，创建一个名为 `hello.go` 的文件，其内容如下：
 
-```
+```go
 package main
 
 import "fmt"
@@ -107,46 +107,46 @@ func main() {
 
 > Now you can build and install that program with the `go` tool:
 
-现在，你可以通过 `go` 工具去构建并安装该程序
+现在，你可以通过 `go` tool 去构建并安装该程序：
 
-```
+```shell
 $ go install example.com/user/hello
 $
 ```
 
 > This command builds the `hello` command, producing an executable binary. It then installs that binary as `$HOME/go/bin/hello` (or, under Windows, `%USERPROFILE%\go\bin\hello.exe`).
 
-该命令将会构建一个`hello`命令，并生成一个可执行的二进制文件。然后将它将该二进制文件安装成`$HOME/go/bin/hello`， (在Windows环境下则是`%USERPROFILE%\go\bin\hello.exe`).
+该 command 将会构建出 `hello` command，并生成一个可执行的二进制文件。然后 command  会将二进制文件安装至 `$HOME/go/bin/hello` (Windows环境下则是`%USERPROFILE%\go\bin\hello.exe` ).
 
 > The install directory is controlled by the `GOPATH` and `GOBIN` [environment variables](https://golang.org/cmd/go/#hdr-Environment_variables). If `GOBIN` is set, binaries are installed to that directory. If `GOPATH` is set, binaries are installed to the `bin` subdirectory of the first directory in the `GOPATH` list. Otherwise, binaries are installed to the `bin` subdirectory of the default `GOPATH` (`$HOME/go` or `%USERPROFILE%\go`).
 
-安装地址由`GOPATH` 和 `GOBIN` [环境变量](https://golang.org/cmd/go/#hdr-Environment_variables)决定。如果`GOBIN`设置了的话，则安装在这个目录下。如果`GOPATH`设定了，则安装到第一个`GOPATH` 的`bin`子目录下。否则，则安装在默认的`GOPATH` (`$HOME/go` 或 `%USERPROFILE%\go`)的`bin`子目录。
+安装地址由 `GOPATH` 和 `GOBIN` 两个[环境变量](https://golang.org/cmd/go/#hdr-Environment_variables) 决定。如果设置了 `GOBIN` ，则安装在该目录下。如果设定了 `GOPATH`，则安装到第一个 `GOPATH` 的 `bin` 下。否则，二进制文件将被安装在 默认的`GOPATH` (`$HOME/go` 或 `%USERPROFILE%\go`) 的`bin`目录下。
 
 > You can use the `go env` command to portably set the default value for an environment variable for future `go` commands:
 
-你可以通过`go env` 命令便捷地设置默认环境量，设置后将会影响之后的`go`命令：
+你可以通过 `go env` command  便捷地为环境变量设置默认值，设置后将影响之后的`go` command：
 
-```
+```shell
 $ go env -w GOBIN=/somewhere/else/bin
 $
 ```
 
 > To unset a variable previously set by `go env -w`, use `go env -u`:
 
-删除（之前创建的）环境变量则使用`go env -u`
+想删除（之前创建的）环境变量，则输入 `go env -u`
 
-```
+```shell
 $ go env -u GOBIN
 $
 ```
 
 > Commands like `go install` apply within the context of the module containing the current working directory. If the working directory is not within the `example.com/user/hello` module, `go install` may fail.
 
-像`go install`的命令将会应用范围是，模块的所有内容，这包含当前工作目录。如果工作目录不包含`example.com/user/hello`模块，那么`go install`将会失败。
+类似 `go install` 的 Command 作用范围是 module 底下的所有内容，包含当前工作目录。如果工作目录不包含 `example.com/user/hello` module，那么 `go install` 将会失败。
 
 > For convenience, `go` commands accept paths relative to the working directory, and default to the package in the current working directory if no other path is given. So in our working directory, the following commands are all equivalent:
 
-为了方便，`go`命令接受使用 工作目录的相对路径 ，以及当没有指定路径时，包的路径将会默认为当前工作目录。因此，在我们的工作目录，下面的命令是等价的：
+为了方便，`go` command 接受 <u>工作目录的相对路径</u> 作为参数 ；当没有指定路径时，command 默认指定当前工作目录的 package。因此，在我们的工作目录下，下面的命令是等价的：
 
 ```
 $ go install example.com/user/hello
@@ -156,7 +156,7 @@ $ go install
 
 > Next, let's run the program to ensure it works. For added convenience, we'll add the install directory to our `PATH` to make running binaries easy:
 
-接着，让我们运行程序，确认它能运行。为了更加方便，我们将安装目录添加到我们的`PATH`里，使运行二进制文件更简单：
+接下来，我们运行程序，确保它能够运行。为了更加方便，我们将安装目录添加到我们的`PATH`里，使运行二进制文件更简单：
 
 ```
 # Windows users should consult https://github.com/golang/go/wiki/SettingGOPATH
@@ -169,9 +169,9 @@ $
 
 > If you're using a source control system, now would be a good time to initialize a repository, add the files, and commit your first change. Again, this step is optional: you do not need to use source control to write Go code.
 
-如果你有在使用代码控制系统，那么现在是一个很好的机会去初始化仓库，添加这些文件，然后提交。这里再次强调，上述的操作是可选的，也许你并不需要使用 代码控制 去管理Go代码。
+如果你有在使用 source control 系统，那么现在是个好的机会去初始化 repository ，添加文件，并提交。这里再次强调，上述的操作是可选的，也许你不需要使用 source control 去管理Go代码。
 
-```
+```shell
 $ git init
 Initialized empty Git repository in /home/user/hello/.git/
 $ git add go.mod hello.go
@@ -184,15 +184,15 @@ $
 
 > The `go` command locates the repository containing a given module path by requesting a corresponding HTTPS URL and reading metadata embedded in the HTML response (see `go help importpath`). Many hosting services already provide that metadata for repositories containing Go code, so the easiest way to make your module available for others to use is usually to make its module path match the URL for the repository.
 
-Go命令可以定位“内含给定模块地址的仓库”，定位原理是：通过发送一个对应的HTTPS地址，然后读取HTML response里的metadata内容 (详情看`go help importpath`)。对于包含Go代码的仓库，许多托管服务（hosting service）已经提供用于这种仓库的元数据，因此最简单的方式让你的仓库有效化的方式是，让你的模块地址与仓库的URL相匹配。
+ `go` command 可以定位 “内含给定 module path 的仓库”，定位原理是：f向HTTPS URL发送请求，然后读取HTML response里的 metadata 内容 (详情看`go help importpath`)。对于包含Go代码的 repository，许多托管服务（hosting service）将提供用于这种 repository 的相关 metadata ，因此让你的仓库可以使用的最简单方式是，让你的 module path 与 repository 的URL相匹配。
 
 ### Importing packages from your module
 
 > Let's write a `morestrings` package and use it from the `hello` program. First, create a directory for the package named `$HOME/hello/morestrings`, and then a file named `reverse.go` in that directory with the following contents:
 
-我们一起来写一个`morestrings`包吧！该包用到刚刚的 `hello` 程序。首先，创建一个该包的目录，就叫`$HOME/hello/morestrings`吧，然后在该目录下创建一个文件`reverse.go`，文件内容如下：
+接着写一个 `morestrings ` package 吧！该 package  使用到刚刚的 `hello` 程序。首先，创建一个该 package 的目录，叫 `$HOME/hello/morestrings` ，然后在该目录下创建一个文件`reverse.go`，文件内容如下：
 
-```
+```go
 // Package morestrings implements additional functions to manipulate UTF-8
 // encoded strings, beyond what is provided in the standard "strings" package.
 package morestrings
@@ -209,11 +209,11 @@ func ReverseRunes(s string) string {
 
 > Because our `ReverseRunes` function begins with an upper-case letter, it is [exported](https://golang.org/ref/spec#Exported_identifiers), and can be used in other packages that import our `morestrings` package.
 
-因为`ReverseRunes`函数的名字是大写开头，所以它将[被暴露](https://golang.org/ref/spec#Exported_identifiers)，也就是说，在其他包里导入`morestrings` 包后，我们可以使用这个函数。
+因为 `ReverseRunes` function 的名字是大写开头，所以该function 是[exported](https://golang.org/ref/spec#Exported_identifiers)<sup>可输出的</sup>，通过导入 `morestrings` 包，我们可以在其他 package 里使用这个函数。
 
 > Let's test that the package compiles with `go build`:
 
-我们来试试用`go build`来编译这个包
+通过 `go build` 编译该 package：
 
 ```
 $ cd $HOME/hello/morestrings
@@ -223,13 +223,13 @@ $
 
 > This won't produce an output file. Instead it saves the compiled package in the local build cache.
 
-这个操作不会产生任何输出文件，取而代之的是，该操作会酱编译好的包放到“本地构建缓存”里。
+该操作不会产生任何输出文件，取而代之的是，将编译好的包放到“本地构建缓存”里。
 
 > After confirming that the `morestrings` package builds, let's use it from the `hello` program. To do so, modify your original `$HOME/hello/hello.go` to use the morestrings package:
 
-在确认了`morestrings`包成功构建后了，我们在`hello`程序里用它吧。为了这样做，首先修改原来的文件`$HOME/hello/hello.go` ，去使用 morestrings 包
+在确认了`morestrings` package 成功构建后了，我们在 `hello` 程序里用它吧。为了这样做，首先修改原来的文件 `$HOME/hello/hello.go` ，去使用 morestrings 包
 
-```
+```shell
 package main
 
 import (
@@ -247,15 +247,15 @@ func main() {
 
 安装`hello`程序
 
-```
+```shell
 $ go install example.com/user/hello
 ```
 
 > Running the new version of the program, you should see a new, reversed message:
 
-运行新版本程序，你可以看到一个新的、反转了的信息：
+运行新版本程序，你可以看到一个新的且反转了的信息：
 
-```
+```shell
 $ hello
 Hello, Go!
 ```
@@ -264,9 +264,9 @@ Hello, Go!
 
 > An import path can describe how to obtain the package source code using a revision control system such as Git or Mercurial. The `go` tool uses this property to automatically fetch packages from remote repositories. For instance, to use `github.com/google/go-cmp/cmp` in your program:
 
-一个导入路径用于描述，怎么样通过Git或Mercurial等修订控制系统（Revision Control System），获得在包里的源代码。`go`工具使用导入路径（该属性）去自动获取远程仓库的包。举例说明，如果你想要在程序中`github.com/google/go-cmp/cmp`程序，就像下面代码：
+Git或Mercurial等修订控制系统（Revision Control System）将使用 import path<sup>导入路径</sup> 去获得 package 的源代码。`go` tool 使用 import path 去自动获取远程仓库的 package 。举例说明，如果在程序中使用了 `github.com/google/go-cmp/cmp` 程序，就像下面代码：
 
-```
+```go
 package main
 
 import (
@@ -284,9 +284,9 @@ func main() {
 
 > When you run commands like `go install`, `go build`, or `go run`, the `go` command will automatically download the remote module and record its version in your `go.mod` file:
 
-当运行类似`go install`、`go build`、 `go run` 这些命令时， `go` 命令将会自动下载远程模块，并将其版本记录至`go.mod` 中：
+当运行类似`go install`、`go build`、 `go run` 等 command 时， `go` command 将自动下载远程 module ，并将其版本记录至 `go.mod` 中：
 
-```
+```shell
 $ go install example.com/user/hello
 go: finding module for package github.com/google/go-cmp/cmp
 go: downloading github.com/google/go-cmp v0.4.0
@@ -308,7 +308,7 @@ $
 
 > Module dependencies are automatically downloaded to the `pkg/mod` subdirectory of the directory indicated by the `GOPATH` environment variable. The downloaded contents for a given version of a module are shared among all other modules that `require` that version, so the `go` command marks those files and directories as read-only. To remove all downloaded modules, you can pass the `-modcache` flag to `go clean`:
 
-模块的依赖被会自动下载到 `GOPATH`环境变量的目录下的`pkg/mod`的子目录里。下载的是模块指定版本的内容，其他模块可以共享该内容，但这些模块需要通过`require`指定版本，因此`go`命令把这些（下载了的）文件和目录都标记为只可读。（`require`的示例可参考[这里](https://github.com/kubernetes/minikube/blob/master/go.mod)）
+Module 的依赖被会自动下载到 `GOPATH` 环境变量的目录下的`pkg/mod`的子目录里。下载的是模块指定版本的内容，其他模块可以共享该内容，但这些模块需要通过`require`指定版本，因此`go`命令把这些（下载了的）文件和目录都标记为只可读。（`require`的示例可参考[这里](https://github.com/kubernetes/minikube/blob/master/go.mod)）
 
 ```
 $ go clean -modcache
@@ -319,17 +319,17 @@ $
 
 > Go has a lightweight test framework composed of the `go test` command and the `testing` package.
 
-Go有一个轻型的测试框架，由 `go test`命令和`testing`包组成。
+Go语言 有一个轻型的测试框架，由 `go test` command 和 `testing` package 组成。
 
 > You write a test by creating a file with a name ending in `_test.go` that contains functions named `TestXXX` with signature `func (t *testing.T)`. The test framework runs each such function; if the function calls a failure function such as `t.Error` or `t.Fail`, the test is considered to have failed.
 
-测试文件名字后缀为`_test.go` ，文件包含名为 `TestXXX`函数且签名（类型签名：Type signature）为 `func (t *testing.T)`。该测试框架能运行上述的函数；当函数调用失败函数（如：`t.Error` 、 `t.Fail`），测试结果会被认为失败。
+测试文件的名字后缀为 `_test.go` ，文件包含名为  `TestXXX` function且签名（类型签名：Type signature）为 `func (t *testing.T)`。该测试框架能运行上述的函数；当函数调用 failure function（如：`t.Error` 、 `t.Fail`），测试结果会被认为失败。
 
 > Add a test to the `morestrings` package by creating the file `$HOME/hello/morestrings/reverse_test.go` containing the following Go code.
 
-在 `morestrings` 包里添加一个测试文件`$HOME/hello/morestrings/reverse_test.go`，内容如下：
+在 `morestrings` package 里添加一个测试文件`$HOME/hello/morestrings/reverse_test.go`，内容如下：
 
-```
+```go
 package morestrings
 
 import "testing"
@@ -353,7 +353,7 @@ func TestReverseRunes(t *testing.T) {
 
 > Then run the test with `go test`:
 
-运行`go test`进行测试
+运行 `go test` 进行测试
 
 ```
 $ go test
