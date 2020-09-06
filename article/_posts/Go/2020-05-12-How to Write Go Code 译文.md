@@ -21,9 +21,9 @@ excerpt: How to Write Go Code 译文
 
 ## Introduction
 
-<div class="sup" data-title="This document demonstrates the development of a simple Go package inside a module and introduces the go tool, the standard way to fetch, build, and install Go modules, packages, and commands." >
+> This document demonstrates the development of a simple Go package inside a module and introduces the [go tool](https://golang.org/cmd/go/), the standard way to fetch, build, and install Go modules, packages, and commands.
+
 本文档将展示在 module 里进行 Go package 的开发，并介绍如何用[go工具](https://golang.org/cmd/go/)获取、 构建并安装 Go module、package、command。
-</div>
 
 > Note: This document assumes that you are using Go 1.13 or later and the `GO111MODULE` environment variable is not set. If you are looking for the older, pre-modules version of this document, it is archived [here](https://golang.org/doc/gopath_code.html).
 
