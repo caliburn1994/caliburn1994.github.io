@@ -8,7 +8,9 @@ excerpt:
 typora-root-url: ..
 ---
 
-initialize 有两个名词形态："Initializer"、"Initialization"。Initialization 译为初始化，而将 Initializer 视为专有名词即可，无需翻译。而普遍意义上，Initializer 是指可以一次性 declare<sup>声明</sup> 指定的若干个 variable 的 construct 。
+initialize 有两个名词形态："Initializer"、"Initialization"。Initialization 译为初始化，而将 Initializer 视为专有名词即可，无需翻译。
+
+而普遍意义上，an Initializer 是指 对一个 variable 进行初始化赋值。
 
 ## Object-oriented programming
 
@@ -24,18 +26,18 @@ MyObject myObjectInstance = new MyObject(param1, param2);
 MyObject myObjectInstance = new MyObject(param1);
 ```
 
-initializer 是在 constructor 之后的函数，它可以指定特定的 field/member variable进行初始化。
+object initializer是在 constructor 之后的字段赋值：<sup>[[microsoft]](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers)</sup>
 
 ```c#
 MyObject myObjectInstance = new MyObject(param1, param2)
 {
-    MyProperty = someUsefulValue // 初始化某一个参数
+    MyProperty = someUsefulValue // an object initializer
 };
 ```
 
 ## 其他语言
 
-在Go语言里，可以这样使用 initializer ：<sup>[来源](https://tour.golang.org/basics/9)</sup>
+在Go语言里，可以这样一次性使用若干个 Initializers：<sup>[来源](https://tour.golang.org/basics/9)</sup>
 
 ```go
 package main
@@ -45,7 +47,7 @@ import "fmt"
 var i, j int = 1, 2
 
 func main() {
-	var c, python, java = true, false, "no!" // Initializer 
+	var c, python, java = true, false, "no!" // Initializers 
 	fmt.Println(i, j, c, python, java)
 }
 ```
