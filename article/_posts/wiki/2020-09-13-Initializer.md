@@ -26,7 +26,7 @@ MyObject myObjectInstance = new MyObject(param1, param2);
 MyObject myObjectInstance = new MyObject(param1);
 ```
 
-object initializer是在 constructor 之后的字段赋值：<sup>[[microsoft]](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers)</sup>
+object initializer是在 constructor 之后，对特定可见字段赋值：<sup>[[microsoft]](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers)</sup>
 
 ```c#
 MyObject myObjectInstance = new MyObject(param1, param2)
