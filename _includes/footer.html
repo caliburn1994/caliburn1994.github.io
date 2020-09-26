@@ -57,7 +57,7 @@
     var elements = $('.language-mermaid');
     jQuery.each(elements, function () {
         $(this).unwrap();
-        
+
         $(this).replaceWith(function () {
             var replacement = $('<div>').html($(this).html());
             for (var i = 0; i < this.attributes.length; i++) {
