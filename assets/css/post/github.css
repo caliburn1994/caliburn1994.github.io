@@ -39,11 +39,20 @@ strong {
     color : #980a0a
 }
 
-html div:not(.language-mermaid) {
+/*html div:not(.language-mermaid) {*/
+/*    font-size: 16px;*/
+/*}*/
+
+html {
     font-size: 16px;
 }
 
-body div:not(.language-mermaid) {
+/*body div:not(.language-mermaid) {*/
+/*    !*font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;*!*/
+/*    color: rgb(51, 51, 51);*/
+/*    line-height: 1.6;*/
+/*}*/
+body {
     /*font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     color: rgb(51, 51, 51);
     line-height: 1.6;
