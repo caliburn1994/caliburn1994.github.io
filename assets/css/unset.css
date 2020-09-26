@@ -1,0 +1,7 @@
+.language-mermaid {
+    all: revert;
+}
+
+.language-mermaid * {
+    all: revert;
+}
