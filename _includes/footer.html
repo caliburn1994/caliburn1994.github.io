@@ -53,6 +53,22 @@
 <script src="{{site.baseurl}}/assets/js/main.js"></script>
 
 <!-- mermaid begin -->
+<script>
+    var elements = $('.language-mermaid');
+    jQuery.each(elements, function () {
+        $(this).unwrap();
+        
+        $(this).replaceWith(function () {
+            var replacement = $('<div>').html($(this).html());
+            for (var i = 0; i < this.attributes.length; i++) {
+                replacement.attr(this.attributes[i].name, this.attributes[i].value);
+            }
+            return replacement;
+        });
+
+    });
+</script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mermaid/7.0.11/mermaid.css">
 <script type="text/javascript" src="/assets/js/http_cdnjs.cloudflare.com_ajax_libs_mermaid_8.6.3_mermaid.js"></script>
 <!-- mermaid end-->
