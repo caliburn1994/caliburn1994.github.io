@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 为什么password需要hash
+title: 为什么password需要hash?
 date: 2020-10-10 00:00:02
 tags: [security]
 comments: 1
@@ -35,7 +35,7 @@ sequenceDiagram
 	Web-->>-Bad guy 2: OK
 ```
 
-坏人可以通过Web系统的数据库或者在整个操作中的某一个漏洞中获取的密码，登录Web系统；坏人当然也可以通过User那边获取密码，进行登录。
+盗用者可以通过Web系统的数据库或者在整个操作中的某一个漏洞中获取的密码，登录Web系统；盗用者当然也可以通过User那边获取密码，进行登录。
 
 ### With hash
 
@@ -65,7 +65,7 @@ sequenceDiagram
 $ echo "user1:user1password" | chpasswd
 ```
 
-那么，其他人查看容器的日志时，将会发现用户` user1` 的密码是 `user1password`。
+那么，盗用者查看容器的日志时，将会发现用户` user1` 的密码是 `user1password`。
 
 ```mermaid
 sequenceDiagram
@@ -83,7 +83,7 @@ autonumber
 $ echo 'user1:$6$lAkdPbeeZR7YJiE3$ohWgU3LcSVit/hEZ2VOVKvxD.67.N9h5v4ML7.4X51ZK3kABbTPHkZUPzN9jxQQWXtkLctI0FJZR8CChIwz.S/' | chpasswd --encrypted
 ```
 
-我们告诉了 `chpasswd`  command，我们传送的是 hashed password，所以其他用户只能看到 hashed password。而当我们登录时，就要使用真正的 password，不能使用该 hashed password。而其他人知道 hashed password，却无法根据它进行反推出 password，所以即便被知道了也无所谓。<sup>[docker-sshd](https://github.com/panubo/docker-sshd)</sup>
+我们告诉了 `chpasswd`  使用是 hashed password，所以即便盗用者，那只能看到 hashed password。而当我们登录时，使用的是 password，而步是 hashed password。而盗用者知道的是 hashed password，即便反推出也无法得到真正 password。<sup>[docker-sshd](https://github.com/panubo/docker-sshd)</sup>
 
 ```mermaid
 sequenceDiagram
