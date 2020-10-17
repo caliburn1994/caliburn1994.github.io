@@ -118,6 +118,27 @@ graph LR
 public class AppConfig{}
 ```
 
+#### 方案三 with env or command
+
+方案三和方案二类型类似。方案二将配置放在代码里，比较适合不擅长命令行的Java团队；方案三则比较灵活。
+
+在 spring 中方案三叫做 [Externalized Configuration ](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config)（外化配置），通过这种方式，我们可以将所有模块的配置文件集中在同一个文件夹当中
+
+```
+/- app(web)
+/- library(MyDataLibarry)
+```
+
+```shell
+$ ls your/config/dir/
+app.yml		library.yml
+$ java -jar app.jar  -Dspring.config.location=your/config/dir/
+```
+
+但是使用该方案，就尽量不要在各自的模块中添加配置文件。
+
+
+
 ### 不同环境
 
 #### 场景
@@ -143,9 +164,9 @@ server:
     port: 8080
 ```
 
-这种方案可以方便操作人员随时切换环境，但是存在安全忧患。所以在真正部署上线时，尽可能将没必要且存在安全隐患的信息删除。
+这种方案可以方便操作人员随时切换环境，但是存在安全忧患。所以在真正部署上线时，尽可能将没必要且存在安全隐患的信息删除
 
-### 方案二
+#### 方案二
 
 使用 maven 或者 Gradle 等构建自动化工作。等你要使用哪种环境配置文件，就让自动化工具使用那种环境的配置文件覆盖：
 
@@ -161,4 +182,8 @@ Gradle: mv dev.confg app.conf
 ```
 
 使用该方案也是需要注意保管配置文件的安全，其次是在配置文件更新时，需要<u>重新构建</u>或执行对应的<u>task</u>。这种方案相比之下，有点麻烦。
+
+#### 方案三
+
+也可以不进行<u>移动覆盖</u>，通过命令行的方式指定。
 
