@@ -6,6 +6,7 @@ categories: 计算机
 tags: 设计思想
 comments: 1
 typora-root-url: ..
+excerpt: 本文讲述在多模块项目下，如何对配置文件等内容进行管理。
 ---
 
 ## 配置文件
