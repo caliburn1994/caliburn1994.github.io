@@ -145,9 +145,9 @@ $ java -jar app.jar  -Dspring.config.location=your/config/dir/
 
 一般项目会有若干个环境，如：开发环境<sup>Development environment</sup>、验证环境<sup>Verification environment</sup>、产品环境<sup>production environment</sup>等等。那么如何配置这些环境呢？
 
-#### 方案一
+#### 方案一 Profile
 
-在 Spring 里，配置文件可以通过 [profile](https://docs.spring.io/spring-boot/docs/1.1.x/reference/html/boot-features-profiles.html) 配置若干的环境
+在 Spring 里，可以通过 [profile](https://docs.spring.io/spring-boot/docs/1.1.x/reference/html/boot-features-profiles.html) 配置若干的环境放到同一个配置文件。
 
 ```yaml
 ---
@@ -164,9 +164,21 @@ server:
     port: 8080
 ```
 
-这种方案可以方便操作人员随时切换环境，但是存在安全忧患。所以在真正部署上线时，尽可能将没必要且存在安全隐患的信息删除
+也可以通过 [profile](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config-profile-specific-properties) ，将不同环境的配置放到不同配置文件里。
 
-#### 方案二
+```yaml
+# application-development.properties
+server:
+    port: 9001
+    
+# application-production.properties
+server:
+    port: 8080
+```
+
+这种方案可以方便操作人员随时切换环境，但是存在安全忧患。所以在真正部署上线时，尽可能将没必要且存在安全隐患的信息删除。
+
+#### 方案二 覆盖原本配置
 
 使用 maven 或者 Gradle 等构建自动化工作。等你要使用哪种环境配置文件，就让自动化工具使用那种环境的配置文件覆盖：
 
@@ -183,7 +195,7 @@ Gradle: mv dev.confg app.conf
 
 使用该方案也是需要注意保管配置文件的安全，其次是在配置文件更新时，需要<u>重新构建</u>或执行对应的<u>task</u>。这种方案相比之下，有点麻烦。
 
-#### 方案三
+#### 方案三 命令行或环境参数指定
 
-也可以不进行<u>移动覆盖</u>，通过命令行的方式指定。
+也可以不进行<u>移动覆盖</u>，通过<u>命令行</u>或<u>环境变量</u>的方式指定。在 Maven 和 Gradle 当中可以指定追加启动参数。
 
