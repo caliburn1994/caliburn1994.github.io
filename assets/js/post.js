@@ -72,7 +72,7 @@ function addModalListener() {
     // Or with jQuery
 
     $(document).ready(function () {
-        $('.modal').modal();
+        window.$('.modal').modal();
     });
 
 }
