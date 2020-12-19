@@ -1,17 +1,22 @@
 ---
-layout: default
 css: ["post/github.css","post/toc.css","post/other.css"]
 js: ["post.js","marked.js","smart_quotes.js"]
 ---
-<!-- 文章模板 -->
-<div class="row">
-    <div class=" col s8 offset-s2">
+<!-- 头部统一脚本 -->
+{% include header_before_tag.html %}
+</head>
+<body>
+<main>
+    <div class="container">
+        <!-- 文章模板 -->
+        <div class="row">
+            <div class=" col s8 offset-s2">
 
-        <div id="post-info">
-            <h1>{{page.title}}</h1>
-            <ul class="collapsible hoverable" data-collapsible="accordion">
-                <li>
-                    <div class="collapsible-header">
+                <div id="post-info">
+                    <h1>{{page.title}}</h1>
+                    <ul class="collapsible hoverable" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header">
         <span>
           <i class="material-icons tooltipped" data-position="left" data-delay="30" data-tooltip="Date">date_range</i>
           {{page.date | date: "%Y-%m-%d"}}
@@ -24,8 +29,8 @@ js: ["post.js","marked.js","smart_quotes.js"]
         </span>
 
 
-                    </div>
-                    <div class="collapsible-body">
+                            </div>
+                            <div class="collapsible-body">
         <span>
           <i class="material-icons tooltipped" data-position="left" data-delay="30" data-tooltip="Categories">sort</i>
           {% for cat in page.categories %}
@@ -35,7 +40,7 @@ js: ["post.js","marked.js","smart_quotes.js"]
                   class="chip">{{cat}}</div></a>
           {% endfor %}
         </span>
-                        <span>
+                                <span>
           <i class="material-icons tooltipped" data-position="left" data-delay="30" data-tooltip="Tags">label</i>
           {% for tag in page.tags %}
           {% capture test %}{{tag | slice: 0}}{% endcapture %}
@@ -44,61 +49,57 @@ js: ["post.js","marked.js","smart_quotes.js"]
                   class="chip">{{tag}}</div></a>
           {% endfor %}
         </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="divider"></div>
+                <div class="row" id="post-content">
+                    <div class="col s12">
+
+
+                        <!--目录-->
+
+                        {% include toc.html html=content id="toc_container" ordered=true %}
+                        <!-- func:addTitleForTOC-->
+
+                        <!--文章-->
+                        <section itemprop="articleBody">
+                            {{ content }}
+                        </section>
+
+                        <!--系列-->
+                        {% include series.html %}
+
+
+                        <!-- abbr 的modal模式-->
+                        <!-- func:addModal addModalListener -->
+
                     </div>
-                </li>
-            </ul>
-        </div>
-        <div class="divider"></div>
-        <div class="row" id="post-content">
-            <div class="col s12">
+                </div>
 
 
-                <!--目录-->
+                <!--评论 comment-->
+                {% if site.disqus_shortname and page.comments %}
+                <div id="disqus_thread"></div>
+                <script>
+                    var disqus_config = function () {
+                        this.page.url = "{{site.url}}{{site.baseurl}}{{page.url}}";
+                        this.page.identifier = "{{page.id}}";
+                    };
+                    (function () { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+                        s.src = '//{{site.disqus_shortname}}.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments
+                    powered by
+                    Disqus.</a></noscript>
 
-                {% include toc.html html=content id="toc_container" ordered=true %}
-                <!-- func:addTitleForTOC-->
-
-                <!--文章-->
-                <section itemprop="articleBody">
-                    {{ content }}
-                </section>
-
-                <!--系列-->
-                {% include series.html %}
-
-
-                <!-- abbr 的modal模式-->
-                <!-- func:addModal addModalListener -->
 
             </div>
         </div>
-
-
-
-
-        <!--评论 comment-->
-        {% if site.disqus_shortname and page.comments %}
-        <div id="disqus_thread"></div>
-        <script>
-            var disqus_config = function () {
-                this.page.url = "{{site.url}}{{site.baseurl}}{{page.url}}";
-                this.page.identifier = "{{page.id}}";
-            };
-            (function () { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-                s.src = '//{{site.disqus_shortname}}.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
-            Disqus.</a></noscript>
-
-
-
-    </div>
-</div>
-{% endif %}
-
-
-
+        {% endif %}
+        {% include footer.html %}
