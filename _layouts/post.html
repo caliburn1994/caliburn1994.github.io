@@ -6,8 +6,8 @@ js: ["post.js","marked.js","smart_quotes.js"]
 {% include header_before_tag.html %}
 </head>
 <body>
-<main>
-    <div class="container">
+<main style="padding-left: 0px;">
+    <div class="container" style="max-width : none;">
         <!-- 文章模板 -->
         <div class="row">
             <div class=" col s8 offset-s2">
@@ -102,4 +102,5 @@ js: ["post.js","marked.js","smart_quotes.js"]
             </div>
         </div>
         {% endif %}
-        {% include footer.html %}
+
+{% include footer.html %}
