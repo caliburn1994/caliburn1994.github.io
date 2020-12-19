@@ -78,15 +78,13 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script>
-    // $(document).ready(function () {
-    //     const datatable_url = $('#datatable_url').val();
-    //
-    //     $('#datatable').DataTable({
-    //         // ajax: datatable_url,
-    //         paging: false,
-    //         searching: false
-    //     });
-    // });
+    $(document).ready(function () {
+        const datatable_url = $('#datatable_url').val();
+
+        $('#datatable').DataTable({
+            ajax: datatable_url,
+        });
+    });
 </script>
 <!-- datatable end-->
 </body>
