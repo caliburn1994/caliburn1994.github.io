@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Primary key
+title: Primary Key
 date: 2021-02-01 00:00:02
 tags: [database,,mysql]
 comments: 1
@@ -8,7 +8,7 @@ excerpt: 关于主键(Primary Key)的探讨。
 typora-root-url: ..
 ---
 
-## Primary Key
+## What is?
 
 主键，英文Primary Key，用于表的唯一标识。<sup>[[psql]</sup>
 
