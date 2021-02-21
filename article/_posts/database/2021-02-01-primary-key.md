@@ -8,7 +8,7 @@ excerpt: 关于主键(Primary Key)的探讨。
 typora-root-url: ..
 ---
 
-## What is?
+## What
 
 主键，英文Primary Key，用于表的唯一标识。<sup>[[psql]](https://www.postgresql.org/docs/8.1/ddl-constraints.html)</sup>
 
