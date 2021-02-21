@@ -2,7 +2,7 @@
 layout: post
 title: Primary Key
 date: 2021-02-01 00:00:02
-tags: [database,,mysql]
+tags: [database,mysql]
 comments: 1
 excerpt: 关于主键(Primary Key)的探讨。
 typora-root-url: ..
