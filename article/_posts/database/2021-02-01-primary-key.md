@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Primary Key
+title: 1.Primary Key
 date: 2021-02-01 00:00:02
 tags: [database]
 comments: 1
