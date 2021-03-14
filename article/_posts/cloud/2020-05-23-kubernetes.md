@@ -68,8 +68,8 @@ command-->  |   kube-apiserver   | ---> change object's
                                              ↑
                                              | watch
                                 |---------------------------| 
-      	    create object <---  |  		 kube-scheduler 	|
-						        |---------------------------|
+      	    create object <---  |        kube-scheduler     |
+                                |---------------------------|
 ```
 
 `kubectl cluster-info`可以查看到主控件的IP地址。
