@@ -33,8 +33,9 @@ k8s的默认服务只能在集群中调用，常见的用法是前端调用后�
 
 ## 架构
 
-![redhat](https://www.redhat.com/cms/managed-files/kubernetes_diagram-v2-770x717.svg)
+![redhat](/../assets/blog_res/kubernetes_diagram-v3-770x717_0.svg)
 
+> 图片来源：https://www.redhat.com/zh/topics/containers/kubernetes-architecture
 > 注：亚马逊eks集群默认情况下有若干个组件是<u>不启动</u>的。<sup>[[eks]](https://docs.aws.amazon.com/eks/latest/userguide/api-server-flags.html)</sup>
 
 ### Control Plane
