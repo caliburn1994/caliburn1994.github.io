@@ -1122,12 +1122,7 @@ DaemonSet（[Daemon](https://zh.wikipedia.org/wiki/守护进程)：守护进程�
 
 #### StatefulSet
 
-背景：
-
-- **状态**：当我们谈起对象存在状态否时，谈论的主语是**一组对象**而**不是一个对象**。有状态<sup>stateful</sup>，是指一组对象互相间存在差异。无状态<sup>stateful</sup>，则是指一组对象不存在差异。
-- 集群下的操作对象往往是一个集合的Pod，而批量<sup>batch</sup>处理集合必然会忽略Pod的**状态**。
-
-使用StatefulSet创建Pod后，通过网络标识直接访问该Pod的REST API内容。该Pod的存储内容也是唯一的，不与其他同类Pod共享存储空间。
+[StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) 用于管理具有特殊性的 Pod ，换言之，每一个 Pod 都是不一样。这种特殊的内容，就可以叫做**状态**。一般而言，一个 MySQL 的 Pod 将指定一个 Storage volume，而每一个 Storage volume 都是不一样。如果要管理若干个 MySQL 的 Pod，那么就需要使用 [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) 。
 
 ## 常见讨论
 
