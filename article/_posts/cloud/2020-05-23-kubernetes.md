@@ -1036,9 +1036,9 @@ K8s有以下<u>发布服务</u><sup>Publishing Services</sup>方式：<sup>[[官
 - **节点端口<sup>NodePort</sup>**：通过每个节点<sup>Node</sup>的某一特定端口<sup>Port</sup>访问该服务。
 - **负载均衡器<sup>LoadBalancer</sup>**：通过云服务商的负载均衡器访问该类型服务。
 - **外部名字<sup>ExternalName</sup>**：需访问的服务在集群外部, 在集群内部通过访问该服务的DNS名称，从而进行访问外部服务名字。
-- **无头服务<sup>Headless Services</sup>**：这里的无头意味着没有clusterIP。而当我们使用[nslookup](https://manpages.debian.org/stretch/dnsutils/nslookup.1.en.html) 等查看该服务的DNS时，将会发现对应的地址指向了该服务使用的Pod。<sup>[[参考示例]](https://dev.to/kaoskater08/building-a-headless-service-in-kubernetes-3bk8)</sup>
+- **无头服务<sup>Headless Services</sup>**：这里的无头意味着没有clusterIP。而当我们使用 [nslookup](https://manpages.debian.org/stretch/dnsutils/nslookup.1.en.html) 等查看该服务的DNS时，将会发现对应的地址指向了该服务使用的Pod。<sup>[[参考示例]](https://dev.to/kaoskater08/building-a-headless-service-in-kubernetes-3bk8)</sup>
 
-通过节点[IP地址](https://zh.wikipedia.org/wiki/IP地址)进行暴露服务，可使用；通过云服务提供商的负载均衡器暴露服务，则使用`LoadBalancer`；而当服务不在集群内，在集群之外，可以使用`ExternalName` 模式的服务进行重定向。
+通过节点 [IP地址](https://zh.wikipedia.org/wiki/IP地址) 进行暴露服务，可使用；通过云服务提供商的负载均衡器暴露服务，则使用`LoadBalancer`；而当服务不在集群内，在集群之外，可以使用`ExternalName` 模式的服务进行重定向。
 
 发布服务可使用`kubectl expose`：<sup>[[官网]](https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/)</sup>
 
