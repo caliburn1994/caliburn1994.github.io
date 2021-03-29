@@ -5,7 +5,7 @@ date: 2018-11-22 00:00:00
 categories: 计算机
 tags: 其他
 comments: 1
-typora-root-url: ..
+typora-root-url: ../..
 ---
 
 
@@ -16,17 +16,13 @@ typora-root-url: ..
 
 推荐理由：复制黏贴即可用，不需要过多的前端知识。
 
-<br>
-
-##### 实现效果
+## 实现效果
 
 ![1542898212058](/assets/blog_res/1542898212058.png)
 
 [主页地址](https://nanogallery2.nanostudio.org/)有实现效果的展示。（图片是墙外的，需要翻墙）
 
-##### 简单代码实现
-
-
+## 简单代码实现
 
 ```html
  <html>
@@ -97,9 +93,7 @@ data-nanogallery2 = '{
 
 更多的配置，可以查看[主页](https://nanogallery2.nanostudio.org/)。
 
-<br>
-
-##### 延申：（搜索关键词）
+## 延申：（搜索关键词）
 
 -  css或js  implementation  google photos
 - Google Image Grid或Gallery
