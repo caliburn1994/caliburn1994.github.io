@@ -1,0 +1,66 @@
+---
+layout: post
+title: 1.AWS EC2教程
+tags: [AWS-demo]
+comments: 1
+typora-root-url: ../../../..
+excerpt: 关于AWS的Compute Services的笔记。
+---
+
+1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/.
+
+![Screenshot from 2021-04-29 21-26-41](/assets/blog_res/Screenshot from 2021-04-29 21-26-41.png)
+
+2. From the console dashboard, choose **Launch Instance**
+
+![Screenshot from 2021-04-29 21-47-14](/assets/blog_res/Screenshot from 2021-04-29 21-47-14.png)
+
+
+
+3. The **Choose an Amazon Machine Image (AMI)** page displays a list of basic configurations, called *Amazon Machine Images (AMIs)*, that serve as templates for your instance. Select an HVM version of Amazon Linux 2. Notice that these AMIs are marked "Free tier eligible."  选择镜像
+
+![Screenshot from 2021-04-29 21-52-08](/assets/blog_res/Screenshot from 2021-04-29 21-52-08.png)
+
+4. On the **Choose an Instance Type** page, you can select the hardware configuration of your instance. Select the `t2.micro` instance type, which is selected by default. The `t2.micro` instance type is eligible for the free tier. In Regions where `t2.micro` is unavailable, you can use a `t3.micro` instance under the free tier. For more information, see [AWS Free Tier](https://aws.amazon.com/free/).  选择实例类型
+
+![Screenshot from 2021-04-29 21-55-41](/assets/blog_res/Screenshot from 2021-04-29 21-55-41.png)
+
+
+
+关于 Instance Type 可以看该[网站](https://aws.amazon.com/cn/ec2/instance-types/)。选择 Instance 需参考 Family（系列）、type（系列底下的机型）、vCPU（虚拟CPU）、内存、存储类型、[EBS-optimized](https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/ebs-optimized.html) Available（EBS是否优化）、网络性能、是否支持IPv6
+
+5. On the **Choose an Instance Type** page, choose **Review and Launch** to let the wizard（启动向导） complete the other configuration settings for you.
+6. On the **Review Instance Launch** page, under **Security Groups**, you'll see that the wizard created and selected a security group for you. You can use this security group, or alternatively you can select the security group that you created when getting set up using the following steps:
+   1. Choose **Edit security groups**.
+   2. On the **Configure Security Group** page, ensure that **Select an existing security group** is selected.
+   3. Select your security group from the list of existing security groups, and then choose **Review and Launch**.
+
+![Screenshot from 2021-04-30 00-06-13](/assets/blog_res/Screenshot from 2021-04-30 00-06-13.png)
+
+7. On the **Review Instance Launch** page, choose **Launch**
+
+8. When prompted for a key pair, select **Choose an existing key pair**, then select the key pair that you created when getting set up.  选择密钥
+   When you are ready, select the acknowledgement check box, and then choose Launch Instances.
+
+![Screenshot from 2021-04-30 00-11-09](/assets/blog_res/Screenshot from 2021-04-30 00-11-09.png)
+
+9. A confirmation page lets you know that your instance is launching. Choose **View Instances** to close the confirmation page and return to the console.  点击展示实例
+
+![Screenshot from 2021-04-30 00-13-28](/assets/blog_res/Screenshot from 2021-04-30 00-13-28.png)
+
+10. On the **Instances** screen, you can view the status of the launch. It takes a short time for an instance to launch. When you launch an instance, its initial state is `pending`. After the instance starts, its state changes to `running` and it receives a public DNS name. (If the **Public IPv4 DNS** column is hidden, choose the settings icon ( ![img](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/settings-icon.png) ) in the top-right corner, toggle on **Public IPv4 DNS**, and choose **Confirm**.
+
+![Screenshot from 2021-04-30 00-15-27](/assets/blog_res/Screenshot from 2021-04-30 00-15-27.png)
+
+![Screenshot from 2021-04-30 00-15-41](/assets/blog_res/Screenshot from 2021-04-30 00-15-41.png)
+
+10. It can take a few minutes for the instance to be ready so that you can connect to it. Check that your instance has passed its status checks; you can view this information in the **Status check** column
+
+![Screenshot from 2021-04-30 00-38-08](/assets/blog_res/Screenshot from 2021-04-30 00-38-08.png)
+
+## TODO
+
+1. Launch instance from template 怎么操作
+
+
+
