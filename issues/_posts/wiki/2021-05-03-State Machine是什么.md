@@ -1,6 +1,6 @@
 ---
 layout: post
-title: State Machine是什么？
+title: (计算机)State Machine是什么？
 comments: 1
 typora-root-url: ../../../..
 ---
