@@ -17,7 +17,15 @@
     <hr class="hr_toc">
     <div class="collection ">
         <div class="collection-header" style="border-bottom:1px solid #e0e0e0">
-            <h3 style="padding-left: 15px;"> 「{{ page.series }}」 系列文章</h3></div>
+            <div style="padding-left: 15px;
+                        font-size: 1.3em;
+                        line-height: 1.43;
+                        position: relative;
+                        margin-top: 1rem;
+                        margin-bottom: 1rem;
+                        font-weight: bold;"> 
+                「{{ page.series }}」 系列文章
+            </div></div>
 
         {% assign count = '0' %}
         {% for post in site.posts reversed %}
