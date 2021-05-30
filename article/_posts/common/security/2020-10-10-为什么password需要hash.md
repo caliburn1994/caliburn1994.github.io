@@ -2,9 +2,9 @@
 layout: post
 title: 为什么password需要hash?
 date: 2020-10-10 00:00:02
-tags: [security]
+tags: [Common-Security]
 comments: 1
-excerpt:
+excerpt: 为什么存到 Database 的 password 需要先进行 hash？
 typora-root-url: ..
 ---
 
