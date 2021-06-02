@@ -16,8 +16,7 @@
         </div>
     </div>
 </footer>
-<script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
 {% for js in layout.js %}
 {% if js contains "//" %}
@@ -39,8 +38,10 @@
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
             (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+        }
+        i[r].l = 1 * new Date();
+        a = s.createElement(o)
+        m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)
@@ -69,7 +70,22 @@
     });
 </script>
 
-<script>mermaid.initialize({startOnLoad:true});</script>
-<!-- mermaid end-->
+
+<script>mermaid.initialize({startOnLoad: true});</script>
+<!-- mermaid end -->
+
+<!-- datatable begin-->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const datatable_url = $('#datatable_url').val();
+
+        $('#datatable').DataTable({
+            ajax: datatable_url,
+            searching: false
+        });
+    });
+</script>
+<!-- datatable end-->
 </body>
 </html>
