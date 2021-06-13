@@ -172,7 +172,7 @@ OpenJDK 64-Bit Server VM Corretto-15.0.1.9.1 (build 15.0.1+9, mixed mode, sharin
 
 这里有三个内容：
 
-- `java.vendor` : Java运行时的 vendor。
+- `java.vendor` : Java运行时的 vendor。<sup>[来源](https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html)</sup>
 - `java.vm`: Java VM(虚拟机)的vendor。此处，可能读者会在想，Java VM 的 implementation 不应该是 [Oracle Corporation](https://en.wikipedia.org/wiki/Oracle_Corporation)  提供的 [HotSpot](https://en.wikipedia.org/wiki/HotSpot_(virtual_machine)) 吗？由于 Amazon 的环境变量中没有记载 HotSpot 等信息，所以我们无法准确地判定，但是我们通过
   - 通过 `OpenJDK build 15.0.1+9`  关键词搜索
   - https://github.com/corretto/corretto-jdk/blob/release-15.0.0.36.1/doc/building.md，文档内容可以推测是使用 HotSpot。
