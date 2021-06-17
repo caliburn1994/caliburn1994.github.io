@@ -36,7 +36,14 @@
 
 
 strong {
-    color : #980a0a
+    font-weight: bold;
+    color : #f05f70
+}
+
+em,i {
+    font-style: normal;
+    color: #26a69a;
+    font-weight: bold;
 }
 
 html div:not(.language-mermaid) {
