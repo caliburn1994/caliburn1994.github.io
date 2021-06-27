@@ -8,14 +8,13 @@ $(document).ready(function () {
     });
 
     //abbr的modal模块
-    addModal('#post-content')
-    addModalListener()
+    add_modal('#post-content')
 
     //为Toc添加标题
-    addTitleForTOC()
+    add_TOC_title()
 
     //添加折叠代码功能
-    collapseCodesBlock()
+    collapse_codes_blocks()
 
     // 为h2 h3 h4 增加数字
     insertAutHoeading()
@@ -25,15 +24,10 @@ $(document).ready(function () {
 });
 
 
-function addModal(afterId) {
-
-
-    jQuery("abbr").each(function () {
-
-        var parentAttr = $(this).parent().attr("href")
-        console.log('parentAttr:' + parentAttr)
-        var href;
-
+function add_modal(afterId) {
+    $("abbr").each(function () {
+        let parentAttr = $(this).parent().attr("href");
+        let href;
         // if href is not exist, the element of that tag is not one we want.
         if (parentAttr) {
             href = parentAttr.replace("#", "")
@@ -42,49 +36,23 @@ function addModal(afterId) {
             return
         }
 
-
-        var content = this.getAttribute("title")
-
         //add modal
-        var result = "<div id=\"" + href + "\" " +
-            "class=\"modal\" style='width:fit-content; width:-webkit-fit-content; width:-moz-fit-content;max-width:50%'>\n " +
-            "  <div class=\"modal-content\">\n" + marked(content) + "\n " +
-            " </div>\n" +
-            "</div>"
-        $(result).insertAfter(afterId)
+        const html = '<div id="' + href + '" class="modal" style="width:fit-content; width:-webkit-fit-content; width:-moz-fit-content;max-width:50%">' +
+            '<div class="modal-content">' + marked($(this).attr("title")) + " </div>" +
+            "</div>";
+        $(html).insertAfter(afterId)
 
-
-        //修改样式
-        $(this.parentElement).html(
-            $(this).text()
-        )
+        // css
+        $(this.parentElement).html($(this).text())
             .css("border-bottom", "1px dotted #000")
             .css("text-decoration", "none")
     })
 
-    //remove abbr
-
+    window.$('.modal').modal();
 }
 
-function addModalListener() {
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.modal');
-        M.Modal.init(elems, options);
-    });
-
-    // Or with jQuery
-
-    $(document).ready(function () {
-        window.$('.modal').modal();
-    });
-
-}
-
-
-function addTitleForTOC() {
-
+function add_TOC_title() {
     const toc = $('#toc_container')
-
     toc.html(
         '<details><summary class="toc_title">目录</summary>' + toc.html() + '</details>'
     )
@@ -103,7 +71,7 @@ function addTitleForTOC() {
 //         your code
 //      </pre>
 // </div>
-function collapseCodesBlock() {
+function collapse_codes_blocks() {
     $('.kyakya_collap').each(function () {
         if ($(this).attr('value') === '') {
             $(this).text("详情")
@@ -113,12 +81,11 @@ function collapseCodesBlock() {
 
         $(this).html(
             "<details>" +
-            "<summary><u style='text-decoration-style: wavy;'>" +
-            $(this).html() +
-            "</u></summary>" +
-            $(this).next().html() +
-            "</details>"
-        )
+                "<summary>" +
+                    "<u style='text-decoration-style: wavy;'>" + $(this).html() + "</u>" +
+                "</summary>" +
+                $(this).next().html() +
+            "</details>")
         $(this).next().remove()
     });
 }
@@ -184,10 +151,10 @@ function build_tags() {
 
         // build tags
         if (next_is_code_block === false) { // build header
-            $(this).before('<ul class="tabs" style="padding-left: 0;height: auto;"></ul>');
+            $(this).before('<ul class="tabs"></ul>');
             tabs_node = $(this).prev();
         }
-        tabs_node.append('<li class="tab" style="height: 15px;"><a href="#code-block-' + i + '" class="">' + code_lang + '</a></li>');  // build the content
+        tabs_node.append('<li class="tab" ><a href="#code-block-' + i + '" class="">' + code_lang + '</a></li>');  // build the content
         next_is_code_block = false; //reset
         const next_node_class_name = $(this).next().attr("class") + "";
         if (~next_node_class_name.indexOf("highlighter-rouge")) {
