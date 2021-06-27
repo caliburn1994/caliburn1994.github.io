@@ -183,15 +183,12 @@ function build_tags() {
         const code_lang = class_name.split(" ")[0].split("-")[1];
 
         // build tags
-        if (next_is_code_block === false) {
-            $(this).before('<ul class="tabs" style="padding-left: 0;">' +
-                '<li class="tab"><a href="#code-block-' + i + '" class="">' + code_lang + '</a></li>' +
-                '</ul>');
+        if (next_is_code_block === false) { // build header
+            $(this).before('<ul class="tabs" style="padding-left: 0;height: auto;"></ul>');
             tabs_node = $(this).prev();
-        } else {
-            tabs_node.append('<li class="tab"><a href="#code-block-' + i + '" class="">' + code_lang +'</a></li>')
-            next_is_code_block = false; //reset
         }
+        tabs_node.append('<li class="tab" style="height: 15px;"><a href="#code-block-' + i + '" class="">' + code_lang + '</a></li>');  // build the content
+        next_is_code_block = false; //reset
         const next_node_class_name = $(this).next().attr("class") + "";
         if (~next_node_class_name.indexOf("highlighter-rouge")) {
             next_is_code_block = true;
