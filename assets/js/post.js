@@ -151,7 +151,7 @@ function build_tags() {
 
         // build tags
         if (next_is_code_block === false) { // build header
-            $(this).before('<ul class="tabs"></ul>');
+            $(this).before('<ul class="tabs" style="padding-left: 0;"></ul>');
             tabs_node = $(this).prev();
         }
         tabs_node.append('<li class="tab" ><a href="#code-block-' + i + '" class="">' + code_lang + '</a></li>');  // build the content
