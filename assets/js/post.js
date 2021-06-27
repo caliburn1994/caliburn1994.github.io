@@ -151,10 +151,10 @@ function build_tags() {
 
         // build tags
         if (next_is_code_block === false) { // build header
-            $(this).before('<ul class="tabs" style="padding-left: 0;"></ul>');
+            $(this).before('<ul class="tabs" style="padding-left: 0;line-height: 20px;height: 20px"></ul>');
             tabs_node = $(this).prev();
         }
-        tabs_node.append('<li class="tab" ><a href="#code-block-' + i + '" class="">' + code_lang + '</a></li>');  // build the content
+        tabs_node.append('<li class="tab" style="line-height: 20px;height: 20px" ><a href="#code-block-' + i + '" class="">' + code_lang + '</a></li>');  // build the content
         next_is_code_block = false; //reset
         const next_node_class_name = $(this).next().attr("class") + "";
         if (~next_node_class_name.indexOf("highlighter-rouge")) {
