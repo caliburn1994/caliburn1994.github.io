@@ -19,6 +19,9 @@ $(document).ready(function () {
 
     // 为h2 h3 h4 增加数字
     insertAutHoeading()
+
+    // 代码块的标签
+    build_code_block()
 });
 
 
@@ -129,9 +132,7 @@ function insertAutHoeading() {
     function addIndex() {
         // jQuery will give all the HNs in document order
         jQuery('h2,h3,h4,h5,h6').each(function (i, e) {
-            var hIndex = parseInt(this.nodeName.substring(1)) - 2;
-
-            console.log(hIndex)
+            const hIndex = parseInt(this.nodeName.substring(1)) - 2;
 
             // just found a levelUp event
             if (indices.length - 1 > hIndex) {
@@ -146,8 +147,6 @@ function insertAutHoeading() {
             // count + 1 at current level
             indices[hIndex]++;
 
-            console.log(indices)
-
             // display the full position in the hierarchy
             jQuery(this).prepend(indices.join(".") + ". ");
 
@@ -159,4 +158,45 @@ function insertAutHoeading() {
     });
 }
 
+function build_code_block() {
+    build_tags();
+    $('.tabs').tabs();
 
+}
+
+// add a id and name to code blocks
+function build_tags() {
+
+    let next_is_code_block = false;
+    let tabs_node = null;
+    $(".highlighter-rouge").each(function (i, e) {
+
+        // if the code block is plaintext, do nothing
+        const class_name = $(this).attr("class")
+        if (~class_name.indexOf("language-plaintext")) {
+            return true;
+        }
+        // set a name and id for code blocks
+        $(this).attr("name", "code-block-" + i);
+        $(this).attr("id", "code-block-" + i);
+
+        const code_lang = class_name.split(" ")[0].split("-")[1];
+
+        // build tags
+        if (next_is_code_block === false) {
+            $(this).before('<ul class="tabs" style="padding-left: 0;">' +
+                '<li class="tab"><a href="#code-block-' + i + '" class="">' + code_lang + '</a></li>' +
+                '</ul>');
+            tabs_node = $(this).prev();
+        } else {
+            tabs_node.append('<li class="tab"><a href="#code-block-' + i + '" class="">' + code_lang +'</a></li>')
+            next_is_code_block = false; //reset
+        }
+        const next_node_class_name = $(this).next().attr("class") + "";
+        if (~next_node_class_name.indexOf("highlighter-rouge")) {
+            next_is_code_block = true;
+        }
+    });
+
+    $('.tabs').tabs();
+}
