@@ -7,13 +7,13 @@ $(document).ready(function () {
         }
     });
 
-    //abbr的modal模块
+    // abbr的modal模块
     add_modal('#post-content')
 
-    //为Toc添加标题
+    // 为Toc添加标题
     add_TOC_title()
 
-    //添加折叠代码功能
+    // 添加折叠代码功能
     collapse_codes_blocks()
 
     // 为h2 h3 h4 增加数字
@@ -21,6 +21,9 @@ $(document).ready(function () {
 
     // 代码块的标签
     build_code_block()
+
+    // 点击外部链接将会开启新的tab
+    set_a_target();
 });
 
 
@@ -81,10 +84,10 @@ function collapse_codes_blocks() {
 
         $(this).html(
             "<details>" +
-                "<summary>" +
-                    "<u style='text-decoration-style: wavy;'>" + $(this).html() + "</u>" +
-                "</summary>" +
-                $(this).next().html() +
+            "<summary>" +
+            "<u style='text-decoration-style: wavy;'>" + $(this).html() + "</u>" +
+            "</summary>" +
+            $(this).next().html() +
             "</details>")
         $(this).next().remove()
     });
@@ -163,4 +166,22 @@ function build_tags() {
     });
 
     $('.tabs').tabs();
+}
+
+
+function set_a_target(value = '_blank') {
+    value = '_blank'
+    $('a').each((index, entry) => {
+        // 存在的就不添加 target 属性
+        if ($(entry).attr('target')) {
+            return true;
+        }
+
+        // #开头的本页面跳转的a标签，不进行处理
+        if ($(entry).attr('href').indexOf('#') === 0) {
+            return true;
+        }
+
+        $(entry).attr('target', value);
+    })
 }
