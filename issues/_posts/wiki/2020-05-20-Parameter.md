@@ -1,9 +1,6 @@
 ---
 layout: post
 title: Parameter
-date: 2020-05-20 00:00:01
-categories: 计算机
-tags: 鸦鸦的维基
 comments: 1
 ---
 

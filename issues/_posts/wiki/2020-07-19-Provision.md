@@ -1,9 +1,6 @@
 ---
 layout: post
 title: Provision
-date: 2020-07-19 00:00:02
-tags: 鸦鸦的维基
-comments: 1
 excerpt: 在计算机行业，Provision常常可以翻译成 搭建基础环境 。
 typora-root-url: ..
 ---

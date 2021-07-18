@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Annotation
-date: 2020-05-30 20:54:02
-tags: 鸦鸦的维基
 comments: 1
 ---
 

@@ -1,10 +1,7 @@
 ---
 layout: post
 title: Declaration
-date: 2020-08-26 00:00:02
-tags: [鸦鸦的维基]
 comments: 1
-excerpt:
 typora-root-url: ..
 ---
 

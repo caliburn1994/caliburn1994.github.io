@@ -1,9 +1,6 @@
 ---
 layout: post
 title: Assignable
-date: 2020-05-22 16:07:02
-categories: 计算机
-tags: 鸦鸦的维基
 comments: 1
 ---
 

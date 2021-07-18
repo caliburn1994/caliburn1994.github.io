@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Walkthrough
-date: 2020-05-30 01:08:02
-tags: 鸦鸦的维基
 comments: 1
 ---
 

@@ -1,10 +1,7 @@
 ---
 layout: post
 title: Initializer
-date: 2020-09-13 00:00:02
-tags: [鸦鸦的维基]
 comments: 1
-excerpt:
 typora-root-url: ..
 ---
 
