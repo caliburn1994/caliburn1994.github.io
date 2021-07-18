@@ -1,9 +1,9 @@
 //import marked from  "marked.min"
 
 $(document).ready(function () {
-    $('figure.highlight').each(function (x, r) {
-        if ($(r).find('table').length < 1) {
-            $(r).find('pre').css('padding', '5px');
+    $('figure.highlight').each(function (index, entry) {
+        if ($(entry).find('table').length < 1) {
+            $(entry).find('pre').css('padding', '5px');
         }
     });
 
@@ -28,7 +28,7 @@ $(document).ready(function () {
 
 
 function add_modal(afterId) {
-    $("abbr").each(function () {
+    $("abbr").each(function (index, entry) {
         let parentAttr = $(this).parent().attr("href");
         let href;
         // if href is not exist, the element of that tag is not one we want.
@@ -75,7 +75,7 @@ function add_TOC_title() {
 //      </pre>
 // </div>
 function collapse_codes_blocks() {
-    $('.kyakya_collap').each(function () {
+    $('.kyakya_collap').each(function (index, entry) {
         if ($(this).attr('value') === '') {
             $(this).text("详情")
         } else {
@@ -84,10 +84,8 @@ function collapse_codes_blocks() {
 
         $(this).html(
             "<details>" +
-            "<summary>" +
-            "<u style='text-decoration-style: wavy;'>" + $(this).html() + "</u>" +
-            "</summary>" +
-            $(this).next().html() +
+                "<summary>" + "<u style='text-decoration-style: wavy;'>" + $(this).html() + "</u>" + "</summary>" +
+                $(this).next().html() +
             "</details>")
         $(this).next().remove()
     });
@@ -101,7 +99,7 @@ function insertAutHoeading() {
 
     function addIndex() {
         // jQuery will give all the HNs in document order
-        jQuery('h2,h3,h4,h5,h6').each(function (i, e) {
+        $('h2,h3,h4,h5,h6').each(function (index, entry) {
             const hIndex = parseInt(this.nodeName.substring(1)) - 2;
 
             // just found a levelUp event
@@ -118,12 +116,11 @@ function insertAutHoeading() {
             indices[hIndex]++;
 
             // display the full position in the hierarchy
-            jQuery(this).prepend(indices.join(".") + ". ");
-
+            $(this).prepend(indices.join(".") + ". ");
         });
     }
 
-    jQuery(document).ready(function () {
+    $(document).ready(function () {
         addIndex();
     });
 }
@@ -136,10 +133,9 @@ function build_code_block() {
 
 // add a id and name to code blocks
 function build_tags() {
-
     let next_is_code_block = false;
     let tabs_node = null;
-    $(".highlighter-rouge").each(function (i, e) {
+    $(".highlighter-rouge").each(function (index, entry) {
 
         // if the code block is plaintext, do nothing
         const class_name = $(this).attr("class")
@@ -147,8 +143,8 @@ function build_tags() {
             return true;
         }
         // set a name and id for code blocks
-        $(this).attr("name", "code-block-" + i);
-        $(this).attr("id", "code-block-" + i);
+        $(this).attr("name", "code-block-" + index);
+        $(this).attr("id", "code-block-" + index);
 
         const code_lang = class_name.split(" ")[0].split("-")[1];
 
@@ -157,7 +153,7 @@ function build_tags() {
             $(this).before('<ul class="tabs" style="padding-left: 0;line-height: 20px;height: 20px"></ul>');
             tabs_node = $(this).prev();
         }
-        tabs_node.append('<li class="tab" style="line-height: 20px;height: 20px" ><a href="#code-block-' + i + '" class="">' + code_lang + '</a></li>');  // build the content
+        tabs_node.append('<li class="tab" style="line-height: 20px;height: 20px" ><a href="#code-block-' + index + '" class="">' + code_lang + '</a></li>');  // build the content
         next_is_code_block = false; //reset
         const next_node_class_name = $(this).next().attr("class") + "";
         if (~next_node_class_name.indexOf("highlighter-rouge")) {
@@ -173,11 +169,13 @@ function set_a_target(value = '_blank') {
     value = '_blank'
     $('a').each((index, entry) => {
         // 存在的就不添加 target 属性
+        // if attr target exits, do nothing
         if ($(entry).attr('target')) {
             return true;
         }
 
         // #开头的本页面跳转的a标签，不进行处理
+        // if link is for the internal, do nothing
         if ($(entry).attr('href').indexOf('#') === 0) {
             return true;
         }
