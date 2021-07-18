@@ -16,7 +16,7 @@ $(document).ready(function () {
     // 添加折叠代码功能
     collapse_codes_blocks()
 
-    // 为h2 h3 h4 增加数字
+    // 为 h2 h3 h4 增加数字
     insertHeadings()
 
     // 代码块的标签
@@ -76,10 +76,11 @@ function add_TOC_title() {
 // </div>
 function collapse_codes_blocks() {
     $('.kyakya_collap').each(function (index, entry) {
-        if ($(entry).attr('value') === '') {
+        let attr = $(entry).attr('value');
+        if (attr === '') {
             $(entry).text("详情")
         } else {
-            $(entry).text($(entry).attr('value'))
+            $(entry).text(attr)
         }
 
         $(entry).html(
@@ -126,14 +127,9 @@ function insertHeadings() {
     });
 }
 
-function build_code_block() {
-    build_tags();
-    $('.tabs').tabs();
-
-}
 
 // add a id and name to code blocks
-function build_tags() {
+function build_code_block() {
     let next_is_code_block = false;
     let tabs_node = null;
     $(".highlighter-rouge").each(function (index, entry) {
