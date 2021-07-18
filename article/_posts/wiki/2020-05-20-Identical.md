@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Identical
+tags: Others
 comments: 1
 ---
 

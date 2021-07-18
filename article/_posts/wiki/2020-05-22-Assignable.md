@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Assignable
+tags: Others
 comments: 1
 ---
 

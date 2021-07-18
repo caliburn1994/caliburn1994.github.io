@@ -1,6 +1,7 @@
 ---
 layout: post
 title: (计算机)schemaless是什么？
+tags: Others
 comments: 1
 typora-root-url: ../../../..
 ---

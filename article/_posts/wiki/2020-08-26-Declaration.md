@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Declaration
+tags: Others
 comments: 1
 typora-root-url: ..
 ---

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Collection
+tags: Others
 comments: 1
 ---
 

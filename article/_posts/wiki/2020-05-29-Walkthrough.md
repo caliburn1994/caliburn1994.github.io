@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Walkthrough
+tags: Others
 comments: 1
 ---
 
