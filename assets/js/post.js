@@ -57,7 +57,7 @@ function add_modal(afterId) {
 function add_TOC_title() {
     const toc = $('#toc_container')
     toc.html(
-        '<details><summary class="toc_title">目录</summary>' + toc.html() + '</details>'
+        '<details open><summary class="toc_title">目录</summary>' + toc.html() + '</details>'
     )
 }
 
