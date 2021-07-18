@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Collection
-tags: Others
+tags: 其他
 comments: 1
 ---
 

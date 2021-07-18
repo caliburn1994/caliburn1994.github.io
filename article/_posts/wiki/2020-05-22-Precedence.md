@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Precedence
-tags: Others
+tags: 其他
 comments: 1
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Provision
-tags: Others
+tags: 其他
 excerpt: 在计算机行业，Provision常常可以翻译成 搭建基础环境 。
 typora-root-url: ..
 ---

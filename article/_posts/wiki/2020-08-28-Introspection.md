@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Introspection
-tags: Others
+tags: 其他
 comments: 1
 typora-root-url: ..
 ---

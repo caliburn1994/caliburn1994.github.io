@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (计算机)Authentication vs Verification
-tags: Others
+tags: 其他
 comments: 1
 typora-root-url: ../../../..
 ---

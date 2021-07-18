@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Declaration
-tags: Others
+tags: 其他
 comments: 1
 typora-root-url: ..
 ---
