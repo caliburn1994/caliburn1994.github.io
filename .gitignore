@@ -12,7 +12,6 @@ Gemfile.lock
 codestyles/*
 vcs.xml
 github.xml
-*.png
 .idea/codeStyles/codeStyleConfig.xml
 .idea/encodings.xml
 .idea/markdown-navigator.xml
@@ -23,9 +22,7 @@ _drafts/2017-07-30-Java密码学 - BC学习 - 官网.md
 _drafts/2017-07-30-Java密码学 - BC的学习-package.md
 _drafts/2018-07-05-继承和组合.md
 _drafts/2018-07-23-jvm学习贴.md
-_drafts/2018-07-26-2018简历日语方向.md
 _drafts/2018-08-16-日志(笔记).md
-_drafts/2018-08-20-简历2.md
 _drafts/2018-08-28-面试你究竟想要了解什么.md
 _drafts/2018-08-30-面试题目复习.md
 _drafts/阶级差距.md
@@ -40,73 +37,3 @@ _posts/2018-11-28-代替语言.md
 _posts/2018-9-24-回顾框架.md
 _posts/编码过程的自述 encoding.md
 _posts/软件工程.md
-article/2020-08-02-Golang-Interface.md
-article/2020-08-02-Golang-Pointers.md
-article/2020-08-08-AWS-Fargate..md
-article/2020-09-01-Test.md
-article/2020-10-01-模板.md
-article/_posts/.idea/_posts.iml
-article/_posts/.idea/encodings.xml
-article/_posts/.idea/modules.xml
-article/_posts/.idea/workspace.xml
-article/_posts/2018-12-21-shell和terminal的区别.md
-article/_posts/2018-12-6-Java是复杂的语言吗？（持续编写）.md
-article/_posts/2019-05-17-bilibili代码分析.md
-article/_posts/2019-06-13-随笔.md
-article/_posts/2019-10-13-急救AED.md
-article/_posts/2019-12-10-日本IT术语.md
-article/_posts/2020-02-12-winscp示例.md
-article/_posts/2020-02-13-数据库安全.md
-article/_posts/Debug.md
-article/_posts/Docker/Docker command.md
-article/_posts/Docker/Docker-compose command.md
-article/_posts/Docker/容器介绍.md
-article/_posts/front/html中javascript调用顺序.md
-article/_posts/Go/2020-08-02-Golang-Structs.md
-article/_posts/Go/2020-08-29-模板.md
-article/_posts/Jar有什么用？.md
-article/_posts/Java/2020-09-06-Gradle.md
-article/_posts/Java/2020-09-07-Maven.md
-article/_posts/Java/features/Java-SSH.md
-article/_posts/Java/features/Junit.md
-article/_posts/Java/features/Log4j.md
-article/_posts/Java/future.md
-article/_posts/Java/Java dependency manage.md
-article/_posts/Java/JMeter.md
-article/_posts/Java/maven/Failsafe&surefire.md
-article/_posts/Java/maven/Maven Enforcer Plugin.md
-article/_posts/Java/maven/todo.md
-article/_posts/Java/Mockito.md
-article/_posts/Java/Powermock.md
-article/_posts/Java/Spring&Maven Profile.md
-article/_posts/Java/Spring/Spring Test.md
-article/_posts/Java/Spring/Spring.md
-article/_posts/Java/Spring/Spring的一些用法.md
-article/_posts/Java/wiremock.md
-article/_posts/LInux/2020-10-05-FTP.md
-article/_posts/LInux/2020-10-09-ln命令与Link.md
-article/_posts/LInux/augtool.md
-article/_posts/LInux/makefile.md
-article/_posts/LInux/SSH.md
-article/_posts/LInux/SSHD with Password authentication.md
-article/_posts/LInux/stat.md
-article/_posts/LInux/ubuntu-从terminal打开browser.md
-article/_posts/LInux/目录.md
-article/_posts/programming/2020-09-01-模块.md
-article/_posts/security/2020-10-10-为什么password需要hash.md
-article/_posts/test/2019-05-03-测试思考（1）.md
-article/_posts/test/2020-10-01-手动测试.md
-article/_posts/vagrant/2020-06-01-vagrant.md
-article/_posts/wiki/2020-05-19-函数签名.md
-article/_posts/wiki/Profile.md
-article/_posts/在实际编程中，从生产环境到部署环境需要经过“部署（deploy）”，该部署往往包含程序.md
-article/_posts/热部署.md
-article/_posts/研发过程.md
-article/svn.md
-assets/js/export.js
-assets/js/拿来玩/cancel.js
-private/_posts/2020-05-26-简历.md
-private/_posts/2020-06-07-日语工作贴.md
-private/_posts/履歴書 （N)_ 陳曉傑（日本恒生）.xlsx
-private/_posts/面膜.md
-.idea/shelf/Uncommitted_changes_before_Update_at_2020_10_10_18_21_[Default]/shelved.patch
