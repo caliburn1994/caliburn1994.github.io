@@ -83,7 +83,7 @@ repository: caliburn1994/caliburn1994.github.io
 
 
 # article
-permalink: /:title  # 文章地址 ，url of article  {{url}}/{{title}}
+permalink: /article/:title  # 文章地址 ，url of article  {{url}}/{{title}}
 future: true  # 允许日期为未来，allow date is future
 
 # 分页功能
