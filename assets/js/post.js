@@ -76,17 +76,20 @@ function add_TOC_title() {
 // </div>
 function collapse_codes_blocks() {
     $('.kyakya_collap').each(function (index, entry) {
-        let attr = $(entry).attr('value');
-        if (attr === '') {
-            $(entry).text("详情")
-        } else {
-            $(entry).text(attr)
+        console.info('Summary:' + $(entry).next().html())
+        if ($(entry).text() === '') {
+            let attr = $(entry).attr('value');
+            if (attr === '') {
+                $(entry).text("【详情】")
+            } else {
+                $(entry).text(attr)
+            }
         }
 
-        console.debug($(entry).next().html())
+        console.info(`Content:` + $(entry).next().html())
         $(entry).html(
             "<details>" +
-                "<summary><u style='text-decoration-style: wavy;'>" + $(entry).html() + "</u></summary>"
+                "<summary>" + $(entry).html() + "</summary>"
                 + $(entry).next().html() +
             "</details>"
         )
