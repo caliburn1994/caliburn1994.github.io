@@ -83,12 +83,14 @@ function collapse_codes_blocks() {
             $(entry).text(attr)
         }
 
+        console.debug($(entry).next().html())
         $(entry).html(
             "<details>" +
-                "<summary>" + "<u style='text-decoration-style: wavy;'>" + $(entry).html() + "</u>" + "</summary>" +
-                $(entry).next().html() +
+                "<summary><u style='text-decoration-style: wavy;'>" + $(entry).html() + "</u></summary>"
+                + $(entry).next().html() +
             "</details>"
         )
+
         $(entry).next().remove()
     });
 }
