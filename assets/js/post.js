@@ -17,7 +17,7 @@ $(document).ready(function () {
     collapse_codes_blocks()
 
     // 为 h2 h3 h4 增加数字
-    insertHeadings()
+    insert_Headings()
 
     // 代码块的标签
     build_code_block()
@@ -96,7 +96,7 @@ function collapse_codes_blocks() {
 // <h2>heading</h2> ==> <h2>1 heading</h2>
 // insert Auto Numbering for Headings
 // ref :https://stackoverflow.com/questions/5127017/automatic-numbering-of-headings-h1-h6-using-jquery
-function insertHeadings() {
+function insert_Headings() {
     let indices = [];
 
     function addIndex() {
