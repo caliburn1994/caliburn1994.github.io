@@ -163,20 +163,27 @@ function build_code_block() {
 
 
 function set_a_target(value = '_blank') {
-    value = '_blank'
-    $('a').each((index, entry) => {
-        // 存在的就不添加 target 属性
-        // if attr target exits, do nothing
-        if ($(entry).attr('target')) {
-            return true;
-        }
+    $('a')
+        .not('[target]')
+        .not('[href^="#"]')  // #开头 不进行处理
+        .each((index, entry) => {
+            $(entry).attr('target', value);
+        })
+}
 
-        // #开头的本页面跳转的a标签，不进行处理
-        // if link is for the internal, do nothing
-        if ($(entry).attr('href').indexOf('#') === 0) {
-            return true;
-        }
 
-        $(entry).attr('target', value);
-    })
+function build_external_links() {
+    // $('a')
+    //     .each((index, entry) => {
+    //     if ($(entry).attr('title')) {
+    //
+    //     }
+    // })
+
+
+
+
+    $('a[title]').each((index, entry) => {
+        console.log($(entry).text());
+    });
 }
