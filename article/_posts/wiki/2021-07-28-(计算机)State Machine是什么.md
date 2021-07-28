@@ -21,7 +21,7 @@ stateDiagram-v2
 
 
 
-## Reference
+## 参考 References
 
 - [What is a state machine?](https://www.itemis.com/en/yakindu/state-machine/documentation/user-guide/overview_what_are_state_machines#:~:text=A state machine is a,state transitions and produces outputs.)
 - https://en.wikipedia.org/wiki/Finite-state_machine

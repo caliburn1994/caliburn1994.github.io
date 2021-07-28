@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Initializer
+title: (计算机)Initializer
 tags: 其他
 comments: 1
 typora-root-url: ..
@@ -12,7 +12,7 @@ initialize 有两个名词形态："Initializer"、"Initialization"。Initializa
 
 ## Object-oriented programming
 
-在**面向对象的编程**中，Initialization code<sup>初始化代码</sup> 有两种，一种是 constructor <sup>构造器</sup>，另一种是 initializer 。区别在于，constructor 初始化参数是固定的，如果初始化参数有两个的话，就必须输入两个参数。
+在**面向对象的编程**中，初始化代码 (Initialization code) 分为两种，一种是构造器 (constructor) ，另一种是初始化器 (initializer) 。区别在于，constructor 初始化参数是固定的，如果初始化参数有两个的话，就必须输入两个参数。
 
 ```java
 class MyObject{
@@ -24,7 +24,7 @@ MyObject myObjectInstance = new MyObject(param1, param2);
 MyObject myObjectInstance = new MyObject(param1);
 ```
 
-object initializer是在 constructor 之后，对特定可见字段赋值：<sup>[[microsoft]](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers)</sup>
+object initializer是在 constructor 之后，对特定可见字段赋值：[^1]
 
 ```c#
 MyObject myObjectInstance = new MyObject(param1, param2)
@@ -35,7 +35,7 @@ MyObject myObjectInstance = new MyObject(param1, param2)
 
 ## 其他语言
 
-在Go语言里，可以这样一次性使用若干个 Initializers：<sup>[来源](https://tour.golang.org/basics/9)</sup>
+在Go语言里，可以这样一次性使用若干个 Initializers：[^2]
 
 ```go
 package main
@@ -50,10 +50,15 @@ func main() {
 }
 ```
 
-## 其他参考文献
+## 延申 Also see
 
 - [What's the difference between an object initializer and a constructor?](https://stackoverflow.com/questions/740658/whats-the-difference-between-an-object-initializer-and-a-constructor)
 
 - [Initialization (programming)](https://en.wikipedia.org/wiki/Initialization_(programming))
 
-  
+## 参考 References
+
+[^1]: [Object and Collection Initializers (C# Programming Guide))](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers)
+
+[^2]: [Variables with initializers - Go]()
+
