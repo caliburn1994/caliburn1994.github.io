@@ -164,20 +164,3 @@ function set_a_target(value = '_blank') {
             $(entry).attr('target', value);
         })
 }
-
-
-function build_external_links() {
-    // $('a')
-    //     .each((index, entry) => {
-    //     if ($(entry).attr('title')) {
-    //
-    //     }
-    // })
-
-
-
-
-    $('a[title]').each((index, entry) => {
-        console.log($(entry).text());
-    });
-}
