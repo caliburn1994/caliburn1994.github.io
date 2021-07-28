@@ -10,8 +10,8 @@ $(function() {
     // 为TOC添加标题
     add_TOC_title()
 
-    // 点击外部链接将会开启新的tab
-    set_a_target();
+    update_tag_a();
+    update_footnotes();
 
     // abbr的modal模块
     add_modal('#post-content')
@@ -155,12 +155,19 @@ function build_code_block() {
     $('.tabs').tabs();
 }
 
-
-function set_a_target(value = '_blank') {
+// 点击外部链接将会开启新的tab
+function update_tag_a(value = '_blank') {
     $('a')
         .not('[target]')
         .not('[href^="#"]')  // #开头 不进行处理
         .each((index, entry) => {
             $(entry).attr('target', value);
+        })
+}
+
+function update_footnotes() {
+    $('a.footnote')
+        .each((index, entry) => {
+            $(entry).text('[' + $(entry).text() + ']')
         })
 }
