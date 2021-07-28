@@ -1,17 +1,20 @@
 //import marked from  "marked.min"
 
-$(document).ready(function () {
+$(function() {
     $('figure.highlight').each(function (index, entry) {
         if ($(entry).find('table').length < 1) {
             $(entry).find('pre').css('padding', '5px');
         }
     });
 
+    // 为TOC添加标题
+    add_TOC_title()
+
+    // 点击外部链接将会开启新的tab
+    set_a_target();
+
     // abbr的modal模块
     add_modal('#post-content')
-
-    // 为Toc添加标题
-    add_TOC_title()
 
     // 添加折叠代码功能
     collapse_codes_blocks()
@@ -21,9 +24,6 @@ $(document).ready(function () {
 
     // 代码块的标签
     build_code_block()
-
-    // 点击外部链接将会开启新的tab
-    set_a_target();
 });
 
 
@@ -99,31 +99,25 @@ function collapse_codes_blocks() {
 function insert_Headings() {
     let indices = [];
 
-    function addIndex() {
-        // jQuery will give all the HNs in document order
-        $('h2,h3,h4,h5,h6').each(function (index, entry) {
-            const hIndex = parseInt(entry.nodeName.substring(1)) - 2;
+    // jQuery will give all the HNs in document order
+    $('h2,h3,h4,h5,h6').each(function (index, entry) {
+        const hIndex = parseInt(entry.nodeName.substring(1)) - 2;
 
-            // just found a levelUp event
-            if (indices.length - 1 > hIndex) {
-                indices = indices.slice(0, hIndex + 1);
-            }
+        // just found a levelUp event
+        if (indices.length - 1 > hIndex) {
+            indices = indices.slice(0, hIndex + 1);
+        }
 
-            // just found a levelDown event
-            if (indices[hIndex] === undefined) {
-                indices[hIndex] = 0;
-            }
+        // just found a levelDown event
+        if (indices[hIndex] === undefined) {
+            indices[hIndex] = 0;
+        }
 
-            // count + 1 at current level
-            indices[hIndex]++;
+        // count + 1 at current level
+        indices[hIndex]++;
 
-            // display the full position in the hierarchy
-            $(entry).prepend(indices.join(".") + ". ");
-        });
-    }
-
-    $(document).ready(function () {
-        addIndex();
+        // display the full position in the hierarchy
+        $(entry).prepend(indices.join(".") + ". ");
     });
 }
 
