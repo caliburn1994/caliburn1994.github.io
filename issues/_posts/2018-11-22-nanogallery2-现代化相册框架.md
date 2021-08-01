@@ -20,7 +20,7 @@ typora-root-url: ../..
 
 ![1542898212058](/assets/blog_res/1542898212058.png)
 
-[主页地址](https://nanogallery2.nanostudio.org/)有实现效果的展示。（图片是墙外的，需要翻墙）
+[主页地址](https://nanogallery2.nanostudio.org/)有实现效果的展示。 (图片是墙外的，需要翻墙)
 
 ## 简单代码实现
 
@@ -64,14 +64,8 @@ typora-root-url: ../..
 3个引用：
 
 ```html
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
-```
-
-```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
 <link  href="https://unpkg.com/nanogallery2@2.3.0/dist/css/nanogallery2.min.css" rel="stylesheet" type="text/css">
-```
-
-```html
 <script  type="text/javascript" src="https://unpkg.com/nanogallery2@2.3.0/dist/jquery.nanogallery2.min.js"></script>
 ```
 
@@ -93,7 +87,7 @@ data-nanogallery2 = '{
 
 更多的配置，可以查看[主页](https://nanogallery2.nanostudio.org/)。
 
-## 延申：（搜索关键词）
+## 延申： (搜索关键词)
 
 -  css或js  implementation  google photos
 - Google Image Grid或Gallery
