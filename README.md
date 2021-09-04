@@ -1,9 +1,9 @@
 ---
-typora-root-url: ./
+typora-root-url: .\
 typora-copy-images-to: assets\blog_res\README
 ---
 
-## 文章
+## 文章 Articles
 
 每一篇使用 markdown 编写的文章有以下内容
 
@@ -30,7 +30,7 @@ typora-copy-images-to: xxx # 在typora编辑器插入图片时，将插入到哪
 [^1]: [Why xxxxx? - StackOverflow](网址)
 ```
 
-## 功能
+## 功能 Feature
 
 - [jekyll-last-modified-at](https://github.com/gjtorikian/jekyll-last-modified-at) 获得文件的最后修改时间
 - jekyll-paginate-v2 分页功能
@@ -38,6 +38,17 @@ typora-copy-images-to: xxx # 在typora编辑器插入图片时，将插入到哪
 - Disqus
 - Google Analytics
 
+## 部署 Deployment
+
+部署和购买域名都在在 [Netlify](https://www.netlify.com/) 完成的。Netlify 对于个人提供免费的部署。
+
+域名花费如下：
+
+![image-20210904235801128](/assets/blog_res/README/image-20210904235801128.png)
+
+
+
 ## 参考 References
 
 - [页面原型](https://shawnteoh.github.io/matjek/) 
+
