@@ -91,3 +91,9 @@ future: true  # 允许日期为未来，allow date is future
 pagination:
   enabled: true
   per_page: 5
+
+
+
+# Optional. The default date format, used if none is specified in the tag.
+last-modified-at:
+  date-format: '%y-%m-%d'
