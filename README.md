@@ -46,7 +46,17 @@ typora-copy-images-to: xxx # 在typora编辑器插入图片时，将插入到哪
 
 ![image-20210904235801128](/assets/blog_res/README/image-20210904235801128.png)
 
+在 `git push` 之后，我们可以在netlify 看到以下的内容：
 
+![image-20210905143955985](/assets/blog_res/README/image-20210905143955985.png)
+
+部署的详细界面-1：
+
+![image-20210905144127951](/assets/blog_res/README/image-20210905144127951.png)
+
+部署的详细界面-2：
+
+![image-20210905144210230](/assets/blog_res/README/image-20210905144210230.png)
 
 ## 参考 References
 
