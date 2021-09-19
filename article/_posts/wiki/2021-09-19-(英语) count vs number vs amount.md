@@ -2,7 +2,7 @@
 layout: post
 title: (英语) count vs number vs amount
 tags: 其他
-excerpt：count vs number vs amount 三者的区别
+excerpt: count vs number vs amount 三者的区别
 comments: 1
 ---
 
