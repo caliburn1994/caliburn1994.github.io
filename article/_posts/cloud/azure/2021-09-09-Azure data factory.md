@@ -70,21 +70,23 @@ Copy Activity 提供了数据<div class='sup' data-title="以确保数据不仅�
 
 #### 监控·测试策略
 
+💿数据不一致
+
 当 *不允许数据不一致* 那么 Copy Activity 将重试或者中止。中止时，pipeline 将以失败的形式返回，此时可以
 
 1. 发送邮件通知
 2. 定期查看 监控 (monitor) 情况 
 
-当 *允许数据不一致* 时，那么可以监控 
+当 *允许数据不一致* 时，可以监控以下数据，并根据所得数据进行下一步策略下一步策略。
 
-- `@activity('Copy data').output` [^6]
+- activity结果 (`@activity('Copy data').output`) [^6]
 - 日志文件
 
-的数据，通过所得的数据做再做下一步策略。
+<p/>
 
-<p>
+📏测试
 
-*测试* 可通过来回复制进行数据校验进行实现，场景如下: 
+可通过来回复制进行数据校验进行实现，示例如下: 
 
 1. 备份 数据库-1 至 Azure Blob Storage
 2. Azure Blob Storage 将备份数据恢复至 数据库-2
@@ -92,19 +94,11 @@ Copy Activity 提供了数据<div class='sup' data-title="以确保数据不仅�
 
 目的: 数据在传输中是否有不可预料损失和变形。
 
-<p>
+<p/>
 
-*特殊需求*
+📝特殊需求
 
 监控 Copy Activity 的运行时长，当时长过长时，发送监控信息至运维人员。[^6]
-
-
-
-
-
-#### 延申
-
-- 监控与结果 https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-monitoring?tabs=data-factory
 
 
 
