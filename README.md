@@ -12,6 +12,7 @@ layout: post
 title: <文章标题>
 tags: <文章标签>
 comments: 1 # 评论功能
+excerpt: 文章的简单介绍
 typora-root-url: .\  # 在typora编辑器插入图片时，根目录的位置
 typora-copy-images-to: xxx # 在typora编辑器插入图片时，将插入到哪个地方
 ```
