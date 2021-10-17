@@ -1,9 +1,9 @@
 ---
 layout: post 
-title: Azure Storage - 1.介绍
+title: Storage [Azure] - 1.介绍
 tags: Cloud
 comments: 1 
-excerpt: Aazure Storage 简介
+excerpt: Azure Storage 简介
 typora-root-url: ..\..\..\..
 typora-copy-images-to: ..\..\..\..\assets\blog_res\azure\azure storage
 ---
