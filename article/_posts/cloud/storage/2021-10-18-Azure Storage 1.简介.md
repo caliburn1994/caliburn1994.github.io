@@ -8,9 +8,7 @@ typora-root-url: ..\..\..\..
 typora-copy-images-to: ..\..\..\..\assets\blog_res\azure\azure storage
 ---
 
-
-
-
+## 简介 Introduction
 
 当我们谈及 Azure Storage 时，是在谈及 Azure 的几乎所有的存储方案。Azure Storage 是一个平台 (platform) 。[^1]
 
@@ -34,6 +32,20 @@ Azure Storage 核心服务有：[^1]
 - [Data Box](https://azure.microsoft.com/en-us/services/databox/)
 - [Microsoft Azure Confidential Ledger](https://azure.microsoft.com/en-us/services/azure-confidential-ledger/)
 - [ Azure Data Lake Storage](https://azure.microsoft.com/en-us/services/storage/data-lake-storage/)
+
+
+
+### Azure Blob storage
+
+[这里](https://docs.microsoft.com/en-us/azure/storage/blobs/)是 Azure Blob storage 官方文档。
+
+
+
+## 相关网站
+
+官网最新的功能可从 [这里](https://azure.microsoft.com/en-us/updates/?status=nowavailable&category=storage) 查看得到。
+
+
 
 ## Q&A
 
