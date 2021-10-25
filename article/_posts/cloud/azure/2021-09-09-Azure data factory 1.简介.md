@@ -20,6 +20,14 @@ Azure data factory (ADF) 是 Azure 提供的可横向扩张的 (scale out) 无�
 
 ADF 有版本区分，因此在 StackOverflow 上搜索，需要注意看标签是否带 v2。ADF 对标 AWS 的是 [AWS Data Pipeline](https://aws.amazon.com/cn/datapipeline)。
 
+
+
+## 相关内容 See also
+
+- [ADF 反馈网站](https://feedback.azure.com/d365community/forum/1219ec2d-6c26-ec11-b6e6-000d3a4f032c#)
+
+
+
 ## 参考 References
 
 [^1]: [Azure Data Factory documentation](https://docs.microsoft.com/en-us/azure/data-factory/)
