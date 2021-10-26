@@ -12,29 +12,29 @@
     </title>
     <link rel="shortcut icon" type="image/x-icon" href="{{site.baseurl}}/assets/res/favicon.ico">
 
-    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">-->
-    <!--字体-->
-    <link href="https://fonts.loli.net/css?family=Noto+Sans+SC" rel="stylesheet">
+    <!--  框架基础样式  -->
+    <link rel="stylesheet" href="{{site.baseurl}}/assets/css/materialize.min.css"><!-- 框架CSS --> <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">-->
+    <link href="https://fonts.loli.net/css?family=Noto+Sans+SC" rel="stylesheet"><!-- 字体 -->
+    <link rel="stylesheet" href="//fonts.loli.net/icon?family=Material+Icons"> <!--<link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">-->
 
-
-    <link rel="stylesheet" href="{{site.baseurl}}/assets/css/materialize.min.css">
-    <!--<link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">-->
-    <link rel="stylesheet" href="//fonts.loli.net/icon?family=Material+Icons">
+    <!--  加载markdown中指定的css文件  -->
     <link rel="stylesheet" href="{{site.baseurl}}/assets/css/main.css">
     {% for css in layout.css %}
-    {% if css contains "//" %}
-    <link rel="stylesheet" href="{{css}}">
-    {% else %}
-    <link rel="stylesheet" href="{{site.baseurl}}/assets/css/{{css}}">
-    {% endif %}
+        {% if css contains "//" %}
+            <link rel="stylesheet" href="{{css}}">
+        {% else %}
+            <link rel="stylesheet" href="{{site.baseurl}}/assets/css/{{css}}">
+        {% endif %}
     {% endfor %}
     {% for css in page.css %}
-    {% if css contains "//" %}
-    <link rel="stylesheet" href="{{css}}">
-    {% else %}
-    <link rel="stylesheet" href="{{site.baseurl}}/assets/css/{{css}}">
-    {% endif %}
+        {% if css contains "//" %}
+            <link rel="stylesheet" href="{{css}}">
+        {% else %}
+            <link rel="stylesheet" href="{{site.baseurl}}/assets/css/{{css}}">
+        {% endif %}
     {% endfor %}
+
+    <!--  其他   -->
     <link rel="stylesheet" href="{{site.baseurl}}/assets/css/syntax.css">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="{{site.baseurl}}/feed.xml">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="{{site.baseurl}}/sitemap.xml">
