@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Storage [AWS] 1.简介
+title: Storage [AWS] - 1.简介
 tags: [Cloud]
 comments: 1
 typora-root-url: ..

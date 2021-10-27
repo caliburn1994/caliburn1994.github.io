@@ -35,27 +35,31 @@ Azure Storage 核心服务有：[^1]
 
 
 
-### Azure Blob storage
-
-[这里](https://docs.microsoft.com/en-us/azure/storage/blobs/)是 Azure Blob storage 官方文档。
-
-
-
 ## 相关网站
 
   <div class="row">
     <div class="col s12 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Azure updates Azure更新内容</span>
+      <div class="card blue-grey lighten-5">
+        <div class="card-content ">
+          <span class="card-title"> <a href="https://azure.microsoft.com/en-us/updates/?category=storage">Azure updates</a></span>
           <p>Get the latest updates on Azure products and features to meet your cloud investment needs. Subscribe to notifications to stay informed.</p>
         </div>
-        <div class="card-action">
-          <a href="https://azure.microsoft.com/en-us/updates/?category=storage">This is a link</a>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="card blue-grey lighten-5">
+        <div class="card-content">
+          <span class="card-title"> <a href="https://azure.microsoft.com/en-us/updates/?category=storage">Azure Blob Storage documentation</a>
+</span>
+          <p>GAzure Blob Storage is Microsoft's object storage solution for the cloud. Blob storage is optimized for storing massive amounts of unstructured data.</p>
         </div>
       </div>
     </div>
   </div>
+
+
+
+
 
 ## Q&A
 
