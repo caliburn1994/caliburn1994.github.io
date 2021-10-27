@@ -43,9 +43,19 @@ Azure Storage 核心服务有：[^1]
 
 ## 相关网站
 
-官网最新的功能可从 [这里](https://azure.microsoft.com/en-us/updates/?status=nowavailable&category=storage) 查看得到。
-
-
+  <div class="row">
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Azure updates Azure更新内容</span>
+          <p>Get the latest updates on Azure products and features to meet your cloud investment needs. Subscribe to notifications to stay informed.</p>
+        </div>
+        <div class="card-action">
+          <a href="https://azure.microsoft.com/en-us/updates/?category=storage">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 ## Q&A
 
