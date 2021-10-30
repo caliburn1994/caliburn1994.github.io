@@ -35,7 +35,17 @@ Azure Storage 核心服务有：[^1]
 
 
 
-## 相关网站
+## Q&A
+
+1. Azure Files vs Azure Blobs vs  Azure Disks
+
+   答:  在绝大数时候，都是时候 Azure Blobs。
+
+   当需要使用 [Server Message Block (SMB) protocol](https://docs.microsoft.com/en-us/windows/win32/fileio/microsoft-smb-protocol-and-cifs-protocol-overview) or [Network File System (NFS) protocol](https://en.wikipedia.org/wiki/Network_File_System) 等协议时，可以使用 Azure Files 。当需要目录时，如：操作系统需要一个文件系统才能进行运行时，使用Azure Disks。
+
+
+
+## 延伸阅读 See also
 
   <div class="row">
     <div class="col s12 m6">
@@ -56,18 +66,6 @@ Azure Storage 核心服务有：[^1]
       </div>
     </div>
   </div>
-
-
-
-
-
-## Q&A
-
-1. Azure Files vs Azure Blobs vs  Azure Disks
-
-   答:  在绝大数时候，都是时候 Azure Blobs。
-
-   当需要使用 [Server Message Block (SMB) protocol](https://docs.microsoft.com/en-us/windows/win32/fileio/microsoft-smb-protocol-and-cifs-protocol-overview) or [Network File System (NFS) protocol](https://en.wikipedia.org/wiki/Network_File_System) 等协议时，可以使用 Azure Files 。当需要目录时，如：操作系统需要一个文件系统才能进行运行时，使用Azure Disks。
 
 ## 参考 References
 
