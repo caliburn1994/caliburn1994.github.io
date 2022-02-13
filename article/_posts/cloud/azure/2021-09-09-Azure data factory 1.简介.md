@@ -22,7 +22,7 @@ ADF 有版本区分，因此在 StackOverflow 上搜索，需要注意看标签�
 
 
 
-## 相关内容 See also
+## 延伸阅读 See also
 
 - [ADF 反馈网站](https://feedback.azure.com/d365community/forum/1219ec2d-6c26-ec11-b6e6-000d3a4f032c#)
 
