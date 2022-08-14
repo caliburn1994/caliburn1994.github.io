@@ -1,21 +1,14 @@
 ---
-layout: post
-title: Tera Term脚本示例
-date: 2020-02-12 00:00:01
-categories: 计算机
-tags: 编程语言
-comments: 1
-excerpt: tera term脚本示例。
-typora-root-url: .. 
+Creation Date: 2020-02-12
 ---
 
 
 
-## 1. 前言
+## 1. 前言 & 简介
 
-源码以外内容已移动至 [Tera Term](https://zh.wikipedia.org/wiki/Tera_Term) 维基词条。
+[Tera Term](https://zh.wikipedia.org/wiki/Tera_Term) 是一款 SSH 脚本工具。
 
-## 2.操作
+## 2. 操作
 
 ### 2.1. 控制台操作的日志
 
