@@ -10,7 +10,7 @@ Last Modified: 2022-08-18
 
 ## Security
 
-### S.1 条件访问 Conditional Access
+### S.1 Conditional Access 条件访问
 
 **Conditional Access** 的前提条件有两个：
 
