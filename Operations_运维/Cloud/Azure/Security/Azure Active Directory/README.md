@@ -1,22 +1,17 @@
 ---
-Last Modified: 2022-08-18
+Last Modified: 2022-09-20
 ---
 
-
-
-a
 
 
 
 ## Azure Active Directory
 
-**Azure Active Directory**（简称：Azure AD）是隶属 [Microsoft Entra](https://aka.ms/MicrosoftEntra)，提供了以下功能[^4]
+**Azure Active Directory**（简称：Azure AD）是隶属 [Microsoft Entra](https://aka.ms/MicrosoftEntra)，提供了以下功能以用于抵御网络安全攻击。[^4]
 
 - 单点登录 single sign-on
 - 多要素认证 multifactor authentication
 - 条件访问 conditional access
-
-以达到抵御网络安全攻击。
 
 
 
