@@ -71,7 +71,27 @@ stage1:
 
 ### C2. GitHub Action
 
-GitHub Action　的做法比较直观：
+GitHub Action 的做法比较直观：[^3]
+
+```
+jobs:
+  build:
+    container:
+      image: octocat/ci-image:latest
+      credentials:
+        username: mona
+        password: ${{ secrets.docker_hub_password}}
+    services:
+      db:
+        image:  ghcr.io/octocat/testdb:latest
+        credentials:
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.ghcr_password }}
+```
+
+
+
+
 
 
 
