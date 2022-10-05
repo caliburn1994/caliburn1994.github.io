@@ -4,8 +4,9 @@ Last Modified: 2022-09-20
 
 
 
-
 ## Azure Active Directory
+
+<img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/image-20221002181102892.png" alt="image-20221002181102892" width="240" align="left" />
 
 **Azure Active Directory**（简称：Azure AD）是隶属 [Microsoft Entra](https://aka.ms/MicrosoftEntra)，提供了以下功能以用于抵御网络安全攻击。[^4]
 
@@ -36,7 +37,19 @@ Last Modified: 2022-09-20
 
 
 
-## Licenses
+## Subscription
+
+<img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/image-20221002182106180.png" alt="image-20221002182106180"  width="240" align="left"/>
+
+Azure 把 Subscription 翻译为订阅。但，如果我们仔细去看 [字典](https://dictionary.cambridge.org/dictionary/english/subscription) 的解释便可以理解 Subscription 是加入或使用某个组织的服务，所需要缴纳的定期费用。在中文语境下常见的有：**订阅费**、月度会员费、年度会员费、月度报纸费。
+
+Azure 也是将其描述为订阅费。[^8]
+
+
+
+## License
+
+License 可以是描述软件的，也可以描述的是人的。Azure 中提到的 License 一般是指人的，因为软件的 License 费用一般都内嵌到服务里。[^8]
 
 TODO
 
@@ -44,52 +57,61 @@ TODO
 
 
 
+## 管理层次 Management levels
+
+当我们使用 开发环境对应一个 subscription，生产环境对应一个 subscription 的这种模式，我们就必须考略到每一个人都能访问到哪个 subscription 。而 management group 是一种工具方便我们管理访问的。
+
+配合 management group，我们可以对若干个 subscription 开启 [Azure Policy](https://learn.microsoft.com/en-us/azure/governance/policy/overview) 对组织内的资源进行规范。
+
+每一个 tenant 都有一个 top-level management group 叫 做 **root management group**、在这下面，可以分更多的 management group。更多详情查看 [官网](https://learn.microsoft.com/en-us/azure/governance/management-groups/overview)
 
 
-## Security
 
-### S.1 Conditional Access 条件访问
-
-**Conditional Access** 的前提条件有两个：
-
-1. 更改套餐（license） [Azure Active Directory Premium](https://azure.microsoft.com/en-us/pricing/details/active-directory/)
-2. 关闭 **[Security defaults](https://docs.microsoft.com/en-us/microsoft-365/business-premium/m365bp-conditional-access?view=o365-worldwide#security-defaults)** 
-
-注意⚠️：Conditional Access 是一个付费功能，通过该功能可以自由的配置 policy。由于我们关闭 Security defaults，所以需要单独创建对应的 policy：[^3]
-
-- [Require MFA for administrators](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-admin-mfa)
-- [Require MFA for Azure management](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-azure-management)
-- [Block legacy authentication](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-block-legacy)
-- [Require MFA for all users](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-all-users-mfa)
-
-**IP限制功能**：通过提前在 **[Named locations]** 定义一些国家、IP地址，并创建期待的 **[Conditional Access policy]**，我们可以禁止一些国家或者IP地址访问Azure（或者禁止访问Azure）。
+![](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/202209241812584.png)
 
 
 
 
 
-### S.2 Security defaults
+### M1. Separate Dev and Production 开发产品环境分离
 
-[Security defaults](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/concept-fundamentals-security-defaults) 默认是启动的，它可以保护绝大多数的安全。
+开发产品环境分离，有两种方案：
 
-它包含了：[^1][^2]
+- 使用 subscription 去分离
+- 使用 tenant 去分离
 
-- 要求注册 MFA
-- 要求 admins 开启 MFA
-- 根据实际情况， MFA 会增加警告次数。如下载整个文件夹
-- 禁止无法使用 MFA 的 legacy authentication clients
-  - 非 [modern authentication](https://docs.microsoft.com/en-us/microsoft-365/enterprise/hybrid-modern-auth-overview?view=o365-worldwide#what-is-modern-authentication) 的
-  - older mail protocols such as IMAP, SMTP, or POP3
+两种方案，各有优缺点吧，**Azure 推荐使用 subscription 去分离**。[^7][^9]
 
-所以当我们要关闭 **Security defaults** 时候，必须做的是手动创建 policy 去cover上述所有场景。
+![Diagram showing the configuration of DevTest and DevOps for a PaaS application.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/dev-test-paas.png)
+
+原因：[^9]
+
+- 增加费用：
+  - Azure AD licensing 费用。
+
+- 复杂度和偏差：
+  - RBAC
+  - 各种配置：使用多 tenant，则很多配置需要配置两份。由于要配置两份，有时候会有一些偏差。
+  - Azure 服务： 很多 Azure 服务也不支持跨 tenant
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 ## 参考 References
 
-[^1]: [Security defaults and Conditional Access - Microsoft Docs](https://docs.microsoft.com/en-us/microsoft-365/business-premium/m365bp-conditional-access?view=o365-worldwide)
-[^2]: [Security defaults in Azure AD - Active Directory - Microsoft Docs](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/concept-fundamentals-security-defaults)
-[^3]: [Security defaults in Azure AD - Active Directory - Microsoft Docs](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/concept-fundamentals-security-defaults#conditional-access)
 [^4]: [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/)
 [^5]: [Create an Azure Active Directory tenant to use with Power BI](https://learn.microsoft.com/en-us/power-bi/developer/embedded/create-an-azure-active-directory-tenant#:~:text=An Azure AD tenant is,from other Azure AD tenants.)
 [^6]: [Compare Active Directory to Azure Active Directory](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-compare-azure-ad-to-ad)
+[^7]: [DevTest and DevOps for PaaS solutions - Azure Solution Ideas](https://learn.microsoft.com/en-us/azure/architecture/solution-ideas/articles/dev-test-paas)
+[^8]: [Subscriptions, licenses, accounts, and tenants for Microsoft's cloud offerings](https://learn.microsoft.com/en-us/microsoft-365/enterprise/subscriptions-licenses-accounts-and-tenants-for-microsoft-cloud-offerings?view=o365-worldwide)
+[^9]: [Testing approach for enterprise-scale - Azure - Microsoft Learn](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/enterprise-scale/testing-approach)
