@@ -112,7 +112,7 @@ TODO
 ## 参考 References
 
 [^4]: [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/)
-[^5]: [Create an Azure Active Directory tenant to use with Power BI](https://learn.microsoft.com/en-us/power-bi/developer/embedded/create-an-azure-active-directory-tenant#:~:text=An Azure AD tenant is,from other Azure AD tenants.)
+[^5]: [Create an Azure Active Directory tenant to use with Power BI](https://learn.microsoft.com/en-us/power-bi/developer/embedded/create-an-azure-active-directory-tenant)
 [^6]: [Compare Active Directory to Azure Active Directory](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-compare-azure-ad-to-ad)
 [^7]: [DevTest and DevOps for PaaS solutions - Azure Solution Ideas](https://learn.microsoft.com/en-us/azure/architecture/solution-ideas/articles/dev-test-paas)
 [^8]: [Subscriptions, licenses, accounts, and tenants for Microsoft's cloud offerings](https://learn.microsoft.com/en-us/microsoft-365/enterprise/subscriptions-licenses-accounts-and-tenants-for-microsoft-cloud-offerings?view=o365-worldwide)
