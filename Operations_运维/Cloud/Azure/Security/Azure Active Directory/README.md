@@ -35,7 +35,7 @@ Last Modified: 2022-09-20
 
 回到 AD 的主题上。在 Windows 2000 的时候，微软引入了 Active Directory Domain Services 管理本地（on-premises）架构里的用户。而 Azure AD 则是 Active Directory Domain Services 云化，变成一种服务。Azure 称之为 Identity as a Service (IDaaS) 。[^6]
 
-
+<br>
 
 ## Subscription
 
@@ -47,6 +47,8 @@ Azure 也是将其描述为订阅费。[^8]
 
 
 
+<br>
+
 ## License
 
 License 可以是描述软件的，也可以描述的是人的。Azure 中提到的 License 一般是指人的，因为软件的 License 费用一般都内嵌到服务里。[^8]
@@ -56,6 +58,8 @@ TODO
 - [ ] Azure AD Premium P1 vs. P2
 
 
+
+<br>
 
 ## 管理层次 Management levels
 
@@ -73,7 +77,7 @@ TODO
 
 
 
-### M1. Separate Dev and Production 开发产品环境分离
+### M1. 开发产品环境分离 Separate Dev and Production 
 
 开发产品环境分离，有两种方案：
 
@@ -102,9 +106,7 @@ TODO
 
 
 
-
-
-
+<br>
 
 
 ## 参考 References
