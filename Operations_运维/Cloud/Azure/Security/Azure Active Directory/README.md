@@ -6,7 +6,7 @@ Last Modified: 2022-09-20
 
 ## Azure Active Directory
 
-<img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/image-20221002181102892.png" alt="image-20221002181102892" width="240" align="left" />
+<img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/image-20221002181102892.png" alt="image-20221002181102892" width="240" />
 
 **Azure Active Directory**（简称：Azure AD）是隶属 [Microsoft Entra](https://aka.ms/MicrosoftEntra)，提供了以下功能以用于抵御网络安全攻击。[^4]
 
@@ -39,7 +39,7 @@ Last Modified: 2022-09-20
 
 ## Subscription
 
-<img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/image-20221002182106180.png" alt="image-20221002182106180"  width="240" align="left"/>
+<img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/image-20221002182106180.png" alt="image-20221002182106180"  width="240"/>
 
 Azure 把 Subscription 翻译为订阅。但，如果我们仔细去看 [字典](https://dictionary.cambridge.org/dictionary/english/subscription) 的解释便可以理解 Subscription 是加入或使用某个组织的服务，所需要缴纳的定期费用。在中文语境下常见的有：**订阅费**、月度会员费、年度会员费、月度报纸费。
 
