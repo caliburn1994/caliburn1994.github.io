@@ -46,6 +46,14 @@ BASE64 ENCODED DATA
 
 
 
+`openssl rsa` 命令行文档里是这样描述的：
+
+> The **rsa** command processes RSA keys. They can be converted between various forms and their components printed out. **Note** this command uses the traditional SSLeay compatible format for private key encryption: newer applications should use the more secure PKCS#8 format using the **pkcs8** utility.
+
+一般而言，推荐使用 PKCS#8。
+
+
+
 ## 数据结构和存储文件 Data Structure and File
 
 ASN.1 抽象地定义了数据该怎么定义，但没有指定特定地编码方式。这意味着，我们需要一种表现方式（编码方式）去表示用 ASN.1 定义的数据，这种表现方式有：DER (8进制字节)、XER (XML)、JSON 等等。[^3]
