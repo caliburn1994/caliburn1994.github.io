@@ -5,13 +5,11 @@ import org.junit.jupiter.api.Test;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class KeyGeneratorTest {
+class KeyBuilderTest {
 
     @Test
-    void testGenerateKeyPair() throws NoSuchAlgorithmException {
-        KeyPair pair = KeyGenerator.generateKeyPair();
+    void testPkcs1PrivateKey() throws NoSuchAlgorithmException {
+        KeyPair pair = KeyBuilder.generateKeyPair();
         pair.getPrivate(); // private key
         pair.getPublic();  // public key
     }

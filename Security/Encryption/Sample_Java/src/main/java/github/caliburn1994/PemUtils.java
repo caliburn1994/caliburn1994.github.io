@@ -14,14 +14,7 @@ import java.security.KeyPair;
 
 public class PemUtils {
 
-    /**
-     *
-     *
-     * @param privateKey
-     * @param fileName
-     * @throws IOException
-     */
-    public static void writePrivateKeyAsPemFile(Object privateKey, String fileName) throws IOException {
+    public static void writePkcs1PrivateKey(Object privateKey, String fileName) throws IOException {
         try (var op=new OutputStreamWriter(FileUtils.openOutputStream(new File(fileName)))){
             JcaPEMWriter pemWriter = new JcaPEMWriter(op);
             pemWriter.writeObject(privateKey);
@@ -30,7 +23,7 @@ public class PemUtils {
     }
 
     /**
-     * 支持得类型如下：
+     * parsers support these things:
      *         parsers.put(TYPE_CERTIFICATE_REQUEST, new PKCS10CertificationRequestParser());
      *         parsers.put(TYPE_NEW_CERTIFICATE_REQUEST, new PKCS10CertificationRequestParser());
      *         parsers.put(TYPE_CERTIFICATE, new X509CertificateParser());
@@ -49,17 +42,16 @@ public class PemUtils {
      *         parsers.put(TYPE_ENCRYPTED_PRIVATE_KEY, new EncryptedPrivateKeyParser());
      *         parsers.put(TYPE_PRIVATE_KEY, new PrivateKeyParser());
      *
+     * ref: https://stackoverflow.com/questions/11787571/how-to-read-pem-file-to-get-private-and-public-key
+     *
      * @param pemFile pem file stored a private key
-     * @return
-     * @throws IOException
      */
-    public static KeyPair readKeyPairFromPrivateKeyPemFile(String pemFile) throws IOException {
-        try (var reader=new FileReader(new File(pemFile))){
+    public static KeyPair readFromPkcs1PrivateKey(String pemFile) throws IOException {
+        try (var reader=new FileReader(pemFile)){
             var parser = new PEMParser(reader);
             var pemKeyPair = (PEMKeyPair) parser.readObject();
             return new JcaPEMKeyConverter().getKeyPair(pemKeyPair);
         }
-
     }
 
 }

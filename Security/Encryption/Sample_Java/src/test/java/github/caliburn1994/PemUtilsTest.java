@@ -11,8 +11,8 @@ class PemUtilsTest {
     void writeAndReadPemFile() throws NoSuchAlgorithmException, IOException {
         String pemFile = "my-key.pem";
 
-        var keyPair = KeyGenerator.generateKeyPair();
-        PemUtils.writePrivateKeyAsPemFile(keyPair.getPrivate(), pemFile);
-        PemUtils.readKeyPairFromPrivateKeyPemFile(pemFile);
+        var keyPair = KeyBuilder.generateKeyPair();
+        PemUtils.writePkcs1PrivateKey(keyPair.getPrivate(), pemFile);
+        PemUtils.readFromPkcs1PrivateKey(pemFile);
     }
 }
