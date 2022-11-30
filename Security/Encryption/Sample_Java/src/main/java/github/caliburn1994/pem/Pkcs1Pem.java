@@ -1,10 +1,11 @@
-package github.caliburn1994;
+package github.caliburn1994.pem;
 
 import org.apache.commons.io.FileUtils;
 import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
+import org.bouncycastle.openssl.jcajce.JcaPKCS8Generator;
 
 import java.io.File;
 import java.io.FileReader;
@@ -12,13 +13,13 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.security.KeyPair;
 
-public class PemUtils {
+public class Pkcs1Pem {
 
-    public static void writePkcs1PrivateKey(Object privateKey, String fileName) throws IOException {
-        try (var op=new OutputStreamWriter(FileUtils.openOutputStream(new File(fileName)))){
-            JcaPEMWriter pemWriter = new JcaPEMWriter(op);
-            pemWriter.writeObject(privateKey);
-            pemWriter.close();
+    public static void writePrivateKey(Object privateKey, File fileName) throws IOException {
+        try (var op=new OutputStreamWriter(FileUtils.openOutputStream(fileName))){
+            try (JcaPEMWriter w = new JcaPEMWriter(op)) {
+                w.writeObject(privateKey);
+            }
         }
     }
 
@@ -46,7 +47,7 @@ public class PemUtils {
      *
      * @param pemFile pem file stored a private key
      */
-    public static KeyPair readFromPkcs1PrivateKey(String pemFile) throws IOException {
+    public static KeyPair readPkPem(File pemFile) throws IOException {
         try (var reader=new FileReader(pemFile)){
             var parser = new PEMParser(reader);
             var pemKeyPair = (PEMKeyPair) parser.readObject();
