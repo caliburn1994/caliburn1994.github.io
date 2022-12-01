@@ -1,13 +1,5 @@
 ---
-layout: post
-title: Java密码学 - 2. MAC
 date: 2017-07-19 23:54:08
-categories: 计算机
-tags: Java-Security 
-comments: 1
-series: "Java密码学"
-excerpt: Java中MAC的常用的用法
-typora-root-url: ..\..\..\..
 ---
 
 
@@ -15,7 +7,7 @@ typora-root-url: ..\..\..\..
 
 MAC（消息认证码) 原理
 
-![消息认证码](/assets/blog_res/20180227185209179.png)
+![消息认证码](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/20180227185209179.png)
 
 关于密钥的生成与导入, 下一篇再讲述
 
