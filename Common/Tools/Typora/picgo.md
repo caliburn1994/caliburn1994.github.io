@@ -34,5 +34,6 @@ picgo install rename-file
 
 1. [官网](https://github.com/Molunerfinn/PicGo/releases)下载并安装
 2. 在应用里添加配置
-3. typora中添加 PicGo 的地址![image-20221202030251359](C:\Users\q2455\AppData\Roaming\Typora\typora-user-images\image-20221202030251359.png)
+3. typora中设置 PicGo
+   ![image-20221202031440574](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/image-20221202031440574.png)
 
