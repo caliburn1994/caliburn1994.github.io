@@ -1,18 +1,30 @@
 package github.caliburn1994.pem;
 
 import org.apache.commons.io.FileUtils;
+import org.bouncycastle.asn1.*;
+import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
-import org.bouncycastle.openssl.jcajce.JcaPKCS8Generator;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
+import java.security.KeyFactory;
 import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.Base64;
+import java.util.regex.Pattern;
 
+/**
+ * Load
+ */
 public class Pkcs1Pem {
 
     public static void writePrivateKey(Object privateKey, File fileName) throws IOException {
@@ -47,12 +59,34 @@ public class Pkcs1Pem {
      *
      * @param pemFile pem file stored a private key
      */
-    public static KeyPair readPkPem(File pemFile) throws IOException {
+    public static KeyPair getPrivateKey1(File pemFile) throws IOException {
         try (var reader=new FileReader(pemFile)){
             var parser = new PEMParser(reader);
             var pemKeyPair = (PEMKeyPair) parser.readObject();
             return new JcaPEMKeyConverter().getKeyPair(pemKeyPair);
         }
+    }
+
+
+    public static PrivateKey getPrivateKey2(File pemFile) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        var pem = FileUtils.readFileToString(pemFile, Charset.defaultCharset());
+
+        Pattern parse = Pattern.compile("(?m)(?s)^---*BEGIN.*---*$(.*)^---*END.*-*$.*");
+        String encoded = parse.matcher(pem).replaceFirst("$1");
+        byte[] decoded = Base64.getMimeDecoder().decode(encoded);
+
+        /* Add PKCS#8 formatting */
+        var v = new ASN1EncodableVector();
+        v.add(new ASN1Integer(0));
+        var v2 = new ASN1EncodableVector();
+        v2.add(new ASN1ObjectIdentifier(PKCSObjectIdentifiers.rsaEncryption.getId()));
+        v2.add(DERNull.INSTANCE);
+        v.add(new DERSequence(v2));
+        v.add(new DEROctetString(decoded));
+        decoded = new DERSequence(v).getEncoded("DER");
+
+        return KeyFactory.getInstance("RSA")
+                .generatePrivate(new PKCS8EncodedKeySpec(decoded));
     }
 
 }

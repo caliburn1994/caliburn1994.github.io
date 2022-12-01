@@ -27,7 +27,7 @@ public class Pkcs8Pem {
         );
     }
 
-    public static PrivateKey readPrivateKeyPem(File pemFile) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+    public static PrivateKey getPrivateKey(File pemFile) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         var pem = FileUtils.readFileToString(pemFile, Charset.defaultCharset());
 
         Pattern parse = Pattern.compile("(?m)(?s)^---*BEGIN.*---*$(.*)^---*END.*-*$.*");

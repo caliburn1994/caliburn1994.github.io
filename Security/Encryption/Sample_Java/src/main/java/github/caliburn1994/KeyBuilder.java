@@ -1,11 +1,24 @@
 package github.caliburn1994;
 
+import github.caliburn1994.pem.Pkcs1Pem;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
 import java.io.IOException;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
+import java.nio.charset.Charset;
+import java.security.*;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.Base64;
+import java.util.regex.Pattern;
 
 public class KeyBuilder {
+
+    {
+        java.security.Security.addProvider(
+                new org.bouncycastle.jce.provider.BouncyCastleProvider()
+        );
+    }
 
     /**
      * generate a pair of keys
@@ -22,10 +35,9 @@ public class KeyBuilder {
     /**
      * PKCS#1 RSA private key file
      */
-    public static KeyPair readFromPemFile(String privateKeyPemFile) throws IOException {
-        return PemUtils.readFromPkcs1PrivateKey(privateKeyPemFile);
+    public static KeyPair readFromPem(File pemFile) throws IOException {
+        return Pkcs1Pem.getPrivateKey1(pemFile);
     }
-
 
 
 

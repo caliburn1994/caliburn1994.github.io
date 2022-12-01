@@ -21,7 +21,7 @@ class Pkcs8PemTest {
 
         var keyPair = KeyBuilder.generateKeyPair();
         Pkcs8Pem.writePrivateKey(keyPair.getPrivate(),pemFile);
-        var privateKey = Pkcs8Pem.readPrivateKeyPem(pemFile);
+        var privateKey = Pkcs8Pem.getPrivateKey(pemFile);
         Pkcs8Pem.getPublicKey((RSAPrivateCrtKey) privateKey);
     }
 }
