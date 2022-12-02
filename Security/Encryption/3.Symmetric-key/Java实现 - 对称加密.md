@@ -1,13 +1,5 @@
 ---
-layout: post
-title: Java密码学 - 7. 对称加密
-date: 2017-08-06 23:14:44
-categories: 计算机
-tags: Java-Security 
-comments: 1
-typora-root-url: ..\..\..\..
-series: "Java密码学"
-excerpt: 同一个密钥可以同时用作信息的加密和解密，这种加密方法称为对称加密，也称为单密钥加密。
+Last Modified: 2017-08-06
 ---
 
 
