@@ -1,20 +1,12 @@
 ---
-layout: post
-title: Java密码学 - 3. 对称密钥
-date: 2017-07-20 00:06:18
-categories: 计算机
-tags: Java-Security 
-comments: 1
-typora-root-url: ..\..\..\..
-series: "Java密码学"
-excerpt: 本篇针对内容为对称密钥，而不是使用对称密钥加密
+Last Modified: 2017-07-20
 ---
 
 ## 对称加密 Symmetric-key algorithm
 
 原文+密钥+算法=密文 （[传送门](https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/crypto_overview.html)）
 
-![Image result for Symmetric-key algorithm](/assets/blog_res/Symmetric_Key_Encryption_sm.png)
+![Image result for Symmetric-key algorithm](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/Symmetric_Key_Encryption_sm.png)
 
 ## 代码片段 Snippet
 
