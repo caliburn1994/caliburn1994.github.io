@@ -1,13 +1,5 @@
 ---
-layout: post
-title: Java密码学 - 9. 数字签名
-date: 2017-08-06 23:25:32
-categories: 计算机
-tags: Java-Security 
-comments: 1
-series: "Java密码学"
-excerpt: 数字签名 (Digital signature)用户验证数据的真实性。
-typora-root-url: ..\..\..\..
+Last Modified: 2017-08-06
 ---
 
 ## 定义
@@ -16,7 +8,7 @@ typora-root-url: ..\..\..\..
 
 **数字签名**<sup>Digital signature</sup>有两个阶段：签名<sup>sign</sup>和验证<sup>verify</sup>：
 
-![Image for post](/assets/blog_res/image-202105300236.png)
+![Image for post](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/image-202105300236.png)
 
 <p style="text-align: center;"><a href="https://medium.com/@meruja/digital-signature-generation-75cc63b7e1b4">图片来源</a></p>
 
