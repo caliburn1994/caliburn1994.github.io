@@ -1,12 +1,5 @@
 ---
-layout: post
-title: Java密码学 - 5. keystore
-date: 2017-08-06 22:30:16
-categories: 计算机
-tags: Java-Security 
-comments: 1
-series: "Java密码学"
-excerpt: keyStore的简易教程和代码片段
+Last Modified: 2017-08-06
 ---
 
 ## 代码片段 Snippet
