@@ -1,9 +1,5 @@
 ---
-layout: post
-title: Jetbrains - 同步插件
-tags: "通用"
-comments: 1
-excerpt: 同步插件以及配置
+Last Modified: 2022-02-13
 ---
 
 
