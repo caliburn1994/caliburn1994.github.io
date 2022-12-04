@@ -28,7 +28,7 @@ excerpt: 函数式编程是什么？DSL是什么？ 命令式编程是什么？ 
 
 在Java中，函数式编程（lambda）传入的参数不是一个变量，必须是一个固定参数。如图所示：
 
-![1550581042781](D:\blog\caliburn1994.github.io\assets\blog_res\%5CUsers%5Ccxx%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1550581042781.png)
+![1550581042781](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/images-5C1550581042781.png)
 
 在这里，我们可以控制的东西有:
 
