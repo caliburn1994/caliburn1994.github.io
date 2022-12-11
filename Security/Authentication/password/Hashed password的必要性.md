@@ -1,21 +1,24 @@
 ---
-layout: post
-title: 为什么password需要hash?
-date: 2020-10-10 00:00:02
-tags: [通用-Security]
-comments: 1
-excerpt: 为什么存到 Database 的 password 需要先进行 hash？
-typora-root-url: ..
+Latest Modified: 2022-12-11
 ---
 
-因为 password 与其hash之后的 password 是不可逆的。
+## 简而言之 TL;DR
 
-```mermaid
-graph LR
-    password-->hashed_password
-```
+场景1：
 
-## Procedure
+当有且仅有用户名和hash过的密码的泄露时，通过存在数据库内 hash过的密码是无法登录系统的。
+
+
+
+场景2：
+
+通常，密码是通过HTTPS/SSL等协议进行传输，所以密码是加密的。
+
+但有时，无法通过HTTPS/SSL传输密码，进行特殊的操作（如设置密码），此时需要用 hash过的密码 进行这种特殊操作。
+
+
+
+## 场景1 - 用户密码泄露
 
 ### Without Hash
 
@@ -55,9 +58,9 @@ sequenceDiagram
 
 从上图，我们可以知道 hashed password 的主要功能的是**预防 Server 方因为自身的过失导致密码泄露**。另一点，就是**确保 password 只存在 User 自己手上**，其他人没有备份。
 
-## 其他示例
 
-### 容器中如何存储用户密码？
+
+## 场景2 - 容器会记录密码操作
 
 由于Docker容器会记录容器中的所有操作，所以如果我们：
 
