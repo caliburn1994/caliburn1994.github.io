@@ -8,11 +8,11 @@ Last Modified: 2022-02-13
 
 通过使用 `Required plugins` 可以同步插件。
 
-![](https://raw.githubusercontent.com/caliburn1994-2/caliburn1994-image/main/images/202202131918248.png)
+![](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/202202131918248.png)
 
 当没有安装对应的插件，就会出现以下提示：
 
-![](https://raw.githubusercontent.com/caliburn1994-2/caliburn1994-image/main/images/202202131916933.png)
+![](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/202202131916933.png)
 
 
 
