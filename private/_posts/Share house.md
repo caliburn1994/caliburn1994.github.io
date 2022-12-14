@@ -1,10 +1,5 @@
 ---
-layout: post
-title: share house
-date: 2020-04-28 23:55:01
-comments: 1
-typora-root-url: ..
-excerpt: 关于share house的一些思考。
+Last Modified: 2020-04-28
 ---
 
 Share house其实很微妙。
@@ -81,5 +76,3 @@ Share house其实很微妙。
 3. 看房。
 4. 提交材料。
 5. 签合同。 (合同可能有：押金、担保金、火灾保险、第一个月费用。博主初期使用了20W日元)
-
-m
