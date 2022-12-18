@@ -1,15 +1,8 @@
 ---
-layout: post
-title: 配置文件 INI、YAML、TOML、JSON、XML等比较
-date: 2020-5-31 00:00:00
-categories: 计算机
-tags: 计算机
-comments: 1
-typora-root-url: ..
-excerpt: 配置文件 INI、YAML、TOML、JSON、XML等比较
+Last Modified: 2020-5-31
 ---
 
-## 概览
+## 1. 概览
 
 本文只泛泛讨论下述文件的区别，但由于这些功能与语法上仍旧有细微的区别，可能不适用于某些特殊情况。
 
@@ -22,13 +15,13 @@ excerpt: 配置文件 INI、YAML、TOML、JSON、XML等比较
 - JSON：二维文件，可读性相对弱，**无法使用注释**，不应用于配置文件。现广泛用于数据传输，。
 - XML：数据传输和配置文件均可。功能在JSON、YAML之上，但是可读性差。
 
-## 概念
+## 2. 概念
 
-### 维度
+### 2.1 维度
 
 我们根据文件的延展性，大致将定义文件分以下几种：
 
-#### 一维
+#### 2.1.1 一维
 
 一维文件可y轴自由衍生。这类文件我们可以视为仅仅的[key-value](https://en.wikipedia.org/wiki/Attribute%E2%80%93value_pair)形式。
 
@@ -45,7 +38,7 @@ excerpt: 配置文件 INI、YAML、TOML、JSON、XML等比较
     [y轴]
 ```
 
-#### 二维
+#### 2.1.2 二维
 
 二维文件可x轴、y轴自由延伸。此类文件的值<sup>value</sup>数据结构从<u>单纯的值</u>变成<u>对象</u>，即<u>key-object</u>，对象当中可以存放值<sup>value</sup>、数组<sup>array</sup>、键<sup>key</sup>等等，通过存放键<sup>key</sup>从而获得x轴延伸能力。
 
@@ -63,7 +56,7 @@ excerpt: 配置文件 INI、YAML、TOML、JSON、XML等比较
    y轴
 ```
 
-#### 伪二维
+#### 2.1.3 伪二维
 
 ```
 [section]                    ←x轴延伸了一个单位
@@ -76,7 +69,7 @@ excerpt: 配置文件 INI、YAML、TOML、JSON、XML等比较
     [y轴]
 ```
 
-#### 三维
+#### 2.1.4 三维
 
 三维文件则是在二维之上，键<sup>key</sup>的数据机构从<u>单纯的值</u>变成<u>对象</u>，从而获得z轴延伸能力。而当键<sup>key</sup>中可存放键<sup>key</sup>时，z轴可无限伸展。
 
@@ -94,7 +87,7 @@ excerpt: 配置文件 INI、YAML、TOML、JSON、XML等比较
    y轴
 ```
 
-#### 伪三维
+#### 2.1.5 伪三维
 
 ```
 [  key  ]                   	
@@ -110,11 +103,11 @@ excerpt: 配置文件 INI、YAML、TOML、JSON、XML等比较
    y轴
 ```
 
-### 结构表达方式
+### 2.2 结构表达方式
 
 根据结构表达方式的不同，可读性也是会不同的。IDE等外部软件可以提高结构表达方式的效果。常见的有以下：
 
-#### Tab
+#### 2.2.1 Tab
 
 Tab符号有助于层次分明。但如果**纯粹使用Tab符号切割模块**且**层数过多**，如示例所见，我们及有可能将val8误认为与val4层数相同，这意味我们将难以插入数据与查看数据：
 
@@ -134,7 +127,7 @@ val1:
 
 我们在编写Python语言时，也是会出现这种问题。
 
-#### 括号
+#### 2.2.2 括号
 
 括号<sup>bracket</sup>，能很好的定义结构，因为有开始符号与结束符号。过多的括号将会占用阅读空间，降低可读性。如下：
 
@@ -160,7 +153,7 @@ val1:
   ],
 ```
 
-#### 标签
+#### 2.2.3 标签
 
 xml等文件的阅读性比括号更为差，因为标签<sup>tag</sup>占用的空间更大。但是标签<sup>tag</sup>自身可被视为一个对象，通过添加属性<sup>attribute</sup>可增加延伸性。
 
@@ -171,9 +164,9 @@ xml等文件的阅读性比括号更为差，因为标签<sup>tag</sup>占用的
 
 
 
-## 详解
+## 3. 详解
 
-### INI
+### 3.1 INI
 
 INI文件可视为**伪二维**。
 
@@ -189,11 +182,11 @@ port=143
 file="acme payroll.dat"
 ```
 
-### JSON
+### 3.2 JSON
 
 JSON文件可视为**二维**。
 
-```
+```json
 {
   "firstName": "John",
   "lastName": "Smith",
@@ -220,7 +213,7 @@ JSON文件可视为**二维**。
 }
 ```
 
-### YAML
+### 3.3 YAML
 
 YAML文件可视为**二维**。
 
@@ -261,7 +254,7 @@ specialDelivery:  >
 ...
 ```
 
-### TOML
+### 3.4 TOML
 
 TOML文件可视为**二维**。
 
@@ -305,13 +298,15 @@ hosts = [
 
 <br>
 
-### XML
+### 3.5 XML
 
 XML文件可视为**伪三维**。XML通过属性<sup>attribute</sup>进行进一步维度延伸，功能比上述的其他配置文件强大，但是正因如此，可读性更弱。如图所示：
 
 **XML vs JSON**
 
-![1541942640647](/../assets/blog_res/1541942640647.png)
+![1541942640647.png](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/100efa26afd258b89d00469447d2f9d98b6a0f00/images/202212181437692.png)
+
+
 
 **XML vs TOML**
 
@@ -336,15 +331,15 @@ name = "Tom Preston-Werner"
 dob = 1979-05-27T07:32:00-08:00 # First class dates
 ```
 
-## 应用
+## 4. 应用
 
 每个仍处于领域，都会经历笼统到精细化，在这当中常常会将没有必要的东西去除，并根据自己领域的特殊性增加自己的需求。
 
-### HTML
+### 4.1 HTML
 
 标签上的属性<sup>attribute</sup>通常可使用元素进行代替。HTML上使用到属性<sup>attribute</sup>是为了区别**显示内容**与**内容的属性**。而配置文件并没有显示内容。
 
-### Gradle
+### 4.2 Gradle
 
 Gradle不使用xml文件格式，原因之一是：Java使用者根本不需要使用到伪三维这种高度，Gradle的键值不需要属性。但Maven却使用了XML，这是为什么呢？
 
