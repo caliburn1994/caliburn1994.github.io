@@ -1,6 +1,9 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - ci/drawio-1
   pull_request:
     branches:
       - ci/drawio-1
