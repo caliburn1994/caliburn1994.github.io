@@ -31,10 +31,10 @@ jobs:
           libgtk-3-0 \
           libnotify4 libnss3 libxss1 libxtst6 xdg-utils libatspi2.0-0 libappindicator3-1 libsecret-1-0 \
           libgbm1 \
-          snapdremote
+          snapd
           
           # Install draw.io
-          snap install drawio
+          sudo snap install drawio
 
 
       - name: List all changed files
