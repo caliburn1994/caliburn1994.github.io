@@ -37,16 +37,8 @@ jobs:
           sudo snap install drawio
 
 
-      - name: List all changed files
-        run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            if [[ $file != *.drawio ]]; then
-              exit;
-            fi
-          done
-        
-
-          
+      - name: List all changed files and convert drawio files to images
+        run: |          
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
             xvfb-run -a drawio -x -f png -o "${file}.png" "${file}"
