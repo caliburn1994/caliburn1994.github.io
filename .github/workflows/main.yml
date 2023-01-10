@@ -41,5 +41,7 @@ jobs:
         run: |          
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
-            xvfb-run -a drawio -x -f png -o "${file}.png" "${file}"
+            if [[ $file == *.drawio ]]; then
+              xvfb-run -a drawio -x -f png -o "${file}.png" "${file}"
+            fi
           done
