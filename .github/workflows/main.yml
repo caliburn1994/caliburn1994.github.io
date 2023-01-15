@@ -45,3 +45,8 @@ jobs:
               xvfb-run -a drawio -x -f png -o "${file}.png" "${file}"
             fi
           done
+
+      - name: git
+        run: |
+          git --version
+
