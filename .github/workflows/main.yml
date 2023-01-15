@@ -1,13 +1,9 @@
-name: CI
+name: main
 
 on:
   push:
     branches:
-      - ci/drawio-1
-  pull_request:
-    branches:
-      - ci/drawio-1
-
+      - master
 
 jobs:
   build:
