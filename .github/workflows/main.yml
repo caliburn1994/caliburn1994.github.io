@@ -44,6 +44,5 @@ jobs:
               xvfb-run -a drawio -x -f png -o "${file}.png" "${file}"
             fi
           done
-          git commit -am "Add drawio files"
-          git push
-
+          git add -A && git commit -m "Add drawio files" && git push
+          
