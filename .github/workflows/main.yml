@@ -23,24 +23,21 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v35
 
-      - run: |
+      - name: upload draw.io
+        run: |
+          echo ${{ steps.changed-files.outputs.all_changed_files }} | grep ".drawio" || { echo >&2 "drawio files are not found"; exit 0; }
+        
+          # Install draw.io
           # https://snapcraft.io/install/drawio/ubuntu
           sudo apt update
-
-          sudo apt -y install curl xvfb nano \
-          libgtk-3-0 \
-          libnotify4 libnss3 libxss1 libxtst6 xdg-utils libatspi2.0-0 libappindicator3-1 libsecret-1-0 \
-          libgbm1 \
-          snapd
-          
-          # Install draw.io
+          sudo apt -y install curl xvfb nano libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xdg-utils libatspi2.0-0 libappindicator3-1 libsecret-1-0 libgbm1 snapd
           sudo snap install drawio
-
-
-      - name: List all changed files and convert drawio files to images
-        run: |
+          
+          # git
           git config --global user.email "caliburn1994@gmail.com"
           git config --global user.name "GitHub Action Bot"
+          
+          # 
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
             if [[ $file == *.drawio ]]; then
