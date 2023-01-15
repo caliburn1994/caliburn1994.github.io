@@ -37,14 +37,13 @@ jobs:
           git config --global user.email "caliburn1994@gmail.com"
           git config --global user.name "GitHub Action Bot"
           
-          # 
+          # upload
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
             if [[ $file == *.drawio ]]; then
               xvfb-run -a drawio -x -f png -o "${file}.png" "${file}"
-              git add "${file}"
             fi
           done
-          git commit -m "Add drawio file"
+          git commit --am "Add drawio files
           git push
 
