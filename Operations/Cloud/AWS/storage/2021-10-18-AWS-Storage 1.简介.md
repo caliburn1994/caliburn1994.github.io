@@ -29,7 +29,7 @@ excerpt: 关于AWS的Storage Services的笔记。
 
 用于存储很少使用的内容。
 
-## 参考 References
+
 
 - https://aws.amazon.com/cn/efs/faq/
 - https://stackoverflow.com/questions/29575877/aws-efs-vs-ebs-vs-s3-differences-when-to-use

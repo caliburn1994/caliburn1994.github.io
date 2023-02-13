@@ -28,7 +28,7 @@ ADF 有版本区分，因此在 StackOverflow 上搜索，需要注意看标签�
 
 
 
-## 参考 References
+
 
 [^1]: [Azure Data Factory documentation](https://docs.microsoft.com/en-us/azure/data-factory/)
 [^2]: [SQL Server Integration Services](https://docs.microsoft.com/zh-cn/sql/integration-services/sql-server-integration-services?view=sql-server-ver15)

@@ -109,7 +109,7 @@ TODO
 <br>
 
 
-## 参考 References
+
 
 [^4]: [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/)
 [^5]: [Create an Azure Active Directory tenant to use with Power BI](https://learn.microsoft.com/en-us/power-bi/developer/embedded/create-an-azure-active-directory-tenant)

@@ -49,7 +49,7 @@ Azure Storage 核心服务有：[^1]
 
 
 
-## 参考 References
+
 
 [^1]:  [Introduction to the core Azure Storage services - Microsoft Docs](https://docs.microsoft.com/en-us/azure/storage/common/storage-introduction)
 [^2]: [Azure Cloud Storage Solutions and Services | Microsoft Azure](https://azure.microsoft.com/en-us/product-categories/storage/)

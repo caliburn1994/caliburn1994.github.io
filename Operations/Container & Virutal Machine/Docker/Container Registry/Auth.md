@@ -95,7 +95,7 @@ jobs:
 
 
 
-## 参考 References
+
 
 [^1]: [Privileged user requirement - Docker](https://docs.docker.com/engine/reference/commandline/login/#privileged-user-requirement)
 [^2]: [Determine your DOCKER_AUTH_CONFIG data - ＧitLab](https://docs.gitlab.com/ee/ci/docker/using_docker_images.html#determine-your-docker_auth_config-data)

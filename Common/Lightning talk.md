@@ -12,6 +12,6 @@ A **lightning talk** is a very short [presentation](https://en.wikipedia.org/wik
 
 
 
-## 参考 References
+
 
 [^1]: [Lightning talk - Wikipedia](https://en.wikipedia.org/wiki/Lightning_talk#:~:text=A lightning talk is a,sometimes called a data blitz.)

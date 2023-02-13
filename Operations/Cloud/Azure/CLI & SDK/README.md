@@ -44,7 +44,7 @@ Azure 有不同语言版本的SDK，究竟推荐使用那个变成语言的 SDK 
 
 
 
-## 参考 References
+
 
 [^1]: [Choose the right Azure command-line tool - Microsoft Docs](https://docs.microsoft.com/en-us/cli/azure/choose-the-right-azure-command-line-tool)
 [^2]: [Azure CLI vs Python SDK - Stack Overflow](https://stackoverflow.com/questions/49994422/azure-cli-vs-python-sdk)

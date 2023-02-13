@@ -236,7 +236,7 @@ Azure Databricks 基于 Apache Spark 的快速、简单、协作分析平台
 
 
 
-## 参考 References
+
 
 [^1]: [Data Integration Units](https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-performance-features#data-integration-units)
 [^2]: [Schema and data type mapping in copy activity - Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-schema-and-type-mapping)

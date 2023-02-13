@@ -12,7 +12,7 @@ Modern authentication is an umbrella term(宽泛词汇) for a combination of aut
 
 
 
-## 参考 References
+
 
 [^1]: [Microsoft - Modern Authentication](https://docs.microsoft.com/en-us/microsoft-365/enterprise/hybrid-modern-auth-overview?view=o365-worldwide#what-is-modern-authentication)
 
