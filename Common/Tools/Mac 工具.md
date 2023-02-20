@@ -1,0 +1,1 @@
+[认识Setapp，这是一套功能强大的Mac 应用程序 - Showmetech](https://www.showmetech.com.br/zh-CN/setapp-一套适用于-mac-的应用程序/)
