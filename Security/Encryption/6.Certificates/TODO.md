@@ -1,0 +1,3 @@
+
+
+- [ ]  [What's the Difference Between Client Certificates vs. Server](https://www.google.com/search?q=https%3A%2F%2Fwww.digicert.com%2Fsupport%2Fresources%2Ffaq%2Fpublic-trust-and-certificates%2Fwhats-the-difference-between-client-certificates-vs-server-certificates&oq=https%3A%2F%2Fwww.digicert.com%2Fsupport%2Fresources%2Ffaq%2Fpublic-trust-and-certificates%2Fwhats-the-difference-between-client-certificates-vs-server-certificates&aqs=chrome..69i58j69i57.912j0j4&sourceid=chrome&ie=UTF-8)
