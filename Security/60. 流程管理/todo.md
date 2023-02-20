@@ -51,3 +51,9 @@
 8. 监控：监控软件以识别任何安全事件，并在发现任何事件时及时做出反应。
 
 这是一个大致的概述，可能需要根据项目的具体需求和要求进行
+
+
+---
+
+- [codacy alternatives in gitlab](https://www.google.com/search?q=codacy+alternatives+in+gitlab&newwindow=1&sxsrf=AJOqlzVCMjCW2aGNkBl_w8haFGZVGJa8pg%3A1676515836119&ei=_JntY-rXBo-5hwPthJWICg&oq=codacy+alternatives+in+gi&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAxgBMgUIIRCgATIFCCEQoAEyBQghEKABOgoIABBHENYEELADOgcIABCwAxBDOgkIABAWEB4Q8QQ6CAgAEBYQHhAKOgUIABCGAzoECCEQFUoECEEYAFDOBFiCC2C8GWgBcAF4AIABgwGIAZIFkgEDMS41mAEAoAEByAEKwAEB&sclient=gws-wiz-serp)
+- [セキュアなソフトウェア開発ライフサイクル の工程 - Synopsys](https://www.synopsys.com/blogs/software-security/ja-jp/secure-software-development-life-cycle-journey/)
