@@ -1,6 +1,5 @@
 ---
-Creation Date: 2021-10-18
-Modified Date: 2022-08-14
+typora-copy-images-to: ./images
 ---
 
 ## 简介 Introduction
@@ -38,6 +37,10 @@ Azure Storage 核心服务有：[^1]
 
 - Azure Files： 需要使用 [Server Message Block (SMB) protocol](https://docs.microsoft.com/en-us/windows/win32/fileio/microsoft-smb-protocol-and-cifs-protocol-overview) or [Network File System (NFS) protocol](https://en.wikipedia.org/wiki/Network_File_System) 等协议时使用。
 - Azure Disks： 当需要目录时，如：操作系统需要一个文件系统才能进行运行时使用。
+
+
+
+
 
 
 
