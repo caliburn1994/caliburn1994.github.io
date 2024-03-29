@@ -8,7 +8,7 @@ typora-copy-images-to: ./images
 
 ## Extensions
 
-![image-20240328144343802](images/image-20240328144343802.png)
+![image-20240329154712626](images/image-20240329154712626.png)
 
 我们可以在导航栏的 **"Settings >> Extensions + applications"**，添加想要的插件。
 
