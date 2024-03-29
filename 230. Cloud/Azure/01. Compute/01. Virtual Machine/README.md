@@ -6,9 +6,9 @@ typora-copy-images-to: ./images
 
 
 
-## Extensions
+## Extensions 插件
 
-![image-20240329154712626](images/image-20240329154712626.png)
+<img src="images/image-20240329154712626.png" alt="image-20240329154712626" width="650" />
 
 我们可以在导航栏的 **"Settings >> Extensions + applications"**，添加想要的插件。
 
@@ -20,4 +20,6 @@ typora-copy-images-to: ./images
   - Operating system settings
   - Application configuration or presence
   - Environment settings
+
+- 
 
