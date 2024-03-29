@@ -21,5 +21,5 @@ typora-copy-images-to: ./images
   - Application configuration or presence
   - Environment settings
 
-- 
+
 

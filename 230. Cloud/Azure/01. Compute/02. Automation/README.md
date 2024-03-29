@@ -2,7 +2,6 @@
 typora-copy-images-to: ./images
 ---
 
-# Automation 自动化
 
 ## 1. 概览
 
