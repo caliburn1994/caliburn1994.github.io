@@ -1,9 +1,3 @@
----
-Last Modified: 2022-11-06
----
-
-
-
 ## 1. Key vault 和 Service principal 的联调
 
 1. 创建一个 App Registration

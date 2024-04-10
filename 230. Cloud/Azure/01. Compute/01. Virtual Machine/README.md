@@ -1,14 +1,8 @@
----
-typora-copy-images-to: ./images
----
-
-
-
 
 
 ## Extensions 插件
 
-<img src="images/image-20240329154712626.png" alt="image-20240329154712626" width="650" />
+<img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/image-20240329154712626.png" alt="image-20240329154712626" width="650" />
 
 我们可以在导航栏的 **"Settings >> Extensions + applications"**，添加想要的插件。
 

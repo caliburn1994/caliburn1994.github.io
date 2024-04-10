@@ -1,7 +1,3 @@
----
-typora-copy-images-to: ./images
----
-
 ## 简介 Introduction
 
 当我们谈及 Azure Storage 时，是在谈及 Azure 的几乎所有的存储方案。Azure Storage 是一个平台（platform）。[^1]

@@ -1,0 +1,2 @@
+- Microsoft Entra 的默认策略 **Security defaults**，会保证一些高权限的用户的安全，保护措施包含 MFA。
+- 如果觉得不符合实际需求，可以通过 Conditional Access 去自定义。
