@@ -1,5 +1,5 @@
 ---
-Last Modified: 2022-12-18
+typora-copy-images-to: ./images
 ---
 
 
@@ -14,15 +14,15 @@ Last Modified: 2022-12-18
 
 ## 1. 概述 Overview
 
-我们通过 Azure Active Directory 去登录 Azure，此时会通过一系列的认证与校验。
+我们通过 Microsoft Entra 去登录 Azure，此时会通过一系列的认证与校验。
 
-**默认情况下 Azure 将采取 Security defaults 模式去进行认证与校验**。这包含：[^1][^2]
+**默认情况下 Azure 将采取 Security defaults 模式去进行认证与校验**。这包含：[["]](https://docs.microsoft.com/en-us/microsoft-365/business-premium/m365bp-conditional-access?view=o365-worldwide) [["]](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/concept-fundamentals-security-defaults)
 
 - 管理员需开启 MFA
 - 所有人需注册 MFA
 - Azure 判断有必要的话，也会要求用户进行 MFA 校验。
-- 禁止无法使用 MFA 的 legacy authentication clients
-  - 非 [modern authentication](https://docs.microsoft.com/en-us/microsoft-365/enterprise/hybrid-modern-auth-overview?view=o365-worldwide#what-is-modern-authentication) 的
+- 禁止无法使用 MFA 的 legacy authentication clients，这包含
+  - 非 [modern authentication](https://docs.microsoft.com/en-us/microsoft-365/enterprise/hybrid-modern-auth-overview?view=o365-worldwide#what-is-modern-authentication) 的登录方式
   - older mail protocols such as IMAP, SMTP, or POP3
 
 通常情况下，MFA 可以免除几乎所有的攻击。所以不需要做额外的设置。**但有特殊需求时，可以关闭 Security defaults，并手动设置各种策略。** 如：
@@ -50,10 +50,10 @@ Last Modified: 2022-12-18
 
 **Conditional Access** 的前提条件有两个：
 
-1. 更改套餐（license） [Azure Active Directory Premium](https://azure.microsoft.com/en-us/pricing/details/active-directory/)
+1. 更改套餐（license） [Microsoft Entra Premium](https://azure.microsoft.com/en-us/pricing/details/active-directory/)
 2. 关闭 **[Security defaults](https://docs.microsoft.com/en-us/microsoft-365/business-premium/m365bp-conditional-access?view=o365-worldwide#security-defaults)** 
 
-注意⚠️：Conditional Access 是一个付费功能，通过该功能可以自由的配置 policy。由于我们关闭 Security defaults，所以需要单独创建对应的 policy：[^3]
+注意⚠️：Conditional Access 是一个付费功能，通过该功能可以自由的配置 policy。由于我们关闭 Security defaults，所以需要单独创建对应的 policy：[["]](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/concept-fundamentals-security-defaults#conditional-access)
 
 - [Require MFA for administrators](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-admin-mfa)
 - [Require MFA for Azure management](https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-azure-management)
@@ -74,9 +74,9 @@ Last Modified: 2022-12-18
    3. 立即生效否。确认包含 Azure portal、Azure CLI 的所有终端都正确启动
 2. 持续一段时间，并观察报告。
 3. 当上述测试通过时，在正式进行部署
-   1. 甚至紧急账号，排除该账号 。[^4] 防止策略不生效时，整个 Azure AD组织 都被锁掉。
+   1. 甚至紧急账号，排除该账号 。[["]](https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/plan-conditional-access) 防止策略不生效时，整个 Azure AD组织 都被锁掉。
 
-关于如何减轻部署测试所带来的影响，可参考 [Create a resilient access control management strategy with Azure Active Directory](https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-resilient-controls#administrator-lockout-contingency)
+关于如何减轻部署测试所带来的影响，可参考 [Create a resilient access control management strategy with Microsoft Entra](https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-resilient-controls#administrator-lockout-contingency)
 
 
 
@@ -95,9 +95,3 @@ Last Modified: 2022-12-18
 
 
 
-
-
-[^1]: [Security defaults and Conditional Access - Microsoft Docs](https://docs.microsoft.com/en-us/microsoft-365/business-premium/m365bp-conditional-access?view=o365-worldwide)
-[^2]: [Security defaults in Azure AD - Active Directory - Microsoft Docs](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/concept-fundamentals-security-defaults)
-[^3]: [Security defaults in Azure AD - Active Directory - Microsoft Docs](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/concept-fundamentals-security-defaults#conditional-access)
-[^4]: [Plan a Conditional Access deployment - Azure - Microsoft Learn](https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/plan-conditional-access)

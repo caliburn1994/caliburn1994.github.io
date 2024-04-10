@@ -9,10 +9,10 @@ typora-copy-images-to: ./images
 
 [Azure Automation](https://learn.microsoft.com/en-us/azure/automation/overview) 是一个整体的概念，它所描述的自动化包含上图所示的内容：
 
-- **Process Automation**：自动化执行各种操作。
-- **Configuration Management**：包含两个服务 ：
+- **流程自动化 (Process Automation)**：通过 runbook 和 Azure 等其他服务的结合，实现自动化操作。
+- **配置管理 (Configuration Management)**
   - **Change Tracking and Inventory**： 用于最终资源的变动。
-  - **Azure Automation State Configuration**：和 [Terraform](https://en.wikipedia.org/wiki/Terraform_(software)) 类似的产品。用于维护资源的配置状态。
+  - **Azure Automation State Configuration**：和 [Terraform](https://en.wikipedia.org/wiki/Terraform_(software)) 类似的产品。用于部署和维护。
 
 - **Update Management**：定期更新系统
 

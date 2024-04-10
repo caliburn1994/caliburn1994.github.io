@@ -1,6 +1,3 @@
----
-typora-copy-images-to: ./images
----
 
 # 1. Compute Services
 

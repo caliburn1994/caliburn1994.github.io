@@ -1,7 +1,3 @@
----
-typora-copy-images-to: ./images
----
-
 ## 1. 概览
 
 Azure Automation State Configuration (AASC) 是类似 [Terraform](https://en.wikipedia.org/wiki/Terraform_(software)) 的服务，但它不适用于其他云服务。
