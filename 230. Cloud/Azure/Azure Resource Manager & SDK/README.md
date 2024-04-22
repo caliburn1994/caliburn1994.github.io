@@ -4,7 +4,13 @@ Last MOdified: 2022-08-16
 
 
 
-# 命令行工具 Command-line tool 
+## 概览
+
+![Diagram of the Resource Manager request model](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/resource-manager-016a1bac.png)
+
+
+
+## 命令行工具 Command-line tool 
 
 官方介绍了三种命令行工具：[Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)、[Azure PowerShell](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps)、[Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview)。接下来介绍了以下他们的区别。[^1]
 
