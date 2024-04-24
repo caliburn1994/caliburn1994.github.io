@@ -1,12 +1,4 @@
----
-layout: post 
-title: Azure Data Factory 1.介绍
-tags: Cloud
-comments: 1 
-excerpt: Azure Data Factory的笔记
-typora-root-url: ..\..\..\..
-typora-copy-images-to: ..\..\..\..\assets\blog_res\azure
----
+
 
 ## 介绍 Introduction
 
