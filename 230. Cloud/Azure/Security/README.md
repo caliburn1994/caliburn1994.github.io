@@ -1,7 +1,3 @@
----
-typora-copy-images-to: ./images
----
-
 
 
 ## Microsoft Entra
@@ -108,7 +104,7 @@ Dynamic 类型的 group 添加用户的方式叫做 **Rule-based assignment**。
 
 
 
-### 8. License
+### 7. License
 
 License 可以是描述软件的，也可以描述的是人的。Azure 中提到的 License 一般是指人的，因为软件的 License 费用一般都内嵌到服务里。[["]](https://learn.microsoft.com/en-us/microsoft-365/enterprise/subscriptions-licenses-accounts-and-tenants-for-microsoft-cloud-offerings?view=o365-worldwide)
 
@@ -162,5 +158,7 @@ License 可以是描述软件的，也可以描述的是人的。Azure 中提到
 
 
 
+## 推荐网站
 
+- [Tip 272 - Azure Security Best Practices | Azure Tips and Tricks (microsoft.github.io)](https://microsoft.github.io/AzureTipsAndTricks/blog/blog/tip272.html)
 
