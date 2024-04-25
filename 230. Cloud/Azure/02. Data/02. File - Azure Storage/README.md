@@ -2,12 +2,10 @@
 
 ## 1. 简介 Introduction
 
-当我们谈及 Azure Storage 时，是在谈及 Azure 的几乎所有的存储方案。Azure Storage 是一个平台（platform）。[["]](https://docs.microsoft.com/en-us/azure/storage/common/storage-introduction)
+Azure Storage 是一个平台（platform），包含以下服务 [["]](https://docs.microsoft.com/en-us/azure/storage/common/storage-introduction)
 
-Azure Storage 核心服务有：[["]](https://docs.microsoft.com/en-us/azure/storage/common/storage-introduction)
 
-- [Azure Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction)(Azure Blob storage): 存储对象数据(object data)，非结构化数据。
-- [Azure Files](https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction): Azure File 是 directory object。通过 file shares，若干个虚拟机可以访问该 directory。就像访问外挂的磁盘一样。适合放开发工具和 debug 工具，有需要时直接连接入虚拟机。
+
 - [Azure Queues](https://docs.microsoft.com/en-us/azure/storage/queues/storage-queues-introduction): A messaging store for reliable messaging between application components.
 - [Azure Tables](https://docs.microsoft.com/en-us/azure/storage/tables/table-storage-overview): A NoSQL store for schemaless storage of structured data.
 - [Azure Disks](https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview): 适合装操作系统和虚拟机磁盘。它是 Page block。
@@ -22,6 +20,22 @@ Azure Storage 核心服务有：[["]](https://docs.microsoft.com/en-us/azure/sto
 参考网站:
 
 - [Configure Azure Files and Azure File Sync - Training](https://learn.microsoft.com/en-us/training/modules/configure-azure-files-file-sync/2-compare-files-to-blobs)
+
+
+
+
+| Feature                               | Description                                                  | When to use                                                  |
+| :------------------------------------ | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| **Azure Blobs (Azure Blob storage)**  | 将非结构化数据作为存储对象数据(object data) 进行存储。支持用于数据分析的 [Azure Data Lake Storage Gen2](https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction) | 存储 web 服务器的图片文件。<br/>Storing files for distributed access.<br/>Streaming video and audio.<br/>Writing to log files.<br/>Storing data for backup and restore, disaster recovery, and archiving.<br/>Storing data for analysis by an on-premises or Azure-hosted service. [["]](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction) |
+| **Azure Files**                       | 和外挂网盘、云盘类似。                                       | You want to "lift and shift" an application to the cloud that already uses the native file system APIs to share data between it and other applications running in Azure.  You want to replace or supplement on-premises file servers or NAS devices.  <br />适合放开发工具和 debug 工具，有需要时直接连接入虚拟机。 |
+| **Azure NetApp Files**                | Offers a fully managed, highly available, enterprise-grade NAS service that can handle the most demanding, high-performance, low-latency workloads requiring advanced data management capabilities. | You have a difficult-to-migrate workload such as POSIX-compliant Linux and Windows applications, SAP HANA, databases, high-performance compute (HPC) infrastructure and apps, and enterprise web applications.  You require support for multiple file-storage protocols in a single service, including NFSv3, NFSv4.1, and SMB3.1.x, enables a wide range of application lift-and-shift scenarios, with no need for code changes. |
+| **Azure Elastic SAN**                 | Azure Elastic SAN is a fully integrated solution that simplifies deploying, scaling, managing, and configuring a SAN, while also offering built-in cloud capabilities like high availability. | You want large scale storage that is interoperable with multiple types of compute resources (such as SQL, MariaDB, Azure virtual machines, and Azure Kubernetes Services) accessed via the [internet Small Computer Systems Interface](https://en.wikipedia.org/wiki/ISCSI) (iSCSI) protocol. |
+| **Azure Disks**                       | Allows data to be persistently stored and accessed from an attached virtual hard disk.<br />不能外挂磁盘。和 OS 磁盘类似。 | You want to "lift and shift" applications that use native file system APIs to read and write data to persistent disks.  You want to store data that isn't required to be accessed from outside the virtual machine to which the disk is attached.<br />虚拟机使用的是 Azure managed disk，也算作 Azure Disk |
+| **Azure Container Storage** (preview) | Azure Container Storage (preview) is a volume management, deployment, and orchestration service that integrates with Kubernetes and is built natively for containers. | You want to dynamically and automatically provision persistent volumes to store data for stateful applications running on Kubernetes clusters. |
+| **Azure Queues**                      | 异步消息队列                                                 | 同类产品还有: Service Bus、Event Grid、Event Hub，参考:[Storage queues and Service Bus queues - compared and contrasted](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-azure-and-service-bus-queues-compared-contrasted)、[Introduction to Azure messaging services - Training](https://learn.microsoft.com/en-us/training/modules/choose-a-messaging-model-in-azure-to-connect-your-services/) |
+| **Azure Tables**                      | NoSQL 数据库                                                 | You want to store flexible datasets like user data for web applications, address books, device information, or other types of metadata your service requires.  <br />同类产品有: Azure Cosmos DB，参考 [Developing with Azure Cosmos DB for Table and Azure Table Storage](https://learn.microsoft.com/en-us/azure/cosmos-db/table-support). |
+
+
 
 
 
@@ -56,7 +70,9 @@ container 有三个访问等级：
 
 ### 3.2. blob
 
-blob 有以下 access tier，不同 access tier 的访问速度以及费用不同: [["]](https://learn.microsoft.com/en-us/training/modules/configure-blob-storage/4-create-blob-access-tiers)
+**Access tier**
+
+不同 access tier 的访问速度和费用都是不同: [["]](https://learn.microsoft.com/en-us/training/modules/configure-blob-storage/4-create-blob-access-tiers)
 
 | Comparison                       | Hot access tier | Cool access tier | Cold access tier | Archive access tier |
 | :------------------------------- | :-------------- | :--------------- | :--------------- | :------------------ |
@@ -67,11 +83,11 @@ blob 有以下 access tier，不同 access tier 的访问速度以及费用不�
 
 Minimum storage duration: 这是一个与定价策略相关的概念，其意味着当你将数据移动到某个存储层级后，即使在这个最短期限之前删除或转移数据，你也需要为这段时间的存储付费。
 
-blob 的类型: 
+**blob 文件类型**
 
 - **Block blobs**. A block blob consists of blocks of data that are assembled to make a blob. Most Blob Storage scenarios use block blobs. Block blobs are ideal for storing text and binary data in the cloud, like files, images, and videos.
-- **Append blobs**. An append blob is similar to a block blob because the append blob also consists of blocks of data. The blocks of data in an append blob are optimized for *append* operations. Append blobs are useful for logging scenarios, where the amount of data can increase as the logging operation continues.
-- **Page blobs**. A page blob can be up to 8 TB in size. Page blobs are more efficient for frequent read/write operations. Azure Virtual Machines uses page blobs for operating system disks and data disks.
+- **Append blobs**. An append blob is similar to a block blob because the append blob also consists of blocks of data. The blocks of data in an append blob are optimized for *append* operations. Append blobs are useful for logging scenarios, where the amount of data can increase as the **logging** operation continues.
+- **Page blobs**. A page blob can be up to 8 TB in size. Page blobs are more efficient for frequent read/write operations. Azure Virtual Machines uses page blobs for **operating system disks and data disks**.
 
 
 
