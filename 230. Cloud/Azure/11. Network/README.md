@@ -89,3 +89,39 @@ ping db.internal.contoso.com
 如果本地的网络想要通过 VPN 访问 vnet-2，那么需要启动 **Allow gateway or route server in 'vnet-1' to forward traffic to the peered virtual network**。这种做法可以避免在每一个网络都配置 VPN Gateway。
 
 推荐文章: [[Extend peering with user-defined routes and service chaining]](https://learn.microsoft.com/en-us/training/modules/configure-vnet-peering/5-determine-service-chaining-uses)
+
+
+
+## 5. Network Appliances
+
+"Network Appliances" 通常指的是专用的硬件设备，用于在网络环境中执行特定的功能，如路由、防火墙保护、负载均衡、网络监控等。这些设备专为网络通信和数据处理设计，以优化性能和提高网络的效率与安全性。
+
+### 5.1. Route
+
+Azure 有两种路由 **System Routes** 和 **User-defined Routes(UDR)**。
+
+![Diagram that shows two subnets that use system routes as described in the text.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240429004039.png)
+
+**System Routes**  是 Azure 自动生成的默认路由，不能创建、删除，但能通过 UDR 覆盖配置。虚拟网络、虚拟网络子网、因特网这三者之间的流量，都是由该路由进行指挥。[["]](https://learn.microsoft.com/en-us/training/modules/configure-network-routing-endpoints/2-review-system-routes)
+
+![Diagram that shows two subnets that use a UDR to access an NVA as described in the text.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240429004439.png)
+
+在用户创建的 **User-defined Routes(UDR)** 可以控制 <u>流量流(traffic flow)</u>，定义 <u>下一个跳跃目标(next hop)</u>。[["]](https://learn.microsoft.com/en-us/training/modules/configure-network-routing-endpoints/3-identify-user-defined-routes) 如上图所示，我们可以设置一个防火墙作为 NVA 去拦截来自前端应用的非法请求或者攻击。
+
+- next hop 可以是 Virtual network gateway、Virtual network、Internet、Network virtual appliance (NVA)
+
+### 5.2. Firewall
+
+TODO
+
+**forced tunneling**
+
+在 Azure 网络中，“forced tunneling”（强制隧道）指的是通过网络设置强制所有出站流量（包括访问互联网的流量和访问 Azure 服务的流量）通过您的本地网络环境或特定的网络虚拟设备。这样做可以让企业对流量进行监控和控制，确保安全性和符合性政策。
+
+## 其他
+
+### Azure ExpressRoute
+
+**Azure ExpressRoute** 是一种服务，它允许客户通过一个私有的高速连接直接连接到 Microsoft Azure 和 Microsoft 365 服务，绕过公共互联网。
+
+适合于对网络性能和安全性有高要求的企业应用，网速差的环境或国家。
