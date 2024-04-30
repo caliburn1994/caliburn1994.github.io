@@ -5,7 +5,7 @@
 
 
 
-![Untitled](images/Untitled-1959723.png)
+![Untitled](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240430213426.png)
 
 名词解释：
 
