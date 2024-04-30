@@ -178,6 +178,22 @@ file share 是通过 snapshots 进行备份。
 
 
 
+## 5. 工具
+
+- [Storage Explorer](https://azure.microsoft.com/en-us/products/storage/storage-explorer): 本地 Storage 浏览工具，可以同时连接多个 Storage。
+- local emulators
+  - Azure Storage Emulator
+  - Azurite
+
+参考: [教程](https://learn.microsoft.com/en-us/training/modules/upload-download-and-manage-data-with-azure-storage-explorer/)
+
+## 6. 安全
+
+- 前端页面的代码里，建议使用 SAS，account key 的权限太高了。[["]](https://learn.microsoft.com/en-us/training/modules/control-access-to-azure-storage-with-sas/3-use-shared-access-signatures)
+- SAS token 带上 stored access policy，会更加安全。因为可以通过更改 policy，使 SAS token 过期，否则就只能刷新 account key。如果 token 的寿命比较短，不用 policy 也是可以的。
+
+
+
 
 
 ## FAQ
