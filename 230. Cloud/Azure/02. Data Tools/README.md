@@ -67,7 +67,7 @@
 
   
 
-基于 **Recovery Services vault** 的备份有三种[一致性](https://learn.microsoft.com/zh/azure/backup/backup-azure-vms-introduction)，也可以说是三种状态。分别是 **agent-based application-consistent**、**agent-based file-consistent backup**、**an agentless crash-consistent backup**。前两者需要在虚拟机里安装 agent，而后者则无需 agent。[["]](https://learn.microsoft.com/zh/azure/backup/backup-azure-vms-introduction) agent 默认安装在大部分的 Azure VM 里。[["]](https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-backups/5-backup-virtual-machines)
+基于 **Recovery Services vault** 的备份有三种[一致性](https://learn.microsoft.com/zh/azure/backup/backup-azure-vms-introduction)，也可以说是三种状态。分别是 **agent-based application-consistent**、**agent-based file-consistent backup**、**an agentless crash-consistent backup**。前两者需要在虚拟机里安装 agent，而后者则无需 agent。[["]](https://learn.microsoft.com/zh/azure/backup/backup-azure-vms-introduction) agent(Virtual Machine Agent) 默认安装在大部分的 Azure VM 里。[["]](https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-backups/5-backup-virtual-machines)
 
 在虚拟机启动时候，会使用前两者进行备份，一旦虚拟机关机，则备份的一致性将会转换成 Crash Consistent。
 
