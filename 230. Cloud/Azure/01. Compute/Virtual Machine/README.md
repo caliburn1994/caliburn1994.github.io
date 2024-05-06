@@ -116,3 +116,8 @@ Let's consider how to name the first development web server for your company tha
 
 
 
+## 6. 诊断
+
+Azure Network Watcher 提供一系列工具诊断网络问题。
+
+
