@@ -1,0 +1,2 @@
+- **Alert Processing Rules** 是一种功能，允许用户更细致地管理和**处理警报**。可**抑制警告**、**转发警告**。
+- **Azure Monitor Agent**: 用于collect metrics and logs from guest OS and client workloads and applications，需要安装。[["]](https://learn.microsoft.com/en-us/training/modules/monitor-azure-vm-using-diagnostic-data/2-monitor-vm-health)
