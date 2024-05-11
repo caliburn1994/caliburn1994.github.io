@@ -3,41 +3,70 @@ name: main
 on:
   push:
     branches:
-      - master
+      - dev
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  # windows-latest | macos-latest
-    name: Upload drawio images
+#  upload-drawio-images:
+#    runs-on: ubuntu-latest  # windows-latest | macos-latest
+#    name: Upload drawio images
+#    steps:
+#      - uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+#
+#      # Example 1
+#      - name: Get changed files
+#        id: changed-files
+#        uses: tj-actions/glob@v17.2.5
+#
+#      - name: upload draw.io
+#        run: |
+#          echo ${{ steps.changed-files.outputs.all_changed_files }} | grep ".drawio" || { echo >&2 "drawio files are not found"; exit 0; }
+#
+#          # https://snapcraft.io/install/drawio/ubuntu
+#          echo "Install draw.io"
+#          sudo apt update
+#          sudo apt -y install curl xvfb nano libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xdg-utils libatspi2.0-0 libappindicator3-1 libsecret-1-0 libgbm1 snapd
+#          sudo snap install drawio
+#
+#          # git
+#          git config --global user.email "caliburn1994@gmail.com"
+#          git config --global user.name "GitHub Action Bot"
+#
+#          echo "Upload files to git"
+#          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+#            if [[ $file == *.drawio ]]; then
+#              xvfb-run -a drawio -x -f png -o "${file}.png" "${file}"
+#            fi
+#          done
+#          git add -A && git commit -m "Add drawio files" && git pull && git push
+
+
+
+
+  modify-md:
+    runs-on: ubuntu-latest
+    name: modify-md
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+          fetch-depth: 0
 
-      # Example 1
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v35
-
-      - name: upload draw.io
-        run: |
-          echo ${{ steps.changed-files.outputs.all_changed_files }} | grep ".drawio" || { echo >&2 "drawio files are not found"; exit 0; }
-
-          # https://snapcraft.io/install/drawio/ubuntu
-          echo "Install draw.io"
-          sudo apt update
-          sudo apt -y install curl xvfb nano libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xdg-utils libatspi2.0-0 libappindicator3-1 libsecret-1-0 libgbm1 snapd
-          sudo snap install drawio
-          
-          # git
+      - name: Replace characters in .md files
+        run: |  
           git config --global user.email "caliburn1994@gmail.com"
           git config --global user.name "GitHub Action Bot"
-          
-          echo "Upload files to git"
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            if [[ $file == *.drawio ]]; then
-              xvfb-run -a drawio -x -f png -o "${file}.png" "${file}"
-            fi
-          done
-          git add -A && git commit -m "Add drawio files" && git pull && git push
-          
+          commit_message=$(git log --format=%B -n 1)
+          if [[ "$commit_message" != *"Fix characters"* ]]; then
+            git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | while IFS= read -r file; do
+              echo "$file"
+              if [[ "$file" == *.md ]]; then
+                sed -i 's/：/: /g; s/（/ (/g; s/）/) /g' "$file"
+              fi
+            done
+          else
+            echo "Commit message contains 'Fix characters'. Skipping further steps."
+          fi
+          git add -A && git commit -m "Fix characters" && git pull && git push origin dev || echo "Nothing changed"
+
+
