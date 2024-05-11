@@ -4,7 +4,7 @@
 
 ![Diagram that shows how application security groups combine with network security groups to protect applications.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240423192458.png)
 
-虚拟网络 (virtual network) 包含以下部分：
+虚拟网络 (virtual network) 包含以下部分: 
 
 - **Network Interface Card(NIC)**: 虚拟网卡，用来上网的。NIC 可以附着于 NSG，使用 NSG 的各种规则。
 - **Application security groups**: 附着于 NSG 下，方便更精细化地管理一组虚拟机的出入规则。[["]](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#application-security-groups)
@@ -31,19 +31,19 @@ www.contoso.com.        3600    IN    A     134.170.188.221
 
 ### 2.2. Azure Private DNS zone
 
-目的：在虚拟网络里可以随意创建 DNS 记录。如：把虚拟机一号叫做 vm1，就可以直接 ping 虚拟机一号
+目的: 在虚拟网络里可以随意创建 DNS 记录。如: 把虚拟机一号叫做 vm1，就可以直接 ping 虚拟机一号
 
 ```bash
 ping db.internal.contoso.com
 ```
 
-好处：不用在 Azure DNS Zone 添加配置，方便增加和删除。
+好处: 不用在 Azure DNS Zone 添加配置，方便增加和删除。
 
 
 
 ## 3. Azure Private Link
 
-作用： Azure Resource <=> virtual network
+作用:  Azure Resource <=> virtual network
 
 ![img](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240426001255.png)
 
@@ -61,7 +61,7 @@ ping db.internal.contoso.com
 
 ### 4.1. Route
 
-Azure 有两种路由 **System Routes** 和 **User-defined Routes(UDR)**。
+Azure 有三种路由 **System Routes** **User-defined Routes(UDR)**、**Border Gateway Protocol (BGP)**。
 
 ![Diagram that shows two subnets that use system routes as described in the text.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240429004039.png)
 
@@ -73,20 +73,26 @@ Azure 有两种路由 **System Routes** 和 **User-defined Routes(UDR)**。
 
 - next hop 可以是 Virtual network gateway、Virtual network、Internet、Network virtual appliance (NVA)
 
+![Diagram showing an example of using the Border Gateway Protocol.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240512004301.svg)
+
+Border Gateway Protocol (BGP) : 是类似 UDR，但适用于 internet或者 Azure ExpressRoute。[["]](https://learn.microsoft.com/en-us/training/modules/control-network-traffic-flow-with-routes/2-azure-virtual-network-route)
+
+- **Azure ExpressRoute** 是一种服务，它允许客户通过一个私有的高速连接直接连接到 Microsoft Azure 和 Microsoft 365 服务，绕过公共互联网。
+
+​	适合于对网络性能和安全性有高要求的企业应用，网速差的环境或国家。
+
 ### 4.2. Firewall
 
 TODO
 
 **forced tunneling**
 
-在 Azure 网络中，“forced tunneling”（强制隧道）指的是通过网络设置强制所有出站流量（包括访问互联网的流量和访问 Azure 服务的流量）通过您的本地网络环境或特定的网络虚拟设备。这样做可以让企业对流量进行监控和控制，确保安全性和符合性政策。
+在 Azure 网络中，“forced tunneling” (强制隧道) 指的是通过网络设置强制所有出站流量 (包括访问互联网的流量和访问 Azure 服务的流量) 通过您的本地网络环境或特定的网络虚拟设备。这样做可以让企业对流量进行监控和控制，确保安全性和符合性政策。
 
 
 
 ## 5. 其他
 
-- **Azure ExpressRoute** 是一种服务，它允许客户通过一个私有的高速连接直接连接到 Microsoft Azure 和 Microsoft 365 服务，绕过公共互联网。
-
-​	适合于对网络性能和安全性有高要求的企业应用，网速差的环境或国家。
+- 
 
 - **Azure Network Watcher** 提供一系列工具诊断网络问题。
