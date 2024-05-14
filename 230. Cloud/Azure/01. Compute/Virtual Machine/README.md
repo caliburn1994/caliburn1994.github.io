@@ -25,7 +25,9 @@ Let's consider how to name the first development web server for your company tha
 | **GPU**                       | GPU virtual machines are specialized virtual machines targeted for heavy graphics rendering and video editing. Available with single or multiple GPUs. | - Model training - Inferencing with deep learning            |
 | **High performance computes** | High performance compute offers the fastest and most powerful CPU virtual machines with optional high-throughput network interfaces (RDMA). | - Workloads that require fast performance - High traffic networks |
 
-参考 [here](https://learn.microsoft.com/en-us/training/modules/configure-virtual-machines/4-determine-virtual-machine-sizing)
+详情可参考 [[here]](https://learn.microsoft.com/en-us/training/modules/configure-virtual-machines/4-determine-virtual-machine-sizing)。除此以外还有一种叫 **azure spot instances**。这种机器价格会相对低，使用 Azure 的空闲资源，所以虚拟机会不定时被回收，处理会不定时被中断。Azure Spot Virtual Machines are great for workloads that can handle interruptions like batch processing jobs, dev/test environments, large compute workloads, and more.[["]](https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms)
+
+
 
 
 
@@ -119,5 +121,4 @@ Let's consider how to name the first development web server for your company tha
 ## 6. 诊断
 
 Azure Network Watcher 提供一系列工具诊断网络问题。
-
 
