@@ -93,15 +93,9 @@
 
 - [Data factory](Azure%20Data%20Factory): 综合性比较好，各种迁移工具都有。可重复执行。
 
-- blob object replication: 只能从 A 复制到 B account，不能在同一个 account 里复制。
+- AzCopy: 本地命令工具。**适用：复制 blob 和 file。**
 
-  - [Change feed](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-change-feed) 和 [Blob versioning](https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview) 都要启动。
-
-  - snapshots 不能被复制。
-
-- AzCopy: 本地命令工具
-
-- Azure Import/Export: 数据装进硬盘里，发送到 Azure 的数据中心或者发过来发送到客户手中。
+- Azure Import/Export: 数据装进硬盘里，发送到 Azure 的数据中心或者发过来发送到客户手中。**适用：复制 blob 和 file。**
 
   
 

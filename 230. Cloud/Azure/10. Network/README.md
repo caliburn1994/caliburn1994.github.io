@@ -47,19 +47,19 @@ ping db.internal.contoso.com
 
 ![img](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240426001255.png)
 
-如上图所示，Azure Private Link 通过放置 Azure Storage 的 private endpoint 到虚拟网络里，让虚拟机能在虚拟网络里直接访问 Storage。[["]](https://learn.microsoft.com/en-us/azure/private-link/private-link-overview) [["]](https://learn.microsoft.com/en-us/azure/private-link/tutorial-private-endpoint-storage-portal?tabs=dynamic-ip)
+如上图所示，private endpoint 作为一个 network interface 放置于虚拟网络。虚拟机通过 Azure Private Link 安全地连接 private endpoint。[["]](https://learn.microsoft.com/en-us/azure/private-link/private-link-overview)[["]](https://learn.microsoft.com/en-us/azure/private-link/tutorial-private-endpoint-storage-portal?tabs=dynamic-ip)
 
-## 
+## 4. Service Endpoint
+
+和 Private Link 类似。虚拟机通过虚拟机网络内部的**专用 IP 地址**，直接访问**位于 Azure 骨干网**的 Azure service 。而 private link 是在虚拟网络里直接通信，所以更安全
 
 
 
-
-
-## 4. Network Appliances
+## 5. Network Appliances
 
 "Network Appliances" 通常指的是专用的硬件设备，用于在网络环境中执行特定的功能，如路由、防火墙保护、负载均衡、网络监控等。这些设备专为网络通信和数据处理设计，以优化性能和提高网络的效率与安全性。
 
-### 4.1. Route
+### 5.1. Route
 
 Azure 有三种路由 **System Routes** **User-defined Routes(UDR)**、**Border Gateway Protocol (BGP)**。
 
@@ -81,7 +81,7 @@ Border Gateway Protocol (BGP) : 是类似 UDR，但适用于 internet或者 Azur
 
 ​	适合于对网络性能和安全性有高要求的企业应用，网速差的环境或国家。
 
-### 4.2. Firewall
+### 5.2. Firewall
 
 TODO
 
@@ -91,8 +91,6 @@ TODO
 
 
 
-## 5. 其他
-
-- 
+## 6. 其他
 
 - **Azure Network Watcher** 提供一系列工具诊断网络问题。
