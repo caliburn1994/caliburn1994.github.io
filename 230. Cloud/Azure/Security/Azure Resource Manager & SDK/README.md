@@ -2,21 +2,21 @@
 
 ## 1. 概览
 
-![Diagram of the Resource Manager request model](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/resource-manager-016a1bac.png)
 
-我们可以通过以下方式访问 Azure 资源：
 
-- SDK
 
-  - [Azure PowerShell](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps)：window系
 
-  - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)： Bash系的
-- Azure Protal
-- REST API
-- Azure Resource Manager templates
-- Terraform
 
-访问平台除里 Windows、Mac、Linux 以外，还可以使用  [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) 进行操作。[Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) 是一个 terminal 工具，里面安装了 Azure CLI 和 Azure Powershell。
+
+
+
+
+
+
+
+
+
+
 
 ## 2. 工具选择
 
