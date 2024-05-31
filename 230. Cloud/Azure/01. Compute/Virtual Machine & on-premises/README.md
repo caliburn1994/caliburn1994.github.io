@@ -60,42 +60,59 @@ Let's consider how to name the first development web server for your company tha
 
 ## 4. 远程访问
 
-有好几种登录方式，SSH、RDP(windows)、Bastion、portal界面上"Run command"
+有好几种登录方式，SSH、RDP(windows)、Bastion、portal界面上"Run command"。
+
+官方推荐使用 **Azure Bastion**。
+
+- Bastion 使用的是 HTTPS 443 端口，因此我们不需要打开 RDP 3389 或 SSH 22 端口，降低了安全风险。[["]](https://learn.microsoft.com/en-us/azure/bastion/bastion-nsg)
+- 开启 Bastion 需要额外的费用。也需要一个单独的名为 *AzureBastionSubnet* 的 subnet ，要大于 /26。[["]](https://learn.microsoft.com/en-us/azure/bastion/configuration-settings)
 
 
 
-## 5. 灾备
 
-只要是计算机，都可能出现硬件故障或者软件升级的需求，[["]](https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-availability/2-plan-for-maintenance-downtime) 同时也需要防备大地震等的灾难。
 
-根据可用性的高低，有三种 Availability options：
+## 5. 拓扑图
 
-**1. Availability zones**
+### 5.1. single region
 
-将应用程序和数据部署到多个独立的数据中心（区域）的能力。
+Azure VM 提供了三个项 Availability options，这三个选项都是在单一 region 下的：[["]](https://learn.microsoft.com/en-us/azure/virtual-machines/availability)
 
-优点: 可以存数据
+1. **Availability zones：**手动选择在不同 zone 里部署 VM。
 
-缺点: 无法路由平衡
+   - 最多可选三个 zone，每一个 zone 最多一台机器。
 
-**2. Virtual Machines Scale Sets**
+   <blockquote alt="warn"><p>并不是每一个 region 都可以选择该选项。</p></blockquote>
 
-用于部署和管理自动伸缩的虚拟机集合。
+2. **Virtual Machines Scale Sets（VMSS）**：在一个或多个 zone 内自动伸缩。
 
-优点: 路由平衡和自动扩展
+3. **Availability sets**：在单一 zone 内运行多台机器。
+   - **Update Domains(更新域)**：VM 的更新是按 Update Domains 的号码更新的。
+     - 默认数值为 5，最大值 20。如果一共有 20台机器，UD 数值为 5，则分 5 次执行更新。
+   - **Fault domains(故障域)**： 每一个 FD 共享一套电源、冷却和网络连接。当某个网络出问题，该 Fault domains 的所有 VM 都会受影响，但其他 Fault domains 的VM 未必受影响。
+     - 最大值：3。符合三地冗余（**Triple Redundant**）
 
-缺点: 不应该存储数据
 
-**3. Availability sets**
 
-**由于部分地区无法使用 Availability Zones，所以才出现 Availability sets。** 可部署多个 VM 到不同 Fault Domain。但一般而言，**都在同一个 AZ 里，无法跨 Region**。
+### 5.2. multi-region
 
-- **路由平衡**: 通过 Azure Load Balancer，可以将流量分发到各实例里。
+有两类方式可以确保 multi-region 运行虚拟机。
 
-- **Update Domains(更新域)**：VM 的更新是按 Update Domains 的号码更新的。
-  - 默认数值为 5，最大值 20。如果一共有 20台机器，数值为 5，则分 5 次执行更新。
-- **Fault domains(故障域)**： 每一个 FD 共享一套电源、冷却和网络连接。当某个网络出问题，该 Fault domains 的所有 VM 都会受影响，但其他 Fault domains 的VM 未必受影响。
-  - 最大值：3。符合三地冗余（**Triple Redundant\*）***
+- **路由平衡**: 通过 Azure Load Balancer、Azure Front Door，可以将流量分发到各实例里。
+  - **Azure Traffic Manager**：DNS-based traffic load balancer。只在异常时，请求才会发送到次要 reigon
+
+  - **Azure Load Balancer**：第四层的 LB。
+
+  - **Azure Front Door**：第七层应用层的 LB。
+
+- 灾难恢复 (Disaster Recovery)
+  - **Azure Site Recovery (ASR)**：让服务器和数据在次要 region 恢复。**适用于 on-premises 的机器。**
+
+
+
+
+### 5.3. 其他
+
+Proximity placement groups：用于将虚拟机放在同一个 data center。
 
 
 
@@ -118,7 +135,7 @@ Let's consider how to name the first development web server for your company tha
 
 
 
-## 6. 诊断
+## *. 诊断
 
 Azure Network Watcher 提供一系列工具诊断网络问题。
 
