@@ -41,7 +41,23 @@ ping db.internal.contoso.com
 
 
 
-## 3. Azure Private Link
+virtual hub 和 VAN 是什么？
+
+
+
+## 3. 网络限制
+
+Azure 提供了两种方式，**Azure Private Link** 和 **Service Endpoint** 让 compute 资源（如：虚拟机）更安全地访问 Azure service。默认 Azure service 都是公开在因特网，而上述两种技术可以让流量通过 Azure backbone network 发送到 Azure service。并且可以通过一系列手段将 Azure service 限制指定的 compute 资源可访问，而不是公开给所有资源。
+
+- Service Endpoint 是第一代技术。虚拟网络里的 compute 服务直接访问 Azure service，不会经过 internet。
+  - 通过 Service Endpoint policy 可以限制 compute 资源访问。默认 compute 资源可以访问所有 service，但如果应用了 policy，那么该虚拟网络的 compute 资源就只能访问这些 service。
+- Azure Private Link 是第二代技术。Azure Private Link 在虚拟网络里提供了一张 network interface（private endpoint），compute 服务通过这张 NIC 访问 Azure service。
+
+ 
+
+##  
+
+## Azure Private Link
 
 作用:  Azure Resource <=> virtual network
 
@@ -49,9 +65,11 @@ ping db.internal.contoso.com
 
 如上图所示，private endpoint 作为一个 network interface 放置于虚拟网络。虚拟机通过 Azure Private Link 安全地连接 private endpoint。[["]](https://learn.microsoft.com/en-us/azure/private-link/private-link-overview)[["]](https://learn.microsoft.com/en-us/azure/private-link/tutorial-private-endpoint-storage-portal?tabs=dynamic-ip)
 
+- 与 Service Endpoint 一样，private endpoint 的流量会发往 Microsoft backbone network
+
 ## 4. Service Endpoint
 
-和 Private Link 类似。虚拟机通过虚拟机网络内部的**专用 IP 地址**，直接访问**位于 Azure 骨干网**的 Azure service 。而 private link 是在虚拟网络里直接通信，所以更安全
+和 Private Link 类似。虚拟机通过虚拟机网络内部的**专用 IP 地址**，直接访问**位于 Azure backbone network** 的 Azure service 。而 private link 是在虚拟网络里直接通信，所以更安全
 
 
 
@@ -61,11 +79,17 @@ ping db.internal.contoso.com
 
 ### 5.1. Route
 
-Azure 有三种路由 **System Routes** **User-defined Routes(UDR)**、**Border Gateway Protocol (BGP)**。
+Azure 有三种路由 **System Routes**、**User-defined Routes(UDR)**、**Border Gateway Protocol (BGP)**。
+
+#### System Routes
 
 ![Diagram that shows two subnets that use system routes as described in the text.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240429004039.png)
 
 **System Routes**  是 Azure 自动生成的默认路由，不能创建、删除，但能通过 UDR 覆盖配置。虚拟网络、虚拟网络子网、因特网这三者之间的流量，都是由该路由进行指挥。[["]](https://learn.microsoft.com/en-us/training/modules/configure-network-routing-endpoints/2-review-system-routes)
+
+
+
+#### User-defined Routes
 
 ![Diagram that shows two subnets that use a UDR to access an NVA as described in the text.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240429004439.png)
 
@@ -73,13 +97,15 @@ Azure 有三种路由 **System Routes** **User-defined Routes(UDR)**、**Border 
 
 - next hop 可以是 Virtual network gateway、Virtual network、Internet、Network virtual appliance (NVA)
 
+
+
+#### Border Gateway Protocol(BGP)
+
 ![Diagram showing an example of using the Border Gateway Protocol.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240512004301.svg)
 
-Border Gateway Protocol (BGP) : 是类似 UDR，但适用于 internet或者 Azure ExpressRoute。[["]](https://learn.microsoft.com/en-us/training/modules/control-network-traffic-flow-with-routes/2-azure-virtual-network-route)
+Border Gateway Protocol(BGP) : 是类似 UDR，适用于 internet或者 Azure ExpressRoute。[["]](https://learn.microsoft.com/en-us/training/modules/control-network-traffic-flow-with-routes/2-azure-virtual-network-route)
 
-- **Azure ExpressRoute** 是一种服务，它允许客户通过一个私有的高速连接直接连接到 Microsoft Azure 和 Microsoft 365 服务，绕过公共互联网。
-
-​	适合于对网络性能和安全性有高要求的企业应用，网速差的环境或国家。
+- **Azure ExpressRoute** 是一种服务，它允许客户通过一个私有的高速连接直接连接到 Microsoft Azure 和 Microsoft 365 服务，绕过公共互联网。适合于对网络性能和安全性有高要求的企业应用，网速差的环境或国家。
 
 ### 5.2. Firewall
 
