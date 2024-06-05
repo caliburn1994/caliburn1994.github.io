@@ -92,9 +92,9 @@ Data plane 可以理解为操作数据，但更具体的是，操作资源 insta
 
 ## 3. Plane 与 Role
 
-<img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240516164730.png" alt="image-20240516164727107" width="400"  />
+Azure Role 也是按照 data plane 和 control plane 分离。内置角色的 Owner 是没有操作数据的权限（DataActions）。但是 Onwer 是可以看到 Storage 或 DB 里的数据。Owner 通过通过 key 来查看数据。所以我们在看 activity 的时候，会发现很多 list keys 的操作。
 
-Azure Role 也是按照 data plane 和 control plane 分离。内置角色的 Owner 默认是没有操作数据的权限（DataActions）。但是 Onwer 是可以看到 Storage 或 DB 里的数据。Owner 通过通过 key 来查看数据。所以我们在看 activity 的时候，会发现很多 list keys 的操作。
+<img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240516164730.png" alt="image-20240516164727107" width="400"  />
 
 <img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240516165829.png" alt="image-20240516165825645" width="400" />
 
@@ -103,4 +103,23 @@ Azure Role 也是按照 data plane 和 control plane 分离。内置角色的 Ow
 
 
 
+
+## 4. DSC
+
+在需要用脚本进行重复性的 infra/control plane 操作时候，大家往往会考虑到 Terraform。Terraform 是 desired state configuration (DSC) ，除此以外 Bicep。[["]](https://learn.microsoft.com/en-us/azure/developer/terraform/comparing-terraform-and-bicep?tabs=comparing-bicep-terraform-integration-features)
+
+1. Terraform：通用型的 desired state configuration (DSC)。
+   - 状态（state）存在 `terraform.tfstate` 或远程磁盘里。
+
+2. Bicep: Azure 专用的 desired state configuration (DSC)。
+
+   - 和 Azure 的结合性很高，可以通过 ARM template 反向编译[["]](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile?tabs=azure-cli)，因此编写速度和正确性高于 Terraform。
+
+   - 无 state 文件，是 incremental deployment。
+
+> [!CAUTION]
+> 使用 Terrafomr 或者 ARM 的 complete mode 都需要注意，可能存在误删操作。而 Bicep 是 incremental 的，不存在此担忧。[["]](https://github.com/Azure/bicep/discussions/9529)
+
+> [!TIP]
+> Always use the [what-if operation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-what-if) before deploying a template in complete mode. What-if shows you which resources will be created, deleted, or modified. Use what-if to avoid unintentionally deleting resources.[["]](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes)
 
