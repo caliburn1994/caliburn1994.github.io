@@ -5,6 +5,8 @@
 # Microsoft Entra ID Governance
 
 
+## 功能介绍
+
 
 - PIM：通过时间限定、上级批准、用时授权等方式，提高对敏感角色和权限的管理和控制。
 
