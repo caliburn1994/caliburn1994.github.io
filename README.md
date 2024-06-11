@@ -1,11 +1,20 @@
-I gave up to use Jekyll on 2022-07-21. Because
-
-- I don't wanna waste too much time on change the style of my site. 
-- I need to be accustomed to GitHub/GitLab markdown style.
-- This is more like a **Notebook** than a blog site.
 
 
-<iframe
-    src="https://iframe.embednpages.com/jXmM9CUL8UVxTanXOsKV"
-    style="width:100%; height:100%; min-height:500px; border:0; padding:0;"
-    />
+## Typora Markdown 参考手册
+
+- https://support.typora.io/What's-New-1.8/  关于如何使用 Tip caution。
+
+> [!NOTE]  
+> Highlights information that users should take into account, even when skimming.
+
+> [!TIP]
+> Optional information to help a user be more successful.
+
+> [!IMPORTANT]  
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]  
+> Critical content demanding immediate user attention due to potential risks.
+
+> [!CAUTION]
+> Negative potential consequences of an action.
