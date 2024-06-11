@@ -17,6 +17,13 @@
 
 ## 3. 工具一览
 
-- [Azure Custom Script Extension](https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-windows)：在 Windows Server 在启动之后，执行初始化脚本。
+Azure VM
 
-- Azure Automation State Configuration (AASC)：类似 [Terraform](https://en.wikipedia.org/wiki/Terraform_(software)) 的服务，但它不适用于其他云服务。例：升级操作系统，更改环境变量。从[文档](https://learn.microsoft.com/en-us/powershell/dsc/reference/resources/linux/lnxenvironmentresource)来看，这个工具只适合仍然使用虚拟机的传统架构，可做的事情不多。
+- [Azure Custom Script Extension](https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-windows)：在 Windows Server 在启动之后，执行初始化脚本。
+- cloud-init：Azure VM 初始化脚本。
+- Azure Automation State Configuration (AASC)：类似 [Terraform](https://en.wikipedia.org/wiki/Terraform_(software)) 的服务，是 desired state configuration (DSC)，但它不适用于其他云服务。例：升级操作系统，更改环境变量。从[文档](https://learn.microsoft.com/en-us/powershell/dsc/reference/resources/linux/lnxenvironmentresource)来看，这个工具只适合仍然使用虚拟机的传统架构，可做的事情不多。
+
+Azure resource
+
+- Terraform：通用型的 desired state configuration (DSC)。有状态。
+- Bicep: Azure 专用的 desired state configuration (DSC)。无状态，增量变更。和 Azure 的结合性很高，可以通过 ARM template 反向编译，因此编写速度和正确性高于 Terraform。
