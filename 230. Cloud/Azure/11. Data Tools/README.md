@@ -1,0 +1,144 @@
+
+
+
+
+
+
+## 1. 概览
+
+数据工具分为以下：
+
+1. 托管备份工具。如 CosmosDB 可选持续备份或者定期备份，但该工具只能在该服务里使用。
+
+   这种托管工具的持续备份通常十分成熟，可以恢复到某一个具体的时刻（point-to-restore），我们只需要在上面点击一下备份保存时间即可。
+
+2. 备份平台，如：**Azure Recovery Services Vault(RSV)** 和 **Azure Backup Vault(BV)**
+
+   是（1）的补足。在这里，备份文件是托管的，可统一设置备份策略。但只能定期备份。
+
+3. 传统备份
+
+   如我们使用 virtualbox 的时，可以手动制作 snapshot 作为备份。Azure snapshot 也是类似的存在。
+
+4. 综合性数据工作: 如 Azure Data Factory
+
+   用于补足上述场景无法实现的操作。例，CosmosDB 无法复制数据，有时候我们需要复制数据做测试，这时候就需要外部工具（data factory）了。
+
+   
+
+
+
+## 2. 备份平台
+
+而 Azure 提供了集中管理备份的服务 **Azure Recovery Services Vault(RSV)** 和 **Azure Backup Vault(BV)**。 这两个服务都是 **Azure Backup** 的一部分 [?待确认] ，可以在 **Backup Center** 创建以及管理。
+
+![image-20240505145421110](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240505145425.png)
+
+从上图可以看得出它们可以备份什么服务。**Backup Vault 是比较新的服务**。[["]](https://learn.microsoft.com/en-us/azure/backup/backup-vault-overview) 从官网很难看得出这两者的区别，只能死记硬背。值得一提的是，Azure 除了 SQL Server 以外，都有增量备份（Incremental backup）。[["]](https://learn.microsoft.com/en-us/azure/backup/backup-architecture)
+
+### 2.1. Recovery Services vault
+
+![Illustration that shows the Azure Backup job process for a virtual machine as described in the text.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240505185906.png)
+
+Recovery Services vault 是一个存储的仓库。而实际做备份和恢复操作的叫做  **Azure Backup Instant Restore capability。**
+
+地里位置
+- Azure Backup reports 使用到的 Storage 必须和 Recovery Services vault 同一个地理位置。
+
+- Log Analytics workspaces 没有位置限制，不需要和 Recovery Services vault 在同一地里位置
+
+
+
+
+
+## 3. 虚拟机的备份策略
+
+虚拟机的备份与恢复有若干种策略: 
+
+- **vm snapshot**: 通过 **Recovery Services vault** 将虚拟机（包含内存和磁盘）做成 snapshot。由于备份十分完整，所以适合生产环境。
+
+  在关机时，也可以进行备份。可选择单个文件进行数据恢复。 [["]](https://learn.microsoft.com/zh/training/modules/configure-virtual-machine-backups/2-protect-data)[["]](https://learn.microsoft.com/zh/azure/backup/backup-azure-vms-introduction)
+
+- **Azure managed disks - snapshot**: 对磁盘进行备份。由于不备份内存，所以效果差了一些，只适合开发和测试环境。[["]](https://learn.microsoft.com/zh/azure/backup/disk-backup-overview)[["]](https://learn.microsoft.com/zh/training/modules/configure-virtual-machine-backups/2-protect-data)
+
+  有两种方式实现这种备份：
+
+  - 备份平台 Backup vault 进行备份。增量备份，可定时执行。（现代的）
+  - Azure Snapshot 进行备份，手动备份，可全量可增量。[["]](https://learn.microsoft.com/zh/azure/backup/disk-backup-overview) （传统的）
+
+  <img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240505194409.png" alt="image-20240505194402405" width="400" style="float: left;" />
+
+- **Azure unmanaged disks**: 看 [[here]](https://learn.microsoft.com/en-us/azure/virtual-machines/page-blobs-backup-and-disaster-recovery)，和托管硬盘类似。
+
+- **Azure managed disks - image**: 通过制作 image 的形式做备份。
+
+- **Azure Site Recovery**:  多地冗余。故障了后，在非灾区运行。灾区恢复后，再让灾区的 VM 运行。详细策略：[[here]](https://learn.microsoft.com/zh-cn/azure/site-recovery/site-recovery-overview)
+
+  site recovery 是冗余策略，增加实时可靠性。不算备份策略。
+
+
+
+
+
+### 3.1.  Recovery Services vault for VM
+
+基于 **Recovery Services vault** 的备份有三种[一致性](https://learn.microsoft.com/zh/azure/backup/backup-azure-vms-introduction)，也可以说是三种状态。分别是 **agent-based application-consistent**、**agent-based file-consistent backup**、**an agentless crash-consistent backup**。前两者需要在虚拟机里安装 agent，而后者则无需 agent。[["]](https://learn.microsoft.com/zh/azure/backup/backup-azure-vms-introduction) agent(Virtual Machine Agent) 默认安装在大部分的 Azure VM 里。[["]](https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-backups/5-backup-virtual-machines)
+
+在虚拟机运行的时候，会使用前两者进行备份，一旦虚拟机关机，则备份的一致性将会转换成 Crash Consistent。
+
+![image-20240506010353293](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240506010356.png)
+
+- **agent-based application-consistent** 使用 agent 将内存、IO操作都捕捉起来，保证数据不会有任何丢失。
+  - **Windows VMs**: 可采用 [Microsoft Azure Recovery Services (MARS) agent](https://learn.microsoft.com/zh/azure/backup/backup-azure-vms-introduction) 回复文件到某一个磁盘上。
+  - **Linux VMs**: 参考 [[here]](https://learn.microsoft.com/zh/azure/backup/backup-azure-vms-introduction)
+
+- ...
+
+
+
+
+
+
+
+## 4. 数据工作
+
+![image-20240424132626001](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240424132628.png)
+
+数据同步有几种方式
+
+- [Data factory](Azure%20Data%20Factory): 综合性比较好，各种迁移工具都有。可重复执行。
+
+- AzCopy: 本地命令工具。**适用：复制 blob 和 file。**
+
+- Azure Import/Export: 数据装进硬盘里，发送到 Azure 的数据中心或者发过来发送到客户手中。**适用：复制 blob 和 file。**
+
+  
+
+### 4.1. Azure Import/Export
+
+Azure Import/Export:
+
+- Import: 数据装进硬盘里，发送到 Azure 的数据中心。(支持服务: Azure Blob storage、Azure Files) [[”]](https://learn.microsoft.com/en-us/azure/import-export/storage-import-export-service) 
+
+  所需配置文件：
+
+  - a dataset CSV file: 文件信息
+  - a driveset CSV file: 驱动信息
+- Export: 从数据中心将数据取出来，存到硬盘发送到客户手上。
+
+
+
+### 4.2. Azcopy
+
+**AzCopy** 是命令行工具，可从数据源下载到本地，或者从本地上传。 [[”]](https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10#download-azcopy)
+
+- Azure Blob Storage、Azure File
+- Azure Table 只支持旧版本 ll **[AzCopy version 7.3](https://aka.ms/downloadazcopynet)** ，新本不支持
+
+| 命令行      | 说明                               |
+| ----------- | ---------------------------------- |
+| azcopy make | Creates a container or file share. |
+
+**QA-1: AzCopy 连接 Azure Blob Storage、Azure File 通过什么方式验证？**
+
+A: Microsoft Entra ID 、a Shared Access Signature (SAS) token
