@@ -73,6 +73,8 @@ SAS 有三种 [["]](https://learn.microsoft.com/en-us/training/modules/configure
 
 Minimum storage duration: 这是一个与定价策略相关的概念，其意味着当你将数据移动到某个存储层级后，即使在这个最短期限之前删除或转移数据，你也需要为这段时间的存储付费。
 
+access tier 的前三种类型叫做 online tier，可以直接读写，而 archive tier 则不可以。archive 和压缩包类似，不能直接读写，rehydrate 到 online tier 需要 15 个小时。[["]](https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview#archive-access-tier)
+
 ### 3.2. 数据类型
 
 - **Block blobs**. A block blob consists of blocks of data that are assembled to make a blob. Most Blob Storage scenarios use block blobs. Block blobs are ideal for storing text and binary data in the cloud, like files, images, and videos.
