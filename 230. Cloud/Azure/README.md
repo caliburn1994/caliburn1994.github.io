@@ -18,7 +18,7 @@ Region >> Availability Zone >> Data Center >>  数据副本
 
 每一个 Region 至少一个 Availability Zone（AZ 可用区）。
 
-**例：日本有两个 Region。东日本和西日本。[[”\]](https://www.azurespeed.com/Information/AzureRegions)**
+**例：日本有两个 Region。东日本和西日本。[[”]](https://www.azurespeed.com/Information/AzureRegions)**
 
 <img src="https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240501150612.png" alt="image-20240501150609731" width="600" style="float: left;" />
 
