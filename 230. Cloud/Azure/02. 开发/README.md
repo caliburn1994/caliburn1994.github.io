@@ -10,7 +10,7 @@
 
 ![Diagram of the Resource Manager request model](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/resource-manager-016a1bac.png)
 
-Data plane 可以理解为操作数据，但更具体的是，操作资源 instance 暴露给我们的内容。Data plane 操作的 URL 就像这种 `https://myaccount.blob.core.windows.net/` 。[["]](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/control-plane-and-data-plane)[["]](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources)
+Data plane 可以理解为操作数据，但更具体的是，操作资源 instance 暴露给我们的内容。Data plane 操作的 URL 就像这种 https://myaccount.blob.core.windows.net/。[["]](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/control-plane-and-data-plane)[["]](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources)
 
 |           | Data plane | Control plane |
 | --------- | ---------- | ------------- |
@@ -42,6 +42,12 @@ Data plane 可以理解为操作数据，但更具体的是，操作资源 insta
   - CLI 更加用户友好，以及 CLI 一个命令就可以完成若干件事情，但 SDK 需要若干步才能完成。
 
 - 创建 Storage account 等十分稳定的资源，且创建操作只会执行一次，那么就可以在 portal 执行。
+
+> [!TIP]
+>
+> 例：CosmosDB API 的话，Java 和 NodeJS 优先过 Python。DB SDK 可以通过比较各个 SDK 是否支持 group by 等高级语句来进行判断。
+
+
 
 文章参考：
 
