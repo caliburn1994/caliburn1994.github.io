@@ -80,8 +80,9 @@ Azure VM 提供了三个项 Availability options，这三个选项都是在单�
 1. **Availability zones：**手动选择在不同 zone 里部署 VM。
 
    - 最多可选三个 zone，每一个 zone 最多一台机器。
+   > [!WARNING]
+   > 并不是每一个 region 都可以选择该选项。
 
-   <blockquote alt="warn"><p>并不是每一个 region 都可以选择该选项。</p></blockquote>
 
 2. **Virtual Machines Scale Sets（VMSS）**：在一个或多个 zone 内自动伸缩。
 

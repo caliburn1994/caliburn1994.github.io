@@ -25,3 +25,7 @@
 - [Azure Spring Apps](https://learn.microsoft.com/en-us/azure/spring-apps): A managed service designed and optimized for hosting Spring Boot apps.
 - [Azure Service Fabric](https://learn.microsoft.com/en-us/azure/service-fabric/service-fabric-overview): A distributed systems platform that can run in many environments, including Azure or on-premises.
 - [Azure Batch](https://learn.microsoft.com/en-us/azure/batch/batch-technical-overview): A managed service for running large-scale parallel and high-performance computing (HPC) applications.
+
+## 局限性
+
+- Azure Function 免费版本（consumption）不能使用虚拟网络，存在安全问题。

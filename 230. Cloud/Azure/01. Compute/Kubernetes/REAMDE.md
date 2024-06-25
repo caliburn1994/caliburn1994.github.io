@@ -14,6 +14,15 @@ Container Apps 有两种运行模式：
 
 [init containers](https://learn.microsoft.com/en-us/azure/container-apps/containers#init-containers)：在 primary app 运行之前进行初始化操作。如：下载数据和准备环境变量。[["]](https://learn.microsoft.com/en-us/azure/container-apps/containers)
 
+
+
+| Environment type  | Description                                                  | Supported plan types   |
+| :---------------- | :----------------------------------------------------------- | :--------------------- |
+| Workload profiles | 预设配置选项<br />Supports user defined routes (UDR) and egress through NAT Gateway. The minimum required subnet size is `/27`. | Consumption, Dedicated |
+| Consumption only  | Doesn't support user defined routes (UDR), egress through NAT Gateway, peering through a remote gateway, or other custom egress. The minimum required subnet size is `/23`. | Consumption            |
+
+
+
 ## 3. Azure Container Apps jobs
 
 jobs 用于运行一次性的任务。和 Function 的定位差不多。[["]](https://learn.microsoft.com/en-us/azure/container-apps/jobs?tabs=azure-cli)
@@ -24,9 +33,9 @@ jobs 用于运行一次性的任务。和 Function 的定位差不多。[["]](ht
 
 - **Job**：模版
 
-- **Job execution**：根据模版生成的实例。
+- **Job execution:** A job execution is a single run of a job that is triggered manually, on a schedule, or in response to an event.
 
-- **Job replica**：副本。2 个副本就是执行 2 个。
+- **Job replica:** A typical job execution runs one replica defined by the job's configuration. In advanced scenarios, a job execution can run multiple replicas.
 
 ### 3.2. 触发器
 
