@@ -2,7 +2,7 @@
 
 ## 1. 介绍
 
-Azure Function 是 FaaS 的 serverless 服务，对标 AWS Lambda，主张的是开发者只需要在意开发程序，而不需要在意操作系统、服务器等细节。Azure Function 的 plan，大概分为按使用量计费和租服务器两类。Function 主要是以 event- drive 为主，如：定期执行、HTTP 请求事件触发。
+Azure Function 是 FaaS 的 serverless 服务，对标 AWS Lambda，主张的是开发者只需要在意开发程序，而不需要在意操作系统、服务器等细节。Azure Function 的 plan，大概分为按使用量计费和租服务器两类。Function 主要是以 event- drive 为主，如: 定期执行、HTTP 请求事件触发。
 
 - Function 通常只能执行短时间任务。[["]](https://learn.microsoft.com/en-us/azure/azure-functions/performance-reliability)
 - 不适合后台任务。
