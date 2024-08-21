@@ -31,7 +31,7 @@ GitLab 有很多[预设变量](https://docs.gitlab.com/ee/ci/variables/predefine
 
 # 2. Keywords
 
-[关键词（keywords）](https://docs.gitlab.com/ee/ci/yaml/)分为三类，[Global(pipeline等级)](https://docs.gitlab.com/ee/ci/yaml/#global-keywords)、[Header](https://docs.gitlab.com/ee/ci/yaml/#header-keywords)、 [Job](https://docs.gitlab.com/ee/ci/yaml/#job-keywords):
+[关键词 (keywords) ](https://docs.gitlab.com/ee/ci/yaml/)分为三类，[Global(pipeline等级)](https://docs.gitlab.com/ee/ci/yaml/#global-keywords)、[Header](https://docs.gitlab.com/ee/ci/yaml/#header-keywords)、 [Job](https://docs.gitlab.com/ee/ci/yaml/#job-keywords):
 
 ## 2.1. Global Keywords
 
@@ -41,7 +41,7 @@ GitLab 有很多[预设变量](https://docs.gitlab.com/ee/ci/variables/predefine
 | include        | Import configuration from other YAML files.<br />外部 CI 文件依赖 |
 | stages         | The names and order of the pipeline stages.<br />阶段。让 jobs 按顺序执行 |
 | variables      | Define CI/CD variables for all job in the pipeline.<br />变量 |
-| workflow       | Control what types of pipeline run.<br />控制 pipeline 的运行行为。如：有新的 commit 推送，旧的 Jobs 会不会停止。在项目也可有相关设置。 |
+| workflow       | Control what types of pipeline run.<br />控制 pipeline 的运行行为。如: 有新的 commit 推送，旧的 Jobs 会不会停止。在项目也可有相关设置。 |
 
 ## 2.2. Header Keyword
 
@@ -80,8 +80,8 @@ GitLab 有很多[预设变量](https://docs.gitlab.com/ee/ci/variables/predefine
 | retry               | When and how many times a job can be auto-retried in case of a failure. |
 | rules               | List of conditions to evaluate and determine selected attributes of a job, and whether or not it’s created.<br />定期 job 被执行与否，以及相关内容 |
 | script              | Shell script that is executed by a runner.                   |
-| secrets             | The CI/CD secrets the job needs.<br />可在 CI 里更好地使用 Azure Key vault 等敏感信息存储器。（可能要premium或以上才能使用） |
-| services            | Use Docker services images.<br />设置服务。如：为测试而创建临时数据库，临时数据库就是服务 |
+| secrets             | The CI/CD secrets the job needs.<br />可在 CI 里更好地使用 Azure Key vault 等敏感信息存储器。 (可能要premium或以上才能使用)  |
+| services            | Use Docker services images.<br />设置服务。如: 为测试而创建临时数据库，临时数据库就是服务 |
 | stage               | Defines a job stage.                                         |
 | tags                | List of tags that are used to select a runner.               |
 | timeout             | Define a custom job-level timeout that takes precedence over the project-wide setting. |
@@ -89,7 +89,7 @@ GitLab 有很多[预设变量](https://docs.gitlab.com/ee/ci/variables/predefine
 | variables           | Define job variables on a job level.                         |
 | when                | When to run job.                                             |
 
-`include:component`: 可以让我们使用第三方的 CICD 组件。减少重复造轮子，例：
+`include:component`: 可以让我们使用第三方的 CICD 组件。减少重复造轮子，例: 
 
 - [dependabot-standalone](https://gitlab.com/dependabot-gitlab/dependabot-standalone)
 
