@@ -1,8 +1,8 @@
 ## 1. network policy
 
-通过设置 network policy，可以限制 pod 之间的网络流量。如：只允许前端的流量发往后段。[["]](https://learn.microsoft.com/en-us/azure/aks/use-network-policies)
+通过设置 network policy，可以限制 pod 之间的网络流量。如: 只允许前端的流量发往后段。[["]](https://learn.microsoft.com/en-us/azure/aks/use-network-policies)
 
-azure 为 network policy 的实现提供了三种引擎：
+azure 为 network policy 的实现提供了三种引擎: 
 
 - *Cilium* for AKS clusters that use [Azure CNI Powered by Cilium](https://learn.microsoft.com/en-us/azure/aks/azure-cni-powered-by-cilium).
 - *Azure Network Policy Manager*.

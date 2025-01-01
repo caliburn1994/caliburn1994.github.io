@@ -91,7 +91,7 @@ Use the Identifier for installation:
 
 当我们谈及 Java 等编程语言时，我们首先会想到 <u>它可能是一个开源的编程语言</u>，那么，它为什么会有 vendor呢？
 
-我们通过命令行，获得以下的环境变量：
+我们通过命令行，获得以下的环境变量: 
 
 ```bash
 $ java -XshowSettings:properties -version
@@ -151,7 +151,7 @@ OpenJDK 64-Bit Server VM Corretto-15.0.1.9.1 (build 15.0.1+9, mixed mode, sharin
 
 ```
 
-其中需要注意的是：
+其中需要注意的是: 
 
 ```properties
 java.specification.vendor=Oracle Corporation
@@ -170,7 +170,7 @@ OpenJDK Runtime Environment Corretto-15.0.1.9.1 (build 15.0.1+9)
 OpenJDK 64-Bit Server VM Corretto-15.0.1.9.1 (build 15.0.1+9, mixed mode, sharing)
 ```
 
-这里有三个内容：
+这里有三个内容: 
 
 - `java.vendor` : Java运行时的 vendor。<sup>[来源](https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html)</sup>
 - `java.vm`: Java VM(虚拟机)的vendor。此处，可能读者会在想，Java VM 的 implementation 不应该是 [Oracle Corporation](https://en.wikipedia.org/wiki/Oracle_Corporation)  提供的 [HotSpot](https://en.wikipedia.org/wiki/HotSpot_(virtual_machine)) 吗？由于 Amazon 的环境变量中没有记载 HotSpot 等信息，所以我们无法准确地判定，但是我们通过
@@ -186,27 +186,27 @@ OpenJDK 64-Bit Server VM Corretto-15.0.1.9.1 (build 15.0.1+9, mixed mode, sharin
 
 [为何应该升级 Java？](https://www.java.com/zh-CN/download/help/why_upgrade.html)  一文中介绍了我们为什么要升级到 Java 8。由于 Java 8之前、8、11、17都是 Long Term Support(LTS) 版本，因此，我们可以同理得到结论，应该使用最新的LST版本的 Java。也就是说，在17出来前，我们应该选择11，而不是8。
 
-截止2021年6月13日未知，维基百科上的 Java version history 如下：
+截止2021年6月13日未知，维基百科上的 Java version history 如下: 
 
 ![image-20210613031740408](/assets/blog_res/image-20210613031740408.png)
 
-另一个问题是，究竟使用长期版本，还是最新的短期版本呢？如：11 vs 12~16
+另一个问题是，究竟使用长期版本，还是最新的短期版本呢？如: 11 vs 12~16
 
-支持使用 LST 的一方认为：
+支持使用 LST 的一方认为: 
 
-- 由于有团队维护LST版本的 Java，所以当前 Java 出现（安全）问题，那么只要补丁即可。而 <u>非LST版本</u>的 Java 出现问题后，当 support 时间已经截止，那么只能等待下一个版本的 Java，这个等待时间是相对比较长。
-  - 【思考】：笔者曾呆过的一个团队，当时使用的是 Java 13，听说使用的理由是为了展示给客户”自己的研发部门有能力“。而在开发中遇到奇怪的问题，最终在GitHub上提问并确认是 Java 13 的问题，没有认为解决方法，只能等待下次更新。
+- 由于有团队维护LST版本的 Java，所以当前 Java 出现 (安全) 问题，那么只要补丁即可。而 <u>非LST版本</u>的 Java 出现问题后，当 support 时间已经截止，那么只能等待下一个版本的 Java，这个等待时间是相对比较长。
+  - 【思考】: 笔者曾呆过的一个团队，当时使用的是 Java 13，听说使用的理由是为了展示给客户”自己的研发部门有能力“。而在开发中遇到奇怪的问题，最终在GitHub上提问并确认是 Java 13 的问题，没有认为解决方法，只能等待下次更新。
 
-支持使用最新版本的一方认为：
+支持使用最新版本的一方认为: 
 
 - 即便当前的 Java 出现问题，可以使用 compile命令使用 LST 版本，所以没有那种担忧。
-  - 【思考】：那么对应的依赖包怎么办？ Spring 中有部分依赖包是依赖最新版本的 Java，并不是向下兼容，如果回退版本，很有可能会有一些问题。
+  - 【思考】: 那么对应的依赖包怎么办？ Spring 中有部分依赖包是依赖最新版本的 Java，并不是向下兼容，如果回退版本，很有可能会有一些问题。
 - 性能和阅读性会改善
-  - 【思考】：中小型的代码，往往瓶颈是数据库。
+  - 【思考】: 中小型的代码，往往瓶颈是数据库。
 - 可以使用最新的依赖包。
   - 如果依赖包是使用最新版本的 Java，我们如果想用最新版本的功能，那么我们就要升级 Java。
 
-综上：
+综上: 
 
 - 如果**不在意最新版本的功能**以及**性能**，那么可以选择已经发行一两年的 LST。
 - 如果是为了**学习**，可以使用最新版本的 Java，通过学习他们的思路从而提高认知，即便之后要使用 LST，也可以跟着造轮子。

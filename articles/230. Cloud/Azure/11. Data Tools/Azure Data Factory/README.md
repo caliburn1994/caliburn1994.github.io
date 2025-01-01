@@ -6,13 +6,13 @@ Azure data factory (ADF) 是 可横向扩张的 (scale out) 无服务的 (server
 
 主要包含以下三个方面: 
 
-- 数据集成 (data integration) ：与不同数据源结合的能力。[["]](https://en.wikipedia.org/wiki/Data_integration)
-- 数据转换 (data transformation) ：数据从一种格式转换成另一种格式的能力。[["]](https://en.wikipedia.org/wiki/Data_transformation)
+- 数据集成 (data integration) : 与不同数据源结合的能力。[["]](https://en.wikipedia.org/wiki/Data_integration)
+- 数据转换 (data transformation) : 数据从一种格式转换成另一种格式的能力。[["]](https://en.wikipedia.org/wiki/Data_transformation)
 - SSIS (SQL Server Integration Services) : 复制或下载文件，加载数据仓库，清除和挖掘数据以及管理 SQL Server 对象和数据。 [["]](https://docs.microsoft.com/zh-cn/sql/integration-services/sql-server-integration-services?view=sql-server-ver15)
 
 ## 2. 功能介绍
 
-一般：
+一般: 
 
 - **Execute Pipeline**: 执行管道。通过 monitor 可以看到 pipeline 的输入参数、重新执行 pipeline。在定义 pipeline 时，需要注意这点。
 - 数组(上限 100,000) [["]](https://learn.microsoft.com/en-us/azure/data-factory/control-flow-for-each-activity)
@@ -28,10 +28,10 @@ Azure data factory (ADF) 是 可横向扩张的 (scale out) 无服务的 (server
 - Web: http 操作
 - webhook
 
-数据操作：
+数据操作: 
 
-- Copy Acitivity：数据复制。
-- Data Flow：数据复制和操作。比 Copy Activity 复杂。
+- Copy Acitivity: 数据复制。
+- Data Flow: 数据复制和操作。比 Copy Activity 复杂。
 
 
 
@@ -39,15 +39,15 @@ Azure data factory (ADF) 是 可横向扩张的 (scale out) 无服务的 (server
 
 ### 2.1. Copy Acitivity
 
-CosmosDB：
+CosmosDB: 
 
-- 建议使用 DB=>Storage=>DB 进行数据迁移（DB=>DB 时常会报错）。
+- 建议使用 DB=>Storage=>DB 进行数据迁移 (DB=>DB 时常会报错) 。
 - batch size=1，`Request Size = Single Document Size * Write Batch Size` [["]](https://learn.microsoft.com/en-us/answers/questions/69129/copy-from-cosmosdb-to-cosmosdb-error-34-request-si)，batch size 设置过高，可能会 CosmosDB request 2M 上限错误。
-- CosmosDB 单条数据大小上限为 2M，Copy Acitivity 的上限为 1.7M 左右。（不知道原因）
+- CosmosDB 单条数据大小上限为 2M，Copy Acitivity 的上限为 1.7M 左右。 (不知道原因) 
 - Data Flow 可以插入 2M 的数据，但会报奇怪的错误。
 - 并发量设置越低，使用的吞吐量会越低。[["]](https://learn.microsoft.com/en-us/azure/data-factory/copy-activity-performance-features#parallel-copy)
-- DIU：计算力[["]](https://learn.microsoft.com/en-us/azure/data-factory/copy-activity-performance-features#data-integration-units)
-- 性能调优：[Performance tuning steps](https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-performance#performance-tuning-steps)
+- DIU: 计算力[["]](https://learn.microsoft.com/en-us/azure/data-factory/copy-activity-performance-features#data-integration-units)
+- 性能调优: [Performance tuning steps](https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-performance#performance-tuning-steps)
 - [数据映射](https://learn.microsoft.com/en-us/azure/data-factory/copy-activity-schema-and-type-mapping) 包含 flatten transformation 等操作。
   - flatten 可以将一条数据内部 data List，扁平成多条数据。
 - `validateDataConsistency` 启动后会校验一致性。[["]](https://learn.microsoft.com/en-us/azure/data-factory/copy-activity-data-consistency)
@@ -61,7 +61,7 @@ CosmosDB：
 Data flow 用于数据转换。
 
 1. Data flow 一般用于对数据库、大文件进行转换，HTTP协议 一般会限制每分钟访问的速率。
-2. Data flow 不是用于备份数据，从 Data flow 中导入后，数据可能会有损失（Boolean=>String，integer=>String）
+2. Data flow 不是用于备份数据，从 Data flow 中导入后，数据可能会有损失 (Boolean=>String，integer=>String) 
 
 [官网](https://docs.microsoft.com/en-us/azure/data-factory/data-flow-transformation-overview)提供了以下工具进行数据转换。工具以下概念相关
 
@@ -101,7 +101,7 @@ Data flow 用于数据转换。
 
 ## 3. 监控
 
-方式包含：
+方式包含: 
 
 - alert 通知
 - 查看配置所配置日志路径

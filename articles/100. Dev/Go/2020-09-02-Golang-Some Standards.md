@@ -16,10 +16,10 @@ typora-root-url: ..
 
 ### naming
 
-这里举一些Go语言命名习惯的例子：
+这里举一些Go语言命名习惯的例子: 
 
-1. 名字应该是 MixedCase （驼峰式），如：`ServeHTTP` 、`IDProcessor`
-2. Local variable、Function parameter 的名字尽可能地简写，名字过长将会分散注意力，特别是可以从上下文推测出来地变量。如：
+1. 名字应该是 MixedCase  (驼峰式) ，如: `ServeHTTP` 、`IDProcessor`
+2. Local variable、Function parameter 的名字尽可能地简写，名字过长将会分散注意力，特别是可以从上下文推测出来地变量。如: 
    - i => index
    - r => reader
    - b => buffer
@@ -60,8 +60,8 @@ func RuneCount(b []byte) int {
 }
 ```
 
-3. 由于 Return value 的名字与文档相关，并且调用方调用时将会查看到该名字，所以尽量详细清晰。（不应该省略，以至于难以理解）
-4. Receiver 和（2）类似，另外需要注意，Receiver 的名字在所有地方都应该一致，方便记忆。
+3. 由于 Return value 的名字与文档相关，并且调用方调用时将会查看到该名字，所以尽量详细清晰。 (不应该省略，以至于难以理解) 
+4. Receiver 和 (2) 类似，另外需要注意，Receiver 的名字在所有地方都应该一致，方便记忆。
 
 ```go
 func (b *Buffer) Read(p []byte) (n int, err error)、
@@ -73,7 +73,7 @@ func (r Rectangle) Size() Point
    - bytes.Buffer =>  bytes.ByteBuffer
    - strings.Reader => strings.StringReader
 
-6. Interface Type。当 Interface 的 method 只有一个时，可以这样命名：
+6. Interface Type。当 Interface 的 method 只有一个时，可以这样命名: 
 
 ```go
 // Read + er
@@ -86,7 +86,7 @@ type Execer interface {
 }
 ```
 
-7. Error type。应该这样：
+7. Error type。应该这样: 
 
 ```go
 type ExitError struct {
@@ -95,7 +95,7 @@ type ExitError struct {
 var ErrFormat = errors.New("image: unknown format")
 ```
 
-8. package name。包名尽可能不要取暧昧的，如：`util`, `common`。当`go.mod`的 module path 设置为 `github.com/golang/oauth2` 时，那么根目录下的go文件的 package 默认会为 `oauth2`，命名 package name 时请注意这一点。
+8. package name。包名尽可能不要取暧昧的，如: `util`, `common`。当`go.mod`的 module path 设置为 `github.com/golang/oauth2` 时，那么根目录下的go文件的 package 默认会为 `oauth2`，命名 package name 时请注意这一点。
 
 参考来源
 
@@ -125,7 +125,7 @@ class MyInterface {
 }
 ```
 
-而在调用这些内容时，就会像这样调用：
+而在调用这些内容时，就会像这样调用: 
 
 ```java
 import mysite.com.name.MyClass;
@@ -134,7 +134,7 @@ import mysite.com.name.MyInterface;
 
 #### Go
 
-而在Go语言中，源代码存储在 repository 中。而一个 repository 中有若干个 module。而 module 是拥有名字的，如：`github.com/facebook/ent`，该名字通常是这样组成的 `url/项目名`。module 的名字存储在 `go.mod` 中。
+而在Go语言中，源代码存储在 repository 中。而一个 repository 中有若干个 module。而 module 是拥有名字的，如: `github.com/facebook/ent`，该名字通常是这样组成的 `url/项目名`。module 的名字存储在 `go.mod` 中。
 
 ```
 root
@@ -146,7 +146,7 @@ root
 	 	   |--- code2.go
 ```
 
-`code1.go `和 `code2.go` 的 package名 分别为：
+`code1.go `和 `code2.go` 的 package名 分别为: 
 
 ```go
 //code1.go
@@ -160,5 +160,5 @@ package dir2
 
 ### readme
 
-Go语言的 package 中一般会放置 markdown 文件方便参考，而 Java 的这种行为相对少，不过也有对应的方案 `package-info.java`（[示例](https://github.com/spring-projects/spring-framework/tree/master/spring-orm/src/main/java/org/springframework/orm/jpa)）。
+Go语言的 package 中一般会放置 markdown 文件方便参考，而 Java 的这种行为相对少，不过也有对应的方案 `package-info.java` ([示例](https://github.com/spring-projects/spring-framework/tree/master/spring-orm/src/main/java/org/springframework/orm/jpa)) 。
 

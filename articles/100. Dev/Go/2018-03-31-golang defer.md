@@ -19,7 +19,7 @@ defer 语句用于推迟一个函数的执行，直到外围的函数开始返�
 
 ## 解决问题
 
-好处：
+好处: 
 
 - 延迟执行代码
 - 代码集中，增加可维护性、可读性。
@@ -46,4 +46,4 @@ func CopyFile(dstName, srcName string) (written int64, err error) {
 }
 ```
 
-参考：https://blog.golang.org/defer-panic-and-recover
+参考: https://blog.golang.org/defer-panic-and-recover

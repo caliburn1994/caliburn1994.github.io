@@ -30,7 +30,7 @@ logopen filename 0 0
 
 我们常常会使用curl等操作，进行模拟一些真实环境的模拟操作。也可以通过这种方式保留操作的痕迹，用作测试的证据。
 
-几个常用变量：
+几个常用变量: 
 
 - [getdate](https://ttssh2.osdn.jp/manual/4/en/macro/command/getdate.html) 日期  [gettime](https://ttssh2.osdn.jp/manual/4/en/macro/command/gettime.html) 时间
 - [getttdir](https://ttssh2.osdn.jp/manual/4/en/macro/command/getttdir.html) [changedir](https://ttssh2.osdn.jp/manual/4/en/macro/command/changedir.html) 地址 

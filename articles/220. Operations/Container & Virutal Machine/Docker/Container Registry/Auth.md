@@ -19,10 +19,10 @@ Last Modified: 2022-09-18
    - `$HOME/.docker/config.json` on Linux 
    - `%USERPROFILE%/.docker/config.json` on Windows
 
-3. 存储凭证的方式：
+3. 存储凭证的方式: 
 
-   - keychain：更安全
-   - Base64：将用户名和密码通过 Base64 编码，直接存储到 config.json 文件里
+   - keychain: 更安全
+   - Base64: 将用户名和密码通过 Base64 编码，直接存储到 config.json 文件里
 
    	```json
    $ cat ~/.docker/config.json
@@ -42,7 +42,7 @@ Last Modified: 2022-09-18
 
 通过配置一个名为 DOCKER_AUTH_CONFIG 的 [CI/CD variable](https://docs.gitlab.com/ee/ci/variables/index.html) ，就可以直接在 GitLab 里使用私有仓库了。[^2]
 
-DOCKER_AUTH_CONFIG 里需要填写 base64编码的登录凭证，根式如下：
+DOCKER_AUTH_CONFIG 里需要填写 base64编码的登录凭证，根式如下: 
 
 ```json
 {
@@ -71,7 +71,7 @@ stage1:
 
 ### C2. GitHub Action
 
-GitHub Action 的做法比较直观：[^3]
+GitHub Action 的做法比较直观: [^3]
 
 ```
 jobs:

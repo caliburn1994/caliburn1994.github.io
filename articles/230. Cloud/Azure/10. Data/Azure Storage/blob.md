@@ -2,13 +2,13 @@
 
 ![Diagram that shows the Azure Blob Storage architecture.](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240424112517.png)
 
-Blob Storage 有三个层次：account、container、blob。container 是数据存储的基本单位，可比作 windows 里的数据盘（如：D 盘）。blob 则是具体的文件。
+Blob Storage 有三个层次: account、container、blob。container 是数据存储的基本单位，可比作 windows 里的数据盘 (如: D 盘) 。blob 则是具体的文件。
 
 
 
 ## 2. 数据访问
 
-container 有三种 Anoymous access level（匿名访问等级），该设置会作为默认设置应用于 container 下的每一个 blob。访问等级如下：
+container 有三种 Anoymous access level (匿名访问等级) ，该设置会作为默认设置应用于 container 下的每一个 blob。访问等级如下: 
 
 - **Private**: 不公开
 - **Blob**: Blob 等级公开
@@ -31,7 +31,7 @@ container 有三种 Anoymous access level（匿名访问等级），该设置会
 - Microsoft Entra ID 身份访问
 - storage account key 访问
 - SAS
-- 匿名访问：
+- 匿名访问: 
 
 
 
@@ -87,7 +87,7 @@ access tier 的前三种类型叫做 online tier，可以直接读写，而 arch
 
 通过设置 lifecycle management policy ，可以将根据条件 (conditions) 不需要的 blob 定期删除，或者压缩到比较低的 access tier 用于节省费用。
 
-conditions 有三种设置：[["]](https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-policy-configure?tabs=azure-portal)
+conditions 有三种设置: [["]](https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-policy-configure?tabs=azure-portal)
 - The number of days since the blob was created.
 - The number of days since the blob was last modified.
 - The number of days since the blob was last accessed. To use this condition in an action, you should first [optionally enable last access time tracking](https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-policy-configure?tabs=azure-portal#optionally-enable-access-time-tracking).
@@ -95,21 +95,21 @@ conditions 有三种设置：[["]](https://learn.microsoft.com/en-us/azure/stora
 
 ## 4. 数据保护
 
-数据更改，参考：[here](https://www.notion.so/be01d04342ab407aa7cac874d799cc4c?pvs=21)
+数据更改，参考: [here](https://www.notion.so/be01d04342ab407aa7cac874d799cc4c?pvs=21)
 
 数据保护有以下场景:
 
-- 防止误操作: 可以恢复变更和撤销删除。 比如：程序出现 bug，将所有临时文件删除。如果有回滚功能就可以减少损害。
+- 防止误操作: 可以恢复变更和撤销删除。 比如: 程序出现 bug，将所有临时文件删除。如果有回滚功能就可以减少损害。
 - 确保完整性: 数据不可删除、不可变更。 就像 SSL 通信，传输的数据不可被篡改。有些文件也是要确保数据不可篡改。日志文件等文件一旦能被篡改，就不能确保数据的正确性，也就不能具有法律作用。
 - 法律法规: 日志、法律文件需要禁止篡改，在一些场景，这些文件具有法律意义。
 
 措施:
 
-- **immutable storage（**防止篡改与删除）[["]](https://learn.microsoft.com/zh-cn/azure/storage/blobs/immutable-storage-overview)
+- **immutable storage (**防止篡改与删除) [["]](https://learn.microsoft.com/zh-cn/azure/storage/blobs/immutable-storage-overview)
 
-  - 定期：**[Time-based retention policies](https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-time-based-retention-policy-overview)** 在一定时间内，不允许删除、篡改
+  - 定期: **[Time-based retention policies](https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-time-based-retention-policy-overview)** 在一定时间内，不允许删除、篡改
 
-  - 手动：**[Legal holds](https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-legal-hold-overview)** 
+  - 手动: **[Legal holds](https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-legal-hold-overview)** 
 
     在解除 Legal hold 之前，不允许删除、篡改
 
@@ -141,6 +141,6 @@ conditions 有三种设置：[["]](https://learn.microsoft.com/en-us/azure/stora
 
 只能从 A 复制到 B Storage Account，不能在同一个 account 内部复制。
 
-- 📖考点：源 account 需启动 [Change feed](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-change-feed) 和 [Blob versioning](https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview)。目标 account 需要开启 [Blob versioning](https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview)。
+- 📖考点: 源 account 需启动 [Change feed](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-change-feed) 和 [Blob versioning](https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview)。目标 account 需要开启 [Blob versioning](https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview)。
 
 - snapshots 不能被复制。

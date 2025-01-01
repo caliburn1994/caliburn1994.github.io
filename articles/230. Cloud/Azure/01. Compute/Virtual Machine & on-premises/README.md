@@ -75,22 +75,22 @@ Let's consider how to name the first development web server for your company tha
 
 ### 5.1. single region
 
-Azure VM 提供了三个项 Availability options，这三个选项都是在单一 region 下的：[["]](https://learn.microsoft.com/en-us/azure/virtual-machines/availability)
+Azure VM 提供了三个项 Availability options，这三个选项都是在单一 region 下的: [["]](https://learn.microsoft.com/en-us/azure/virtual-machines/availability)
 
-1. **Availability zones：**手动选择在不同 zone 里部署 VM。
+1. **Availability zones: **手动选择在不同 zone 里部署 VM。
 
    - 最多可选三个 zone，每一个 zone 最多一台机器。
    > [!WARNING]
    > 并不是每一个 region 都可以选择该选项。
 
 
-2. **Virtual Machines Scale Sets（VMSS）**：在一个或多个 zone 内自动伸缩。
+2. **Virtual Machines Scale Sets (VMSS) **: 在一个或多个 zone 内自动伸缩。
 
-3. **Availability sets**：在单一 zone 内运行多台机器。
-   - **Update Domains(更新域)**：VM 的更新是按 Update Domains 的号码更新的。
+3. **Availability sets**: 在单一 zone 内运行多台机器。
+   - **Update Domains(更新域)**: VM 的更新是按 Update Domains 的号码更新的。
      - 默认数值为 5，最大值 20。如果一共有 20台机器，UD 数值为 5，则分 5 次执行更新。
-   - **Fault domains(故障域)**： 每一个 FD 共享一套电源、冷却和网络连接。当某个网络出问题，该 Fault domains 的所有 VM 都会受影响，但其他 Fault domains 的VM 未必受影响。
-     - 最大值：3。符合三地冗余（**Triple Redundant**）
+   - **Fault domains(故障域)**:  每一个 FD 共享一套电源、冷却和网络连接。当某个网络出问题，该 Fault domains 的所有 VM 都会受影响，但其他 Fault domains 的VM 未必受影响。
+     - 最大值: 3。符合三地冗余 (**Triple Redundant**) 
 
 
 
@@ -99,21 +99,21 @@ Azure VM 提供了三个项 Availability options，这三个选项都是在单�
 有两类方式可以确保 multi-region 运行虚拟机。
 
 - **路由平衡**: 通过 Azure Load Balancer、Azure Front Door，可以将流量分发到各实例里。
-  - **Azure Traffic Manager**：DNS-based traffic load balancer。只在异常时，请求才会发送到次要 reigon
+  - **Azure Traffic Manager**: DNS-based traffic load balancer。只在异常时，请求才会发送到次要 reigon
 
-  - **Azure Load Balancer**：第四层的 LB。
+  - **Azure Load Balancer**: 第四层的 LB。
 
-  - **Azure Front Door**：第七层应用层的 LB。
+  - **Azure Front Door**: 第七层应用层的 LB。
 
 - 灾难恢复 (Disaster Recovery)
-  - **Azure Site Recovery (ASR)**：让服务器和数据在次要 region 恢复。**适用于 on-premises 的机器。**
+  - **Azure Site Recovery (ASR)**: 让服务器和数据在次要 region 恢复。**适用于 on-premises 的机器。**
 
 
 
 
 ### 5.3. 其他
 
-Proximity placement groups：用于将虚拟机放在同一个 data center。
+Proximity placement groups: 用于将虚拟机放在同一个 data center。
 
 
 
@@ -125,11 +125,11 @@ Proximity placement groups：用于将虚拟机放在同一个 data center。
 
 我们可以在导航栏的 **"Settings >> Extensions + applications"**，添加想要的插件。
 
-常见的插件：
+常见的插件: 
 
-- Datadog Agent：用于上传日志到 Datadog 的 agent。
+- Datadog Agent: 用于上传日志到 Datadog 的 agent。
 
-- Azure Automanage Machine Configuration extension：添加以下配置到虚拟机里
+- Azure Automanage Machine Configuration extension: 添加以下配置到虚拟机里
   - Operating system settings
   - Application configuration or presence
   - Environment settings

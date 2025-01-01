@@ -1,19 +1,19 @@
 
 # 1. Compute Services
 
-参考：**[Choose an Azure compute service](https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/compute-decision-tree)**
+参考: **[Choose an Azure compute service](https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/compute-decision-tree)**
 
 
 
 ![Untitled](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240430213426.png)
 
-名词解释：
+名词解释: 
 
-- COTS app：COTS 是 Commercial Off-The-Shelf 的缩写，意思是商用现成产品。
+- COTS app: COTS 是 Commercial Off-The-Shelf 的缩写，意思是商用现成产品。
 
   在计算机科学领域，COTS 指的是可以直接购买和使用的软件或硬件产品，而不需要自行开发。COTS 产品通常是经过测试和验证的，可以快速部署和集成到现有系统中，有助于节省时间和成本。
 
-类型：
+类型: 
 
 - [Azure Virtual Machines](https://learn.microsoft.com/en-us/azure/virtual-machines): A service where you deploy and manage virtual machines (VMs) inside an Azure virtual network.
 - [Azure App Service](https://learn.microsoft.com/en-us/azure/app-service): A managed service for hosting web apps, mobile app back ends, RESTful APIs, or automated business processes.
@@ -28,4 +28,4 @@
 
 ## 局限性
 
-- Azure Function 免费版本（consumption）不能使用虚拟网络，存在安全问题。
+- Azure Function 免费版本 (consumption) 不能使用虚拟网络，存在安全问题。

@@ -6,7 +6,7 @@ Last Modified: 2022-11-12
 
 ## 简介 Introduction
 
-非对称加密 (asymmetric cryptography)，又叫做 公钥加密 (Public-key cryptography)。该加密有两个密钥：公钥、私钥。
+非对称加密 (asymmetric cryptography)，又叫做 公钥加密 (Public-key cryptography)。该加密有两个密钥: 公钥、私钥。
 
 通常而言，发送者使用公钥加密，接收者使用私钥进行解密。
 
@@ -46,7 +46,7 @@ BASE64 ENCODED DATA
 
 
 
-`openssl rsa` 命令行文档里是这样描述的：
+`openssl rsa` 命令行文档里是这样描述的: 
 
 > The **rsa** command processes RSA keys. They can be converted between various forms and their components printed out. **Note** this command uses the traditional SSLeay compatible format for private key encryption: newer applications should use the more secure PKCS#8 format using the **pkcs8** utility.
 
@@ -56,7 +56,7 @@ BASE64 ENCODED DATA
 
 ## 数据结构和存储文件 Data Structure and File
 
-参考： 4.store keys/file
+参考:  4.store keys/file
 
 
 

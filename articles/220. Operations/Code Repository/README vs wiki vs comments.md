@@ -2,7 +2,7 @@
 Date: 2022-08-11
 ---
 
-在使用 Github 等工具时候，我们都会有一个疑惑： <u>wiki</u> 和 <u>README.md等内置文档</u> 之间有什么区别？
+在使用 Github 等工具时候，我们都会有一个疑惑:  <u>wiki</u> 和 <u>README.md等内置文档</u> 之间有什么区别？
 
 ## Wiki
 
@@ -14,7 +14,7 @@ Date: 2022-08-11
 
 [Github 文档](https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis)介绍到，README.md 只是用来记载简单项目的简单情况。[^1] 
 
-典型的 README.md 会包含以下信息：[^2]
+典型的 README.md 会包含以下信息: [^2]
 
 - What the project does
 - Why the project is useful
@@ -28,7 +28,7 @@ Date: 2022-08-11
 
 ## 注释 Comments
 
-有时候大家会在代码的注释位置进行文档记载，但这种文档只是针对 <u>当前的代码</u>。这种文档常常是：
+有时候大家会在代码的注释位置进行文档记载，但这种文档只是针对 <u>当前的代码</u>。这种文档常常是: 
 
 - 介绍当前代码文件是如何使用
 - 一些 sample

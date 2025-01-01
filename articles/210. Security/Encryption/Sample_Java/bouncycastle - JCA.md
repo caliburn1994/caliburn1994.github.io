@@ -14,13 +14,13 @@ series: "Java密码学"
 
 <br>
 
-## JCA （Java Cryptography Architecture）
+## JCA  (Java Cryptography Architecture) 
 
-**JCA开头的package的作用：将标准(java.security)和具体实现(BC的具体代码)进行转换。**
+**JCA开头的package的作用: 将标准(java.security)和具体实现(BC的具体代码)进行转换。**
 
-作用：Java是将安全的接口和具体实现进行分开。所以代码中，用sun也好, BC的也好，最终转换成(java.security)包的内容就即可。   
+作用: Java是将安全的接口和具体实现进行分开。所以代码中，用sun也好, BC的也好，最终转换成(java.security)包的内容就即可。   
 
-例子：
+例子: 
 
 ```java
 new JcaX509CertificateConverter().setProvider( "BC" ).getCertificate( certificateHolder );

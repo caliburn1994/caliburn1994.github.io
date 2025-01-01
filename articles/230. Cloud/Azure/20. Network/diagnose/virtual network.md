@@ -12,7 +12,7 @@
 
 [**Traffic analytics**](https://learn.microsoft.com/en-us/azure/network-watcher/traffic-analytics): 用于分析流量。数据存储于 Log Analytics workspace，来源于 [NSG flow logs](https://learn.microsoft.com/en-us/azure/network-watcher/nsg-flow-logs-overview)。
 
-**[Connection Monitor](https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview)**: 用于监控 E2E 的连通。如：监控前后端 VM/scale set 的连通性。Connection Monitor 使用 Azure Monitor agent 去收集数据。[["]](https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview)
+**[Connection Monitor](https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview)**: 用于监控 E2E 的连通。如: 监控前后端 VM/scale set 的连通性。Connection Monitor 使用 Azure Monitor agent 去收集数据。[["]](https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview)
 
 
 

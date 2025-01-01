@@ -12,13 +12,13 @@
 
 ## 2. site-to-site VPN
 
-**连接跨域公网的两个网络。**如：on-premises 网络和 Azure 虚拟网络之间建立。
+**连接跨域公网的两个网络。**如: on-premises 网络和 Azure 虚拟网络之间建立。
 
 ![Tutorial - Create S2S VPN connection between on-premises network and Azure  virtual network: Azure portal - Azure VPN Gateway | Microsoft Learn](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240509163356.png)
 
 ## 3. Azure Virtual Network peering 
 
-作用： Azure virtual network <=> Azure virtual network。不需要走互联网。
+作用:  Azure virtual network <=> Azure virtual network。不需要走互联网。
 
 特性
 
@@ -33,7 +33,7 @@
 
 - Allow 'vnet-1' to access the peered virtual network
 
-  允许访问 peered virtual network**（推荐打狗）**
+  允许访问 peered virtual network** (推荐打狗) **
 
 - Allow 'vnet-1' to receive forwarded traffic from the peered virtual network
 

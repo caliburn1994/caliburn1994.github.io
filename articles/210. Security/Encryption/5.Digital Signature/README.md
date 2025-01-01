@@ -6,13 +6,13 @@ Last Modified: 2017-08-06
 
 **数字签名**<sup>Digital signature</sup>用户验证数据的真实性。在现实生活种，签名者用某种事物作为签名标识，标识某一数据的真实；而验证方需使用某种手段签证该签名标识是否真实。
 
-**数字签名**<sup>Digital signature</sup>有两个阶段：签名<sup>sign</sup>和验证<sup>verify</sup>：
+**数字签名**<sup>Digital signature</sup>有两个阶段: 签名<sup>sign</sup>和验证<sup>verify</sup>: 
 
 ![Image for post](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/master/images/image-202105300236.png)
 
 <p style="text-align: center;"><a href="https://medium.com/@meruja/digital-signature-generation-75cc63b7e1b4">图片来源</a></p>
 
-签名方<sup>signer</sup>：
+签名方<sup>signer</sup>: 
 
 1. 数据<sup>Data</sup>通过散列算法<sup>Hash Algorithm</sup>，得到摘要<sup>Digest</sup>。该过程减少了传输数据的体0积。
 2. 使用私钥<sup>Private Key</sup>对摘要<sup>Digest</sup>进行加密，得到数字签名<sup>Digital signature</sup>，保证摘要的正确性。
@@ -24,7 +24,7 @@ Last Modified: 2017-08-06
 2. 使用公钥<sup>Public Key</sup>对数字签名<sup>Digital signature</sup>解密，得到摘要<sup>Digest</sup>。
 3. 将两个摘要进行比较，以此确定正确性。
 
-扩展参考：
+扩展参考: 
 
 - [数字签名是什么？- 阮一峰](http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html)
 - [图解密码技术](https://www.ituring.com.cn/book/1737) -  9.4.1 直接对消息签名的方法
@@ -61,7 +61,7 @@ private boolean verifySignature(byte[] data, byte[] signature, String keyFile) t
 
 #### 签名
 
-需要参数：
+需要参数: 
 
 1.  证书(可以一个, 也可以多个, 目的, 让对方知道自己的身份)
 2.  私钥(签名使用)
@@ -86,9 +86,9 @@ public static CMSSignedData generateCMSSignedData(PrivateKey privateKey, X509Cer
 
 #### 验证并获取原文
 
-需要参数：
+需要参数: 
 
-1. PKCS#7文档（内含：`SignedData`、`SignerInfo`）
+1. PKCS#7文档 (内含: `SignedData`、`SignerInfo`) 
    - `SignedData`包含数据
    - `SignerInfo`包含用于验证的加密摘要
 
@@ -112,7 +112,7 @@ private void doverify(PublicKey publickey,byte[] data) throws Exception {
 	}
 ```
 
-获取原文：
+获取原文: 
 
 ```java
 CMSSignedData cms=...
@@ -120,7 +120,7 @@ CMSTypedData signedContent = cms.getSignedContent();
 System.out.println(new String((byte[])signedContent.getContent()));//获得原文数据
 ```
 
-### 参考：ASN.1格式
+### 参考: ASN.1格式
 
 ```
 - Signed Data

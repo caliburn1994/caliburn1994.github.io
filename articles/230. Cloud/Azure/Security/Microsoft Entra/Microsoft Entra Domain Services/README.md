@@ -6,5 +6,5 @@
 
 包含组件
 
-- domain：一个逻辑分区，管理着用户、计算机、组和其他资源的集合。
-- domain controller：用于身份验证。
+- domain: 一个逻辑分区，管理着用户、计算机、组和其他资源的集合。
+- domain controller: 用于身份验证。

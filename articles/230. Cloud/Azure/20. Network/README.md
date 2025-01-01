@@ -47,11 +47,11 @@ virtual hub 和 VAN 是什么？
 
 ## 3. 网络限制
 
-Azure 提供了两种方式，**Azure Private Link** 和 **Service Endpoint** 让 compute 资源（如：虚拟机）更安全地访问 Azure service。默认 Azure service 都是公开在因特网，而上述两种技术可以让流量通过 Azure backbone network 发送到 Azure service。并且可以通过一系列手段将 Azure service 限制指定的 compute 资源可访问，而不是公开给所有资源。
+Azure 提供了两种方式，**Azure Private Link** 和 **Service Endpoint** 让 compute 资源 (如: 虚拟机) 更安全地访问 Azure service。默认 Azure service 都是公开在因特网，而上述两种技术可以让流量通过 Azure backbone network 发送到 Azure service。并且可以通过一系列手段将 Azure service 限制指定的 compute 资源可访问，而不是公开给所有资源。
 
 - Service Endpoint 是第一代技术。虚拟网络里的 compute 服务直接访问 Azure service，不会经过 internet。
   - 通过 Service Endpoint policy 可以限制 compute 资源访问。默认 compute 资源可以访问所有 service，但如果应用了 policy，那么该虚拟网络的 compute 资源就只能访问这些 service。
-- Azure Private Link 是第二代技术。Azure Private Link 在虚拟网络里提供了一张 network interface（private endpoint），compute 服务通过这张 NIC 访问 Azure service。
+- Azure Private Link 是第二代技术。Azure Private Link 在虚拟网络里提供了一张 network interface (private endpoint) ，compute 服务通过这张 NIC 访问 Azure service。
 
  
 

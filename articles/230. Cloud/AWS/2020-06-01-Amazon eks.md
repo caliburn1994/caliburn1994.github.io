@@ -8,14 +8,14 @@ excerpt:
 typora-root-url: ..
 ---
 
-亚马逊弹性Kubernetes服务（Amazon **E**lastic **K**ubernetes **S**ervice)，是运行Kubernetes的最值得信赖的方式。
+亚马逊弹性Kubernetes服务 (Amazon **E**lastic **K**ubernetes **S**ervice)，是运行Kubernetes的最值得信赖的方式。
 
 ## 学习指南
 
-[官网](https://aws.amazon.com/cn/eks/getting-started/?nc1=h_ls)有两个教程：
+[官网](https://aws.amazon.com/cn/eks/getting-started/?nc1=h_ls)有两个教程: 
 
-- [使用 Amazon EKS 部署 Kubernetes 应用程序](https://aws.amazon.com/getting-started/projects/deploy-kubernetes-app-amazon-eks/)（[Deploy a Kubernetes Application with Amazon EKS](https://aws.amazon.com/getting-started/projects/deploy-kubernetes-app-amazon-eks/)）
-- [完成 Amazon EKS 微服务研讨会](https://eksworkshop.com/)（[Complete Amazon EKS Microservices Workshop](https://eksworkshop.com/)）
+- [使用 Amazon EKS 部署 Kubernetes 应用程序](https://aws.amazon.com/getting-started/projects/deploy-kubernetes-app-amazon-eks/) ([Deploy a Kubernetes Application with Amazon EKS](https://aws.amazon.com/getting-started/projects/deploy-kubernetes-app-amazon-eks/)) 
+- [完成 Amazon EKS 微服务研讨会](https://eksworkshop.com/) ([Complete Amazon EKS Microservices Workshop](https://eksworkshop.com/)) 
 
 ![image-20200629162120214](/../assets/blog_res/image-20200629162120214.png)
 
@@ -33,7 +33,7 @@ eks有三个命令行工具`aws`、`eksctl`、`kubectl`。其中`kubectl`是[Kub
 
 ### aws命令行工具
 
-**aws configure**：在配置完aws账户中的访问密钥ID、密钥、地区等之后，我们的命令行就算是登陆成功。[示例](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html)
+**aws configure**: 在配置完aws账户中的访问密钥ID、密钥、地区等之后，我们的命令行就算是登陆成功。[示例](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html)
 
 #### aws configure
 
@@ -49,9 +49,9 @@ Default output format [None]: json
 
 #### aws iam
 
-AWS Identity and Access Management (IAM)：身份和访问管理
+AWS Identity and Access Management (IAM): 身份和访问管理
 
-**aws iam**：可用于创建IAM账号等。IAM账号可以理解成子账号：
+**aws iam**: 可用于创建IAM账号等。IAM账号可以理解成子账号: 
 
 ```shell
 # 创建用户
@@ -62,9 +62,9 @@ aws iam create-access-key --user-name ${用户名} | tee /tmp/PaulAdmin.json
 
 #### aws sts
 
-AWS Security Token Service (AWS STS)：安全令牌服务
+AWS Security Token Service (AWS STS): 安全令牌服务
 
-**aws sts get-caller-identity**：获得调用者的身份。
+**aws sts get-caller-identity**: 获得调用者的身份。
 
 ```shell
 $ aws sts get-caller-identity
@@ -77,20 +77,20 @@ $ aws sts get-caller-identity
 
 #### aws eks
 
-文档网址：[eks — AWS CLI 1.18.97 Command Reference](https://docs.aws.amazon.com/cli/latest/reference/eks/index.html)
+文档网址: [eks — AWS CLI 1.18.97 Command Reference](https://docs.aws.amazon.com/cli/latest/reference/eks/index.html)
 
 在这个命令下，可以创建集群。[更新kubeconfig配置文件](https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html)
 
 ##### update-cluster-config
 
-更新集群配置。配置包含：
+更新集群配置。配置包含: 
 
 - 是否将Control Plane的日志导出到CloudWatch
 - k8s API服务是否公开、是否私有
 
 #### update-kubeconfig
 
-##### 将集群配置复制到本地k8s环境里（即，配置`${HOME}/.kube/config`）
+##### 将集群配置复制到本地k8s环境里 (即，配置`${HOME}/.kube/config`) 
 
 ```shell
 $ aws eks update-kubeconfig --name example
@@ -137,7 +137,7 @@ Use 'eksctl [command] --help' for more information about a command.
 
 `eksctl` 和 `asw eks` 做的事情几乎一样，不过`eksctl` 更为方便简洁。
 
-**eksctl create cluster**：创建集群（以及受管理的节点群）。[示例1](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html)、[示例2](https://www.eksworkshop.com/030_eksctl/launcheks/#create-an-eks-cluster)
+**eksctl create cluster**: 创建集群 (以及受管理的节点群) 。[示例1](https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/getting-started-eksctl.html)、[示例2](https://www.eksworkshop.com/030_eksctl/launcheks/#create-an-eks-cluster)
 
 ```shell
 eksctl create cluster \
@@ -147,7 +147,7 @@ eksctl create cluster \
 --fargate
 ```
 
-**eksctl get iamidentitymapping**：获得iam映射
+**eksctl get iamidentitymapping**: 获得iam映射
 
 ```shell
 $ eksctl get iamidentitymapping --cluster ${集群名}

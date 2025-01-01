@@ -2,13 +2,13 @@
 
 ## 1. 简介 Introduction
 
-Azure Storage 是一个平台（platform），包含以下服务 [["]](https://docs.microsoft.com/en-us/azure/storage/common/storage-introduction)
+Azure Storage 是一个平台 (platform) ，包含以下服务 [["]](https://docs.microsoft.com/en-us/azure/storage/common/storage-introduction)
 
 - [Azure Queues](https://docs.microsoft.com/en-us/azure/storage/queues/storage-queues-introduction): A messaging store for reliable messaging between application components.
 - [Azure Tables](https://docs.microsoft.com/en-us/azure/storage/tables/table-storage-overview): A NoSQL store for schemaless storage of structured data.
 - [Azure Disks](https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview): 适合装操作系统和虚拟机磁盘。它是 Page block。
 
-除此以外还有：[["]](https://azure.microsoft.com/en-us/product-categories/storage/)
+除此以外还有: [["]](https://azure.microsoft.com/en-us/product-categories/storage/)
 
 - [Azure NetApp Files](https://azure.microsoft.com/en-us/services/netapp/)
 - [Data Box](https://azure.microsoft.com/en-us/services/databox/)
@@ -59,7 +59,7 @@ Azure Storage 是一个平台（platform），包含以下服务 [["]](https://d
 ### 3.5. 数据加密
 
 - 通过设置，可以用 CMK 或 Microsoft-managed key 对文件进行加密 。
-- 适用于：container 或 individual blob。
+- 适用于: container 或 individual blob。
 
 
 
@@ -71,9 +71,9 @@ Azure Storage 是一个平台（platform），包含以下服务 [["]](https://d
 
 ![image-20240425005032955](https://raw.githubusercontent.com/caliburn1994/caliburn1994.github.io/dev/images/20240425005037.png)
 
-用途：集中管理各个服务器的文件
+用途: 集中管理各个服务器的文件
 
-步骤：
+步骤: 
 
 1. [Azure] 创建 Azure Storage File Share。
 
@@ -83,11 +83,11 @@ Azure Storage 是一个平台（platform），包含以下服务 [["]](https://d
 
 3. [Server] Prepare Windows Server to use with Azure File Sync
 
-   1. 调整服务器的安全策略：
+   1. 调整服务器的安全策略: 
 
-   2. 安装agent： Install the Azure File Sync agent
+   2. 安装agent:  Install the Azure File Sync agent
 
-   3. **注册：**Register Windows Server with Storage Sync Service
+   3. **注册: **Register Windows Server with Storage Sync Service
 
       一台服务器只能注册一个 Storage Sync Service
 
@@ -99,7 +99,7 @@ Azure Storage 是一个平台（platform），包含以下服务 [["]](https://d
    - cloud endpoint 是 (1) 创建的 file share。
    - 一个 sync group 只能有一个 cloud endpoint
 
-5. [Azure] Create a server endpoint：指定哪些本地文件，要和云同步
+5. [Azure] Create a server endpoint: 指定哪些本地文件，要和云同步
 
 **Cloud tiering**
 
@@ -133,17 +133,17 @@ file share 是通过 snapshots 进行备份。
 
 ## FAQ
 
-问：Azure Blobs、Azure Files、Azure Disks 选择哪一个使用。
+问: Azure Blobs、Azure Files、Azure Disks 选择哪一个使用。
 
 答:  程序开发时，一般都使用 Azure Blobs，除非有什么特殊需求。
 
-- Azure Files： 需要使用 [Server Message Block (SMB) protocol](https://docs.microsoft.com/en-us/windows/win32/fileio/microsoft-smb-protocol-and-cifs-protocol-overview) or [Network File System (NFS) protocol](https://en.wikipedia.org/wiki/Network_File_System) 等协议时使用。
-- Azure Disks： 当需要目录时，如：操作系统需要一个文件系统才能进行运行时使用。
+- Azure Files:  需要使用 [Server Message Block (SMB) protocol](https://docs.microsoft.com/en-us/windows/win32/fileio/microsoft-smb-protocol-and-cifs-protocol-overview) or [Network File System (NFS) protocol](https://en.wikipedia.org/wiki/Network_File_System) 等协议时使用。
+- Azure Disks:  当需要目录时，如: 操作系统需要一个文件系统才能进行运行时使用。
 
 
 
 ## 延伸阅读 See also
 
-- [Azure updates](https://azure.microsoft.com/en-us/updates/?category=storage)： Azure Storage 最近更新内容
-- [Azure Blob Storage documentation](https://azure.microsoft.com/en-us/updates/?category=storage)： Azure Blob Storage is Microsoft's object storage solution for the cloud. Blob storage is optimized for storing massive amounts of unstructured data.
+- [Azure updates](https://azure.microsoft.com/en-us/updates/?category=storage):  Azure Storage 最近更新内容
+- [Azure Blob Storage documentation](https://azure.microsoft.com/en-us/updates/?category=storage):  Azure Blob Storage is Microsoft's object storage solution for the cloud. Blob storage is optimized for storing massive amounts of unstructured data.
 

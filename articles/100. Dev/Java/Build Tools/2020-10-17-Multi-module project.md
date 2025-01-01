@@ -15,7 +15,7 @@ excerpt: 本文讲述在多模块项目下，如何对配置文件等内容进�
 
 #### 情景
 
-现有两个项目：Web程序，后台程序。它们都需要使用service层、dao层连接数据库。此时，我们就想将service、dao层移除出去成为一个library。于是乎，我们创建了一个项目，叫：MyDataLibarry。我们的模块结构是这样的：
+现有两个项目: Web程序，后台程序。它们都需要使用service层、dao层连接数据库。此时，我们就想将service、dao层移除出去成为一个library。于是乎，我们创建了一个项目，叫: MyDataLibarry。我们的模块结构是这样的: 
 
 ```
 /- app-1(web)
@@ -23,7 +23,7 @@ excerpt: 本文讲述在多模块项目下，如何对配置文件等内容进�
 /- library(MyDataLibarry)
 ```
 
-当我们使用spring时，我们会发现，每一个项目都会有自己的 [application.properties](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html) 当中放了spring的配置，不仅如此，我们还有 [spring-context.xml](https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html) 用于管理beans，以及我们自定义的各种各样的配置：
+当我们使用spring时，我们会发现，每一个项目都会有自己的 [application.properties](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html) 当中放了spring的配置，不仅如此，我们还有 [spring-context.xml](https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html) 用于管理beans，以及我们自定义的各种各样的配置: 
 
 ```
 /- app-1(web)
@@ -57,7 +57,7 @@ graph LR
     app.spring-context.xml -- override --> library.spring-context.xml
 ```
 
-此时，我们可以将 app 的 spring-context.xml 看作目录+配置文件。它可以像目录一样，链接着其他项目的配置文件：
+此时，我们可以将 app 的 spring-context.xml 看作目录+配置文件。它可以像目录一样，链接着其他项目的配置文件: 
 
 ```mermaid
 graph LR
@@ -70,10 +70,10 @@ graph LR
 ```
 
 ```xml
-#library-1的spring-context.xml内容为：
+#library-1的spring-context.xml内容为: 
 <import resource="classpath:library-1.xml" />
 
-#library-2的spring-context.xml内容为：
+#library-2的spring-context.xml内容为: 
 <import resource="classpath:library-2.xml" />
 ```
 
@@ -83,7 +83,7 @@ graph LR
 <import resource="classpath:library-2.xml" />
 ```
 
-同时，对于本项目有关的配置，也仍旧可以放在这里，就像这样：
+同时，对于本项目有关的配置，也仍旧可以放在这里，就像这样: 
 
 ```xml
 # app的spring-context.xml内容为
@@ -122,7 +122,7 @@ public class AppConfig{}
 
 方案三和方案二类型类似。方案二将配置放在代码里，比较适合不擅长命令行的Java团队；方案三则比较灵活。
 
-在 spring 中方案三叫做 [Externalized Configuration ](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config)（外化配置），通过这种方式，我们可以将所有模块的配置文件集中在同一个文件夹当中
+在 spring 中方案三叫做 [Externalized Configuration ](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config) (外化配置) ，通过这种方式，我们可以将所有模块的配置文件集中在同一个文件夹当中
 
 ```
 /- app(web)
@@ -143,7 +143,7 @@ $ java -jar app.jar  -Dspring.config.location=your/config/dir/
 
 #### 场景
 
-一般项目会有若干个环境，如：开发环境<sup>Development environment</sup>、验证环境<sup>Verification environment</sup>、产品环境<sup>production environment</sup>等等。那么如何配置这些环境呢？
+一般项目会有若干个环境，如: 开发环境<sup>Development environment</sup>、验证环境<sup>Verification environment</sup>、产品环境<sup>production environment</sup>等等。那么如何配置这些环境呢？
 
 #### 方案一 Profile
 
@@ -180,7 +180,7 @@ server:
 
 #### 方案二 覆盖原本配置
 
-使用 maven 或者 Gradle 等构建自动化工作。等你要使用哪种环境配置文件，就让自动化工具使用那种环境的配置文件覆盖：
+使用 maven 或者 Gradle 等构建自动化工作。等你要使用哪种环境配置文件，就让自动化工具使用那种环境的配置文件覆盖: 
 
 ```shell
 app

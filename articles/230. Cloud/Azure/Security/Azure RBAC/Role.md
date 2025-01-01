@@ -2,7 +2,7 @@
 
 ## 简述
 
-Role 包含的内容有：谁能在哪里做什么事情。
+Role 包含的内容有: 谁能在哪里做什么事情。
 
 - **Security principal**(谁):  如: User, group, service principal, managed identity
 - **Scope**(在哪里): 如: Management group, subscription, resource group, resource
@@ -52,7 +52,7 @@ Role 包含的内容有：谁能在哪里做什么事情。
 ]
 ```
 
-参考：[[here]](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-definitions)
+参考: [[here]](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-definitions)
 
 ## 常见的角色
 

@@ -2,7 +2,7 @@
 
 deployment slots 类似于蓝绿发布。slot 一般存储的是 stage 版本的 app 或者 release 后被切换下来的 app。也就是说，可以在 production 的 app service 里启动 2 个 slot。但不建议将 Test、Dev 作为 slot 加进去，因为 slot 和 app 是共享资源的，也就是说当 dev 的 slot 因为内存而挂掉，Production 很有可能受影响。
 
-注意点：
+注意点: 
 
 - 哪些配置会跟随 swap 而交换: [["]](https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/6-add-deployment-slots)
 
@@ -24,7 +24,7 @@ App Service 提供了方便方法，让开发者使用 Google、Twitter、Micros
 
 App Service Plan 相当于物理机，Azure App Service 相当于容器或者 container。
 
-设计考虑点：[["]](https://learn.microsoft.com/en-us/training/modules/configure-app-service-plans/2-implement-azure)
+设计考虑点: [["]](https://learn.microsoft.com/en-us/training/modules/configure-app-service-plans/2-implement-azure)
 
 - 多 App:  多个 App 放在同一个 Plan，省钱省事。
 - 单 App: 

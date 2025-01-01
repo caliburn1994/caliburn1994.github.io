@@ -30,7 +30,7 @@ sudo apt-get install vagrant
 
 - IDE 也可以设置成 administrator (但是尽可能不要这样做，不知道会有什么影响)
 
-备注：由于 window 下不能使用 `sudo`，所以只能通过管理员启动命令，避免由于权限导致的错误。
+备注: 由于 window 下不能使用 `sudo`，所以只能通过管理员启动命令，避免由于权限导致的错误。
 
 ## 3. 疏通测试 Walkthrough
 
@@ -88,7 +88,7 @@ end
 
 ### 4.1 VirtualBox
 
-默认情况下，VirtualBox machine 是 **headless** 模式，意味着没有UI。<sup>[[来源]](https://www.vagrantup.com/docs/providers/virtualbox/configuration)</sup> 以下方式提供GUI：
+默认情况下，VirtualBox machine 是 **headless** 模式，意味着没有UI。<sup>[[来源]](https://www.vagrantup.com/docs/providers/virtualbox/configuration)</sup> 以下方式提供GUI: 
 
 ```ruby
 config.vm.provider "virtualbox" do |v|
@@ -288,8 +288,8 @@ VBoxManage modifyvm         <uuid|vmname>
 
 |               | 默认值       | 选项                          |
 | ------------- | ------------ | ----------------------------- |
-| run           | 初始化时启动 | always ：启动虚拟机时候启动。 |
-| privileged    | root用户执行 | false ：vagrant用户启动。     |
+| run           | 初始化时启动 | always : 启动虚拟机时候启动。 |
+| privileged    | root用户执行 | false : vagrant用户启动。     |
 | path 文件位置 |              |                               |
 
 ```shell
